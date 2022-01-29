@@ -19,6 +19,10 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
+  private ComponentsContainer components;
+
+  private DriveHandler driveHandler;
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -28,6 +32,9 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+
+    components = new ComponentsContainer();
+    driveHandler = new DriveHandler(components);
   }
 
   /**
