@@ -22,6 +22,8 @@ public class Robot extends TimedRobot {
   private ComponentsContainer components;
 
   private DriveHandler driveHandler;
+  private JoystickHandler joystickHandler;
+  private ShooterHandler shooterHandler;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -35,6 +37,7 @@ public class Robot extends TimedRobot {
 
     components = new ComponentsContainer();
     driveHandler = new DriveHandler(components);
+    joystickHandler = new JoystickHandler(components);
   }
 
   /**
@@ -84,11 +87,16 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+
   }
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+
+    // Drive
+    driveHandler.tankDrive(joystickHandler.getLeftJoystickYValue(), joystickHandler.getRightJoystickYValue());
+  }
 
   @Override
   public void testInit() {

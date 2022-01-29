@@ -20,4 +20,9 @@ public final class Constants {
     public static final int BackLeftDriveId = 3;
     public static final int BackRightDriveId = 4;
 
+    // Joystick driver station port indexes
+    public static final int LeftDriveJoystick = 0;
+    public static final int RightDriveJoystick = 1;
+    public static final int ManipulatorJoystick = 2;
+
 }
