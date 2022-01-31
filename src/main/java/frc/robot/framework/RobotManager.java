@@ -3,6 +3,7 @@ package frc.robot.framework;
 import java.util.ArrayList;
 import java.util.List;
 
+import frc.robot.ComponentsContainer;
 import frc.robot.Robot;
 import frc.robot.TestHandler;
 
@@ -13,12 +14,17 @@ public class RobotManager extends RobotHandler {
     public RobotManager(Robot robot) {
         this.robot = robot;
         this.robotManager = this;
+        this.components = new ComponentsContainer();
 
         testHandler = new TestHandler();
         handlers.add(testHandler);
 
-        for (RobotHandler robotHandler : handlers) {
-            robotHandler.addReferences(this);
+        for (RobotHandler handler : handlers) {
+            handler.robot = robot;
+            handler = this;
+            handler.components = components;
+    
+            handler.testHandler = testHandler;
         }
     }
 

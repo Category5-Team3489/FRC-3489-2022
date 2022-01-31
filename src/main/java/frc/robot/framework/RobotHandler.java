@@ -1,5 +1,6 @@
 package frc.robot.framework;
 
+import frc.robot.ComponentsContainer;
 import frc.robot.Robot;
 import frc.robot.TestHandler;
 
@@ -7,6 +8,7 @@ public class RobotHandler {
 
     public Robot robot;
     public RobotManager robotManager;
+    public ComponentsContainer components;
 
     public TestHandler testHandler;
 
@@ -22,14 +24,5 @@ public class RobotHandler {
     public void teleopPeriodic() {}
     public void testInit() {}
     public void testPeriodic() {}
-
-    protected RobotHandler addReferences(RobotManager robotManager) {
-        robot = robotManager.robot;
-        this.robotManager = robotManager;
-
-        testHandler = robotManager.testHandler;
-
-        return this;
-    }
 
 }
