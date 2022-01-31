@@ -1,12 +1,14 @@
-package frc.robot;
+package frc.robot.framework;
+
+import frc.robot.Robot;
+import frc.robot.TestHandler;
 
 public class RobotHandler {
 
-    protected Robot robot;
-    protected RobotManager robotManager;
+    public Robot robot;
+    public RobotManager robotManager;
 
-    protected TestHandler testHandler;
-
+    public TestHandler testHandler;
 
     public RobotHandler() {}
     

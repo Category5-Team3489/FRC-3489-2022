@@ -1,7 +1,10 @@
-package frc.robot;
+package frc.robot.framework;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import frc.robot.Robot;
+import frc.robot.TestHandler;
 
 public class RobotManager extends RobotHandler {
 
