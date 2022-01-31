@@ -14,15 +14,34 @@ package frc.robot;
  */
 public final class Constants {
 
-    // Drive motor CAN bus ids
+    // Drive motor CAN bus ids  
     public static final int FrontLeftDriveId = 1;
     public static final int FrontRightDriveId = 2;
     public static final int BackLeftDriveId = 3;
     public static final int BackRightDriveId = 4;
+
+    //intake motor id
+    public static final int IntakeMotorId = 5;
+
+    //intake motor speed
+    public static final double intakeSpeed = 0.8;
+
+    //shooter motor id
+    public static final int ShooterLeftId = 6;
+    public static final int ShooterRightId = 7;
+
+    //shooter speed
+
+    public static final double ShooterLowSpeed = 0.35;
+    public static final double ShooterHighSpeed = 0.65;
 
     // Joystick driver station port indexes
     public static final int LeftDriveJoystick = 0;
     public static final int RightDriveJoystick = 1;
     public static final int ManipulatorJoystick = 2;
 
+    
+
+    
 }
+    
