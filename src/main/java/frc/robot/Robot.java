@@ -25,6 +25,8 @@ public class Robot extends TimedRobot {
   private JoystickHandler joystickHandler;
   private ShooterHandler shooterHandler;
 
+  private AutoSquareDriveHandler autoSquareDriveHandler;
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -38,6 +40,8 @@ public class Robot extends TimedRobot {
     components = new ComponentsContainer();
     driveHandler = new DriveHandler(components);
     joystickHandler = new JoystickHandler(components);
+
+    autoSquareDriveHandler = new AutoSquareDriveHandler(components, driveHandler);
   }
 
   /**
@@ -72,11 +76,15 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
+
+    autoSquareDriveHandler.autonomousInit();
   }
 
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+    autoSquareDriveHandler.autonomousPeriodic();
+  }
 
   @Override
   public void teleopInit() {
