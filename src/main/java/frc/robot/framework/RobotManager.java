@@ -20,14 +20,16 @@ public class RobotManager extends RobotHandler {
 
         testHandler = new TestHandler();
         handlers.add(testHandler);
+
         driveHandler = new DriveHandler();
         handlers.add(driveHandler);
+
         joystickHandler = new JoystickHandler();
         handlers.add(joystickHandler);
 
         for (RobotHandler handler : handlers) {
             handler.robot = robot;
-            handler = this;
+            handler.robotManager = this;
             handler.components = components;
     
             handler.testHandler = testHandler;
