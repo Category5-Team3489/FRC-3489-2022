@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import frc.robot.ComponentsContainer;
+import frc.robot.DriveHandler;
+import frc.robot.JoystickHandler;
 import frc.robot.Robot;
 import frc.robot.TestHandler;
 
@@ -18,6 +20,10 @@ public class RobotManager extends RobotHandler {
 
         testHandler = new TestHandler();
         handlers.add(testHandler);
+        driveHandler = new DriveHandler();
+        handlers.add(driveHandler);
+        joystickHandler = new JoystickHandler();
+        handlers.add(joystickHandler);
 
         for (RobotHandler handler : handlers) {
             handler.robot = robot;
@@ -25,6 +31,8 @@ public class RobotManager extends RobotHandler {
             handler.components = components;
     
             handler.testHandler = testHandler;
+            handler.driveHandler = driveHandler;
+            handler.joystickHandler = joystickHandler;
         }
     }
 

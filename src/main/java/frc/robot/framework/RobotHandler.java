@@ -1,6 +1,9 @@
 package frc.robot.framework;
 
+import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.ComponentsContainer;
+import frc.robot.DriveHandler;
+import frc.robot.JoystickHandler;
 import frc.robot.Robot;
 import frc.robot.TestHandler;
 
@@ -11,6 +14,8 @@ public class RobotHandler {
     public ComponentsContainer components;
 
     public TestHandler testHandler;
+    public DriveHandler driveHandler;
+    public JoystickHandler joystickHandler;
 
     public RobotHandler() {}
     

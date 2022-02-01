@@ -45,7 +45,6 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
 
     components = new ComponentsContainer();
-    driveHandler = new DriveHandler(components);
     joystickHandler = new JoystickHandler(components);
 
     autoSquareDriveHandler = new AutoSquareDriveHandler(components, driveHandler);
@@ -117,8 +116,6 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     robotManager.teleopPeriodic();
-    // Drive
-    driveHandler.tankDrive(joystickHandler.getLeftJoystickYValue(), joystickHandler.getRightJoystickYValue());
   }
 
   @Override
