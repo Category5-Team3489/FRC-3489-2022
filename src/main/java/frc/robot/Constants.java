@@ -27,8 +27,14 @@ public final class Constants {
     public static final double intakeSpeed = 0.8;
 
     //shooter motor id
-    public static final int ShooterLeftId = 6;
-    public static final int ShooterRightId = 7;
+    public static final int ShooterTopId = 6;
+    public static final int ShooterBottomId = 7;
+
+    //cargo mover id
+    public static final int CargoMoverId = 8;
+
+    //Climber id
+    public static final int ClimberId = 9;
 
     //shooter speed
 

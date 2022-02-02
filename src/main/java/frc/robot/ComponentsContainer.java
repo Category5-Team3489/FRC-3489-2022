@@ -20,8 +20,8 @@ public class ComponentsContainer {
     public WPI_TalonSRX intakeMotor = new WPI_TalonSRX(Constants.IntakeMotorId);
 
     //shooter components
-    public WPI_TalonFX shooterLeft = new WPI_TalonFX(Constants.ShooterLeftId);
-    public WPI_TalonFX shooterRight = new WPI_TalonFX(Constants.ShooterRightId);
+    public WPI_TalonFX shooterTop = new WPI_TalonFX(Constants.ShooterTopId);
+    public WPI_TalonFX shooterBottom = new WPI_TalonFX(Constants.ShooterBottomId);
         
     
 
