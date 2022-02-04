@@ -1,25 +1,17 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import frc.robot.framework.RobotHandler;
 
-public class JoystickHandler {
-    
-    public Joystick leftDriveJoystick;
-    public Joystick rightDriveJoystick;
-    
-    public JoystickHandler(ComponentsContainer components){
-        leftDriveJoystick = components.leftDriveJoystick;
-        rightDriveJoystick= components.rightDriveJoystick;
-
-    }
+public class JoystickHandler extends RobotHandler {
 
     //Get Y values from left drive joystick
     public double getLeftJoystickYValue(){
-       return leftDriveJoystick.getY();
+       return components.leftDriveJoystick.getY();
     }
 
      //Get Y values from right drive joystick
      public double getRightJoystickYValue(){
-        return rightDriveJoystick.getY();
+        return components.rightDriveJoystick.getY();
      }
 }

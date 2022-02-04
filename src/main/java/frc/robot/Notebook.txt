@@ -1,0 +1,74 @@
+
+What are class scope and method scope in java?
+    The class scope is the area directly inside of a class, not inside of the methods in the class
+    Examples:
+        public class DriveHandler {
+            // everything in this is in this layer is in the class scope
+            // anything in the methods in this class is NOT class scope
+            // the method declarations themself are in the class scope
+            // but NOT the code inside of the methods
+
+            // class-scoped primative type variable
+            private int step = 10;
+
+            // class-scoped class type variable
+            private WPI_TalonFX falcon = new WPI_TalonFX()
+        }
+
+
+What are primative data types in java?
+
+    All of the following are considered primative types in java:
+        int, byte, short, long, float, double, boolean, char
+        There is also String, which is treated like a primative in its declaration.
+
+    How is a primative data type declared?
+        Ignore what scoped means until you read below
+        Method-scoped primative type variable declarations:
+            type name;
+            type name = value;
+            Examples:
+                int step;
+                int step = 10; // This is pretty much always used
+
+        Class-scoped primative type variable declarations:
+            type name;
+            type name = value;
+            accessModifier type name;
+            accessModifier type name = value;
+            Examples:
+                int step;
+                int step = 10;
+                private int step;
+                private int step = 10; // This is pretty much always used
+
+        Primative variable declarations do NOT use the keyword new OR class constructors
+
+        Notice method-scoped variables can NOT include an access modifier
+        Only class-scoped variables can include an access modifier: private, public
+        because that variable only lives in that method unless it is returned
+        or something is assigned to it that lives outside of the method scope
+
+        A variable's value cannot be read BEFORE it is assigned
+
+What are class types in java?
+
+    Class types are effectively everything other data type other than primative types
+
+    A motor controller type is a class type
+    A joystick type is a class type
+    A timer type is a class type
+    A color sensor type is a class type
+    A class you declare is a class type
+    A class you use is a class type
+
+    How is a class type declared, as in a variable?
+        Method-scoped class type variable declarations:
+            type name;
+            type name
+
+
+
+Class-scoped class types variable declarations:
+
+Method-scoped variable declarations:
