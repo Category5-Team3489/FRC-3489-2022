@@ -1,4 +1,4 @@
-public class cargoTransferHandler {
+public class CargoTransferHandler {
     ComponentsContainer container;
     Constants constants;
     public void transferUp(){
