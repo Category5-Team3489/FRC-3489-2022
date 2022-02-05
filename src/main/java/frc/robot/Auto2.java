@@ -18,9 +18,9 @@ public class Auto2 {
     private static final double driveBackwardSpeed = -0.65;
 
     //encoder click amounts
-    private static final double DriveForwardClicks = 4000;
-    private static final double ShootHighClicks = 4000;
+    private static final double DriveForwardClicks = 4000; 
     private static final double driveBackwardClicks = 4000;
+    private static final double ShootHighClicks = 4000;
     private static final double intakeClicks = 4000;
     private static final double transferClicks = 4000;
     
