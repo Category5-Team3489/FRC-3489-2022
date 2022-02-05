@@ -5,45 +5,61 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import frc.robot.framework.RobotManager;
 
 public class Robot extends TimedRobot {
 
-  private AutoRunner autoRunner = new AutoRunner();
+  private RobotManager robotManager;
 
   @Override
-  public void robotInit() {}
+  public void robotInit() {
+    robotManager = new RobotManager(this);
+    robotManager.robotInit();
+  }
 
   @Override
-  public void robotPeriodic() {}
+  public void robotPeriodic() {
+    robotManager.robotPeriodic();
+  }
 
   @Override
   public void autonomousInit() {
-    autoRunner.beginExecution(testAuto());
-  }
-
-  private AutoInstruction testAuto() {
-    AutoInstruction instruction = new DriveInstruction();
-    instruction.onFinished(() ->{
-      System.out.println();
-    });
-    return instruction;
+    robotManager.autonomousInit();
   }
 
   @Override
   public void autonomousPeriodic() {
-    autoRunner.periodic();
+    robotManager.autonomousPeriodic();
   }
 
   @Override
-  public void teleopInit() {}
+  public void teleopInit() {
+    robotManager.teleopInit();
+  }
 
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    robotManager.teleopPeriodic();
+  }
 
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    robotManager.disabledInit();
+  }
 
   @Override
-  public void disabledPeriodic() {}
+  public void disabledPeriodic() {
+    robotManager.disabledPeriodic();
+  }
+
+  @Override
+  public void testInit() {
+    robotManager.testInit();
+  }
+
+  @Override
+  public void testPeriodic() {
+    robotManager.testPeriodic();
+  }
 
 }

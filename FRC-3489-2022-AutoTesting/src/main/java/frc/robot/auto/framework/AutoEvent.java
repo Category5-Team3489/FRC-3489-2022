@@ -1,9 +1,9 @@
-package frc.robot;
+package frc.robot.auto.framework;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AutoEvent implements Runnable {
+public final class AutoEvent implements Runnable {
 
     private List<Runnable> runnables = new ArrayList<Runnable>();
 
@@ -11,6 +11,7 @@ public class AutoEvent implements Runnable {
         runnables.add(runnable);
     }
 
+    @Override
     public void run() {
         runnables.forEach(Runnable::run);
     }
