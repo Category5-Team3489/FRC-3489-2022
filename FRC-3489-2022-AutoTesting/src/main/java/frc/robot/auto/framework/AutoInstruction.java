@@ -1,6 +1,7 @@
 package frc.robot.auto.framework;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -36,17 +37,20 @@ public abstract class AutoInstruction extends RobotReferences {
         instructions.add(instruction);
         return instruction;
     }
-
     public final PauseInstruction pause(double seconds) {
         PauseInstruction instruction = new PauseInstruction(seconds);
         instructions.add(instruction);
         return instruction;
     }
-
     public final PrintInstruction print(String message) {
         PrintInstruction instruction = new PrintInstruction(message);
         instructions.add(instruction);
         return instruction;
+    }
+
+    public final AutoInstruction concurrently(AutoInstruction... concurrentInstructions) {
+        instructions.addAll(Arrays.asList(concurrentInstructions));
+        return this;
     }
 
     public final void execute(Consumer<AutoInstruction> beginExecution) {

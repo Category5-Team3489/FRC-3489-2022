@@ -9,6 +9,10 @@ public class Auto32 extends AutoBuilder {
 
         begin()
         .drive(1000)
+        .concurrently(
+            print("Started driving 2000 clicks"),
+            drive(2000)
+        )
         .pause(2)
         .drive(2000);
     }
