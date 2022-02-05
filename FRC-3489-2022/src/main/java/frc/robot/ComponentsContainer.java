@@ -24,7 +24,7 @@ public class ComponentsContainer {
     public WPI_TalonFX shooterBottom = new WPI_TalonFX(Constants.ShooterBottomId);
         
     //cargo mover motor
-    //public  cargoTransferMotor = new (Constants.)
+    public WPI_TalonSRX cargoMoverMotor = new WPI_TalonSRX(Constants.CargoMoverId);
 
     // Joysticks
     public Joystick leftDriveJoystick = new Joystick(Constants.LeftDriveJoystick);
