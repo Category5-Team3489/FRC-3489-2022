@@ -6,7 +6,7 @@ public class IntakeHandler {
     public IntakeHandler(ComponentsContainer components){
 
     }
-    public void intake(double speed){
+    public void intake(){
         components.intakeMotor.set(Constants.intakeSpeed);
     }
     public void output(){
