@@ -106,27 +106,27 @@ public class Auto2 {
     //the autonomous sequence
     public void auto2(){
        switch (currentStep){
-        case 1:
-            cargoTransfer();
-            break;
-        case 2:
-            shootHigh();
-            break;
-        case 3:
-            driveForward();
-            break;
-        case 4:
-            intake();
-            break;
-       case 5:
-            driveBackward();
-            break;
-        case 6:
-            cargoTransfer();
-            break;
-        case 7:
-            shootHigh();
-            break;
+            case 1:
+                cargoTransfer();
+                break;
+            case 2:
+                shootHigh();
+                break;
+            case 3:
+                driveForward();
+                break;
+            case 4:
+                intake();
+                break;
+            case 5:
+                driveBackward();
+                break;
+            case 6:
+                cargoTransfer();
+                break;
+            case 7:
+                shootHigh();
+                break;
        }
     }
 }
