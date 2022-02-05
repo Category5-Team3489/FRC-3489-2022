@@ -45,7 +45,7 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
 
     components = new ComponentsContainer();
-    joystickHandler = new JoystickHandler(components);
+    joystickHandler = new JoystickHandler();
 
     autoSquareDriveHandler = new AutoSquareDriveHandler(components, driveHandler);
   }
