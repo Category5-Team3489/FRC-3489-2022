@@ -33,17 +33,17 @@ public abstract class AutoInstruction extends RobotReferences {
     private List<AutoInstruction> instructions = new ArrayList<AutoInstruction>();
 
     public final DriveInstruction drive(double clicks) {
-        DriveInstruction instruction = new DriveInstruction(clicks);
+        DriveInstruction instruction = AutoBuilder.drive(clicks);
         instructions.add(instruction);
         return instruction;
     }
     public final PauseInstruction pause(double seconds) {
-        PauseInstruction instruction = new PauseInstruction(seconds);
+        PauseInstruction instruction = AutoBuilder.pause(seconds);
         instructions.add(instruction);
         return instruction;
     }
     public final PrintInstruction print(String message) {
-        PrintInstruction instruction = new PrintInstruction(message);
+        PrintInstruction instruction = AutoBuilder.print(message);
         instructions.add(instruction);
         return instruction;
     }

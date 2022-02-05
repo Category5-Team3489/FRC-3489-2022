@@ -19,13 +19,13 @@ public abstract class AutoBuilder {
         return instruction;
     }
 
-    public final DriveInstruction drive(double clicks) {
+    public static final DriveInstruction drive(double clicks) {
         return new DriveInstruction(clicks);
     }
-    public final PauseInstruction pause(double seconds) {
+    public static final PauseInstruction pause(double seconds) {
         return new PauseInstruction(seconds);
     }
-    public final PrintInstruction print(String message) {
+    public static final PrintInstruction print(String message) {
         return new PrintInstruction(message);
     }
 
