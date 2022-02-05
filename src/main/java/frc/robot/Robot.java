@@ -24,7 +24,8 @@ public class Robot extends TimedRobot {
 
   private DriveHandler driveHandler;
   private JoystickHandler joystickHandler;
-  private ShooterHandler shooterHandler;
+  private Auto2 auto2;
+  //private ShooterHandler shooterHandler;
 
   private AutoSquareDriveHandler autoSquareDriveHandler;
 
@@ -65,6 +66,9 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    if (joystickHandler.getButtonForAuto2()) {
+      auto2.auto2();
+    }
   }
 
   /** This function is called once each time the robot enters Disabled mode. */

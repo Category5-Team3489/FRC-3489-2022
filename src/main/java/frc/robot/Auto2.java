@@ -1,5 +1,7 @@
 package frc.robot;
 
+
+
 //import com.ctre.phoenix.CANifier.GeneralPin;
 
 public class Auto2 {
@@ -13,13 +15,14 @@ public class Auto2 {
     
     //drive speeds
     private static final double DriveForwardSpeed = 0.65;
-    private static final double driveBackwardSpeed = 0.65;
+    private static final double driveBackwardSpeed = -0.65;
 
     //encoder click amounts
-    private static final double DriveForwardClicks = 1;
-    private static final double ShootHighClicks = 1;
-    private static final double driveBackwardClicks = 1;
-    private static final double intakeClicks = 1;
+    private static final double DriveForwardClicks = 4000;
+    private static final double ShootHighClicks = 4000;
+    private static final double driveBackwardClicks = 4000;
+    private static final double intakeClicks = 4000;
+    private static final double transferClicks = 4000;
     
 
     public void autonomous2init(){
@@ -88,22 +91,40 @@ public class Auto2 {
             shootHandler.stopShooter();
         }
     }
+    //transfer the ball to the shooter
+    private void cargoTransfer(){
+        if(getEncoderPositionIntake() < transferClicks)
+            intakeHandler.intake();
+        else{
+            currentStep ++;
+            resetEncoderPosition();
+            intakeHandler.stopIntake();
+        }
+
+    }
+
     //the autonomous sequence
     public void auto2(){
        switch (currentStep){
         case 1:
-            shootHigh();
+            cargoTransfer();
             break;
         case 2:
-            driveForward();
+            shootHigh();
             break;
         case 3:
+            driveForward();
+            break;
+        case 4:
             intake();
             break;
-       case 4:
+       case 5:
             driveBackward();
             break;
-        case 5:
+        case 6:
+            cargoTransfer();
+            break;
+        case 7:
             shootHigh();
             break;
        }

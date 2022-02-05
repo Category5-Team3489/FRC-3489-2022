@@ -1,6 +1,6 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
+
 import frc.robot.framework.RobotHandler;
 
 public class JoystickHandler extends RobotHandler {
@@ -14,4 +14,11 @@ public class JoystickHandler extends RobotHandler {
      public double getRightJoystickYValue(){
         return components.rightDriveJoystick.getY();
      }
+
+     //get button press for autonomous 2
+
+   public boolean getButtonForAuto2(){
+      return components.manipulatorJoystick.getRawButtonPressed(10);
+   }
 }
+ 
