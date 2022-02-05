@@ -22,7 +22,12 @@ public class AutoRunner {
     }
 
     public void periodic() {
+        concurrentInstructions.forEach(instruction -> {
+            if (instruction.hasCompleted())
+                instruction.execute(chainedInstruction -> beginExecution(chainedInstruction));
+            else
+                instruction.periodic();
+        });
         concurrentInstructions.removeIf(AutoInstruction::hasCompleted);
-        concurrentInstructions.forEach(AutoInstruction::periodic);
     }
 }

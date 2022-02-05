@@ -1,0 +1,64 @@
+php myadmin
+http://scoutpi:8091/
+
+scoutpi:8091
+scoutpi
+
+https://www.makeuseof.com/tag/raspberry-pi-update-raspbian-os/
+
+https://github.com/bbacskay/FRC_Team3489_Webscout
+https://github.com/bbacskay/RoboReconReboot
+
+https://docs.docker.com/engine/install/debian/
+https://hub.docker.com/_/composer
+https://docs.docker.com/compose/
+
+https://docs.docker.com/desktop/windows/wsl/
+
+database stuff
+private $host = "scoutdb";
+private $db_name = "scouting";
+private $username = "scoutingapp";
+private $password = "team3489";
+
+
+database
+COMPOSE_PROJECT_NAME=webscout
+MYSQL_ROOT_PW=Geicdrc7
+MYSQL_DB=scouting
+MYSQL_USR=scoutingapp
+MYSQL_PWD=team3489
+MYSQL_DB_PATH=/mnt/data/webscout/database
+
+API_PATH=/mnt/data/webscout/www/api
+TBA_PATH=/mnt/data/webscout/www/tba
+WEBAPP_PATH=/mnt/data/webscout/www/www
+
+
+compiled webapp code
+/mnt/data/webscout/www/www
+
+api php code
+/mnt/data/webscout/database
+
+php scripts for updating event stuff
+/mnt/data/webscout/www/tba
+
+
+download node js
+restart
+npm install -g ionic
+git clone https://github.com/bbacskay/RoboReconReboot.git
+npm install
+
+npm i @ionic/storage@2.2.0
+
+inside of command prompt: also param to stop openning new tab
+ionic serve --no-open
+
+src\app\services\questions.service.ts
+
+src\app\pages\private\matchscouting\matchscouting.page.html
+
+compile webapp
+ionic build --prod

@@ -1,5 +1,12 @@
 package frc.robot.auto.framework;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
+
+import frc.robot.auto.DriveInstruction;
+import frc.robot.auto.PauseInstruction;
+import frc.robot.auto.PrintInstruction;
 import frc.robot.framework.RobotReferences;
 
 public abstract class AutoInstruction extends RobotReferences {
@@ -13,7 +20,7 @@ public abstract class AutoInstruction extends RobotReferences {
         return this;
     }
 
-    public final void complete() {
+    protected final void complete() {
         completed = true;
         completedEvent.run();
     }
@@ -22,10 +29,38 @@ public abstract class AutoInstruction extends RobotReferences {
         return completed;
     }
 
+    private List<AutoInstruction> instructions = new ArrayList<AutoInstruction>();
+
+    public final DriveInstruction drive(double clicks) {
+        DriveInstruction instruction = new DriveInstruction(clicks);
+        instructions.add(instruction);
+        return instruction;
+    }
+
+    public final PauseInstruction pause(double seconds) {
+        PauseInstruction instruction = new PauseInstruction(seconds);
+        instructions.add(instruction);
+        return instruction;
+    }
+
+    public final PrintInstruction print(String message) {
+        PrintInstruction instruction = new PrintInstruction(message);
+        instructions.add(instruction);
+        return instruction;
+    }
+
+    public final void execute(Consumer<AutoInstruction> beginExecution) {
+        instructions.forEach(beginExecution);
+    }
+
     public abstract void init();
 
     public abstract void periodic();
 
     public abstract String debug();
+
+    protected final String getInstructionName() { 
+        return getClass().getSimpleName();
+    };
 
 }
