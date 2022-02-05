@@ -12,6 +12,9 @@ public class Auto2 {
     private DriveHandler driveHandler;
     private ShooterHandler shootHandler;
     private IntakeHandler intakeHandler;
+    private CargoTransferHandler cargo;
+        
+    }
     
     //drive speeds
     private static final double driveForwardSpeed = 0.65;
@@ -64,7 +67,7 @@ public class Auto2 {
             driveHandler.tankDrive(driveBackwardSpeed, driveBackwardSpeed);
         }
         else{
-            currentStep ++;
+            currentStep++;
             resetEncoderPosition();
             driveHandler.stop();
         }
@@ -75,7 +78,7 @@ public class Auto2 {
             intakeHandler.intake();
         } 
         else {
-            currentStep ++;
+            currentStep++;
             intakeHandler.stopIntake();
             resetEncoderPosition();
         }
@@ -94,11 +97,11 @@ public class Auto2 {
     //transfer the ball to the shooter
     private void cargoTransfer(){
         if(getEncoderPositionIntake() < transferClicks)
-            intakeHandler.intake();
+           cargo.transferUp();
         else{
             currentStep ++;
             resetEncoderPosition();
-            intakeHandler.stopIntake();
+            cargo.transferStop();
         }
 
     }
