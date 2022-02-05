@@ -14,13 +14,13 @@ public class Auto2 {
     private IntakeHandler intakeHandler;
     
     //drive speeds
-    private static final double DriveForwardSpeed = 0.65;
+    private static final double driveForwardSpeed = 0.65;
     private static final double driveBackwardSpeed = -0.65;
 
     //encoder click amounts
-    private static final double DriveForwardClicks = 4000; 
+    private static final double driveForwardClicks = 4000; 
     private static final double driveBackwardClicks = 4000;
-    private static final double ShootHighClicks = 4000;
+    private static final double shootHighClicks = 4000;
     private static final double intakeClicks = 4000;
     private static final double transferClicks = 4000;
     
@@ -49,8 +49,8 @@ public class Auto2 {
     }
     //drive foward
     private void driveForward() {
-        if (getEncoderPositionAbs() < DriveForwardClicks) {
-            driveHandler.tankDrive(DriveForwardSpeed, DriveForwardSpeed);
+        if (getEncoderPositionAbs() < driveForwardClicks) {
+            driveHandler.tankDrive(driveForwardSpeed, driveForwardSpeed);
         }
         else {
             currentStep++;
@@ -82,7 +82,7 @@ public class Auto2 {
     }
     //shoot high
     private void shootHigh() {
-        if(getEncoderPositionShooter() < ShootHighClicks){
+        if(getEncoderPositionShooter() < shootHighClicks){
             shootHandler.shoot(Constants.ShooterHighSpeed, Constants.ShooterHighSpeed);
         }
         else{
