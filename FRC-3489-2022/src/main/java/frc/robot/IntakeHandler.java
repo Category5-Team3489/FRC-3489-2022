@@ -12,4 +12,7 @@ public class IntakeHandler {
     public void output(){
         components.intakeMotor.set(-Constants.intakeSpeed);
     }
+    public void stop(){
+        components.intakeMotor.stopMotor();
+    }
 }
