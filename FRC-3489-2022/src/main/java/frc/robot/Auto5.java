@@ -3,9 +3,10 @@ public class Auto5 {
         resetEncoderPosition();
     }
 
-    //Handlers Needed
+    //classes Needed
     private DriveHandler driveHandler;
     private ComponentsContainer container;
+    private Auto3 auto3;
 
     private int currentStep = 1;
 
@@ -19,6 +20,7 @@ public class Auto5 {
     private void resetEncoderPosition() {
         container.frontLeftDrive.setSelectedSensorPosition(0);
     }
+
     private double getEncoderPositionAbs() {
         return Math.abs(container.frontLeftDrive.getSelectedSensorPosition());
     }
@@ -26,26 +28,29 @@ public class Auto5 {
     private void driveForward(){
         if (getEncoderPositionAbs() < driveForwardClicks){
             driveHandler.tankDrive(driveForwardSpeed, driveForwardSpeed);
-        } else {
+        } 
+        else {
             resetEncoderPosition();
             driveHandler.stop();
-            currentStep++;
+            currentStep ++;
         }
     }
+
     private void turnLeft(){
-        if (getEncoderPositionAbs() < driveForwardClicks){
+        if (getEncoderPositionAbs() < turnLeftClicks){
             driveHandler.tankDrive(leftMotorForTurn, rightMotorForTurn);
-        } else {
+        } 
+        else {
             resetEncoderPosition();
             driveHandler.stop();
-            currentStep++;
+            currentStep ++;
         }
     }
 
     public void autonomous5periodic(){
         switch(currentStep){
             case 1:
-
+                auto3.auto3();
                 break;
             case 2:
                 turnLeft();
@@ -55,6 +60,11 @@ public class Auto5 {
                 break;
         }
     }
+
+
+
+
+
 
 
 }

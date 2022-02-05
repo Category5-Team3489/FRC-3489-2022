@@ -1,13 +1,4 @@
-package frc.robot;
-
-
-
-//import com.ctre.phoenix.CANifier.GeneralPin;
-
-public class Auto2 {
-    
-     
-
+public class Auto3 {
     //handlers needed
     private DriveHandler driveHandler;
     private ShooterHandler shootHandler;
@@ -29,7 +20,7 @@ public class Auto2 {
     private static final double transferClicks = 4000;
     
 
-    public void autonomous2init(){
+    public void autonomous3init(){
         //set motor positions to zero
         resetEncoderPosition();
     }
@@ -114,23 +105,23 @@ public class Auto2 {
     }
 
     //the autonomous sequence
-    public void auto2(){
+    public void auto3(){
        switch (currentStep){
             case 1:
-                shootHigh();
-               break;
-            case 2:
                 driveForward();
                 break;
-            case 3:
+            case 2:
                 intake();
                 break;
-            case 4:
+            case 3:
                 driveBackward();
+                break;
+            case 4:
+                shootHigh();
                 break;
             case 5:
                 shootHigh();
-                break;
+                break; 
        }
     }
 }
