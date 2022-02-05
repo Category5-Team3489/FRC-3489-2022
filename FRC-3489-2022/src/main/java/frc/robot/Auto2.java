@@ -5,16 +5,17 @@ package frc.robot;
 //import com.ctre.phoenix.CANifier.GeneralPin;
 
 public class Auto2 {
-    ComponentsContainer container;
-    private int currentStep = 1; 
+    
+     
 
     //handlers needed
     private DriveHandler driveHandler;
     private ShooterHandler shootHandler;
     private IntakeHandler intakeHandler;
     private CargoTransferHandler cargo;
-        
-    }
+    private ComponentsContainer container;
+    
+    private int currentStep = 1;
     
     //drive speeds
     private static final double driveForwardSpeed = 0.65;
@@ -37,6 +38,7 @@ public class Auto2 {
         container.frontLeftDrive.setSelectedSensorPosition(0);
         container.intakeMotor.setSelectedSensorPosition(0);
         container.shooterTop.setSelectedSensorPosition(0);
+        container.cargoMoverMotor.setSelectedSensorPosition(0);
     }
     //gets encoder position
     private double getEncoderPositionAbs() {
@@ -48,15 +50,19 @@ public class Auto2 {
     }
 
     private double getEncoderPositionShooter() {
-        return Math.abs(container.shooterTop.getSelectedSensorPosition());
+        return Math.abs(components.shooterTop.getSelectedSensorPosition());
     }
+    private double getEncoderPositionCargo() {
+        return Math.abs(container.cargoMoverMotor.getSelectedSensorPosition());
+    }
+
     //drive foward
     private void driveForward() {
-        if (getEncoderPositionAbs() < driveForwardClicks) {
+        if (getEncoderPositionAbs() < driveFowardClicks) {
             driveHandler.tankDrive(driveForwardSpeed, driveForwardSpeed);
         }
         else {
-            currentStep++;
+            currentStep ++;
             resetEncoderPosition();
             driveHandler.stop();
         }
@@ -67,7 +73,7 @@ public class Auto2 {
             driveHandler.tankDrive(driveBackwardSpeed, driveBackwardSpeed);
         }
         else{
-            currentStep++;
+            currentStep ++;
             resetEncoderPosition();
             driveHandler.stop();
         }
@@ -78,7 +84,7 @@ public class Auto2 {
             intakeHandler.intake();
         } 
         else {
-            currentStep++;
+            currentStep ++;
             intakeHandler.stopIntake();
             resetEncoderPosition();
         }
