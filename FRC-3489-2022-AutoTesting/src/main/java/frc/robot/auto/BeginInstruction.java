@@ -4,9 +4,19 @@ import frc.robot.auto.framework.AutoInstruction;
 
 public class BeginInstruction extends AutoInstruction {
 
+    private boolean completeOnInit = true;
+
+    public BeginInstruction() {
+        
+    }
+
+    public BeginInstruction(boolean completeOnInit) {
+        this.completeOnInit = completeOnInit;
+    }
+
     @Override
     public void init() {
-        complete();
+        if (completeOnInit) complete();
     }
 
     @Override
