@@ -22,6 +22,7 @@ public class AutoHandler extends RobotHandler {
     public void autonomousInit() {
         autoRunner = new AutoRunner(robotManager);
         AutoBuilder auto = autos.get(getSelectedAuto());
+        robotManager.copyReferences(auto);
         auto.setRunner(autoRunner);
         auto.build();
     }

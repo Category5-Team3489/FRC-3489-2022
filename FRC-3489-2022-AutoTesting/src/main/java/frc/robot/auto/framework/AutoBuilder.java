@@ -4,8 +4,9 @@ import frc.robot.auto.BeginInstruction;
 import frc.robot.auto.DriveInstruction;
 import frc.robot.auto.PauseInstruction;
 import frc.robot.auto.PrintInstruction;
+import frc.robot.framework.RobotReferences;
 
-public abstract class AutoBuilder {
+public abstract class AutoBuilder extends RobotReferences {
 
     private AutoRunner runner;
 

@@ -7,6 +7,10 @@ public class Auto32 extends AutoBuilder {
     @Override
     public void build() {
 
+        // later add signals for links between instructions
+
+
+        
         begin()
         .drive(1000)
         .concurrently(
