@@ -15,9 +15,9 @@ public class Auto32 extends AutoBuilder {
         .drive(1000)
         .concurrently(
             print("Started driving 2000 clicks"),
-            drive(2000)
+            drive(2000).onCompleted(setSignal("FinishedDrive2000"))
         )
-        .pause(2)
+        .pause(Double.MAX_VALUE).completeOn(signal("FinishedDrive2000"))
         .drive(2000);
     }
     

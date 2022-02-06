@@ -7,7 +7,6 @@ import java.util.function.Consumer;
 
 import frc.robot.auto.DriveInstruction;
 import frc.robot.auto.PauseInstruction;
-import frc.robot.auto.PrintInstruction;
 import frc.robot.framework.RobotReferences;
 
 public abstract class AutoInstruction extends RobotReferences {
@@ -30,6 +29,11 @@ public abstract class AutoInstruction extends RobotReferences {
         return completed;
     }
 
+    public final AutoInstruction completeOn(AutoEvent event) {
+        event.sub(() -> complete());
+        return this;
+    }
+
     private List<AutoInstruction> instructions = new ArrayList<AutoInstruction>();
 
     public final DriveInstruction drive(double clicks) {
@@ -42,10 +46,9 @@ public abstract class AutoInstruction extends RobotReferences {
         instructions.add(instruction);
         return instruction;
     }
-    public final PrintInstruction print(String message) {
-        PrintInstruction instruction = AutoBuilder.print(message);
-        instructions.add(instruction);
-        return instruction;
+    public final AutoInstruction print(String message) {
+        onCompleted(() -> System.out.println(message));
+        return this;
     }
 
     public final AutoInstruction concurrently(AutoInstruction... concurrentInstructions) {

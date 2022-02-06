@@ -10,7 +10,7 @@ import frc.robot.framework.RobotHandler;
 
 public class AutoHandler extends RobotHandler {
 
-    private AutoRunner autoRunner;
+    public AutoRunner autoRunner;
 
     private Map<Integer, AutoBuilder> autos = new HashMap<Integer, AutoBuilder>();
 
