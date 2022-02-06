@@ -20,7 +20,7 @@ public class Auto32 extends AutoBuilder {
         .pause(Double.MAX_VALUE).completeOn(signal("FinishedDrive2000"))
         .drive(2000);
 
-        // add
+        // add and concurrent instruction completes when all inner are done?
         //until
         //.until
     }
