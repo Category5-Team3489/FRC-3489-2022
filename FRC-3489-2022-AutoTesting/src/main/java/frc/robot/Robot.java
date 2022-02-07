@@ -15,6 +15,7 @@ public class Robot extends TimedRobot {
   // TODO Button debouncer utils
   // TODO DifferentialDrive.setRightSideInverted(boolean);
   // TODO Look into feedforward
+  // TODO Need to turn all safeties off?
 
   @Override
   public void robotInit() {
