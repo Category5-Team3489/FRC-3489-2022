@@ -49,7 +49,7 @@ public class AutoRunner {
     private boolean completeInstruction(AutoInstruction instruction) {
         if (!instruction.hasCompleted()) return false;
         instruction.completed();
-        instruction.execute(chainedInstruction -> beginExecution(chainedInstruction));
+        instruction.execute(nextInstruction -> beginExecution(nextInstruction));
         return true;
     }
 }
