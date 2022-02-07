@@ -33,7 +33,7 @@ public abstract class AutoInstruction extends RobotReferences {
     private AutoInstruction next = null;
 
     public final BlankInstruction blank(boolean completeOnInit) {
-        return AutoBuilder.blank(completeOnInit);
+        return setNext(AutoBuilder.blank(completeOnInit));
     }
     public final DriveInstruction drive(double clicks) {
         return setNext(AutoBuilder.drive(clicks));
