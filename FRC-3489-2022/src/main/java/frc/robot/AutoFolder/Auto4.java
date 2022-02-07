@@ -1,5 +1,10 @@
-package frc.robot;
+package frc.robot.AutoFolder;
 
+import frc.robot.ComponentsContainer;
+import frc.robot.Constants;
+import frc.robot.IntakeHandler;
+import frc.robot.ShooterHandler;
+import frc.robot.CargoTransferHandler;
 
 public class Auto4 {
     ComponentsContainer container;
@@ -11,25 +16,27 @@ public class Auto4 {
     private CargoTransferHandler cargo;
 
     //Clicks for Encoder 
-    private static final double ShootHighClicks = 4000;
-    private static final double intakeClicks = 4000; 
-    private static final double cargoMoverClicks = 4000; 
+    public static final double ShootHighClicks = 4000;
+    public static final double auto4CargoMoverClicks = 4000; 
  
     public void autonomous4init(){ 
         //reset the motor the method 
-        resetEncoderPostition();
+        resetEncoderPosition();
      } 
   //the actual code 
         private void resetEncoderPosition() {
         container.intakeMotor.setSelectedSensorPosition(0);
         container.shooterTop.setSelectedSensorPosition(0);
      }
- //Encoder Position for Shooter and Intake 
+ //Encoder Position for Shooter, cargo transfer, and Intake 
     private double EncoderPositionForShooter(){
         return Math.abs(container.shooterTop.getSelectedSensorPosition());
     }
-    private doube EncoderPositionForIntake(){
+    private double EncoderPositionForIntake(){
         return Math.abs(container.intakeMotor.getSelectedSensorPosition());
+    }
+    private double getEncoderPositionForCargo(){
+        return Math.abs(container.cargoMoverMotor.getSelectedSensorPosition());
     }
 
 //Shoot into high
@@ -50,13 +57,13 @@ public class Auto4 {
      }
      else{
             currentStep ++; 
-        IntakeHandler.Stopintake();
+        IntakeHandler.stop();
             resetEncoderPosition();
      } 
     }
 // Cargo Mover 
     private void cargoTransfer(){
-        if(getEncoderPositionIntake() < cargoMoverClicks)
+        if(getEncoderPositionForCargo() < cargoMoverClicks)
             cargo.transferUp();
         else{
             currentStep ++;
@@ -67,7 +74,7 @@ public class Auto4 {
         }
 // autonomous sequence 
     public void auto4(){
-            switch (currentstep){
+            switch (currentStep){
                 case 1:
                     cargoTransfer();
                     break;

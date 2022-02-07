@@ -1,3 +1,10 @@
+package frc.robot.AutoFolder;
+
+
+import frc.robot.ComponentsContainer;
+import frc.robot.Constants;
+import frc.robot.DriveHandler;
+
 public class Auto5 {
     public void Autonomous5Init() {
         resetEncoderPosition();
@@ -10,12 +17,12 @@ public class Auto5 {
 
     private int currentStep = 1;
 
-    private static final double driveForwardSpeed = 0.65;
-    private static final double leftMotorForTurn = 0.2;
-    private static final double rightMotorForTurn = 0.4;
+ 
+    public static final double auto5LeftMotorForTurn = 0.2;
+    public static final double auto5RightMotorForTurn = 0.4;
         
-    private static final double driveForwardClicks = 4000;
-    private static final double turnLeftClicks = 4000;
+    public static final double auto5DriveForwardClicks = 4000;
+    public static final double auto5TurnLeftClicks = 4000;
 
     private void resetEncoderPosition() {
         container.frontLeftDrive.setSelectedSensorPosition(0);
@@ -26,8 +33,8 @@ public class Auto5 {
     }
 
     private void driveForward(){
-        if (getEncoderPositionAbs() < driveForwardClicks){
-            driveHandler.tankDrive(driveForwardSpeed, driveForwardSpeed);
+        if (getEncoderPositionAbs() < Constants.auto5DriveForwardClicks){
+            driveHandler.tankDrive(Constants.driveForwardSpeed, Constants.driveForwardSpeed);
         } 
         else {
             resetEncoderPosition();
@@ -37,8 +44,8 @@ public class Auto5 {
     }
 
     private void turnLeft(){
-        if (getEncoderPositionAbs() < turnLeftClicks){
-            driveHandler.tankDrive(leftMotorForTurn, rightMotorForTurn);
+        if (getEncoderPositionAbs() < Constants.auto5TurnLeftClicks){
+            driveHandler.tankDrive(Constants.auto5LeftMotorForTurn, Constants.auto5RightMotorForTurn);
         } 
         else {
             resetEncoderPosition();

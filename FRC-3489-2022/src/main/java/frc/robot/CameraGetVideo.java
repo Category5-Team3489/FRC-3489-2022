@@ -1,3 +1,5 @@
+package frc.robot;
+
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;

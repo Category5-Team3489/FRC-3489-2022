@@ -1,4 +1,7 @@
-package frc.robot;
+package frc.robot.AutoFolder;
+
+import frc.robot.ComponentsContainer;
+import frc.robot.DriveHandler;
 
 public class AutoSquareDriveHandler {
     

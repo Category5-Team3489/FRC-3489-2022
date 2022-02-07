@@ -1,7 +1,13 @@
-package frc.robot;
+package frc.robot.AutoFolder;
 // This code needs the Drive foward to intake the ball and then to drive foward to the terminal to get more balls in 
 
-import javax.swing.text.AbstractDocument.BranchElement;
+
+import frc.robot.IntakeHandler;
+import frc.robot.ComponentsContainer;
+import frc.robot.Constants;
+import frc.robot.ShooterHandler;
+import frc.robot.DriveHandler;
+import frc.robot.CargoTransferHandler;
 
 public class Auto7 {
     ComponentsContainer container;
@@ -11,7 +17,7 @@ public class Auto7 {
     private IntakeHandler IntakeHandler; 
     private ShooterHandler ShooterHandler; 
     private DriveHandler DriveHandler; 
-    private CargoHandler CargoHandler; 
+    private CargoTransferHandler CargoHandler; 
     
     //drive Speeds Program Turn speeds Left and Right 
     private static final double DriveForwardSpeed = 0.65;
@@ -27,7 +33,7 @@ public class Auto7 {
     
     public void autonomous7init(){ 
         //reset the motor the method 
-        resetEncoderPostition();
+        resetEncoderPosition();
     }
      
     private void resetEncoderPosition() {
@@ -42,11 +48,11 @@ public class Auto7 {
     private double EncoderPositionForIntake(){
         return Math.abs(container.intakeMotor.getSelectedSensorPosition());
     }
-    private double getEncoderPositionIntake() {
-        return Math.abs(container.intakeMotor.getSelectedSensorPosition());
+    private double getEncoderPositionForCargoMover(){
+        return Math.abs(container.cargoMoverMotor.getSelectedSensorPosition());
     }
     private double getEncoderPositionAbs() {
-        return Math.abs(container.frontleftDrive.getSelectedSensorPosition());
+        return Math.abs(container.frontLeftDrive.getSelectedSensorPosition());
     }
 
     //Shoot into high
@@ -64,7 +70,7 @@ public class Auto7 {
     }   
     //Intake TIME 
     private void intakeIntake(){
-        if(EncoderPositionForShooter() < intakeClicks) {
+        if(EncoderPositionForIntake() < intakeClicks) {
             IntakeHandler.intake();
         }
         else{
@@ -76,41 +82,41 @@ public class Auto7 {
     }
     //CargoMover Time 
     private void cargoTransfer(){
-        if(getEncoderPositionIntake() < transferClicks)
-            intakeHandler.intake();
+        if(getEncoderPositionForCargoMover() < transferClicks)
+            CargoHandler.transferUp();
         else{
             currentStep ++;
             resetEncoderPosition();
-            intakeHandler.stopIntake();
+            CargoHandler.transferStop();
         }
 
     }
     //drive foward  
     private void driveForward() {
         if (getEncoderPositionAbs() < DriveForwardClicks) {
-            driveHandler.tankDrive(DriveForwardSpeed, DriveForwardSpeed);
+            DriveHandler.tankDrive(DriveForwardSpeed, DriveForwardSpeed);
         }
         else {
             currentStep++;
             resetEncoderPosition();
-            driveHandler.stop();
+            DriveHandler.stop();
         }
     }
     //drive Turn tankdrive(is empty need right and left);
     private void driveTurn() {
-        if (getEncoderPositionabs() < Driveturnclicks) {
-            driveHandler.tankDrive(leftMotorForTurn, rightMotorForTurn); 
+        if (getEncoderPositionAbs() < Driveturnclicks) {
+            DriveHandler.tankDrive(leftMotorForTurn, rightMotorForTurn); 
 
         }
         else {
             currentStep++;
             resetEncoderPosition();
-            driveHandler.stop();
+            DriveHandler.stop();
         }
     }
     //autonomous sequence 
     public void auto7(){
-        switch (currentstep){
+        switch (currentStep){
             case 1: 
                 Highshoot();
                 break;
@@ -118,7 +124,7 @@ public class Auto7 {
                 driveTurn();
                 break;
             case 3: 
-                driveFoward();
+                driveForward();
                 break;
             case 4: 
                 cargoTransfer();
@@ -130,7 +136,7 @@ public class Auto7 {
                 driveTurn();
                 break;
             case 7: 
-                driveFoward();
+                driveForward();
                 break; 
 
 

@@ -1,3 +1,13 @@
+package frc.robot.AutoFolder;
+
+import frc.robot.DriveHandler;
+import frc.robot.IntakeHandler;
+import frc.robot.ShooterHandler;
+import frc.robot.CargoTransferHandler;
+import frc.robot.ComponentsContainer;
+import frc.robot.Constants;
+
+
 public class Auto3 {
     //handlers needed
     private DriveHandler driveHandler;
@@ -7,18 +17,8 @@ public class Auto3 {
     private ComponentsContainer container;
     
     private int currentStep = 1;
-    
-    //drive speeds
-    private static final double driveForwardSpeed = 0.65;
-    private static final double driveBackwardSpeed = -0.65;
 
-    //encoder click amounts
-    private static final double driveForwardClicks = 4000; 
-    private static final double driveBackwardClicks = 4000;
-    private static final double shootHighClicks = 4000;
-    private static final double intakeClicks = 4000;
-    private static final double transferClicks = 4000;
-    
+  
 
     public void autonomous3init(){
         //set motor positions to zero
@@ -27,7 +27,6 @@ public class Auto3 {
     //reset encoder clicks
     private void resetEncoderPosition() {
         container.frontLeftDrive.setSelectedSensorPosition(0);
-        container.intakeMotor.setSelectedSensorPosition(0);
         container.shooterTop.setSelectedSensorPosition(0);
         container.cargoMoverMotor.setSelectedSensorPosition(0);
     }
@@ -35,33 +34,30 @@ public class Auto3 {
     private double getEncoderPositionAbs() {
         return Math.abs(container.frontLeftDrive.getSelectedSensorPosition());
     }
-
-    private double getEncoderPositionIntake() {
-        return Math.abs(container.intakeMotor.getSelectedSensorPosition());
-    }
-
     private double getEncoderPositionShooter() {
-        return Math.abs(components.shooterTop.getSelectedSensorPosition());
+        return Math.abs(container.shooterTop.getSelectedSensorPosition());
     }
     private double getEncoderPositionCargo() {
         return Math.abs(container.cargoMoverMotor.getSelectedSensorPosition());
     }
 
-    //drive foward
+    //drive foward and intake
     private void driveForward() {
-        if (getEncoderPositionAbs() < driveForwardClicks) {
-            driveHandler.tankDrive(driveForwardSpeed, driveForwardSpeed);
+        if (getEncoderPositionAbs() < Constants.Auto3DriveForwardClicks) {
+            driveHandler.tankDrive(Constants.driveForwardSpeed, Constants.driveForwardSpeed);
+            intakeHandler.intake();
         }
         else {
             currentStep ++;
             resetEncoderPosition();
             driveHandler.stop();
+            intakeHandler.stop();
         }
     }
     //drive back
     private void driveBackward(){
-        if (getEncoderPositionAbs() < driveBackwardClicks) {
-            driveHandler.tankDrive(driveBackwardSpeed, driveBackwardSpeed);
+        if (getEncoderPositionAbs() < Constants.Auto3DriveBackwardClicks) {
+            driveHandler.tankDrive(Constants.driveBackwardSpeed, Constants.driveBackwardSpeed);
         }
         else{
             currentStep ++;
@@ -69,20 +65,10 @@ public class Auto3 {
             driveHandler.stop();
         }
     }
-    //intake
-    private void intake(){
-        if (getEncoderPositionIntake() < intakeClicks) {
-            intakeHandler.intake();
-        } 
-        else {
-            currentStep ++;
-            intakeHandler.stopIntake();
-            resetEncoderPosition();
-        }
-    }
+
     //shoot high
     private void shootHigh() {
-        if(getEncoderPositionShooter() < shootHighClicks){
+        if(getEncoderPositionShooter() < Constants.Auto3ShootHighClicks){
             cargoTransfer();
             shootHandler.shoot(Constants.ShooterHighSpeed, Constants.ShooterHighSpeed);
         }
@@ -94,7 +80,7 @@ public class Auto3 {
     }
     //transfer the ball to the shooter
     private void cargoTransfer(){
-        if(getEncoderPositionIntake() < transferClicks)
+        if(getEncoderPositionCargo() < Constants.Auto3TransferClicks)
            cargo.transferUp();
         else{
             currentStep ++;
@@ -111,15 +97,12 @@ public class Auto3 {
                 driveForward();
                 break;
             case 2:
-                intake();
-                break;
-            case 3:
                 driveBackward();
                 break;
-            case 4:
+            case 3:
                 shootHigh();
                 break;
-            case 5:
+            case 4:
                 shootHigh();
                 break; 
        }

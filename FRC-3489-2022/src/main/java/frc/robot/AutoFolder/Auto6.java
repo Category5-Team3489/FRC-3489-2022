@@ -1,3 +1,12 @@
+package frc.robot.AutoFolder;
+
+
+import frc.robot.ComponentsContainer;
+import frc.robot.DriveHandler;
+import frc.robot.IntakeHandler;
+import frc.robot.ShooterHandler;
+import frc.robot.CargoTransferHandler;
+
 public class Auto6 {
     
     ComponentsContainer components;
@@ -12,11 +21,10 @@ public class Auto6 {
         resetEncoderPosition();
     }
 
-    private DifferentialDrive differentialDrive;
     private ShooterHandler shooterHandler;
     private DriveHandler driveHandler;
-    private IntakeHadler intakeHandler;
-    private cargoTransferHandler cargoTransferHandler;
+    private IntakeHandler intakeHandler;
+    private CargoTransferHandler cargoTransferHandler;
 
     private void shoot(){
         if (getEncoderPositionAbs()< shootEncoderClicks){shooterHandler.ShootHigh();}

@@ -1,6 +1,11 @@
-package frc.robot;
+package frc.robot.AutoFolder;
 
-
+import frc.robot.DriveHandler;
+import frc.robot.IntakeHandler;
+import frc.robot.ShooterHandler;
+import frc.robot.CargoTransferHandler;
+import frc.robot.ComponentsContainer;
+import frc.robot.Constants;
 
 //import com.ctre.phoenix.CANifier.GeneralPin;
 
@@ -17,16 +22,9 @@ public class Auto2 {
     
     private int currentStep = 1;
     
-    //drive speeds
-    private static final double driveForwardSpeed = 0.65;
-    private static final double driveBackwardSpeed = -0.65;
 
-    //encoder click amounts
-    private static final double driveForwardClicks = 4000; 
-    private static final double driveBackwardClicks = 4000;
-    private static final double shootHighClicks = 4000;
-    private static final double intakeClicks = 4000;
-    private static final double transferClicks = 4000;
+
+
     
 
     public void autonomous2init(){
@@ -45,12 +43,9 @@ public class Auto2 {
         return Math.abs(container.frontLeftDrive.getSelectedSensorPosition());
     }
 
-    private double getEncoderPositionIntake() {
-        return Math.abs(container.intakeMotor.getSelectedSensorPosition());
-    }
 
     private double getEncoderPositionShooter() {
-        return Math.abs(components.shooterTop.getSelectedSensorPosition());
+        return Math.abs(container.shooterTop.getSelectedSensorPosition());
     }
     private double getEncoderPositionCargo() {
         return Math.abs(container.cargoMoverMotor.getSelectedSensorPosition());
@@ -58,19 +53,21 @@ public class Auto2 {
 
     //drive foward
     private void driveForward() {
-        if (getEncoderPositionAbs() < driveForwardClicks) {
-            driveHandler.tankDrive(driveForwardSpeed, driveForwardSpeed);
+        if (getEncoderPositionAbs() < Constants.auto2DriveForwardClicks) {
+            driveHandler.tankDrive(Constants.driveForwardSpeed, Constants.driveForwardSpeed);
+            intakeHandler.intake();
         }
         else {
             currentStep ++;
             resetEncoderPosition();
             driveHandler.stop();
+            intakeHandler.stop();
         }
     }
     //drive back
     private void driveBackward(){
-        if (getEncoderPositionAbs() < driveBackwardClicks) {
-            driveHandler.tankDrive(driveBackwardSpeed, driveBackwardSpeed);
+        if (getEncoderPositionAbs() < Constants.auto2DriveBackwardClicks) {
+            driveHandler.tankDrive(Constants.driveBackwardSpeed, Constants.driveBackwardSpeed);
         }
         else{
             currentStep ++;
@@ -78,20 +75,9 @@ public class Auto2 {
             driveHandler.stop();
         }
     }
-    //intake
-    private void intake(){
-        if (getEncoderPositionIntake() < intakeClicks) {
-            intakeHandler.intake();
-        } 
-        else {
-            currentStep ++;
-            intakeHandler.stopIntake();
-            resetEncoderPosition();
-        }
-    }
     //shoot high
     private void shootHigh() {
-        if(getEncoderPositionShooter() < shootHighClicks){
+        if(getEncoderPositionShooter() < Constants.auto2ShootHighClicks){
             cargoTransfer();
             shootHandler.shoot(Constants.ShooterHighSpeed, Constants.ShooterHighSpeed);
         }
@@ -103,10 +89,9 @@ public class Auto2 {
     }
     //transfer the ball to the shooter
     private void cargoTransfer(){
-        if(getEncoderPositionIntake() < transferClicks)
+        if(getEncoderPositionCargo() < Constants.auto2CargotransferClicks)
            cargo.transferUp();
         else{
-            currentStep ++;
             resetEncoderPosition();
             cargo.transferStop();
         }
@@ -123,12 +108,9 @@ public class Auto2 {
                 driveForward();
                 break;
             case 3:
-                intake();
-                break;
-            case 4:
                 driveBackward();
                 break;
-            case 5:
+            case 4:
                 shootHigh();
                 break;
        }
