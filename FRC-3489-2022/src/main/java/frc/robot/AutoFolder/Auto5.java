@@ -46,11 +46,15 @@ public class Auto5 {
             currentStep ++;
         }
     }
+    private void auto3Code(){
+        auto3.auto3();
+        currentStep++;
+    }
 
     public void autonomous5periodic(){
         switch(currentStep){
             case 1:
-                auto3.auto3();
+                auto3Code();
                 break;
             case 2:
                 turnLeft();
