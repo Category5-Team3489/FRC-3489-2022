@@ -11,20 +11,38 @@ import frc.robot.framework.RobotHandler;
 
 public class CameraHandler extends RobotHandler {
     
-    private UsbCamera camera;
+    private UsbCamera cameraA;
+    private UsbCamera cameraB;
     private VideoSink server;
 
     @Override
     public void robotInit() {
+        try {
+            cameraA = CameraServer.startAutomaticCapture(0);
+            cameraB = CameraServer.startAutomaticCapture(1);
+            server = CameraServer.getServer();
+    
+            cameraA.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+            cameraB.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+    
+            ShuffleboardTab tab = Shuffleboard.getTab("3489 Camera");
+    
+            tab.add(server.getSource()).withWidget(BuiltInWidgets.kCameraStream).withSize(4, 4).withPosition(2, 0);
+    
+            setCamera(false);
+        } catch (Exception e) {
+            System.out.println("[CameraHandler] Couldn't init cameras");
+        }
+    }
 
-        camera = CameraServer.startAutomaticCapture(0);
-        server = CameraServer.getServer();
-        camera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
-
-        ShuffleboardTab tab = Shuffleboard.getTab("3489 Camera");
-
-        tab.add(server.getSource()).withWidget(BuiltInWidgets.kCameraStream).withSize(4, 4).withPosition(2, 0);
-
-        server.setSource(camera);
+    public void setCamera(boolean isCameraB) {
+        try {
+            if (isCameraB)
+                server.setSource(cameraB);
+            else
+                server.setSource(cameraA);
+        } catch (Exception e) {
+            System.out.println("[CameraHandler] Had issue switching cameras");
+        }
     }
 }
