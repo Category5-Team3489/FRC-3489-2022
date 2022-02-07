@@ -46,8 +46,26 @@ public final class Constants {
     public static final int RightDriveJoystick = 1;
     public static final int ManipulatorJoystick = 2;
 
-    
+    //drive speeds
+    public static final double driveForwardSpeed = 0.65;
+    public static final double driveBackwardSpeed = -0.65;
 
+    //auto 2 constants
+    public static final double auto2DriveForwardClicks = 4000; 
+    public static final double auto2DriveBackwardClicks = 4000;
+    public static final double auto2ShootHighClicks = 4000;
+    public static final double auto2CargotransferClicks = 4000;
+
+    //auto 3 constants
+    public static final double Auto3TransferClicks = 4000;
+    public static final double Auto3DriveForwardClicks = 4000; 
+    public static final double Auto3DriveBackwardClicks = 4000;
+    public static final double Auto3ShootHighClicks = 4000;
     
+    //auto 5 constants
+    public static final double auto5LeftMotorForTurn = 0.2;
+    public static final double auto5RightMotorForTurn = 0.4;
+    public static final double auto5DriveForwardClicks = 4000;
+    public static final double auto5TurnLeftClicks = 4000;
 }
     
