@@ -1,16 +1,12 @@
-package frc.robot.auto;
+package frc.robot.auto.instructions;
 
 import frc.robot.auto.framework.AutoInstruction;
 
-public class BeginInstruction extends AutoInstruction {
+public class BlankInstruction extends AutoInstruction {
 
-    private boolean completeOnInit = true;
+    private boolean completeOnInit;
 
-    public BeginInstruction() {
-        
-    }
-
-    public BeginInstruction(boolean completeOnInit) {
+    public BlankInstruction(boolean completeOnInit) {
         this.completeOnInit = completeOnInit;
     }
 

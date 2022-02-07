@@ -1,4 +1,4 @@
-package frc.robot.auto;
+package frc.robot.auto.instructions;
 
 import frc.robot.auto.framework.AutoInstruction;
 
@@ -20,7 +20,7 @@ public class DriveInstruction extends AutoInstruction {
 
     @Override
     public String debug() {
-        return "Drive Instruction: ";
+        return getInstructionName();
     }
 
 }

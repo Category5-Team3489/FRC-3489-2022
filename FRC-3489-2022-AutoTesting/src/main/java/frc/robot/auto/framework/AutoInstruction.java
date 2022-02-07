@@ -1,12 +1,11 @@
 package frc.robot.auto.framework;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.function.Consumer;
 
-import frc.robot.auto.DriveInstruction;
-import frc.robot.auto.PauseInstruction;
+import frc.robot.auto.instructions.BlankInstruction;
+import frc.robot.auto.instructions.ConcurrentInstruction;
+import frc.robot.auto.instructions.DriveInstruction;
+import frc.robot.auto.instructions.PauseInstruction;
 import frc.robot.framework.RobotReferences;
 
 public abstract class AutoInstruction extends RobotReferences {
@@ -34,30 +33,32 @@ public abstract class AutoInstruction extends RobotReferences {
         return this;
     }
 
-    private List<AutoInstruction> instructions = new ArrayList<AutoInstruction>();
+    private AutoInstruction next = null;
 
+    public final BlankInstruction blank(boolean completeOnInit) {
+        return AutoBuilder.blank(completeOnInit);
+    }
     public final DriveInstruction drive(double clicks) {
-        DriveInstruction instruction = AutoBuilder.drive(clicks);
-        instructions.add(instruction);
-        return instruction;
+        return setNext(AutoBuilder.drive(clicks));
     }
     public final PauseInstruction pause(double seconds) {
-        PauseInstruction instruction = AutoBuilder.pause(seconds);
-        instructions.add(instruction);
-        return instruction;
+        return setNext(AutoBuilder.pause(seconds));
     }
+    public final ConcurrentInstruction concurrently(AutoInstruction... concurrentInstructions) {
+        return setNext(AutoBuilder.concurrently(concurrentInstructions));
+    }
+
     public final AutoInstruction print(String message) {
         onCompleted(() -> System.out.println(message));
         return this;
     }
 
-    public final AutoInstruction concurrently(AutoInstruction... concurrentInstructions) {
-        instructions.addAll(Arrays.asList(concurrentInstructions));
-        return this;
+    public final AutoInstruction waitOne(AutoEvent event) {
+        return AutoBuilder.waitOne(event);
     }
 
-    public final void execute(Consumer<AutoInstruction> beginExecution) {
-        instructions.forEach(beginExecution);
+    public final void execute(Consumer<AutoInstruction> executor) {
+        executor.accept(next);
     }
 
     public abstract void init();
@@ -69,5 +70,10 @@ public abstract class AutoInstruction extends RobotReferences {
     protected final String getInstructionName() { 
         return getClass().getSimpleName();
     };
+
+    private <T extends AutoInstruction> T setNext(T instruction) {
+        next = instruction;
+        return instruction;
+    }
 
 }

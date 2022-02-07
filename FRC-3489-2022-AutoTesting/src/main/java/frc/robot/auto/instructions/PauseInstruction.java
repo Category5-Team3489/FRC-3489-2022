@@ -1,4 +1,4 @@
-package frc.robot.auto;
+package frc.robot.auto.instructions;
 
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.auto.framework.AutoInstruction;
@@ -25,6 +25,6 @@ public class PauseInstruction extends AutoInstruction {
 
     @Override
     public String debug() {
-        return "Pause Instruction: " + ((int)((pausePeriod - timer.get()) * 1000)) + "ms remaining";
+        return getInstructionName() + ": " + ((int)((pausePeriod - timer.get()) * 1000)) + "ms remaining";
     }
 }

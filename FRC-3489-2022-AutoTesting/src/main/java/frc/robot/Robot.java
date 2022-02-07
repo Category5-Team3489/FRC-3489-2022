@@ -11,6 +11,9 @@ public class Robot extends TimedRobot {
 
   private RobotManager robotManager;
 
+  // TODO Max rate of change of set speed for teleop driving
+  // TODO Button debouncer utils
+
   @Override
   public void robotInit() {
     robotManager = new RobotManager(this);

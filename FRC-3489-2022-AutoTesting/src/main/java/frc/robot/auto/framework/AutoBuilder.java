@@ -1,8 +1,9 @@
 package frc.robot.auto.framework;
 
-import frc.robot.auto.BeginInstruction;
-import frc.robot.auto.DriveInstruction;
-import frc.robot.auto.PauseInstruction;
+import frc.robot.auto.instructions.BlankInstruction;
+import frc.robot.auto.instructions.ConcurrentInstruction;
+import frc.robot.auto.instructions.DriveInstruction;
+import frc.robot.auto.instructions.PauseInstruction;
 import frc.robot.framework.RobotReferences;
 
 public abstract class AutoBuilder extends RobotReferences {
@@ -20,14 +21,14 @@ public abstract class AutoBuilder extends RobotReferences {
         return (() -> autoHandler.autoRunner.setSignal(signal));
     }
 
-    public final BeginInstruction begin() {
-        BeginInstruction instruction = new BeginInstruction();
+    public final BlankInstruction begin() {
+        BlankInstruction instruction = blank(true);
         runner.beginExecution(instruction);
         return instruction;
     }
 
-    public static final BeginInstruction blank() {
-        return new BeginInstruction();
+    public static final BlankInstruction blank(boolean completeOnInit) {
+        return new BlankInstruction(completeOnInit);
     }
     public static final DriveInstruction drive(double clicks) {
         return new DriveInstruction(clicks);
@@ -35,10 +36,18 @@ public abstract class AutoBuilder extends RobotReferences {
     public static final PauseInstruction pause(double seconds) {
         return new PauseInstruction(seconds);
     }
-    public static final BeginInstruction print(String message) {
-        BeginInstruction blank = blank();
+    public static final ConcurrentInstruction concurrently(AutoInstruction... concurrentInstructions) {
+        return new ConcurrentInstruction(concurrentInstructions);
+    }
+
+    public static final BlankInstruction print(String message) {
+        BlankInstruction blank = blank(true);
         blank.print(message);
         return blank;
+    }
+
+    public static final AutoInstruction waitOne(AutoEvent event) {
+        return blank(true).completeOn(event);
     }
 
     public abstract void build();
