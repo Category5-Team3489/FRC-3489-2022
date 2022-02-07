@@ -15,16 +15,18 @@ public abstract class AutoBuilder extends RobotReferences {
     }
 
     public final AutoEvent signal(String signal) {
-        return autoHandler.autoRunner.signal(signal);
+        return runner.signal(signal);
     }
     public final Runnable setSignal(String signal) {
-        return (() -> autoHandler.autoRunner.setSignal(signal));
+        return (() -> runner.setSignal(signal));
     }
 
-    public final BlankInstruction begin() {
-        BlankInstruction instruction = blank(true);
-        runner.beginExecution(instruction);
-        return instruction;
+    public static final AutoInstruction head() {
+        return new blank(true);
+    }
+
+    public final void begin(AutoInstruction head) {
+        runner.beginExecution(head);
     }
 
     public static final BlankInstruction blank(boolean completeOnInit) {
@@ -40,6 +42,11 @@ public abstract class AutoBuilder extends RobotReferences {
         return new ConcurrentInstruction(concurrentInstructions);
     }
 
+    public static final BlankInstruction asynchronously(AutoInstruction... asyncInstructions) {
+        BlankInstruction blank = blank(true);
+        blank.asynchronously(asyncInstructions);
+        return blank;
+    }
     public static final BlankInstruction print(String message) {
         BlankInstruction blank = blank(true);
         blank.print(message);

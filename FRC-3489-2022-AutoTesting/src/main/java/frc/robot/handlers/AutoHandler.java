@@ -10,7 +10,7 @@ import frc.robot.framework.RobotHandler;
 
 public class AutoHandler extends RobotHandler {
 
-    public AutoRunner autoRunner;
+    public AutoRunner runner;
 
     private Map<Integer, AutoBuilder> autos = new HashMap<Integer, AutoBuilder>();
 
@@ -20,16 +20,16 @@ public class AutoHandler extends RobotHandler {
 
     @Override
     public void autonomousInit() {
-        autoRunner = new AutoRunner(robotManager);
+        runner = new AutoRunner(robotManager);
         AutoBuilder auto = autos.get(getSelectedAuto());
         robotManager.copyReferences(auto);
-        auto.setRunner(autoRunner);
+        auto.setRunner(runner);
         auto.build();
     }
     
     @Override
     public void autonomousPeriodic() {
-        autoRunner.periodic();
+        runner.periodic();
     }
 
     private int getSelectedAuto() {

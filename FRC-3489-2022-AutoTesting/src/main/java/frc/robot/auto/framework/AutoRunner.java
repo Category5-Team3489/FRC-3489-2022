@@ -24,11 +24,12 @@ public class AutoRunner {
         concurrentInstructions.add(instruction);
         instruction.init();
         checkInstruction(instruction);
+        removeCompleted();
     }
 
     public void periodic() {
         concurrentInstructions.forEach(instruction -> checkInstruction(instruction));
-        concurrentInstructions.removeIf(AutoInstruction::hasCompleted);
+        removeCompleted();
     }
 
     public AutoEvent signal(String signal) {
@@ -41,7 +42,8 @@ public class AutoRunner {
 
     public void setSignal(String signal) {
         AutoEvent event = signals.get(signal);
-        if (event != null) event.run();
+        if (event == null) return;
+        event.run();
     }
 
     private void checkInstruction(AutoInstruction instruction) {
@@ -49,5 +51,9 @@ public class AutoRunner {
             instruction.execute(chainedInstruction -> beginExecution(chainedInstruction));
         else
             instruction.periodic();
+    }
+
+    private void removeCompleted() {
+        concurrentInstructions.removeIf(AutoInstruction::hasCompleted);
     }
 }

@@ -48,6 +48,12 @@ public abstract class AutoInstruction extends RobotReferences {
         return setNext(AutoBuilder.concurrently(concurrentInstructions));
     }
 
+    public final AutoInstruction asynchronously(AutoInstruction... asyncInstructions) {
+        for (AutoInstruction instruction : asyncInstructions) {
+            onCompleted(() -> autoHandler.autoRunner.beginExecution(instruction));
+        }
+        return this;
+    }
     public final AutoInstruction print(String message) {
         onCompleted(() -> System.out.println(message));
         return this;
@@ -58,6 +64,7 @@ public abstract class AutoInstruction extends RobotReferences {
     }
 
     public final void execute(Consumer<AutoInstruction> executor) {
+        if (next == null) return;
         executor.accept(next);
     }
 
