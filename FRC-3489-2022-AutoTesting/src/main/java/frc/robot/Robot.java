@@ -11,6 +11,14 @@ public class Robot extends TimedRobot {
 
   private RobotManager robotManager;
 
+  // TODO Max rate of change of set speed for teleop driving
+  // TODO Button debouncer utils
+  // TODO DifferentialDrive.setRightSideInverted(boolean);
+  // TODO Look into feedforward
+  // TODO Need to turn all safeties off?
+  // TODO Test auto framework
+  // TODO Look into PID
+
   @Override
   public void robotInit() {
     robotManager = new RobotManager(this);

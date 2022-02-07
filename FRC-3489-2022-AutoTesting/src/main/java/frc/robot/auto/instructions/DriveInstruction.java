@@ -1,16 +1,25 @@
-package frc.robot.auto;
+package frc.robot.auto.instructions;
 
 import frc.robot.auto.framework.AutoInstruction;
 
-public class BeginInstruction extends AutoInstruction {
+public class DriveInstruction extends AutoInstruction {
+
+    public DriveInstruction(double clicks) {
+        
+    }
 
     @Override
     public void init() {
-        complete();
+
     }
 
     @Override
     public void periodic() {
+        complete();
+    }
+
+    @Override
+    public void completed() {
         
     }
 
@@ -18,5 +27,5 @@ public class BeginInstruction extends AutoInstruction {
     public String debug() {
         return getInstructionName();
     }
-    
+
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import frc.robot.Robot;
 import frc.robot.containers.ComponentsContainer;
 import frc.robot.handlers.AutoHandler;
+import frc.robot.handlers.CameraHandler;
 import frc.robot.handlers.DriveHandler;
 
 public final class RobotManager extends RobotHandler {
@@ -19,6 +20,7 @@ public final class RobotManager extends RobotHandler {
 
         handlers.add(driveHandler = new DriveHandler());
         handlers.add(autoHandler = new AutoHandler());
+        handlers.add(cameraHandler = new CameraHandler());
 
         for (RobotReferences references : handlers) {
             copyReferences(references);
@@ -32,6 +34,7 @@ public final class RobotManager extends RobotHandler {
 
         references.driveHandler = driveHandler;
         references.autoHandler = autoHandler;
+        references.cameraHandler = cameraHandler;
     }
 
     public void robotInit() {
