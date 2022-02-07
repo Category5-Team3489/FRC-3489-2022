@@ -2,10 +2,7 @@ package frc.robot.auto.framework;
 
 import java.util.function.Consumer;
 
-import frc.robot.auto.instructions.BlankInstruction;
-import frc.robot.auto.instructions.ConcurrentInstruction;
-import frc.robot.auto.instructions.DriveInstruction;
-import frc.robot.auto.instructions.PauseInstruction;
+import frc.robot.auto.instructions.*;
 import frc.robot.framework.RobotReferences;
 
 public abstract class AutoInstruction extends RobotReferences {

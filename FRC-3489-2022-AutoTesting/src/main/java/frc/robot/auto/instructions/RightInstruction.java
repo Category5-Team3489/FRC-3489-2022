@@ -7,11 +7,11 @@ public class RightInstruction extends AutoInstruction {
 
     private Timer timer = new Timer();
     private double speed;
-    private double period;
+    private double seconds;
 
     public RightInstruction(double speed, double seconds) {
         this.speed = speed;
-        period = seconds;
+        this.seconds = seconds;
     }
 
     @Override

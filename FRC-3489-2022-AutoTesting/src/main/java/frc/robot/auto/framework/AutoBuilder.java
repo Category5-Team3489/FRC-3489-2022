@@ -1,9 +1,6 @@
 package frc.robot.auto.framework;
 
-import frc.robot.auto.instructions.BlankInstruction;
-import frc.robot.auto.instructions.ConcurrentInstruction;
-import frc.robot.auto.instructions.DriveInstruction;
-import frc.robot.auto.instructions.PauseInstruction;
+import frc.robot.auto.instructions.*;
 import frc.robot.framework.RobotReferences;
 
 public abstract class AutoBuilder extends RobotReferences {
@@ -22,7 +19,7 @@ public abstract class AutoBuilder extends RobotReferences {
     }
 
     public static final AutoInstruction head() {
-        return new blank(true);
+        return blank(true);
     }
 
     public final void begin(AutoInstruction head) {
