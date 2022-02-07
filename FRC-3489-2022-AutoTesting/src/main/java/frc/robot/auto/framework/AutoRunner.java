@@ -28,7 +28,7 @@ public class AutoRunner {
     }
 
     public void periodic() {
-        concurrentInstructions.removeIf(instruction -> completeInstruction(instruction));
+        concurrentInstructions.forEach(instruction -> completeInstruction(instruction));
         concurrentInstructions.forEach(AutoInstruction::periodic);
     }
 

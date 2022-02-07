@@ -1,11 +1,11 @@
 package frc.robot;
 
-<<<<<<< HEAD
-import frc.robot.framework.RobotHandler;
+public class ShooterHandler {
+    ComponentsContainer container;
+    public ShooterHandler(){
 
-public class ShooterHandler extends RobotHandler {
-    
- 
+    }
+
     //Shoot the ball
     public void shoot(double speedBottom, double speedTop) {
         components.shooterTop.set(speedTop);
@@ -34,12 +34,6 @@ public class ShooterHandler extends RobotHandler {
         }
     }
 
-=======
-public class ShooterHandler {
-    ComponentsContainer container;
-    public ShooterHandler(){
-
-    }
     public void ShootHigh(){
         container.shooterLeft.set(Constants.ShooterHighSpeed);
         container.shooterRight.set(-Constants.ShooterHighSpeed);
@@ -64,5 +58,4 @@ public class ShooterHandler {
             container.shooterRight.set(CurrentSpeed - value);    
         }
     }
->>>>>>> dc2fa0eaad69a426f5475cb89967d0307981457a
 }
