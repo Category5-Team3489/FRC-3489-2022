@@ -23,11 +23,12 @@ public class AutoRunner {
         robotManager.copyReferences(instruction);
         concurrentInstructions.add(instruction);
         instruction.init();
-        checkInstruction(instruction);
+        if (!completeInstruction(instruction)) return;
+        concurrentInstructions.remove(instruction);
     }
 
     public void periodic() {
-        concurrentInstructions.forEach(instruction -> checkInstruction(instruction));
+        concurrentInstructions.removeIf(instruction -> completeInstruction(instruction));
         concurrentInstructions.forEach(AutoInstruction::periodic);
     }
 
@@ -45,10 +46,10 @@ public class AutoRunner {
         event.run();
     }
 
-    private void checkInstruction(AutoInstruction instruction) {
-        if (!instruction.hasCompleted()) return;
+    private boolean completeInstruction(AutoInstruction instruction) {
+        if (!instruction.hasCompleted()) return false;
         instruction.completed();
         instruction.execute(chainedInstruction -> beginExecution(chainedInstruction));
-        concurrentInstructions.remove(instruction);
+        return true;
     }
 }
