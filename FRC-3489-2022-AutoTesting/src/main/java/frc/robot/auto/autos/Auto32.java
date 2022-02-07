@@ -6,15 +6,61 @@ public class Auto32 extends AutoBuilder {
 
     @Override
     public void build() {
+        simpleTest();
+        pauseTest();
+        concurrencyTest();
+        asynchronyTest();
+        printTest();
+
+        // only exits concurrently block when everything started inside has completed
+    }
+
+    private void simpleTest() {
         begin(head()
-            .drive(1000)
+            .waitOne(signal("simpleTest"))
+            .left(0.5, 3)
+            .right(0.5, 3)
+            .onCompleted(setSignal("pauseTest"))
+        );
+    }
+
+    private void pauseTest() {
+        begin(head()
+            .waitOne(signal("pauseTest"))
+            .left(0.5, 3)
+            .pause(2)
+            .right(0.5, 3)
+            .onCompleted(setSignal("concurrencyTest"))
+        );
+    }
+
+    private void concurrencyTest() {
+        begin(head()
+            .waitOne(signal("concurrencyTest"))
             .concurrently(
-                print("Started driving 2000 clicks"),
-                drive(2000).onCompleted(setSignal("FinishedDrive2000")),
-                waitOne(signal("FinishedDrive2000"))
-                .drive(1000)
-            ) // only exits concurrently block when everything started inside has completed
-            .drive(2000)
+                left(0.5, 3),
+                right(0.5, 3)
+            )
+            .onCompleted(setSignal("asynchronyTest"))
+        );
+    }
+
+    private void asynchronyTest() {
+        begin(head()
+            .waitOne(signal("asynchronyTest"))
+            .asynchronously(
+                left(0.5, 3),
+                right(0.5, 3)
+            )
+            .print("Motors should still be spinning!")
+            .onCompleted(setSignal("printTest"))
+        );
+    }
+
+    private void printTest() {
+        begin(head()
+            .waitOne(signal("printTest"))
+            .print("Completed all tests!")
         );
     }
     

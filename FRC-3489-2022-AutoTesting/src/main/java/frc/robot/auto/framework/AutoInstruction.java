@@ -47,6 +47,12 @@ public abstract class AutoInstruction extends RobotReferences {
     public final ConcurrentInstruction concurrently(AutoInstruction... concurrentInstructions) {
         return setNext(AutoBuilder.concurrently(concurrentInstructions));
     }
+    public final LeftInstruction left(double speed, double seconds) {
+        return setNext(AutoBuilder.left(speed, seconds));
+    }
+    public final RightInstruction right(double speed, double seconds) {
+        return setNext(AutoBuilder.right(speed, seconds));
+    }
 
     public final AutoInstruction asynchronously(AutoInstruction... asyncInstructions) {
         for (AutoInstruction instruction : asyncInstructions) {
