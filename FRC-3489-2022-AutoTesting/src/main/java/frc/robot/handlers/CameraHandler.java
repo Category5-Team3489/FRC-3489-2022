@@ -17,6 +17,7 @@ public class CameraHandler extends RobotHandler {
 
     @Override
     public void robotInit() {
+        /*
         try {
             cameraA = CameraServer.startAutomaticCapture(0);
             cameraB = CameraServer.startAutomaticCapture(1);
@@ -33,9 +34,11 @@ public class CameraHandler extends RobotHandler {
         } catch (Exception e) {
             System.out.println("[CameraHandler] Couldn't init cameras");
         }
+        */
     }
 
     public void setCamera(boolean isCameraB) {
+        /*
         try {
             if (isCameraB)
                 server.setSource(cameraB);
@@ -44,5 +47,6 @@ public class CameraHandler extends RobotHandler {
         } catch (Exception e) {
             System.out.println("[CameraHandler] Had issue switching cameras");
         }
+        */
     }
 }
