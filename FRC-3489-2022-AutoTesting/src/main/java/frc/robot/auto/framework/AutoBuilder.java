@@ -42,15 +42,11 @@ public abstract class AutoBuilder extends RobotReferences {
         return new ConcurrentInstruction(concurrentInstructions);
     }
 
-    public static final BlankInstruction asynchronously(AutoInstruction... asyncInstructions) {
-        BlankInstruction blank = blank(true);
-        blank.asynchronously(asyncInstructions);
-        return blank;
+    public static final AutoInstruction asynchronously(AutoInstruction... asyncInstructions) {
+        return blank(true).asynchronously(asyncInstructions);
     }
-    public static final BlankInstruction print(String message) {
-        BlankInstruction blank = blank(true);
-        blank.print(message);
-        return blank;
+    public static final AutoInstruction print(String message) {
+        return blank(true).print(message);
     }
 
     public static final AutoInstruction waitOne(AutoEvent event) {

@@ -16,7 +16,7 @@ public class ConcurrentInstruction extends AutoInstruction {
 
     @Override
     public void init() {
-        concurrentInstructions.forEach(instruction -> autoHandler.autoRunner.beginExecution(instruction));
+        concurrentInstructions.forEach(instruction -> autoHandler.runner.beginExecution(instruction));
         completeIfAll();
     }
 
