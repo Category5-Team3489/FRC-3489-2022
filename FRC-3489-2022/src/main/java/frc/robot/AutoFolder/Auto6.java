@@ -30,7 +30,7 @@ public class Auto6 {
         if (getEncoderPositionAbs()< shootEncoderClicks){shooterHandler.ShootHigh();}
         else{
             currentStep++;
-            shooterHandler.stop();
+            shooterHandler.stopShooter();
             resetEncoderPosition();}
         }
 

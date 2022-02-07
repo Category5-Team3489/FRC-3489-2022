@@ -8,54 +8,54 @@ public class ShooterHandler {
 
     //Shoot the ball
     public void shoot(double speedBottom, double speedTop) {
-        components.shooterTop.set(speedTop);
-        components.shooterBottom.set(speedBottom);
+        container.shooterTop.set(speedTop);
+        container.shooterBottom.set(speedBottom);
     }
 
     //Stop the motors
     public void stopShooter(){
-        components.shooterBottom.stopMotor();
-        components.shooterTop.stopMotor();
+        container.shooterBottom.stopMotor();
+        container.shooterTop.stopMotor();
     }
 
     //Adjust speed
     public void adjustShooterSpeed(double increment){
-        double currentSpeedTop = components.shooterTop.get();
-        double currentSpeedBottom = components.shooterBottom.get();
+        double currentSpeedTop = container.shooterTop.get();
+        double currentSpeedBottom = container.shooterBottom.get();
 
         //Adjust top shooter
         if ((currentSpeedTop + increment > -1) && (currentSpeedTop + increment < 1)){
-            components.shooterTop.set(currentSpeedTop + increment);
+            container.shooterTop.set(currentSpeedTop + increment);
         }
 
         //Adjust bottom shooter
         if ((currentSpeedBottom + increment > -1) && (currentSpeedBottom + increment < 1)){
-            components.shooterBottom.set(currentSpeedBottom + increment);
+            container.shooterBottom.set(currentSpeedBottom + increment);
         }
     }
 
     public void ShootHigh(){
-        container.shooterLeft.set(Constants.ShooterHighSpeed);
-        container.shooterRight.set(-Constants.ShooterHighSpeed);
+        container.shooterTop.set(Constants.ShooterHighSpeed);
+        container.shooterBottom.set(-Constants.ShooterHighSpeed);
     }
     public void ShootLow(){
-        container.shooterLeft.set(Constants.ShooterLowSpeed);
-        container.shooterRight.set(-Constants.ShooterLowSpeed);
+        container.shooterTop.set(Constants.ShooterLowSpeed);
+        container.shooterBottom.set(-Constants.ShooterLowSpeed);
     }
     public void stopShooting(){
-        container.shooterLeft.stopMotor();
-        container.shooterRight.stopMotor();
+        container.shooterTop.stopMotor();
+        container.shooterBottom.stopMotor();
     }
     public void AdjustShootSpeed(double value){
-        double CurrentSpeed = container.shooterLeft.get();
+        double CurrentSpeed = container.shooterTop.get();
         if (CurrentSpeed + value <= 1){
-            container.shooterLeft.set(CurrentSpeed + value);
-            container.shooterRight.set(CurrentSpeed + value); 
+            container.shooterTop.set(CurrentSpeed + value);
+            container.shooterBottom.set(CurrentSpeed + value); 
             
         }      
         if (CurrentSpeed - value >= -1)  {
-            container.shooterLeft.set(CurrentSpeed - value);
-            container.shooterRight.set(CurrentSpeed - value);    
+            container.shooterTop.set(CurrentSpeed - value);
+            container.shooterBottom.set(CurrentSpeed - value);    
         }
     }
 }
