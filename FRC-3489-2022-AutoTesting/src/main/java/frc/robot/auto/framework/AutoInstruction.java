@@ -72,6 +72,8 @@ public abstract class AutoInstruction extends RobotReferences {
 
     public abstract void periodic();
 
+    public abstract void completed();
+
     public abstract String debug();
 
     protected final String getInstructionName() { 

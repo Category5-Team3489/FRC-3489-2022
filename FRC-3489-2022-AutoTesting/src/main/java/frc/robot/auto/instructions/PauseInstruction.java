@@ -24,6 +24,11 @@ public class PauseInstruction extends AutoInstruction {
     }
 
     @Override
+    public void completed() {
+        
+    }
+
+    @Override
     public String debug() {
         return getInstructionName() + ": " + ((int)((pausePeriod - timer.get()) * 1000)) + "ms remaining";
     }

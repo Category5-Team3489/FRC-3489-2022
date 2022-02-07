@@ -21,6 +21,11 @@ public class BlankInstruction extends AutoInstruction {
     }
 
     @Override
+    public void completed() {
+        
+    }
+
+    @Override
     public String debug() {
         return getInstructionName();
     }

@@ -19,6 +19,11 @@ public class DriveInstruction extends AutoInstruction {
     }
 
     @Override
+    public void completed() {
+        
+    }
+
+    @Override
     public String debug() {
         return getInstructionName();
     }
