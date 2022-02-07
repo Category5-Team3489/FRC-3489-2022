@@ -67,5 +67,15 @@ public final class Constants {
     public static final double auto5RightMotorForTurn = 0.4;
     public static final double auto5DriveForwardClicks = 4000;
     public static final double auto5TurnLeftClicks = 4000;
+
+    //auto 4 Constants 
+    public static final double auto4ShootHighClicks = 4000;
+
+    //auto 7 constants 
+    public static final double auto7ShootHighClicks = 4000;
+    public static final double auto7DriveForwardClicks = 4000;
+    public static final double auto7TransferClicks = 4000; 
+    public static final double auto7DriveTurnClicks = 4000; 
 }
-    
+
+

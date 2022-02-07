@@ -20,16 +20,8 @@ public class Auto7 {
     private CargoTransferHandler CargoHandler; 
     
     //drive Speeds Program Turn speeds Left and Right 
-    private static final double DriveForwardSpeed = 0.65;
     private static final double leftMotorForTurn = 0.2;
-    private static final double rightMotorForTurn = 0.4;
-         
-    //name the Encoders 
-    private static final double ShootHighClicks = 4000;
-    private static final double intakeClicks = 4000; 
-    public static final double DriveForwardClicks = 4000;
-    public static final double transferClicks = 4000; 
-    public static final double Driveturnclicks = 4000; 
+    private static final double rightMotorForTurn = 0.45;
     
     public void autonomous7init(){ 
         //reset the motor the method 
@@ -45,9 +37,7 @@ public class Auto7 {
     private double EncoderPositionForShooter(){
         return Math.abs(container.shooterTop.getSelectedSensorPosition());
     }
-    private double EncoderPositionForIntake(){
-        return Math.abs(container.intakeMotor.getSelectedSensorPosition());
-    }
+
     private double getEncoderPositionForCargoMover(){
         return Math.abs(container.cargoMoverMotor.getSelectedSensorPosition());
     }
@@ -57,7 +47,7 @@ public class Auto7 {
 
     //Shoot into high
     private void Highshoot(){
-        if (EncoderPositionForShooter() < ShootHighClicks) {
+        if (EncoderPositionForShooter() < Constants.auto7ShootHighClicks) {
             ShooterHandler.shoot(Constants.ShooterHighSpeed, Constants.ShooterHighSpeed);
 
         }
@@ -67,22 +57,10 @@ public class Auto7 {
             resetEncoderPosition(); 
         }
 
-    }   
-    //Intake TIME 
-    private void intakeIntake(){
-        if(EncoderPositionForIntake() < intakeClicks) {
-            IntakeHandler.intake();
-        }
-        else{
-            currentStep ++; 
-            ShooterHandler.stopShooter();
-            resetEncoderPosition();
-        }
-
-    }
+    }  
     //CargoMover Time 
     private void cargoTransfer(){
-        if(getEncoderPositionForCargoMover() < transferClicks)
+        if(getEncoderPositionForCargoMover() < Constants.auto7TransferClicks)
             CargoHandler.transferUp();
         else{
             currentStep ++;
@@ -93,18 +71,20 @@ public class Auto7 {
     }
     //drive foward  
     private void driveForward() {
-        if (getEncoderPositionAbs() < DriveForwardClicks) {
-            DriveHandler.tankDrive(DriveForwardSpeed, DriveForwardSpeed);
+        if (getEncoderPositionAbs() < Constants.auto7DriveForwardClicks) {
+            DriveHandler.tankDrive(Constants.driveForwardSpeed, Constants.driveForwardSpeed);
+            IntakeHandler.intake();
         }
         else {
             currentStep++;
             resetEncoderPosition();
             DriveHandler.stop();
+            IntakeHandler.stop();
         }
     }
     //drive Turn tankdrive(is empty need right and left);
     private void driveTurn() {
-        if (getEncoderPositionAbs() < Driveturnclicks) {
+        if (getEncoderPositionAbs() < Constants.auto7DriveTurnClicks) {
             DriveHandler.tankDrive(leftMotorForTurn, rightMotorForTurn); 
 
         }
@@ -120,22 +100,16 @@ public class Auto7 {
             case 1: 
                 Highshoot();
                 break;
-            case 2:
-                driveTurn();
-                break;
-            case 3: 
+            case 2: 
                 driveForward();
                 break;
-            case 4: 
+            case 3: 
                 cargoTransfer();
                 break;
-            case 5: 
-                intakeIntake(); 
-                break; 
-            case 6: 
+            case 4: 
                 driveTurn();
                 break;
-            case 7: 
+            case 5: 
                 driveForward();
                 break; 
 
