@@ -22,6 +22,7 @@ public class Robot extends TimedRobot {
   // TODO Document auto framework
   // TODO Shuffleboard utils
   // TODO ConcurrentInstruction next?
+  // TODO Simplify auto framework
 
   @Override
   public void robotInit() {

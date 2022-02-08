@@ -7,13 +7,41 @@ public abstract class AutoBuilder extends RobotReferences {
 
     private AutoRunner runner;
 
+    /**
+     * Used to set the runner of the auto, used internally
+     * @param runner
+     */
     public final void setRunner(AutoRunner runner) {
         this.runner = runner;
     }
 
+    /**
+     * Gets an event that represents the provided trigger name
+     * <pre>
+     * {@code
+     * // Waits until trigger "trigger name" has been set elsewhere
+     * .waitUntil(getTrigger("trigger name"));
+     * // Allows instruction "anyInstruction" to be forced to complete externally by trigger "trigger name"
+     * .anyInstruction().completeOn(getTrigger("trigger name"));
+     * }
+     * </pre>
+     * @param trigger Name of the trigger being retrieved
+     * @return An event that represents the trigger that can be set
+     */
     public final AutoEvent getTrigger(String trigger) {
         return runner.getTrigger(trigger);
     }
+    /**
+     * Sets a trigger that represents the provided trigger name
+     * <pre>
+     * {@code
+     * // Sets a trigger "trigger name" when "pause(3)" completes
+     * .pause(3).onCompleted(setTrigger("trigger name"));
+     * }
+     * </pre>
+     * @param trigger Name of the trigger being set
+     * @return A runnable that represents setting the trigger
+     */
     public final Runnable setTrigger(String trigger) {
         return (() -> runner.setTrigger(trigger));
     }
@@ -56,6 +84,6 @@ public abstract class AutoBuilder extends RobotReferences {
         return blank(true).completeOn(event);
     }
 
-    public abstract void build();
+    public abstract AutoInstruction build();
 
 }

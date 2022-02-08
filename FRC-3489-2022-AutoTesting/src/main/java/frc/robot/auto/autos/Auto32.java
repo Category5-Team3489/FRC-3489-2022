@@ -6,8 +6,7 @@ import frc.robot.auto.framework.AutoInstruction;
 public class Auto32 extends AutoBuilder {
 
     @Override
-    public void build() {
-
+    public AutoInstruction build() {
         AutoInstruction first = first();
 
         first
@@ -26,7 +25,7 @@ public class Auto32 extends AutoBuilder {
         .waitUntil(getTrigger("async done"))
         .print("Still going?");
         
-        begin(first);
+        return first;
     }
     
 }
