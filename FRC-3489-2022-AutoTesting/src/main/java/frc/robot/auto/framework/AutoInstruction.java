@@ -44,6 +44,7 @@ public abstract class AutoInstruction extends RobotReferences {
 
     /**
      * Creates a blank instruction
+     * Used internally
      * @param completeOnInit Complete the blank instruction on init
      * @return A blank instruction
      */
