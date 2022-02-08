@@ -11,6 +11,11 @@ public abstract class AutoInstruction extends RobotReferences {
 
     protected final AutoEvent completedEvent = new AutoEvent();
 
+    /**
+     * Allows a runnable to be executed when the instruction completes
+     * @param runnable Runnable to executed on completion
+     * @return This instruction
+     */
     public final AutoInstruction onCompleted(Runnable runnable) {
         completedEvent.sub(runnable);
         return this;
@@ -25,6 +30,11 @@ public abstract class AutoInstruction extends RobotReferences {
         return completed;
     }
 
+    /**
+     * Allows this instruction to complete whenever the provided event is triggered
+     * @param event The event that can trigger completion
+     * @return This instruction
+     */
     public final AutoInstruction completeOn(AutoEvent event) {
         event.sub(() -> complete());
         return this;
@@ -32,36 +42,82 @@ public abstract class AutoInstruction extends RobotReferences {
 
     private AutoInstruction next = null;
 
+    /**
+     * Creates a blank instruction
+     * @param completeOnInit Complete the blank instruction on init
+     * @return A blank instruction
+     */
     public final BlankInstruction blank(boolean completeOnInit) {
         return setNext(AutoBuilder.blank(completeOnInit));
     }
+    /**
+     * Creates a drive instruction
+     * @param clicks Clicks to drive
+     * @return A drive instruction
+     */
     public final DriveInstruction drive(double clicks) {
         return setNext(AutoBuilder.drive(clicks));
     }
+    /**
+     * Creates a pause instruction
+     * @param seconds Seconds to pause for
+     * @return A pause instruction
+     */
     public final PauseInstruction pause(double seconds) {
         return setNext(AutoBuilder.pause(seconds));
     }
+    /**
+     * Concurrently runs a set of instructions
+     * @param concurrentInstructions Set of concurrent instructions
+     * @return A concurrent instruction that represents the execution of the set
+     */
     public final ConcurrentInstruction concurrently(AutoInstruction... concurrentInstructions) {
         return setNext(AutoBuilder.concurrently(concurrentInstructions));
     }
+    /**
+     * Creates a test instruction
+     * @param speed Speed test motor should spin
+     * @param seconds Seconds test motor should spin for
+     * @return A test instruction
+     */
     public final LeftInstruction left(double speed, double seconds) {
         return setNext(AutoBuilder.left(speed, seconds));
     }
+    /**
+     * Creates a test instruction
+     * @param speed Speed test motor should spin
+     * @param seconds Seconds test motor should spin for
+     * @return A test instruction
+     */
     public final RightInstruction right(double speed, double seconds) {
         return setNext(AutoBuilder.right(speed, seconds));
     }
 
+    /**
+     * Asynchronously runs a set of instructions
+     * @param asyncInstructions Set of async instructions
+     * @return A blank instruction after instantly starting the set
+     */
     public final AutoInstruction asynchronously(AutoInstruction... asyncInstructions) {
         for (AutoInstruction instruction : asyncInstructions) {
             onCompleted(() -> autoHandler.runner.beginExecution(instruction));
         }
         return this;
     }
+    /**
+     * Prints a message
+     * @param message The message
+     * @return A blank instruction that completes instantly after printing
+     */
     public final AutoInstruction print(String message) {
         onCompleted(() -> System.out.println(message));
         return this;
     }
-
+    /**
+     * Creates a blank instruction that completes when the provided event is triggered
+     * @param event The event to wait for
+     * @return A blank instruction representing the completion of the provided event
+     */
     public final AutoInstruction waitUntil(AutoEvent event) {
         return AutoBuilder.waitUntil(event);
     }
