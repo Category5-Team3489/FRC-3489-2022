@@ -23,13 +23,12 @@ public class AutoRunner {
         robotManager.copyReferences(instruction);
         concurrentInstructions.add(instruction);
         instruction.init();
-        if (!completeInstruction(instruction)) return;
-        concurrentInstructions.remove(instruction);
+        completeInstruction(instruction);
     }
 
     public void periodic() {
-        concurrentInstructions.forEach(instruction -> completeInstruction(instruction));
-        concurrentInstructions.forEach(AutoInstruction::periodic);
+        copyInstructions().forEach(instruction -> completeInstruction(instruction));
+        copyInstructions().forEach(AutoInstruction::periodic);
     }
 
     public AutoEvent signal(String signal) {
@@ -46,10 +45,14 @@ public class AutoRunner {
         event.run();
     }
 
-    private boolean completeInstruction(AutoInstruction instruction) {
-        if (!instruction.hasCompleted()) return false;
+    private void completeInstruction(AutoInstruction instruction) {
+        if (!instruction.hasCompleted()) return;
         instruction.completed();
         instruction.execute(nextInstruction -> beginExecution(nextInstruction));
-        return true;
+        concurrentInstructions.remove(instruction);
+    }
+
+    private List<AutoInstruction> copyInstructions() {
+        return new ArrayList<AutoInstruction>(concurrentInstructions);
     }
 }

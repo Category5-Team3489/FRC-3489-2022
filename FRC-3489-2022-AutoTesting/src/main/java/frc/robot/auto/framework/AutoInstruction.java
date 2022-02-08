@@ -53,7 +53,10 @@ public abstract class AutoInstruction extends RobotReferences {
 
     public final AutoInstruction asynchronously(AutoInstruction... asyncInstructions) {
         for (AutoInstruction instruction : asyncInstructions) {
-            onCompleted(() -> autoHandler.runner.beginExecution(instruction));
+            onCompleted(() -> {
+                System.out.println("Running async thing");
+                autoHandler.runner.beginExecution(instruction);
+            });
         }
         return this;
     }

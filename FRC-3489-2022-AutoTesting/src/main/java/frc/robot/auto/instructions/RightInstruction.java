@@ -21,7 +21,6 @@ public class RightInstruction extends AutoInstruction {
 
     @Override
     public void periodic() {
-        System.out.println("Running right");
         if (timer.hasElapsed(seconds))
             complete();
         else
@@ -31,7 +30,6 @@ public class RightInstruction extends AutoInstruction {
     @Override
     public void completed() {
         components.rightTestMotor.stopMotor();
-        System.out.println("Done");
     }
 
     @Override

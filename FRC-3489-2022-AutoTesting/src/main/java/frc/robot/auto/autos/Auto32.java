@@ -12,8 +12,18 @@ public class Auto32 extends AutoBuilder {
 
         head
         .left(0.1, 3)
-        .right(0.1, 3);
-
+        .right(0.1, 3)
+        .pause(2)
+        .concurrently(
+            left(0.1, 3),
+            right(0.1, 3)
+        )
+        .pause(2)
+        .asynchronously(
+            left(0.1, 3),
+            right(0.1, 3)
+        )
+        .print("Still going?");
         begin(head);
 
 
