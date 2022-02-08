@@ -21,8 +21,9 @@ public class Auto32 extends AutoBuilder {
         .pause(2)
         .asynchronously(
             left(0.1, 3),
-            right(0.1, 3)
+            right(0.1, 3).onCompleted(setTrigger("async done"))
         )
+        .waitUntil(getTrigger("async done"))
         .print("Still going?");
         
         begin(first);
