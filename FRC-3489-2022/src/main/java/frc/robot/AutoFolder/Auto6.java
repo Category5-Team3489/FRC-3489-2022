@@ -32,7 +32,7 @@ public class Auto6 {
 
     //Shoot
     private void shoot(){
-        if (getEncoderPositionShooter()< constants.shootEncoderClicks){shooterHandler.ShootHigh();}
+        if (getEncoderPositionShooter()< constants.auto6ShootEncoderClicks){shooterHandler.ShootHigh();}
         else{
             currentStep++;
             shooterHandler.stop();
@@ -41,7 +41,7 @@ public class Auto6 {
         }
     //drive Forward and intake
     private void driveForwardIntake(){
-         if (getEncoderPositionDrive()< constants.forwardEncoderClicks){driveHandler.tankDrive(0.5, 0.5);
+         if (getEncoderPositionDrive()< constants.auto6ForwardEncoderClicks){driveHandler.tankDrive(0.5, 0.5);
         intakeHandler.intake();}
         else{
             currentStep++;
@@ -52,7 +52,7 @@ public class Auto6 {
 
     // Cargo Transfer
     private void cargoTransfer(){
-        if (getEncoderPositionCargo()< constants.cargoTransferClicks){cargoTransferHandler.transferUp();}
+        if (getEncoderPositionCargo()< constants.auto6CargoTransferClicks){cargoTransferHandler.transferUp();}
         else{
             currentStep++;
             cargoTransferHandler.transferStop();
@@ -62,7 +62,7 @@ public class Auto6 {
 
     //Turn Right
     private void turnRight(){
-        if (getEncoderPositionDrive()< constants.turnRightEncoderClicks){driveHandler.tankDrive(0.7, 0.5);}
+        if (getEncoderPositionDrive()< constants.auto6TurnRightEncoderClicks){driveHandler.tankDrive(0.7, 0.5);}
         else{
             currentStep++;
             driveHandler.stop();

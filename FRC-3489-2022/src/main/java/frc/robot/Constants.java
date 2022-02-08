@@ -46,14 +46,16 @@ public final class Constants {
     public static final int RightDriveJoystick = 1;
     public static final int ManipulatorJoystick = 2;
 
-    //Encoder Clicks
-    public static final double forwardEncoderClicks = 4000;
-    public static final double turnLeft = 2000;
-    public static final double shootEncoderClicks = 4000;
-    public static final double intakeStartClicks =4000;
-    public static final double intakeStopClicks = 4000;
-    public static final double cargoTransferClicks = 4000;
-    public static final double turnRightEncoderClicks = 4000;
+    //Auto 1 Encoder Clicks
+    public static final double auto1ForwardEncoderClicks = 4000;
+    public static final double auto1TurnLeft = 2000;
+
+    //Auto 6 Encoder Clicks
+    public static final double auto6ShootEncoderClicks = 4000;
+    public static final double auto6IntakeStartClicks =4000;
+    public static final double auto6IntakeStopClicks = 4000;
+    public static final double auto6CargoTransferClicks = 4000;
+    public static final double auto6TurnRightEncoderClicks = 4000;
 
     
 

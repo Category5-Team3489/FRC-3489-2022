@@ -33,7 +33,7 @@ public class Auto1 {
     
     //Drive Forward
     private void driveForward(){
-        if (getEncoderPositionAbs()< constants.forwardEncoderClicks){driveHandler.tankDrive(0.5, 0.5);}
+        if (getEncoderPositionAbs()< constants.auto1ForwardEncoderClicks){driveHandler.tankDrive(0.5, 0.5);}
         else{
             currentStep++;
             driveHandler.stop();
@@ -48,7 +48,7 @@ public class Auto1 {
     
         //Turn Left
     private void turnLeft(){
-        if (getEncoderPositionAbs()<constants.turnLeft){
+        if (getEncoderPositionAbs()<constants.auto1TurnLeft){
             driveHandler.tankDrive(0.4, 0.7);
         }
         else{
