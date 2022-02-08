@@ -77,7 +77,7 @@ public abstract class AutoInstruction extends RobotReferences {
     }
     /**
      * Creates a test instruction
-     * @param speed Speed test motor should spin
+     * @param speed Speed test motor should spin at
      * @param seconds Seconds test motor should spin for
      * @return A test instruction
      */
@@ -86,7 +86,7 @@ public abstract class AutoInstruction extends RobotReferences {
     }
     /**
      * Creates a test instruction
-     * @param speed Speed test motor should spin
+     * @param speed Speed test motor should spin at
      * @param seconds Seconds test motor should spin for
      * @return A test instruction
      */
