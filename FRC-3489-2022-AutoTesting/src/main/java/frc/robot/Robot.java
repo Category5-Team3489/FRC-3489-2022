@@ -18,6 +18,9 @@ public class Robot extends TimedRobot {
   // TODO Need to turn all safeties off?
   // TODO Test auto framework
   // TODO Look into PID
+  // TODO Rev robotics library and code
+  // TODO Document auto framework
+  // TODO Shuffleboard utils
 
   @Override
   public void robotInit() {
