@@ -21,9 +21,9 @@ public class DriveHandler extends RobotHandler {
         if (Math.abs(leftY) >= 0.1) leftSpeed = leftY;
         if (Math.abs(rightY) >= 0.1) rightSpeed = rightY;
         if (frontSwitched)
-            components.drive.tankDrive(leftSpeed, rightSpeed);
+            components.drive.tankDrive(rightSpeed, leftSpeed);
         else
-            components.drive.tankDrive(-rightSpeed, -leftSpeed);
+            components.drive.tankDrive(-leftSpeed, -rightSpeed);
     }
 
     public boolean isFrontSwitched() {

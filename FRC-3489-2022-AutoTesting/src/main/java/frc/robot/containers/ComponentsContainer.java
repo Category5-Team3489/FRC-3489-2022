@@ -33,15 +33,22 @@ public final class ComponentsContainer {
         leftDriveJoystick = new Joystick(0);
         rightDriveJoystick = new Joystick(1);
 
-        setSafeties(leftFrontDriveMotor = new WPI_TalonSRX(1));
-        setSafeties(rightFrontDriveMotor = new WPI_TalonSRX(2));
-        setSafeties(leftFollowerDriveMotor = new WPI_TalonSRX(3));
-        setSafeties(rightFollowerDriveMotor = new WPI_TalonSRX(4));
+        leftFrontDriveMotor = new WPI_TalonSRX(1);
+        rightFrontDriveMotor = new WPI_TalonSRX(2);
+        leftFollowerDriveMotor = new WPI_TalonSRX(3);
+        rightFollowerDriveMotor = new WPI_TalonSRX(4);
+
+        setSafeties(drive = new DifferentialDrive(leftFrontDriveMotor, rightFrontDriveMotor));
+
+        setSafeties(leftFrontDriveMotor);
+        setSafeties(rightFrontDriveMotor);
+        setSafeties(leftFollowerDriveMotor);
+        setSafeties(rightFollowerDriveMotor);
 
         rightFrontDriveMotor.setInverted(true);
+        rightFollowerDriveMotor.setInverted(true);
         leftFollowerDriveMotor.follow(leftFrontDriveMotor);
         rightFollowerDriveMotor.follow(rightFrontDriveMotor);
-        setSafeties(drive = new DifferentialDrive(leftFrontDriveMotor, rightFrontDriveMotor));
     }
 
     private void setSafeties(WPI_TalonSRX motor) {
