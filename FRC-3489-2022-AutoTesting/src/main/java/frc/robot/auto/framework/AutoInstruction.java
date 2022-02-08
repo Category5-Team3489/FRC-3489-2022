@@ -56,8 +56,8 @@ public abstract class AutoInstruction extends RobotReferences {
      * @param clicks Clicks to drive
      * @return A drive instruction
      */
-    public final DriveInstruction drive(double clicks) {
-        return setNext(AutoBuilder.drive(clicks));
+    public final DriveInstruction drive(double speed, double clicks) {
+        return setNext(AutoBuilder.drive(speed, clicks));
     }
     /**
      * Creates a pause instruction
@@ -92,6 +92,18 @@ public abstract class AutoInstruction extends RobotReferences {
      */
     public final RightInstruction right(double speed, double seconds) {
         return setNext(AutoBuilder.right(speed, seconds));
+    }
+    public final CargoTransferInstruction cargoTransfer(double speed, double clicks) {
+        return setNext(AutoBuilder.cargoTransfer(speed, clicks));
+    }
+    public final IntakeInstruction intake(double speed, double seconds) {
+        return setNext(AutoBuilder.intake(speed, seconds));
+    }
+    public final ShootInstruction shoot(double speed, double seconds) {
+        return setNext(AutoBuilder.shoot(speed, seconds));
+    }
+    public final TurnInstruction turn(double speed, double degrees) {
+        return setNext(AutoBuilder.turn(speed, degrees));
     }
 
     /**

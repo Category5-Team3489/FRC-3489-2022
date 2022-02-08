@@ -2,10 +2,10 @@ package frc.robot.auto.instructions;
 
 import frc.robot.auto.framework.AutoInstruction;
 
-public class DriveInstruction extends AutoInstruction {
+public class ShootInstruction extends AutoInstruction {
 
-    public DriveInstruction(double speed, double clicks) {
-        
+    public ShootInstruction(double speed, double seconds) {
+
     }
 
     @Override
@@ -15,17 +15,17 @@ public class DriveInstruction extends AutoInstruction {
 
     @Override
     public void periodic() {
-        complete();
+
     }
 
     @Override
     public void completed() {
-        
+
     }
 
     @Override
     public String debug() {
         return getInstructionName();
     }
-
+    
 }
