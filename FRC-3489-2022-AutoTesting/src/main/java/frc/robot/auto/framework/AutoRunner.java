@@ -13,7 +13,7 @@ public class AutoRunner {
 
     private List<AutoInstruction> concurrentInstructions = new ArrayList<AutoInstruction>();
 
-    private Map<String, AutoEvent> signals = new HashMap<String, AutoEvent>();
+    private Map<String, AutoEvent> triggers = new HashMap<String, AutoEvent>();
 
     public AutoRunner(RobotManager robotManager) {
         this.robotManager = robotManager;
@@ -31,16 +31,16 @@ public class AutoRunner {
         copyInstructions().forEach(AutoInstruction::periodic);
     }
 
-    public AutoEvent signal(String signal) {
-        if (signals.containsKey(signal))
-            return signals.get(signal);
+    public AutoEvent getTrigger(String trigger) {
+        if (triggers.containsKey(trigger))
+            return triggers.get(trigger);
         AutoEvent event = new AutoEvent();
-        signals.put(signal, event);
+        triggers.put(trigger, event);
         return event;
     }
 
-    public void setSignal(String signal) {
-        AutoEvent event = signals.get(signal);
+    public void setTrigger(String trigger) {
+        AutoEvent event = triggers.get(trigger);
         if (event == null) return;
         event.run();
     }

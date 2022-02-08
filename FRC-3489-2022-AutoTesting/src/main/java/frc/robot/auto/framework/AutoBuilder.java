@@ -11,19 +11,19 @@ public abstract class AutoBuilder extends RobotReferences {
         this.runner = runner;
     }
 
-    public final AutoEvent signal(String signal) {
-        return runner.signal(signal);
+    public final AutoEvent getTrigger(String trigger) {
+        return runner.getTrigger(trigger);
     }
-    public final Runnable setSignal(String signal) {
-        return (() -> runner.setSignal(signal));
+    public final Runnable setTrigger(String trigger) {
+        return (() -> runner.setTrigger(trigger));
     }
 
-    public static final AutoInstruction head() {
+    public static final AutoInstruction first() {
         return blank(true);
     }
 
-    public final void begin(AutoInstruction head) {
-        runner.beginExecution(head);
+    public final void begin(AutoInstruction first) {
+        runner.beginExecution(first);
     }
 
     public static final BlankInstruction blank(boolean completeOnInit) {
@@ -52,7 +52,7 @@ public abstract class AutoBuilder extends RobotReferences {
         return blank(true).print(message);
     }
 
-    public static final AutoInstruction waitOne(AutoEvent event) {
+    public static final AutoInstruction waitUntil(AutoEvent event) {
         return blank(true).completeOn(event);
     }
 

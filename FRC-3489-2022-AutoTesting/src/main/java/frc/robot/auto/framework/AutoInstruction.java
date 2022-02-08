@@ -53,10 +53,7 @@ public abstract class AutoInstruction extends RobotReferences {
 
     public final AutoInstruction asynchronously(AutoInstruction... asyncInstructions) {
         for (AutoInstruction instruction : asyncInstructions) {
-            onCompleted(() -> {
-                System.out.println("Running async thing");
-                autoHandler.runner.beginExecution(instruction);
-            });
+            onCompleted(() -> autoHandler.runner.beginExecution(instruction));
         }
         return this;
     }
@@ -65,8 +62,8 @@ public abstract class AutoInstruction extends RobotReferences {
         return this;
     }
 
-    public final AutoInstruction waitOne(AutoEvent event) {
-        return AutoBuilder.waitOne(event);
+    public final AutoInstruction waitUntil(AutoEvent event) {
+        return AutoBuilder.waitUntil(event);
     }
 
     public final void execute(Consumer<AutoInstruction> executor) {
