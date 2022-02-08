@@ -1,6 +1,6 @@
+//Shoot, Intake, Turn Right, Drive forward
 public class Auto6 {
     
-
 
     public void init(){
         resetEncoderPosition();
@@ -8,6 +8,7 @@ public class Auto6 {
     
     private int currentStep = 1;
 
+    //Handlers
     private DifferentialDrive differentialDrive;
     private ShooterHandler shooterHandler;
     private DriveHandler driveHandler;
@@ -42,7 +43,7 @@ public class Auto6 {
     //drive Forward and intake
     private void driveForwardIntake(){
          if (getEncoderPositionDrive()< constants.auto6ForwardEncoderClicks){driveHandler.tankDrive(0.5, 0.5);
-        intakeHandler.intake();}
+            intakeHandler.intake();}
         else{
             currentStep++;
             driveHandler.stop();
@@ -70,6 +71,7 @@ public class Auto6 {
         }
     }
 
+    //sequence
     public void auto6(){
         switch(currentStep){
             case 1:
@@ -87,9 +89,6 @@ public class Auto6 {
             case 5:
             driveForward();
             break;
-            
-
-
             
         }
 

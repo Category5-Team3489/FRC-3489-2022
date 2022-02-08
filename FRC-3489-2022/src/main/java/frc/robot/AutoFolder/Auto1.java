@@ -2,16 +2,25 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
+//Move Forward, Turn Left, Move Forward
+
 public class Auto1 {
     private ComponentsContainer components;
     private DifferentialDrive differentialDrive;
     private DriveHandler driveHandler;
     private Constants constants;
     private int currentStep = 1;
-    
+
+    private double getEncoderPositionAbs(){
+        return Math.abs(components.frontRightDrive.getSelectedSensorPosition());
+    }
    
     public void init(){
         resetEncoderPosition();
+    }
+
+    private void resetEncoderPosition(){
+        components.frontLeftDrive.setSelectedSensorPosition(0);
     }
 
     //sequence
@@ -29,11 +38,10 @@ public class Auto1 {
         }
 
     }
-
-    
     //Drive Forward
     private void driveForward(){
-        if (getEncoderPositionAbs()< constants.auto1ForwardEncoderClicks){driveHandler.tankDrive(0.5, 0.5);}
+        if (getEncoderPositionAbs()< constants.auto1ForwardEncoderClicks){
+            driveHandler.tankDrive(0.5, 0.5);}
         else{
             currentStep++;
             driveHandler.stop();
@@ -41,11 +49,6 @@ public class Auto1 {
         }
 
     }
-        private void resetEncoderPosition(){
-            components.frontLeftDrive.setSelectedSensorPosition(0);
-        }
-
-    
         //Turn Left
     private void turnLeft(){
         if (getEncoderPositionAbs()<constants.auto1TurnLeft){
@@ -60,11 +63,4 @@ public class Auto1 {
       
     }
    
-    
-    private double getEncoderPositionAbs(){
-        return Math.abs(components.frontRightDrive.getSelectedSensorPosition());
-    }
-
-   
-    
 }
