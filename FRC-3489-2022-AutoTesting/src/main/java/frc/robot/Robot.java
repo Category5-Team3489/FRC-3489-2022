@@ -19,15 +19,28 @@ public class Robot extends TimedRobot {
   // TODO Document auto framework
   // TODO Shuffleboard utils
   // TODO Simplify auto framework
+  // TODO Logger handler
+  // TODO High frequency periodic method in auto for PID, 200hz maybe
+  // TODO Get class name method in RobotReferences? for logger
 
   // PID
+  // TODO look at Ziegler–Nichols tuning
+  // TODO Grapher for PID stuff
+  // TODO Scale PID constants to within resonable magnitudes
   // TODO Integrator anti-windup?
   // TODO Conditional integration? May be better than clamping??
-  // TODO Clamp integration when D is above threshold? May cause jerk I starts influencing
+  // TODO Clamp integration when D is above threshold? May cause jerk when I starts influencing
+
+  // PID Constant interpolation?
+  // PID X set speed, Y voltage drop
+  // TODO Revaluate PID constants when accel stops?
 
   // Current
   // TODO Fix 2 drive docs
   // TODO Auto docs
+
+  // TODO Get clicks per rotation of wheels
+
 
   @Override
   public void robotInit() {
