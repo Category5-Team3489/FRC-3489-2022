@@ -25,7 +25,7 @@ public class Robot extends TimedRobot {
 
   // PID
   // TODO look at Ziegler–Nichols tuning
-  // TODO Grapher for PID stuff
+  // TODO Grapher for PID stuff https://app.rawgraphs.io/, include T, P, I, D, Error
   // TODO Scale PID constants to within resonable magnitudes
   // TODO Integrator anti-windup?
   // TODO Conditional integration? May be better than clamping??
