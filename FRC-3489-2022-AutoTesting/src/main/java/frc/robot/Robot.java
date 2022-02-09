@@ -20,6 +20,11 @@ public class Robot extends TimedRobot {
   // TODO Shuffleboard utils
   // TODO Simplify auto framework
 
+  // PID
+  // TODO Integrator anti-windup?
+  // TODO Conditional integration? May be better than clamping??
+  // TODO Clamp integration when D is above threshold? May cause jerk I starts influencing
+
   // Current
   // TODO Fix 2 drive docs
   // TODO Auto docs
