@@ -76,6 +76,17 @@ public final class Constants {
     public static final double auto7DriveForwardClicks = 4000;
     public static final double auto7TransferClicks = 4000; 
     public static final double auto7DriveTurnClicks = 4000; 
+
+    //auto 6 constants 
+    public static final double auto6ShootEncoderClicks = 4000; 
+    public static final double auto6IntakeStartClicks = 4000; 
+    public static final double auto6IntakeStopClicks = 4000;
+    public static final double auto6CargoTransferClicks = 4000; 
+    public static final double auto6TUrnRightEncoderClicks = 4000; 
+
+    //auto 1 constants 
+    public static final double auto1ForwardEncoderClicks = 4000; 
+    public static final double auto1TurnLeft = 4000; 
 }
 
 

@@ -1,42 +1,47 @@
-package frc.robot.AutoFolder;
+package frc.robot;
 
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
-import frc.robot.ComponentsContainer;
-import frc.robot.DriveHandler;
+//Move Forward, Turn Left, Move Forward
 
 public class Auto1 {
-    ComponentsContainer components;
-    private static int currentStep = 1;
-    private static final double encoderClicks = 4000;
-    private static final double turnLeft = 2000;
+    private ComponentsContainer components;
+    private DifferentialDrive differentialDrive;
+    private DriveHandler driveHandler;
+    private Constants constants;
+    private int currentStep = 1;
+
+    private double getEncoderPositionAbs(){
+        return Math.abs(components.frontRightDrive.getSelectedSensorPosition());
+    }
    
     public void init(){
         resetEncoderPosition();
     }
 
-    public static void auto1(){
+    private void resetEncoderPosition(){
+        components.frontLeftDrive.setSelectedSensorPosition(0);
+    }
+
+    //sequence
+    public void auto1(){
         switch(currentStep){
             case 1:
-                driveForward();
-                break;
+            driveForward();
+            break;
             case 2:
-                turnLeft();
-                break;
+            turnLeft();
+            break;
             case 3:
-                driveForward();
-                break;
+            driveForward();
+            break;
         }
 
     }
-
-    
-    private DriveHandler driveHandler;
-    
-
+    //Drive Forward
     private void driveForward(){
-        if (getEncoderPositionAbs()< encoderClicks){
-            driveHandler.tankDrive(0.5, 0.5);
-        }
+        if (getEncoderPositionAbs()< constants.auto1ForwardEncoderClicks){
+            driveHandler.tankDrive(0.5, 0.5);}
         else{
             currentStep++;
             driveHandler.stop();
@@ -44,15 +49,10 @@ public class Auto1 {
         }
 
     }
-        private void resetEncoderPosition(){
-            components.frontLeftDrive.setSelectedSensorPosition(0);
-        }
-
-    
-
+        //Turn Left
     private void turnLeft(){
-        if (getEncoderPositionAbs()<turnLeft){
-            driveHandler.tankDrive(0.2, 0.3);
+        if (getEncoderPositionAbs()<constants.auto1TurnLeft){
+            driveHandler.tankDrive(0.4, 0.7);
         }
         else{
             currentStep++;
@@ -63,10 +63,5 @@ public class Auto1 {
       
     }
    
-    private double getEncoderPositionAbs(){
-        return Math.abs(components.frontLeftDrive.getSelectedSensorPosition());
-    }
-
-   
-    
 }
+

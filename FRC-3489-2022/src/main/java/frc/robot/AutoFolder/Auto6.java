@@ -1,67 +1,69 @@
-package frc.robot.AutoFolder;
-
-
-import frc.robot.ComponentsContainer;
-import frc.robot.DriveHandler;
-import frc.robot.IntakeHandler;
-import frc.robot.ShooterHandler;
-import frc.robot.CargoTransferHandler;
-
+//Shoot, Intake, Turn Right, Drive forward
 public class Auto6 {
     
-    ComponentsContainer components;
-    private static final double shootEncoderClicks = 4000;
-    private static final double forwardEncoderClicks = 4000;
-    private static final double intakeEncoderClicks =4000;
-    private static final double cargoTransferClicks = 4000;
-    private static final double turnRightEncoderClicks = 4000;
-    private int currentStep = 1;
 
     public void init(){
         resetEncoderPosition();
     }
+    
+    private int currentStep = 1;
 
+    //Handlers
+    private DifferentialDrive differentialDrive;
     private ShooterHandler shooterHandler;
     private DriveHandler driveHandler;
-    private IntakeHandler intakeHandler;
+    private IntakeHadler intakeHandler;
     private CargoTransferHandler cargoTransferHandler;
+    private ComponentsContainer components;
+    private Constants constants;
+    
+    //Shooter Encoder Clicks
+    private double getEncoderPositionShooter(){
+        return Math.abs(components.shooterTop.getSelectedSensorPosition());
+    }
+    //Drive Encoder Clicks
+    private double getEncoderPositionDrive(){
+        return Math.abs(components.frontLeftDrive.getSelectedSensorPosition());
+    }
+    //Cargo Transfer Encoder Clicks
+    private double getEncoderPositionCargo(){
+        return Math.abs(components.cargoMotorMover.getSelectedSensorPosition());
+    }
 
+
+    //Shoot
     private void shoot(){
-        if (getEncoderPositionAbs()< shootEncoderClicks){shooterHandler.ShootHigh();}
+        if (getEncoderPositionShooter()< constants.auto6ShootEncoderClicks){shooterHandler.ShootHigh();}
         else{
             currentStep++;
-            shooterHandler.stopShooter();
+            shooterHandler.stop();
             resetEncoderPosition();}
+        
         }
-
-    private void driveForward(){
-         if (getEncoderPositionAbs()< forwardEncoderClicks){driveHandler.tankDrive(0.5, 0.5);}
+    //drive Forward and intake
+    private void driveForwardIntake(){
+         if (getEncoderPositionDrive()< constants.auto6ForwardEncoderClicks){driveHandler.tankDrive(0.5, 0.5);
+            intakeHandler.intake();}
         else{
             currentStep++;
             driveHandler.stop();
+            intakeHandler.stop();
             resetEncoderPosition();}
             }
 
-    private void intakeStart(){
-        if (getEncoderPositionAbs()< intakeEncoderClicks){intakeHandler.intake();}
-        else{
-            currentStep++;
-            inkakeHandler.stop();
-            resetEncoderPosition();}
-        }
-
-    
-
+    // Cargo Transfer
     private void cargoTransfer(){
-        if (getEncoderPositionAbs()< cargoTransferClicks){cargoTransferHandler.transferUp();}
+        if (getEncoderPositionCargo()< constants.auto6CargoTransferClicks){cargoTransferHandler.transferUp();}
         else{
             currentStep++;
             cargoTransferHandler.transferStop();
             resetEncoderPosition();
         }
     }
+
+    //Turn Right
     private void turnRight(){
-        if (getEncoderPositionAbs()< turnRightEncoderClicks){driveHandler.tankDrive(0.5, 0.3);}
+        if (getEncoderPositionDrive()< constants.auto6TurnRightEncoderClicks){driveHandler.tankDrive(0.7, 0.5);}
         else{
             currentStep++;
             driveHandler.stop();
@@ -69,29 +71,24 @@ public class Auto6 {
         }
     }
 
+    //sequence
     public void auto6(){
         switch(currentStep){
             case 1:
             shoot();
             break;
             case 2:
-            driveForward();
+            driveForwardIntake();
             break;
             case 3:
-            intakeStart();
-            break;
-            case 4:
             cargoTransfer();
             break;
-            case 5:
+            case 4:
             turnRight();
             break;
-            case 6:
+            case 5:
             driveForward();
             break;
-            
-
-
             
         }
 
@@ -104,4 +101,5 @@ public class Auto6 {
         
 
 }
+
 
