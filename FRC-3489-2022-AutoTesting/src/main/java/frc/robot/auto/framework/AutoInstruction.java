@@ -140,6 +140,13 @@ public abstract class AutoInstruction extends RobotReferences {
         executor.accept(next);
     }
 
+    public boolean anyBelowIncomplete() {
+        if (next == null) return false;
+        if (!next.hasCompleted()) return true;
+        if (next.anyBelowIncomplete()) return true;
+        return false;
+    }
+
     public abstract void init();
 
     public abstract void periodic();

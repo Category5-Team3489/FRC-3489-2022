@@ -35,19 +35,17 @@ public class ConcurrentInstruction extends AutoInstruction {
         return getInstructionName();
     }
 
-    private boolean anyIncomplete() {
+    @Override
+    public boolean anyBelowIncomplete() {
         for (AutoInstruction instruction : concurrentInstructions) {
             if (!instruction.hasCompleted()) return true;
-            if (instruction instanceof ConcurrentInstruction) {
-                ConcurrentInstruction concurrentInstruction = (ConcurrentInstruction)instruction;
-                return concurrentInstruction.anyIncomplete();
-            }
+            if (instruction.anyBelowIncomplete()) return true;
         }
         return false;
     }
 
     private void completeIfAll() {
-        if (anyIncomplete()) return;
+        if (anyBelowIncomplete()) return;
         complete();
     }
     

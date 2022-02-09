@@ -13,10 +13,7 @@ public class Robot extends TimedRobot {
 
   // TODO Max rate of change of set speed for teleop driving
   // TODO Button debouncer utils
-  // TODO DifferentialDrive.setRightSideInverted(boolean);
   // TODO Look into feedforward
-  // TODO Need to turn all safeties off?
-  // TODO Test auto framework
   // TODO Look into PID
   // TODO Rev robotics library and code
   // TODO Document auto framework
@@ -24,7 +21,6 @@ public class Robot extends TimedRobot {
   // TODO Simplify auto framework
 
   // Current
-  // TODO ConcurrentInstruction next?
   // TODO Fix 2 drive docs
   // TODO Auto docs
 
