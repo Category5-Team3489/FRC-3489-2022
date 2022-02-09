@@ -6,4 +6,7 @@ public final class Constants {
     public static final boolean IsRobotInABox = false;
     public static final boolean SafetiesEnabled = false;
 
+    public final class Auto {
+        public static final double DriveClicksPerFoot = 2000;
+    }
 }
