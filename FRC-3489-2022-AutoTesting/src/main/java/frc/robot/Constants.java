@@ -8,5 +8,6 @@ public final class Constants {
 
     public final class Auto {
         public static final double DriveClicksPerFoot = 2000;
+        public static final double CargoTransferClicksPerBall = 1000;
     }
 }
