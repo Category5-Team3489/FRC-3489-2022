@@ -7,6 +7,7 @@ import edu.wpi.first.cscore.VideoSource.ConnectionStrategy;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import frc.robot.Constants;
 import frc.robot.framework.RobotHandler;
 
 public class CameraHandler extends RobotHandler {
@@ -17,7 +18,7 @@ public class CameraHandler extends RobotHandler {
 
     @Override
     public void robotInit() {
-        /*
+        if (!Constants.HasCameras) return;
         try {
             cameraA = CameraServer.startAutomaticCapture(0);
             cameraB = CameraServer.startAutomaticCapture(1);
@@ -34,11 +35,10 @@ public class CameraHandler extends RobotHandler {
         } catch (Exception e) {
             System.out.println("[CameraHandler] Couldn't init cameras");
         }
-        */
     }
 
     public void setCamera(boolean isCameraB) {
-        /*
+        if (!Constants.HasCameras) return;
         try {
             if (isCameraB)
                 server.setSource(cameraB);
@@ -47,6 +47,5 @@ public class CameraHandler extends RobotHandler {
         } catch (Exception e) {
             System.out.println("[CameraHandler] Had issue switching cameras");
         }
-        */
     }
 }

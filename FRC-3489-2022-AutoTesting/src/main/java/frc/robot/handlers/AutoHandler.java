@@ -5,6 +5,7 @@ import java.util.Map;
 
 import frc.robot.auto.autos.Auto32;
 import frc.robot.auto.framework.AutoBuilder;
+import frc.robot.auto.framework.AutoInstruction;
 import frc.robot.auto.framework.AutoRunner;
 import frc.robot.framework.RobotHandler;
 
@@ -25,7 +26,8 @@ public class AutoHandler extends RobotHandler {
         AutoBuilder auto = autos.get(getSelectedAuto());
         robotManager.copyReferences(auto);
         auto.setRunner(runner);
-        auto.build();
+        AutoInstruction first = auto.build();
+        auto.begin(first);
     }
     
     @Override
