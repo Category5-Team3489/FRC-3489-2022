@@ -5,6 +5,7 @@ import frc.robot.containers.ComponentsContainer;
 import frc.robot.handlers.AutoHandler;
 import frc.robot.handlers.CameraHandler;
 import frc.robot.handlers.DriveHandler;
+import frc.robot.handlers.TestHandler;
 
 public abstract class RobotReferences {
 
@@ -15,5 +16,6 @@ public abstract class RobotReferences {
     public DriveHandler driveHandler;
     public AutoHandler autoHandler;
     public CameraHandler cameraHandler;
+    public TestHandler testHandler;
 
 }

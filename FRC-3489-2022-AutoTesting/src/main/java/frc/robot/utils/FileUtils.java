@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.Filesystem;
 public class FileUtils {
     
     public static void printAllDirs() {
-        String[] fileNames = getFileNamesInDir(Filesystem.getDeployDirectory());
+        String[] fileNames = getFileNamesInDir(Filesystem.getOperatingDirectory());
         for (String fileName : fileNames) {
             System.out.println(fileName);
         }
@@ -52,7 +52,7 @@ public class FileUtils {
 
     public static String getUsedDirAndFile(String fileName)
     {
-        return Filesystem.getDeployDirectory().toPath().toString() + "/" + fileName;
+        return Filesystem.getOperatingDirectory().toPath().toString() + "/" + fileName;
     }
 
     public static String[] getFileNamesInDir(File fileInDir)
@@ -64,18 +64,20 @@ public class FileUtils {
 
     public static boolean fileExists(String fileName)
     {
-        File tempDir = new File(Filesystem.getDeployDirectory().toPath().toString() + "/" + fileName);
+        File tempDir = new File(Filesystem.getOperatingDirectory().toPath().toString() + "/" + fileName);
         return tempDir.exists();
     }
 
     public static void createLocalFile(String fileName)
     {
         try {
-            File f = new File(Filesystem.getDeployDirectory().toPath().toString() + "/" + fileName);
+            String path = Filesystem.getOperatingDirectory().toPath().toString() + "/" + fileName;
+            File f = new File(path);
+            System.out.println(path);
             f.createNewFile();
         }
         catch (IOException e) {
-
+            e.printStackTrace();
         }
     }
 }

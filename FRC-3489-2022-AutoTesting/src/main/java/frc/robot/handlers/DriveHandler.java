@@ -1,10 +1,13 @@
 package frc.robot.handlers;
 
+import frc.robot.Constants;
 import frc.robot.framework.RobotHandler;
 
 public class DriveHandler extends RobotHandler {
 
     private boolean frontSwitched = false;
+
+    private long loop = 0;
 
     private boolean shouldSwitchFront() {
         return components.leftDriveJoystick.getRawButtonPressed(13) || components.rightDriveJoystick.getRawButtonPressed(13);
@@ -12,6 +15,9 @@ public class DriveHandler extends RobotHandler {
 
     @Override
     public void teleopPeriodic() {
+
+        if (Constants.IsRobotInABox) return;
+
         if (shouldSwitchFront())
             frontSwitched = !frontSwitched;
         double leftY = components.leftDriveJoystick.getY();
@@ -24,6 +30,13 @@ public class DriveHandler extends RobotHandler {
             components.drive.tankDrive(rightSpeed, leftSpeed);
         else
             components.drive.tankDrive(-leftSpeed, -rightSpeed);
+
+        if (components.leftDriveJoystick.getRawButtonPressed(12) || components.rightDriveJoystick.getRawButtonPressed(12)) {
+            components.leftFrontDriveMotor.setSelectedSensorPosition(0);
+            components.rightFollowerDriveMotor.setSelectedSensorPosition(0);
+        }
+        if (loop % 10 == 0) System.out.println(((int)components.leftFrontDriveMotor.getSelectedSensorPosition()) + ", " + ((int)components.leftFollowerDriveMotor.getSelectedSensorPosition()));
+        loop++;
     }
 
     public boolean isFrontSwitched() {
