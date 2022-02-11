@@ -1,8 +1,8 @@
-package frc.robot.handlers;
+package frc.robot.utils;
 
-public static class CSVUtils {
+public class CSVUtils {
 
-    private static Map<String, String> files = new HashMap<String, String>();
+    //private static Map<String, String> files = new HashMap<String, String>();
     // use files.putIfAbsent(key, val);
 
     public static void setColumns(String csv, String... columns) {
@@ -11,6 +11,6 @@ public static class CSVUtils {
             columnsRow += columns[i] + ",";
         }
         columnsRow += columns[columns.length - 1];
-        files.putIfAbsent(csv, columnsRow + "\n");
+        //files.putIfAbsent(csv, columnsRow + "\n");
     }
 }
