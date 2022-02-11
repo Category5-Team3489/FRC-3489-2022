@@ -11,7 +11,7 @@ public class Auto1 {
     private ComponentsContainer components;
 
     private DriveHandler driveHandler;
-    private Constants constants;
+
     private int currentStep = 1;
 
     private double getEncoderPositionAbs(){
@@ -43,7 +43,7 @@ public class Auto1 {
     }
     //Drive Forward
     private void driveForward(){
-        if (getEncoderPositionAbs()< constants.auto1ForwardEncoderClicks){
+        if (getEncoderPositionAbs()< Constants.auto1ForwardEncoderClicks){
             driveHandler.tankDrive(0.5, 0.5);}
         else{
             currentStep++;
@@ -54,7 +54,7 @@ public class Auto1 {
     }
         //Turn Left
     private void turnLeft(){
-        if (getEncoderPositionAbs()<constants.auto1TurnLeft){
+        if (getEncoderPositionAbs()<Constants.auto1TurnLeft){
             driveHandler.tankDrive(0.4, 0.7);
         }
         else{
