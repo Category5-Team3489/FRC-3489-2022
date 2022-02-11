@@ -35,7 +35,7 @@ public class Robot extends TimedRobot {
   // PID X set speed, Y voltage drop
   // TODO Revaluate PID constants when accel stops?
 
-  // TODO Get file zilla
+  // How to connect to roborio with ftp
   // https://docs.wpilib.org/en/stable/docs/software/roborio-info/roborio-ftp.html
 
   // Current

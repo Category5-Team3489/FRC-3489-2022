@@ -35,14 +35,14 @@ public class FileUtils {
     {
         List<String> lines = new ArrayList<String>();
         try {
-            File file = new File(getUsedDirAndFile(fileName));    //creates a new file instance  
-            FileReader fr = new FileReader(file);   //reads the file  
-            BufferedReader br = new BufferedReader(fr);  //creates a buffering character input stream  
+            File file = new File(getUsedDirAndFile(fileName));
+            FileReader fr = new FileReader(file);
+            BufferedReader br = new BufferedReader(fr);
             String line;
             while((line = br.readLine()) != null) {  
                 lines.add(line);
             }  
-            fr.close();    //closes the stream and release the resources  
+            fr.close();
         }  
         catch(IOException e) {  
             e.printStackTrace();  
