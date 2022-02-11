@@ -19,7 +19,7 @@ public class Auto7 extends AutoBuilder {
             .pause(1)
             .concurrently(      //Drive forward and intake
                 drive(0.65, 6 * Auto.DriveClicksPerFoot),
-                intake(0.6, 10)
+                intake(0.6, 5)
             )
             .pause(1)
             .drive(-0.65, -6 * Auto.DriveClicksPerFoot)//Drive Back
