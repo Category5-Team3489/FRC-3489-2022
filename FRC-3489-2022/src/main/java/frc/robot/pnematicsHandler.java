@@ -1,28 +1,21 @@
 package frc.robot;
 
-public class pnematicsHandler {
+import frc.robot.framework.RobotHandler;
+
+public class pnematicsHandler extends RobotHandler {
     ComponentsContainer container;
 
-    public void setBottomTrue(){
-        container.bottomLeftSolenoid.set(true);
-        container.bottomRightSolenoid.set(true);
+    public void setBottom(boolean botBoolean){
+        container.bottomLeftSolenoid.set(botBoolean);
+        container.bottomRightSolenoid.set(botBoolean);
     }
-    public void setBottomFalse(){
-        container.bottomRightSolenoid.set(false);
-        container.bottomLeftSolenoid.set(false);
+    public void setTop(boolean topBoolean){
+        container.topLeftSolenoid.set(topBoolean);
+        container.topRightSolenoid.set(topBoolean);
     }
-    public void setTopTrue(){
-        container.topLeftSolenoid.set(true);
-        container.topRightSolenoid.set(true);
+
+    public void setBrake(boolean brakeBoolean){
+        container.BrakeSolenoid.set(brakeBoolean);
     }
-    public void setTopFalse(){
-        container.topRightSolenoid.set(false);
-        container.topLeftSolenoid.set(false);
-    }
-    public void setBrakeTrue(){
-        container.BrakeSolenoid.set(true);
-    }
-    public void setBrakeFalse(){
-        container.BrakeSolenoid.set(false);
-    }
+
 }
