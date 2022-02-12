@@ -88,6 +88,10 @@ public final class Constants {
     public static final double auto7DriveForwardClicks = 4000;
     public static final double auto7TransferClicks = 4000; 
     public static final double auto7DriveTurnClicks = 4000;
+
+    //teloscope motor ids
+    public static final int TeloscpeMotorId = 10;
+  
   
 
  
