@@ -2,14 +2,14 @@ package frc.robot.handlers;
 
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.framework.RobotHandler;
-import frc.robot.utils.FileUtils;
+import frc.robot.utils.CSVUtils;
+import frc.robot.utils.GeneralUtils;
 
 public class TestHandler extends RobotHandler {
 
-    private String csv = "";
     private Timer timer;
 
-    //private double lastPosition = 0;
+    private double lastPosition = 0;
     private static final double TargetRPS = 50;
     private double lastError = TargetRPS;
     
@@ -18,25 +18,27 @@ public class TestHandler extends RobotHandler {
         components.rightTestMotor.setSelectedSensorPosition(0);
         timer = new Timer();
         timer.start();
-        addLine("Time,Category,Value");
+        CSVUtils.setColumns("test.csv", "Time,Category,Value");
     }
 
     @Override
     public void teleopPeriodic() {
 
-        double error = getError(TargetRPS);
-        double p = error * 0.1;//0.004;
+        double rps = getRPS();
+        double error = TargetRPS - rps;
+        double p = GeneralUtils.clamp(error * -0.01, -0.3, 0.3);//0.004;
         double i = 0;
-        //double d = (error - lastError) * 0.02 * 0;
+        //double d = (error - lastError) * 0.002;
         double d = 0;
         double speed = p + i + d;
         components.rightTestMotor.set(speed);
 
-        addValue("Error", error / 50);
-        addValue("P", p);
-        addValue("I", i);
-        addValue("D", d);
-        addValue("Speed", speed);
+        addValue("1. Error", error / 50);
+        addValue("2. P", p);
+        addValue("3. I", i);
+        addValue("4. D", d);
+        addValue("5. Speed", speed);
+        addValue("6. RPS", rps / 50);
 
         lastError = error;
 
@@ -45,29 +47,19 @@ public class TestHandler extends RobotHandler {
     @Override
     public void disabledInit() {
         if (timer == null) return;
-        if (!FileUtils.fileExists("data.csv"))
-            FileUtils.createLocalFile("data.csv");
-        FileUtils.writeLocalFile("data.csv", csv);
-        csv = "";
-    }
-
-    private double getError(double targetRPS) {
-        return targetRPS - getRPS();
+        CSVUtils.write("test.csv", true);
     }
 
     private double getRPS() {
-        //double position = components.rightTestMotor.getSelectedSensorPosition();
-        //double rpTick = position - lastPosition;
-        //lastPosition = position;
-        //return rpTick * 50d;
-        return (components.rightTestMotor.getSelectedSensorVelocity() * 10) / 2048;
+        double position = components.rightTestMotor.getSelectedSensorPosition();
+        double rpTick = position - lastPosition;
+        lastPosition = position;
+        return rpTick / 50d;
+        //return (components.leftTestMotor.getSelectedSensorVelocity() * 10) / 2048;
     }
 
     private void addValue(String category, double value) {
-        addLine(timer.get() + "," + category + "," + value);
+        CSVUtils.add("test.csv", timer.get() + "," + category + "," + value);
     }
 
-    private void addLine(String line) {
-        csv += line + "\n";
-    }
 }

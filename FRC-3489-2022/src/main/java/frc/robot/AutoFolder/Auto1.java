@@ -1,14 +1,17 @@
-package frc.robot;
+package frc.robot.AutoFolder;
 
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+
+import frc.robot.ComponentsContainer;
+import frc.robot.Constants;
+import frc.robot.DriveHandler;
 
 //Move Forward, Turn Left, Move Forward
 
 public class Auto1 {
     private ComponentsContainer components;
-    private DifferentialDrive differentialDrive;
+
     private DriveHandler driveHandler;
-    private Constants constants;
+
     private int currentStep = 1;
 
     private double getEncoderPositionAbs(){
@@ -40,7 +43,7 @@ public class Auto1 {
     }
     //Drive Forward
     private void driveForward(){
-        if (getEncoderPositionAbs()< constants.auto1ForwardEncoderClicks){
+        if (getEncoderPositionAbs()< Constants.auto1ForwardEncoderClicks){
             driveHandler.tankDrive(0.5, 0.5);}
         else{
             currentStep++;
@@ -51,7 +54,7 @@ public class Auto1 {
     }
         //Turn Left
     private void turnLeft(){
-        if (getEncoderPositionAbs()<constants.auto1TurnLeft){
+        if (getEncoderPositionAbs()<Constants.auto1TurnLeft){
             driveHandler.tankDrive(0.4, 0.7);
         }
         else{
