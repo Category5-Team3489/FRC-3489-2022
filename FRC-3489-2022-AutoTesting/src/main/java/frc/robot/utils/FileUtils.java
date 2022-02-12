@@ -14,29 +14,33 @@ import edu.wpi.first.wpilibj.Filesystem;
 
 public class FileUtils {
     
-    public static void printAllDirs() {
-        String[] fileNames = getFileNamesInDir(Filesystem.getOperatingDirectory());
-        for (String fileName : fileNames) {
-            System.out.println(fileName);
+    public static void printDir(String path) {
+        String[] dir = getFile(path, "").list();
+        for (String f : dir) {
+            System.out.println(f);
         }
     }
 
-    public static void writeLocalFile(String fileName, String data)
+    public static void writeFile(String path, String file, String data)
     {
-        File file = new File(getUsedDirAndFile(fileName));
+        if (!fileExists(path, file))
+            createFile(path, file);
+
+        File f = new File(appendPath(path, file));
         Charset charset = Charset.forName("US-ASCII");
-        try (BufferedWriter writer = Files.newBufferedWriter(file.toPath(), charset)) {
+        try (BufferedWriter writer = Files.newBufferedWriter(f.toPath(), charset)) {
             writer.write(data, 0, data.length());
         } catch (IOException e) {
             e.printStackTrace();  
         }
     }
-    public static List<String> readLocalFile(String fileName)
+
+    public static List<String> readFile(String path, String file)
     {
         List<String> lines = new ArrayList<String>();
         try {
-            File file = new File(getUsedDirAndFile(fileName));
-            FileReader fr = new FileReader(file);
+            File f = new File(appendPath(path, file));
+            FileReader fr = new FileReader(f);
             BufferedReader br = new BufferedReader(fr);
             String line;
             while((line = br.readLine()) != null) {  
@@ -50,34 +54,35 @@ public class FileUtils {
         return lines;
     }
 
-    public static String getUsedDirAndFile(String fileName)
-    {
-        return Filesystem.getOperatingDirectory().toPath().toString() + "/" + fileName;
+    public static boolean fileExists(String path, String file) {
+        File f = getFile(path, file);
+        return f.exists();
     }
 
-    public static String[] getFileNamesInDir(File fileInDir)
-    {
-        String[] files;
-        files = fileInDir.list();
-        return files;
-    }
-
-    public static boolean fileExists(String fileName)
-    {
-        File tempDir = new File(Filesystem.getOperatingDirectory().toPath().toString() + "/" + fileName);
-        return tempDir.exists();
-    }
-
-    public static void createLocalFile(String fileName)
-    {
+    private static void createFile(String path, String file) {
         try {
-            String path = Filesystem.getOperatingDirectory().toPath().toString() + "/" + fileName;
-            File f = new File(path);
-            System.out.println(path);
+            File f = getFile(path, file);
             f.createNewFile();
         }
         catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    public static File getFile(String path, String file) {
+        return new File(appendPath(path, file));
+    }
+
+    public static String operatingDir() {
+        return Filesystem.getOperatingDirectory().toPath().toString();
+    }
+
+    public static String deployDir() {
+        return Filesystem.getDeployDirectory().toPath().toString();
+    }
+
+    public static String appendPath(String path, String file) {
+        return path + "/" + file;
+    }
+
 }

@@ -1,16 +1,37 @@
 package frc.robot.utils;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import frc.robot.types.CSVFile;
+
 public class CSVUtils {
 
-    //private static Map<String, String> files = new HashMap<String, String>();
-    // use files.putIfAbsent(key, val);
+    private static Map<String, CSVFile> files = new HashMap<String, CSVFile>();
 
     public static void setColumns(String csv, String... columns) {
-        String columnsRow = "";
-        for (int i = 0; i < columns.length - 2; i++) {
-            columnsRow += columns[i] + ",";
+        if (files.containsKey(csv)) {
+            files.get(csv).setColumns(columns);
         }
-        columnsRow += columns[columns.length - 1];
-        //files.putIfAbsent(csv, columnsRow + "\n");
+        else {
+            CSVFile csvFile = new CSVFile();
+            csvFile.setColumns(columns);
+            files.put(csv, csvFile);
+        }
+    }
+
+    public static void add(String csv, String line) {
+        if (files.containsKey(csv)) {
+            files.get(csv).add(line);
+        }
+    }
+
+    public static void write(String csv, boolean wipe) {
+        if (files.containsKey(csv)) {
+            CSVFile csvFile = files.get(csv);
+            FileUtils.writeFile(FileUtils.operatingDir(), csv, csvFile.get());
+            if (wipe)
+                csvFile.wipe();
+        }
     }
 }
