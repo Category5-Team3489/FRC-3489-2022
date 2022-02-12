@@ -1,6 +1,8 @@
 package frc.robot;
 
-public class IntakeHandler {
+import frc.robot.framework.RobotHandler;
+
+public class IntakeHandler extends RobotHandler {
     private ComponentsContainer components;
     
     public IntakeHandler(ComponentsContainer components){

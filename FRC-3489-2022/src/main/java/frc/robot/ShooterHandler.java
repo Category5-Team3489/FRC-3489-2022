@@ -1,6 +1,8 @@
 package frc.robot;
 
-public class ShooterHandler {
+import frc.robot.framework.RobotHandler;
+
+public class ShooterHandler extends RobotHandler {
     ComponentsContainer container;
     public ShooterHandler(){
 

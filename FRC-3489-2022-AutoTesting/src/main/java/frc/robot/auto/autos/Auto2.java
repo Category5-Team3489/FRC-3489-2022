@@ -16,13 +16,14 @@ public class Auto2 extends AutoBuilder {
                 .cargoTransfer(0.5, 5 * Auto.CargoTransferClicksPerBall)        
         )
         .pause(1)
-        .drive(0.65, 8 * Auto.DriveClicksPerFoot)
+        .drive(0.65, 5 * Auto.DriveClicksPerFoot)
         .pause(1)
-        .drive(-0.65, 8 * Auto.DriveClicksPerFoot)
+        .drive(-0.65, 5 * Auto.DriveClicksPerFoot)
         .concurrently(
             shoot(0.65, 3),
             pause(1)
                 .cargoTransfer(0.5, Auto.CargoTransferClicksPerBall)
+        
         );
 
         return first;

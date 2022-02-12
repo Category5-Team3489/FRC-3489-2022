@@ -17,11 +17,12 @@ public class Auto4 extends AutoBuilder {
                 .cargoTransfer(0.5, 5 * Auto.CargoTransferClicksPerBall) // Move cargo transfer at 50% for 5 ball lengths to shoot ball
         )
         .pause(1) // Wait one sec after shooting
-        .drive(0.65, 8 * Auto.DriveClicksPerFoot) // Drive at 65% for 8 feet
+        .drive(0.65, 12 * Auto.DriveClicksPerFoot) // Drive at 65% for 12 feet
         .pause(1) // Wait one sec for ball to roll away
         .turn(0.4, 30) // Turn at 40% speed 30 degrees to the left
-        .drive(0.65, 6 * Auto.DriveClicksPerFoot); // Drive at 65% for 6 feet
-        
+        .drive(0.65, 8.4375 * Auto.DriveClicksPerFoot) // Drive at 65% for 8.4375 feet
+        .turn(0.4, 120)
+        .drive(0.65, 3 * Auto.DriveClicksPerFoot); //3 feet at 0.65% speed 
         return first;
     }
     

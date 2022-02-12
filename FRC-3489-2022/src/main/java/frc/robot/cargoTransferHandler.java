@@ -1,6 +1,8 @@
 package frc.robot;
 
-public class CargoTransferHandler {
+import frc.robot.framework.RobotHandler;
+
+public class CargoTransferHandler extends RobotHandler {
     ComponentsContainer container;
     Constants constants;
     public void transferUp(){
