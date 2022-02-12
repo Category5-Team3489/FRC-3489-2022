@@ -42,10 +42,6 @@ public class ShooterHandler {
         container.shooterTop.set(Constants.ShooterLowSpeed);
         container.shooterBottom.set(-Constants.ShooterLowSpeed);
     }
-    public void stopShooting(){
-        container.shooterTop.stopMotor();
-        container.shooterBottom.stopMotor();
-    }
     public void AdjustShootSpeed(double value){
         double CurrentSpeed = container.shooterTop.get();
         if (CurrentSpeed + value <= 1){
