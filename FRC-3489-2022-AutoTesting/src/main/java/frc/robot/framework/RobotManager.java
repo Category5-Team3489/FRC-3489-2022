@@ -7,6 +7,7 @@ import frc.robot.Robot;
 import frc.robot.containers.ComponentsContainer;
 import frc.robot.handlers.AutoHandler;
 import frc.robot.handlers.CameraHandler;
+import frc.robot.handlers.ClimberHandler;
 import frc.robot.handlers.DriveHandler;
 import frc.robot.handlers.TestHandler;
 
@@ -23,6 +24,7 @@ public final class RobotManager extends RobotHandler {
         handlers.add(autoHandler = new AutoHandler());
         handlers.add(cameraHandler = new CameraHandler());
         handlers.add(testHandler = new TestHandler());
+        handlers.add(climberHandler = new ClimberHandler());
 
         for (RobotReferences references : handlers) {
             copyReferences(references);
@@ -38,6 +40,7 @@ public final class RobotManager extends RobotHandler {
         references.autoHandler = autoHandler;
         references.cameraHandler = cameraHandler;
         references.testHandler = testHandler;
+        references.climberHandler = climberHandler;
     }
 
     public void robotInit() {

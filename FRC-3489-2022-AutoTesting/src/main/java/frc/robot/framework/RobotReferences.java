@@ -2,10 +2,7 @@ package frc.robot.framework;
 
 import frc.robot.Robot;
 import frc.robot.containers.ComponentsContainer;
-import frc.robot.handlers.AutoHandler;
-import frc.robot.handlers.CameraHandler;
-import frc.robot.handlers.DriveHandler;
-import frc.robot.handlers.TestHandler;
+import frc.robot.handlers.*;
 
 public abstract class RobotReferences {
 
@@ -17,5 +14,6 @@ public abstract class RobotReferences {
     public AutoHandler autoHandler;
     public CameraHandler cameraHandler;
     public TestHandler testHandler;
+    public ClimberHandler climberHandler;
 
 }
