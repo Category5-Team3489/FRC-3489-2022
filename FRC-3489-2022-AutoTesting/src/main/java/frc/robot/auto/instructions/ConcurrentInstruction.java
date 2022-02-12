@@ -38,8 +38,7 @@ public class ConcurrentInstruction extends AutoInstruction {
     @Override
     public boolean anyBelowIncomplete() {
         for (AutoInstruction instruction : concurrentInstructions) {
-            if (!instruction.hasCompleted()) return true;
-            if (instruction.anyBelowIncomplete()) return true;
+            if (!instruction.hasCompleted() || instruction.anyBelowIncomplete()) return true;
         }
         return false;
     }

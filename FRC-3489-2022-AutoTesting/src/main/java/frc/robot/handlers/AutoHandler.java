@@ -21,7 +21,6 @@ public class AutoHandler extends RobotHandler {
 
     @Override
     public void autonomousInit() {
-        System.out.println("init");
         runner = new AutoRunner(robotManager);
         AutoBuilder auto = autos.get(getSelectedAuto());
         robotManager.copyReferences(auto);

@@ -9,8 +9,11 @@ import frc.robot.Constants;
 
 public final class ComponentsContainer {
     
+    // Testing
     public WPI_TalonFX leftTestMotor;
     public WPI_TalonFX rightTestMotor;
+
+    
 
     // Joysticks
     public Joystick leftDriveJoystick;
@@ -22,6 +25,10 @@ public final class ComponentsContainer {
     public WPI_TalonSRX leftFollowerDriveMotor;
     public WPI_TalonSRX rightFollowerDriveMotor;
     public DifferentialDrive drive;
+
+    // Climb 
+    public WPI_TalonFX rightClimbMotor = new WPI_TalonFX(99999);
+    public WPI_TalonFX leftClimbMotor = new WPI_TalonFX(000000);
 
     public ComponentsContainer() {
 
@@ -61,11 +68,5 @@ public final class ComponentsContainer {
     private void setSafeties(DifferentialDrive drive) {
         drive.setSafetyEnabled(Constants.SafetiesEnabled);
     }
-    //Climb 
-        public WPI_TalonFX rightClimbMotor = new WPI_TalonFX(99999);
-        public WPI_TalonFX leftClimbMotor = new WPI_TalonFX(000000);
-        
-        
-        
 
 }

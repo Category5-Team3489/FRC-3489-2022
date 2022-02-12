@@ -35,7 +35,7 @@ public class TestHandler extends RobotHandler {
     
     @Override
     public void teleopInit() {
-        if (!Constants.IsRobotInABox) return;
+        if (Constants.IsRobot) return;
 
         talon = components.rightTestMotor;
 
@@ -69,7 +69,7 @@ public class TestHandler extends RobotHandler {
 
     @Override
     public void teleopPeriodic() {
-        if (!Constants.IsRobotInABox) return;
+        if (Constants.IsRobot) return;
 
         talon.set(TalonFXControlMode.Velocity, (TargetRPS * 2048.0) / 10.0);
 
@@ -112,7 +112,7 @@ public class TestHandler extends RobotHandler {
 
     @Override
     public void disabledInit() {
-        if (!Constants.IsRobotInABox) return;
+        if (Constants.IsRobot) return;
         if (timer == null) return;
         CSVUtils.write("test.csv", true);
     }
