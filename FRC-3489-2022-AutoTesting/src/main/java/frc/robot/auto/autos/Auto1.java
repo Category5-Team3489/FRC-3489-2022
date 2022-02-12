@@ -11,11 +11,13 @@ public class Auto1 extends AutoBuilder {
         AutoInstruction first = first();
 
         first
-        .drive(0.65, 8 * Auto.DriveClicksPerFoot)
+        .drive(0.65, 12 * Auto.DriveClicksPerFoot) //12 ft at 0.65% 
         .pause(1)
         .turn(0.4, 30)
-        .drive(0.65, 6 * Auto.DriveClicksPerFoot);
-        
+        .drive(0.65, 8.4375 * Auto.DriveClicksPerFoot) // 8.4375 ft at 0.65% 
+        .turn(0.4, 120)
+        .drive(0.65, 3 * Auto.DriveClicksPerFoot); // 3 ft for 0.65% 
+
         return first;
     }
     
