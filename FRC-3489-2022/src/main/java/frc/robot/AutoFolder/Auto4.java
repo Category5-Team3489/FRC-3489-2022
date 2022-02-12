@@ -2,7 +2,7 @@ package frc.robot.AutoFolder;
 
 import frc.robot.ComponentsContainer;
 import frc.robot.Constants;
-import frc.robot.IntakeHandler;
+
 import frc.robot.ShooterHandler;
 import frc.robot.CargoTransferHandler;
 
@@ -11,13 +11,10 @@ public class Auto4 {
     private int currentStep = 1; 
     
     //name Handlers 
-    private IntakeHandler IntakeHandler;
+
     private ShooterHandler ShooterHandler; 
     private CargoTransferHandler cargo;
-
-    //Clicks for Encoder 
-    public static final double ShootHighClicks = 4000;
-    public static final double auto4CargoMoverClicks = 4000; 
+    private Auto1 auto1;
  
     public void autonomous4init(){ 
         //reset the motor the method 
@@ -32,16 +29,14 @@ public class Auto4 {
     private double EncoderPositionForShooter(){
         return Math.abs(container.shooterTop.getSelectedSensorPosition());
     }
-    private double EncoderPositionForIntake(){
-        return Math.abs(container.intakeMotor.getSelectedSensorPosition());
-    }
+  
     private double getEncoderPositionForCargo(){
         return Math.abs(container.cargoMoverMotor.getSelectedSensorPosition());
     }
 
 //Shoot into high
     private void Highshoot(){
-        if (EncoderPositionForShooter() < ShootHighClicks) {
+        if (EncoderPositionForShooter() < Constants.auto4ShootHighClicks) {
             ShooterHandler.shoot(Constants.ShooterHighSpeed, Constants.ShooterHighSpeed);
       }
      else{
@@ -50,20 +45,10 @@ public class Auto4 {
             resetEncoderPosition(); 
         }
     }   
-//intake  
-    private void intakeCargo(){
-     if (EncoderPositionForIntake() < intakeClicks) {
-            IntakeHandler.intake();
-     }
-     else{
-            currentStep ++; 
-        IntakeHandler.stop();
-            resetEncoderPosition();
-     } 
-    }
+
 // Cargo Mover 
     private void cargoTransfer(){
-        if(getEncoderPositionForCargo() < cargoMoverClicks)
+        if(getEncoderPositionForCargo() < Constants.auto4CargoMoverClicks)
             cargo.transferUp();
         else{
             currentStep ++;
@@ -71,21 +56,22 @@ public class Auto4 {
             cargo.transferStop();
         }
 
-        }
+    }
+    private void auto1Code(){
+        auto1.auto1();
+        currentStep ++;
+    }
 // autonomous sequence 
     public void auto4(){
             switch (currentStep){
                 case 1:
                     cargoTransfer();
                     break;
-                case 2:
-                    intakeCargo();
-                    break;
                 case 3: 
                     Highshoot();
                     break;
                 case 4: 
-                    Auto1.auto1();
+                    auto1Code();
                     break; 
             }
         }
