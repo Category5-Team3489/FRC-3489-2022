@@ -61,4 +61,11 @@ public final class ComponentsContainer {
     private void setSafeties(DifferentialDrive drive) {
         drive.setSafetyEnabled(Constants.SafetiesEnabled);
     }
+    //Climb 
+        public WPI_TalonFX rightClimbMotor = new WPI_TalonFX(99999);
+        public WPI_TalonFX leftClimbMotor = new WPI_TalonFX(000000);
+        
+        
+        
+
 }

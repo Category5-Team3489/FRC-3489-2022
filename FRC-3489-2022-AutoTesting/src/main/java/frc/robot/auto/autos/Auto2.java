@@ -23,6 +23,7 @@ public class Auto2 extends AutoBuilder {
             shoot(0.65, 3),
             pause(1)
                 .cargoTransfer(0.5, Auto.CargoTransferClicksPerBall)
+        
         );
 
         return first;
