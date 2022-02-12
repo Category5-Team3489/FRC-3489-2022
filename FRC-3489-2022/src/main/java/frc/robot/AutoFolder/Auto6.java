@@ -1,3 +1,12 @@
+package frc.robot.AutoFolder;
+
+import frc.robot.CargoTransferHandler;
+import frc.robot.ComponentsContainer;
+import frc.robot.Constants;
+import frc.robot.DriveHandler;
+import frc.robot.IntakeHandler;
+import frc.robot.ShooterHandler;
+
 //Shoot, Intake, Turn Right, Drive forward
 public class Auto6 {
     
@@ -9,14 +18,18 @@ public class Auto6 {
     private int currentStep = 1;
 
     //Handlers
-    private DifferentialDrive differentialDrive;
+
     private ShooterHandler shooterHandler;
     private DriveHandler driveHandler;
-    private IntakeHadler intakeHandler;
+    private IntakeHandler intakeHandler;
     private CargoTransferHandler cargoTransferHandler;
     private ComponentsContainer components;
-    private Constants constants;
     
+    private void resetEncoderPosition() {
+        components.cargoMoverMotor.setSelectedSensorPosition(0);
+        components.frontLeftDrive.setSelectedSensorPosition(0);
+        components.shooterTop.setSelectedSensorPosition(0);
+    }
     //Shooter Encoder Clicks
     private double getEncoderPositionShooter(){
         return Math.abs(components.shooterTop.getSelectedSensorPosition());
@@ -27,22 +40,22 @@ public class Auto6 {
     }
     //Cargo Transfer Encoder Clicks
     private double getEncoderPositionCargo(){
-        return Math.abs(components.cargoMotorMover.getSelectedSensorPosition());
+        return Math.abs(components.cargoMoverMotor.getSelectedSensorPosition());
     }
 
 
     //Shoot
     private void shoot(){
-        if (getEncoderPositionShooter()< constants.auto6ShootEncoderClicks){shooterHandler.ShootHigh();}
+        if (getEncoderPositionShooter()< Constants.auto6ShootEncoderClicks){shooterHandler.ShootHigh();}
         else{
             currentStep++;
-            shooterHandler.stop();
+            shooterHandler.stopShooter();
             resetEncoderPosition();}
         
         }
     //drive Forward and intake
     private void driveForwardIntake(){
-         if (getEncoderPositionDrive()< constants.auto6ForwardEncoderClicks){driveHandler.tankDrive(0.5, 0.5);
+         if (getEncoderPositionDrive()< Constants.auto6ForwardEncoderClicks){driveHandler.tankDrive(0.5, 0.5);
             intakeHandler.intake();}
         else{
             currentStep++;
@@ -53,7 +66,7 @@ public class Auto6 {
 
     // Cargo Transfer
     private void cargoTransfer(){
-        if (getEncoderPositionCargo()< constants.auto6CargoTransferClicks){cargoTransferHandler.transferUp();}
+        if (getEncoderPositionCargo()< Constants.auto6CargoTransferClicks){cargoTransferHandler.transferUp();}
         else{
             currentStep++;
             cargoTransferHandler.transferStop();
@@ -63,7 +76,7 @@ public class Auto6 {
 
     //Turn Right
     private void turnRight(){
-        if (getEncoderPositionDrive()< constants.auto6TurnRightEncoderClicks){driveHandler.tankDrive(0.7, 0.5);}
+        if (getEncoderPositionDrive()< Constants.auto6TurnRightEncoderClicks){driveHandler.tankDrive(0.7, 0.5);}
         else{
             currentStep++;
             driveHandler.stop();
@@ -71,6 +84,7 @@ public class Auto6 {
         }
     }
 
+   
     //sequence
     public void auto6(){
         switch(currentStep){
@@ -87,7 +101,7 @@ public class Auto6 {
             turnRight();
             break;
             case 5:
-            driveForward();
+            driveForwardIntake();
             break;
             
         }

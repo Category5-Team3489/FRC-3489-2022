@@ -3,7 +3,10 @@ package frc.robot;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Solenoid;
 
 /*
     Contains all of the components on the robot controlled by the RoboRIO
@@ -30,6 +33,14 @@ public class ComponentsContainer {
     public Joystick leftDriveJoystick = new Joystick(Constants.LeftDriveJoystick);
     public Joystick rightDriveJoystick = new Joystick(Constants.RightDriveJoystick);
     public Joystick manipulatorJoystick = new Joystick(Constants.ManipulatorJoystick);
-    
-}
 
+    //pnematics
+    public Solenoid bottomLeftSolenoid = new Solenoid(PneumaticsModuleType.REVPH, 1);
+    public Solenoid bottomRightSolenoid = new Solenoid(PneumaticsModuleType.REVPH, 1);
+    public Solenoid topLeftSolenoid = new Solenoid(PneumaticsModuleType.REVPH, 1);
+    public Solenoid topRightSolenoid = new Solenoid(PneumaticsModuleType.REVPH, 1);
+    public Solenoid BrakeSolenoid = new Solenoid(PneumaticsModuleType.REVPH, 1);
+    
+
+    public WPI_TalonFX TeloscopeMotor = new WPI_TalonFX(Constants.TeloscpeMotorId);
+}

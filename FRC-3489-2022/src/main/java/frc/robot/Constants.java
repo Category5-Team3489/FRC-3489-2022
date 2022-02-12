@@ -36,8 +36,11 @@ public final class Constants {
     //Climber id
     public static final int ClimberId = 9;
 
-    //shooter speed
+    //drive speed
+    public static final double driveBackwardSpeed = -0.65;
+    public static final double driveForwardSpeed = 0.65;
 
+    //shooter speed
     public static final double ShooterLowSpeed = 0.35;
     public static final double ShooterHighSpeed = 0.65;
 
@@ -56,8 +59,42 @@ public final class Constants {
     public static final double auto6IntakeStopClicks = 4000;
     public static final double auto6CargoTransferClicks = 4000;
     public static final double auto6TurnRightEncoderClicks = 4000;
+    public static final double auto6ForwardEncoderClicks = 4000;
 
+    //auto 2 constants
+    public static final double auto2DriveForwardClicks = 4000; 
+    public static final double auto2DriveBackwardClicks = 4000;
+    public static final double auto2ShootHighClicks = 4000;
+    public static final double auto2CargotransferClicks = 4000;
+
+    //auto 3 constants
+    public static final double Auto3TransferClicks = 4000;
+    public static final double Auto3DriveForwardClicks = 4000; 
+    public static final double Auto3DriveBackwardClicks = 4000;
+    public static final double Auto3ShootHighClicks = 4000;
     
+    //auto 5 constants
+    public static final double auto5LeftMotorForTurn = 0.2;
+    public static final double auto5RightMotorForTurn = 0.4;
+    public static final double auto5DriveForwardClicks = 4000;
+    public static final double auto5TurnLeftClicks = 4000;
+
+    //auto 4 Constants 
+    public static final double auto4ShootHighClicks = 4000;
+    public static final double auto4CargoMoverClicks = 4000; 
+
+    //auto 7 constants 
+    public static final double auto7ShootHighClicks = 4000;
+    public static final double auto7DriveForwardClicks = 4000;
+    public static final double auto7TransferClicks = 4000; 
+    public static final double auto7DriveTurnClicks = 4000;
+
+    //teloscope motor ids
+    public static final int TeloscpeMotorId = 10;
+  
+  
+
+ 
 
     
 }
