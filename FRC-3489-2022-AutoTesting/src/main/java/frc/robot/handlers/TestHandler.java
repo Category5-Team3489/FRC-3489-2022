@@ -1,5 +1,8 @@
 package frc.robot.handlers;
 
+import java.util.PriorityQueue;
+import java.util.Queue;
+
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.framework.RobotHandler;
 import frc.robot.utils.CSVUtils;
@@ -12,6 +15,10 @@ public class TestHandler extends RobotHandler {
     private double lastPosition = 0;
     private static final double TargetRPS = 50;
     private double lastError = TargetRPS;
+
+    private Queue<Double> rpsStack = new PriorityQueue<Double>();
+
+    private double speed = 0;
     
     @Override
     public void teleopInit() {
@@ -23,22 +30,28 @@ public class TestHandler extends RobotHandler {
 
     @Override
     public void teleopPeriodic() {
-
-        double rps = getRPS();
+        rpsStack.add(getRPS());
+        while (rpsStack.size() > 5) {
+            rpsStack.remove();
+        }
+        double rps = 0;
+        for (double previousRps : rpsStack) {
+            rps += previousRps;
+        }
+        rps /= rpsStack.size();
         double error = TargetRPS - rps;
-        double p = GeneralUtils.clamp(error * -0.01, -0.3, 0.3);//0.004;
+        double p = error * -0.004;//0.004;
         double i = 0;
         //double d = (error - lastError) * 0.002;
         double d = 0;
-        double speed = p + i + d;
+        speed += p + i + d;
         components.rightTestMotor.set(speed);
 
-        addValue("1. Error", error / 50);
+        addValue("1. Error", error / 500);
         addValue("2. P", p);
         addValue("3. I", i);
         addValue("4. D", d);
         addValue("5. Speed", speed);
-        addValue("6. RPS", rps / 50);
 
         lastError = error;
 
