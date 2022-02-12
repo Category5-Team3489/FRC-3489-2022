@@ -1,5 +1,6 @@
 package frc.robot.containers;
 
+import com.ctre.phoenix.motorcontrol.FollowerType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -32,15 +33,23 @@ public final class ComponentsContainer {
 
     public ComponentsContainer() {
 
-        if (Constants.IsRobotInABox) {
-            setSafeties(leftTestMotor = new WPI_TalonFX(6));
-            setSafeties(rightTestMotor = new WPI_TalonFX(9));
-            return;
+        switch (Constants.SelectedRobot) {
+            case RobotInABox:
+                setSafeties(leftTestMotor = new WPI_TalonFX(6));
+                setSafeties(rightTestMotor = new WPI_TalonFX(9));
+                break;
+            case IonV:
+                initDrive();
+                break;
+            case Robot:
+                leftDriveJoystick = new Joystick(0);
+                rightDriveJoystick = new Joystick(1);
+                initDrive();
+                break;
         }
+    }
 
-        leftDriveJoystick = new Joystick(0);
-        rightDriveJoystick = new Joystick(1);
-
+    private void initDrive() {
         leftFrontDriveMotor = new WPI_TalonSRX(1);
         rightFrontDriveMotor = new WPI_TalonSRX(2);
         leftFollowerDriveMotor = new WPI_TalonSRX(3);
@@ -53,10 +62,22 @@ public final class ComponentsContainer {
         setSafeties(leftFollowerDriveMotor);
         setSafeties(rightFollowerDriveMotor);
 
+        setDefaultDrive();
+    }
+
+    public void setDefaultDrive() {
         rightFrontDriveMotor.setInverted(true);
         rightFollowerDriveMotor.setInverted(true);
-        leftFollowerDriveMotor.follow(leftFrontDriveMotor);
-        rightFollowerDriveMotor.follow(rightFrontDriveMotor);
+        leftFollowerDriveMotor.follow(leftFrontDriveMotor, FollowerType.PercentOutput);
+        rightFollowerDriveMotor.follow(rightFrontDriveMotor, FollowerType.PercentOutput);
+    }
+
+    public void setPIDStraightDrive() {
+        rightFrontDriveMotor.setInverted(true);
+        rightFollowerDriveMotor.setInverted(true);
+        leftFollowerDriveMotor.follow(leftFrontDriveMotor, FollowerType.PercentOutput);
+        rightFrontDriveMotor.follow(leftFrontDriveMotor, FollowerType.PercentOutput);
+        rightFollowerDriveMotor.follow(rightFrontDriveMotor, FollowerType.PercentOutput);
     }
 
     private void setSafeties(WPI_TalonSRX motor) {

@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.framework.RobotManager;
+import frc.robot.utils.CSVUtils;
 
 public class Robot extends TimedRobot {
 
@@ -74,11 +75,13 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     robotManager.teleopPeriodic();
+    System.out.println(robotManager.components.leftFrontDriveMotor.getSelectedSensorPosition());
   }
 
   @Override
   public void disabledInit() {
     robotManager.disabledInit();
+    CSVUtils.write("test.csv", true);
   }
 
   @Override

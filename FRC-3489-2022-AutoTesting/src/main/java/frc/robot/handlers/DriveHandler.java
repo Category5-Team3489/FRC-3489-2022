@@ -2,6 +2,7 @@ package frc.robot.handlers;
 
 import frc.robot.Constants;
 import frc.robot.framework.RobotHandler;
+import frc.robot.types.RobotType;
 
 public class DriveHandler extends RobotHandler {
 
@@ -16,7 +17,7 @@ public class DriveHandler extends RobotHandler {
     @Override
     public void teleopPeriodic() {
 
-        if (Constants.IsRobotInABox) return;
+        if (Constants.SelectedRobot != RobotType.Robot) return;
 
         if (shouldSwitchFront())
             frontSwitched = !frontSwitched;
@@ -35,7 +36,8 @@ public class DriveHandler extends RobotHandler {
             components.leftFrontDriveMotor.setSelectedSensorPosition(0);
             components.rightFollowerDriveMotor.setSelectedSensorPosition(0);
         }
-        if (loop % 10 == 0) System.out.println(((int)components.leftFrontDriveMotor.getSelectedSensorPosition()) + ", " + ((int)components.leftFollowerDriveMotor.getSelectedSensorPosition()));
+        if (loop % 10 == 0 && Constants.SelectedRobot == RobotType.Robot) 
+            System.out.println(((int)components.leftFrontDriveMotor.getSelectedSensorPosition()) + ", " + ((int)components.leftFollowerDriveMotor.getSelectedSensorPosition()));
         loop++;
     }
 
