@@ -26,11 +26,11 @@ public class TestHandler extends RobotHandler {
     private static final double TargetRPS = 50;
     private static final int TimeoutMS = 30;
 
-    private final static double kP = 0.08;
-    private final static double kI = 0.0005;//0.0005;//0.001;
-    private final static double kD = 2;//5;
+    private final static double kP = 0.1;
+    private final static double kI = 0.0005;//0.001;//0.0005;//0.001;
+    private final static double kD = 10;//2;//5;
     private final static double kF = 1023.0/20660.0;
-    private final static double Iz = 1000; // required error to reset I accumulator
+    private final static double Iz = 750; // required error to reset I accumulator
     //private final static double PeakOutput = 1;
     
     @Override
@@ -75,6 +75,7 @@ public class TestHandler extends RobotHandler {
 
         //addValue("RPS", (talon.getSelectedSensorVelocity() * 10.0) / 2048.0);
         addValue("CP100ms", talon.getSelectedSensorVelocity());
+        addValue("Error", talon.getClosedLoopError());
         //addValue("Error", talon.getClosedLoopError() / ((TargetRPS * 2048.0) / 10.0));
         //addValue("I", talon.getIntegralAccumulator());
         //addValue("D", talon.getErrorDerivative());
