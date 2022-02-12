@@ -29,7 +29,8 @@ public class CSVUtils {
     public static void write(String csv, boolean wipe) {
         if (files.containsKey(csv)) {
             CSVFile csvFile = files.get(csv);
-            FileUtils.writeFile(FileUtils.operatingDir(), csv, csvFile.get());
+            int files = FileUtils.getFile(FileUtils.operatingDir(), "").list().length;
+            FileUtils.writeFile(FileUtils.operatingDir(), files + csv, csvFile.get());
             if (wipe)
                 csvFile.wipe();
         }
