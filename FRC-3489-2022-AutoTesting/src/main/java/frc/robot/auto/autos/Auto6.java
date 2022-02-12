@@ -18,12 +18,12 @@ public class Auto6 extends AutoBuilder {
         )
         .pause(1) //Wait one second
         .concurrently(
-            drive(0.65, 6 * Auto.DriveClicksPerFoot), //Drive at 65% for 6 feet
+            drive(0.65, 4.5 * Auto.DriveClicksPerFoot), //Drive at 65% for 4.5 feet
             intake(.6, 10) //intake at 60% for 10 seconde
         )
         .pause(1) //wait for one second
-        .turn(.5, -70) //turn right 70 degrees at 50% power
-        .drive(.65, 2 * Auto.DriveClicksPerFoot); //drive forward 2 feet at 65%
+        .turn(.5, -100) //turn right 70 degrees at 50% power
+        .drive(.65, 4.5 * Auto.DriveClicksPerFoot); //drive forward 4.5 feet at 65%
 
         return first;
     }
