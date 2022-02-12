@@ -3,6 +3,8 @@ package frc.robot.handlers;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.framework.RobotHandler;
 import frc.robot.utils.CSVUtils;
@@ -23,6 +25,9 @@ public class TestHandler extends RobotHandler {
     @Override
     public void teleopInit() {
         components.rightTestMotor.setSelectedSensorPosition(0);
+        //components.rightTestMotor.config_kP(slotIdx, value)
+        //components.rightTestMotor.set()
+        //components.leftFrontDriveMotor.
         timer = new Timer();
         timer.start();
         CSVUtils.setColumns("test.csv", "Time,Category,Value");

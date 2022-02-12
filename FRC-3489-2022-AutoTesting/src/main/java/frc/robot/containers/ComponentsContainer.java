@@ -1,5 +1,6 @@
 package frc.robot.containers;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -8,8 +9,8 @@ import frc.robot.Constants;
 
 public final class ComponentsContainer {
     
-    public WPI_TalonSRX leftTestMotor;
-    public WPI_TalonSRX rightTestMotor;
+    public WPI_TalonFX leftTestMotor;
+    public WPI_TalonFX rightTestMotor;
 
     // Joysticks
     public Joystick leftDriveJoystick;
@@ -25,8 +26,8 @@ public final class ComponentsContainer {
     public ComponentsContainer() {
 
         if (Constants.IsRobotInABox) {
-            setSafeties(leftTestMotor = new WPI_TalonSRX(6));
-            setSafeties(rightTestMotor = new WPI_TalonSRX(9));
+            setSafeties(leftTestMotor = new WPI_TalonFX(6));
+            setSafeties(rightTestMotor = new WPI_TalonFX(9));
             return;
         }
 
@@ -52,6 +53,9 @@ public final class ComponentsContainer {
     }
 
     private void setSafeties(WPI_TalonSRX motor) {
+        motor.setSafetyEnabled(Constants.SafetiesEnabled);
+    }
+    private void setSafeties(WPI_TalonFX motor) {
         motor.setSafetyEnabled(Constants.SafetiesEnabled);
     }
     private void setSafeties(DifferentialDrive drive) {
