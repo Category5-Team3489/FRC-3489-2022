@@ -5,6 +5,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Constants;
 
@@ -28,8 +30,13 @@ public final class ComponentsContainer {
     public DifferentialDrive drive;
 
     // Climb 
-    public WPI_TalonFX rightClimbMotor = new WPI_TalonFX(99999);
-    public WPI_TalonFX leftClimbMotor = new WPI_TalonFX(000000);
+    public WPI_TalonFX ClimbMotor = new WPI_TalonFX(99999);
+    public Solenoid topLeftSolenoid = new Solenoid(PneumaticsModuleType.REVPH, 1);
+    public Solenoid topRightSolenoid = new Solenoid(PneumaticsModuleType.REVPH, 2);
+    public Solenoid bottomLeftSolenoid = new Solenoid(PneumaticsModuleType.REVPH, 3);
+    public Solenoid bottomRightSolenoid = new Solenoid(PneumaticsModuleType.REVPH, 4);
+    public Solenoid brakeSolenoid = new Solenoid(PneumaticsModuleType.REVPH, 5);
+    public Solenoid hookSolenoid = new Solenoid(PneumaticsModuleType.REVPH, 6);
 
     public ComponentsContainer() {
 
