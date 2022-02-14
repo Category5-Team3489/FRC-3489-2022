@@ -10,7 +10,7 @@ public final class Constants {
 
     public final class Auto {
         
-        public static final double DriveClicksPerInch = 217.3;
+        public static final double DriveClicksPerInch = 4096.0 / (2 * Math.PI * 3);
         public static final double DriveClicksPerFoot = 12 * DriveClicksPerInch;
         public static final double CargoTransferClicksPerBall = 1000;
     }
