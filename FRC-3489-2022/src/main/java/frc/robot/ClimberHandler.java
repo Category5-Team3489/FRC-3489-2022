@@ -19,7 +19,7 @@ public class ClimberHandler extends RobotHandler {
     public void setBrake(boolean brakeBoolean){
         container.brakeSolenoid.set(brakeBoolean);
     }
-    public void teloscope(double speed, double clicks){
-
+    public void teloscope(double climbSpeed, double climbClicks){
+        
     }
 }
