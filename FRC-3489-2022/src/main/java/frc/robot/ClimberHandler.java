@@ -2,7 +2,7 @@ package frc.robot;
 
 import frc.robot.framework.RobotHandler;
 
-public class pnematicsHandler extends RobotHandler {
+public class ClimberHandler extends RobotHandler {
     ComponentsContainer container;
 
     public void setBottom(boolean botBoolean){
@@ -13,9 +13,13 @@ public class pnematicsHandler extends RobotHandler {
         container.topLeftSolenoid.set(topBoolean);
         container.topRightSolenoid.set(topBoolean);
     }
-
-    public void setBrake(boolean brakeBoolean){
-        container.BrakeSolenoid.set(brakeBoolean);
+    public void setHookPnematic(boolean hookBoolean){
+        container.hookSolenoid.set(hookBoolean);
     }
+    public void setBrake(boolean brakeBoolean){
+        container.brakeSolenoid.set(brakeBoolean);
+    }
+    public void teloscope(double speed, double clicks){
 
+    }
 }

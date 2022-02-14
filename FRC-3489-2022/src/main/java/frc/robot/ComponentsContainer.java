@@ -34,13 +34,14 @@ public class ComponentsContainer {
     public Joystick rightDriveJoystick = new Joystick(Constants.RightDriveJoystick);
     public Joystick manipulatorJoystick = new Joystick(Constants.ManipulatorJoystick);
 
-    //pnematics
+    //climber pnematics
     public Solenoid bottomLeftSolenoid = new Solenoid(PneumaticsModuleType.REVPH, 1);
-    public Solenoid bottomRightSolenoid = new Solenoid(PneumaticsModuleType.REVPH, 1);
-    public Solenoid topLeftSolenoid = new Solenoid(PneumaticsModuleType.REVPH, 1);
-    public Solenoid topRightSolenoid = new Solenoid(PneumaticsModuleType.REVPH, 1);
-    public Solenoid BrakeSolenoid = new Solenoid(PneumaticsModuleType.REVPH, 1);
+    public Solenoid bottomRightSolenoid = new Solenoid(PneumaticsModuleType.REVPH, 2);
+    public Solenoid topLeftSolenoid = new Solenoid(PneumaticsModuleType.REVPH, 3);
+    public Solenoid topRightSolenoid = new Solenoid(PneumaticsModuleType.REVPH, 4);
+    public Solenoid brakeSolenoid = new Solenoid(PneumaticsModuleType.REVPH, 5);
+    public Solenoid hookSolenoid = new Solenoid(PneumaticsModuleType.REVPH, 6);
     
-
+    //telescope motor
     public WPI_TalonFX TeloscopeMotor = new WPI_TalonFX(Constants.TeloscpeMotorId);
 }

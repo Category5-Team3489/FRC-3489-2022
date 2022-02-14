@@ -1,6 +1,5 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.framework.RobotHandler;
 
 public class JoystickHandler extends RobotHandler {
