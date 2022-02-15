@@ -17,7 +17,7 @@ public class Auto7 extends AutoBuilder {
                     .cargoTransfer(0.5, 5 * Auto.CargoTransferClicksPerBall)
             )
             .pause(1)
-            .concurrently(      //Drive forward, intake ball, and drive to terminal
+            .concurrently(      //Intake ball while driving to terminal
                 drive(0.65, 13 * Auto.DriveClicksPerFoot),
                 intake(0.6, 5)
             );
