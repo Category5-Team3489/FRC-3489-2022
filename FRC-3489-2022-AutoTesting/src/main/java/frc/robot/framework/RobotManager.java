@@ -5,11 +5,7 @@ import java.util.List;
 
 import frc.robot.Robot;
 import frc.robot.containers.ComponentsContainer;
-import frc.robot.handlers.AutoHandler;
-import frc.robot.handlers.CameraHandler;
-import frc.robot.handlers.ClimberHandler;
-import frc.robot.handlers.DriveHandler;
-import frc.robot.handlers.TestHandler;
+import frc.robot.handlers.*;
 
 public final class RobotManager extends RobotHandler {
 
@@ -25,6 +21,9 @@ public final class RobotManager extends RobotHandler {
         handlers.add(cameraHandler = new CameraHandler());
         handlers.add(testHandler = new TestHandler());
         handlers.add(climberHandler = new ClimberHandler());
+        handlers.add(cargoTransferHandler = new CargoTransferHandler());
+        handlers.add(intakeHandler = new IntakeHandler());
+        handlers.add(shooterHandler = new ShooterHandler());
 
         for (RobotReferences references : handlers) {
             copyReferences(references);
@@ -41,6 +40,9 @@ public final class RobotManager extends RobotHandler {
         references.cameraHandler = cameraHandler;
         references.testHandler = testHandler;
         references.climberHandler = climberHandler;
+        references.cargoTransferHandler = cargoTransferHandler;
+        references.intakeHandler = intakeHandler;
+        references.shooterHandler = shooterHandler;
     }
 
     public void robotInit() {

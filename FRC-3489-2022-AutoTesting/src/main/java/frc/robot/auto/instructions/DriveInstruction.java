@@ -1,8 +1,6 @@
 package frc.robot.auto.instructions;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.FollowerType;
 
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants.Auto;
