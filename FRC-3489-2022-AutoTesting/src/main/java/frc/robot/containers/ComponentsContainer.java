@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.FollowerType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -16,7 +17,12 @@ public final class ComponentsContainer {
     public WPI_TalonFX leftTestMotor;
     public WPI_TalonFX rightTestMotor;
 
-    
+    // Ball System
+    public DigitalInput intakeLaserSensor;
+    public WPI_TalonSRX intakeMotor;
+    public WPI_TalonSRX cargoTransferMotor;
+    public WPI_TalonFX bottomShooterMotor;
+    public WPI_TalonFX topShooterMotor;
 
     // Joysticks
     public Joystick leftDriveJoystick;
@@ -51,6 +57,14 @@ public final class ComponentsContainer {
             case Robot:
                 leftDriveJoystick = new Joystick(0);
                 rightDriveJoystick = new Joystick(1);
+
+                // Ball System
+                intakeLaserSensor = new DigitalInput(0);
+                intakeMotor = new WPI_TalonSRX(21323);
+                cargoTransferMotor = new WPI_TalonSRX(21334723);
+                bottomShooterMotor = new WPI_TalonFX(321);
+                topShooterMotor = new WPI_TalonFX(2487849);
+
                 initDrive();
                 break;
         }

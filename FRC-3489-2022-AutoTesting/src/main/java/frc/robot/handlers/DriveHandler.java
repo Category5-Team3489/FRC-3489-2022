@@ -36,7 +36,7 @@ public class DriveHandler extends RobotHandler {
             components.leftFrontDriveMotor.setSelectedSensorPosition(0);
             components.rightFollowerDriveMotor.setSelectedSensorPosition(0);
         }
-        if (loop % 10 == 0 && Constants.SelectedRobot == RobotType.Robot) 
+        if (loop % 10 == 0)
             System.out.println(((int)components.leftFrontDriveMotor.getSelectedSensorPosition()) + ", " + ((int)components.leftFollowerDriveMotor.getSelectedSensorPosition()));
         loop++;
     }
