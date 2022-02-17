@@ -27,6 +27,7 @@ public final class ComponentsContainer {
     // Joysticks
     public Joystick leftDriveJoystick;
     public Joystick rightDriveJoystick;
+    public Joystick manipulatorJoystick;
 
     // Drive
     public WPI_TalonSRX leftFrontDriveMotor;
@@ -57,6 +58,7 @@ public final class ComponentsContainer {
             case Robot:
                 leftDriveJoystick = new Joystick(0);
                 rightDriveJoystick = new Joystick(1);
+                manipulatorJoystick = new Joystick(2);
 
                 // Ball System
                 intakeLaserSensor = new DigitalInput(0);

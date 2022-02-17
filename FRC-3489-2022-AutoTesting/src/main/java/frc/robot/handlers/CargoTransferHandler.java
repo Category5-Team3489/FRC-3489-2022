@@ -10,20 +10,32 @@ public class CargoTransferHandler extends RobotHandler {
     private double encoderTarget = 0;
     
     public void index() {
+        if (isIndexing) return;
         components.cargoTransferMotor.setSelectedSensorPosition(0);
-        encoderTarget += Constants.ClicksPerCargoLength;
+        encoderTarget = Constants.ClicksPerCargoLength;
         isIndexingForward = true;
     }
 
     public void reverseIndex() {
+        if (isIndexing) return;
         components.cargoTransferMotor.setSelectedSensorPosition(0);
-        encoderTarget += Constants.ClicksPerCargoLength;
+        encoderTarget = Constants.ClicksPerCargoLength;
         isIndexingForward = false;
     }
 
     public void set(double speed) {
         isIndexing = false;
         components.cargoTransferMotor.set(speed);
+    }
+
+    public void stopIfNotIndexing() {
+        if (!isIndexing) {
+            components.cargoTransferMotor.stopMotor();
+        }
+    }
+
+    public boolean isIndexing() {
+        return isIndexing;
     }
 
     @Override

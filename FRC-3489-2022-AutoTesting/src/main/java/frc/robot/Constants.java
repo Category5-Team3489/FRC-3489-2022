@@ -20,6 +20,13 @@ public final class Constants {
     public static final double ShootLowBottomMotorSpeed = 0.2;
     public static final double ShootLowTopMotorSpeed = 0.2;
 
+    // Buttons
+    public static final int SetShooterLowGoalButton = 123213;
+    public static final int SetShooterHighGoalButton = 123213;
+    public static final int StopShooterButton = 123213;
+    public static final int ToggleIntakeButton = 123213;
+    public static final int ShootButton = 1;
+
     // Clicks
     public static final double ClicksPerCargoLength = 1000;
 
