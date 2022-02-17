@@ -1,6 +1,6 @@
 package frc.robot.handlers;
 
-
+import frc.robot.auto.framework.AutoBuilder;
 import frc.robot.containers.ComponentsContainer;
 import frc.robot.framework.RobotHandler;
 
@@ -23,5 +23,17 @@ public class ClimberHandler extends RobotHandler{
     }
     public void telescope(){
         
+    }
+    public void midToHi(){
+        setBrake(true); //energize pnematic 1
+        AutoBuilder.pause(1);//pause 1 second
+        setTop(true);//extend pnematic 3
+        AutoBuilder.pause(1);//pause 1 second
+        //lower telescope about 2 in.
+        AutoBuilder.pause(1);//pause 1 second
+        setHookPnematic(false);//de-energize pnematic 4
+        AutoBuilder.pause(1);//pause 1 second
+        setTop(false);//de-energize pnematic 3
+        setBottom(false);//de-energize pnematic 2
     }
 }
