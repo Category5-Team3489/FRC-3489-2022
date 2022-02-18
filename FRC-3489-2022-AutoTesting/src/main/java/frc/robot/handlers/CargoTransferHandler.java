@@ -13,6 +13,7 @@ public class CargoTransferHandler extends RobotHandler {
         if (isIndexing) return;
         components.cargoTransferMotor.setSelectedSensorPosition(0);
         encoderTarget = Constants.ClicksPerCargoLength;
+        isIndexing = true;
         isIndexingForward = true;
     }
 
@@ -20,6 +21,7 @@ public class CargoTransferHandler extends RobotHandler {
         if (isIndexing) return;
         components.cargoTransferMotor.setSelectedSensorPosition(0);
         encoderTarget = Constants.ClicksPerCargoLength;
+        isIndexing = true;
         isIndexingForward = false;
     }
 

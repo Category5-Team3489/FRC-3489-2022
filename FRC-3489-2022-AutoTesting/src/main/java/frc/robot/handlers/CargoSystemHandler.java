@@ -129,7 +129,7 @@ public class CargoSystemHandler extends RobotHandler {
             // set cargo transfer conveyor to move up
             cargoTransferHandler.set(Constants.CargoTransferMotorSpeed);
         }
-        else if (pov == 135 || pov == 180 || pov == 225) { // POV is down
+        else if (pov == 225 || pov == 180 || pov == 135) { // POV is down
             // set intake speed to move down
             intakeHandler.reverseIntake();
             // set cargo transfer conveyor to move down

@@ -24,7 +24,7 @@ public final class Constants {
     public static final int SetShooterLowGoalButton = 123213;
     public static final int SetShooterHighGoalButton = 123213;
     public static final int StopShooterButton = 123213;
-    public static final int ToggleIntakeButton = 123213;
+    public static final int ToggleIntakeButton = 2;
     public static final int ShootButton = 1;
 
     // Clicks

@@ -1,0 +1,11 @@
+Left Drive Joystick
+
+
+Right Drive Joystick
+
+
+Manipulator Joystick
+Btn 2: Intake Sequence
+
+POV Up: Manual Cargo Mover and Intake UP
+POV Down: Manual Cargo Mover and Intake Down
