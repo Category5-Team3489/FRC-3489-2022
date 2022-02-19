@@ -14,6 +14,24 @@ public class ShuffleboardHandler extends RobotHandler {
 
     private SendableChooser<Integer> autoChooser = new SendableChooser<Integer>();
 
+    private long loop = 0;
+
+    private boolean shouldSet() {
+        return loop % 50 == 0;
+    }
+
+    @Override
+    public void robotInit() {
+        shuffleboardHandler.setString(true, "Shooter Mode", "Stopped");
+        shuffleboardHandler.setNumber(true, "Cargo Count", 0);
+        shuffleboardHandler.setString(true, "Drive Mode", "Forward");
+    }
+
+    @Override
+    public void robotPeriodic() {
+        loop++;
+    }
+
     public void setBoolean(boolean isMainTab, String name, boolean value) {
         ShuffleboardUtils.setBoolean(getTab(isMainTab), name, value);
     }
@@ -22,6 +40,26 @@ public class ShuffleboardHandler extends RobotHandler {
     }
     public void setString(boolean isMainTab, String name, String value) {
         ShuffleboardUtils.setString(getTab(isMainTab), name, value);
+    }
+    public void setNumber(boolean isMainTab, String name, Number value) {
+        ShuffleboardUtils.setNumber(getTab(isMainTab), name, value);
+    }
+
+    public void showBoolean(boolean isMainTab, String name, Boolean value) {
+        if (shouldSet())
+            setBoolean(isMainTab, name, value);
+    }
+    public void showDouble(boolean isMainTab, String name, Double value) {
+        if (shouldSet())
+            setDouble(isMainTab, name, value);
+    }
+    public void showString(boolean isMainTab, String name, String value) {
+        if (shouldSet())
+            setString(isMainTab, name, value);
+    }
+    public void showNumber(boolean isMainTab, String name, Number value) {
+        if (shouldSet())
+            setNumber(isMainTab, name, value);
     }
 
     public ShuffleboardTab getTab(boolean isMainTab) {
@@ -33,7 +71,7 @@ public class ShuffleboardHandler extends RobotHandler {
             .add(source)
             .withWidget(BuiltInWidgets.kCameraStream)
             .withSize(4, 4)
-            .withPosition(2, 0);
+            .withPosition(0, 0);
     }
 
     public void createAutoChooserWidget() {
@@ -55,5 +93,6 @@ public class ShuffleboardHandler extends RobotHandler {
     public int getSelectedAuto() {
         return autoChooser.getSelected();
     }
+    
     
 }

@@ -107,24 +107,6 @@ public abstract class AutoBuilder extends RobotReferences {
     public static final ConcurrentInstruction concurrently(AutoInstruction... concurrentInstructions) {
         return new ConcurrentInstruction(concurrentInstructions);
     }
-    /**
-     * Creates a test instruction
-     * @param speed Speed test motor should spin at
-     * @param seconds Seconds test motor should spin for
-     * @return A test instruction
-     */
-    public static final LeftInstruction left(double speed, double seconds) {
-        return new LeftInstruction(speed, seconds);
-    }
-    /**
-     * Creates a test instruction
-     * @param speed Speed test motor should spin at
-     * @param seconds Seconds test motor should spin for
-     * @return A test instruction
-     */
-    public static final RightInstruction right(double speed, double seconds) {
-        return new RightInstruction(speed, seconds);
-    }
     public static final CargoTransferInstruction cargoTransfer(double speed, double clicks) {
         return new CargoTransferInstruction(speed, clicks);
     }

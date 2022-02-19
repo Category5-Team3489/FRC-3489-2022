@@ -3,11 +3,11 @@ package frc.robot;
 public final class Constants {
 
     // State
-    public static final boolean HasCameras = false;
+    public static final boolean HasCameras = true;
     public static final boolean SafetiesEnabled = false;
 
     // Limiters
-    public static final double DriveSetSpeedDeltaLimiter = 0.5; // (-1, 1) set speed delta per second
+    public static final double DriveSetSpeedDeltaLimiter = 4; // (-1, 1) set speed delta per second
 
     // Shuffleboard
     public static final String ShuffleboardMainTabName = "3489 2022 Ducknado";
@@ -26,11 +26,11 @@ public final class Constants {
     public static final double ShootLowTopMotorSpeed = 0.2;
 
     // Manipulator Buttons
-    public static final int SetShooterLowGoalButton = 7;
-    public static final int SetShooterHighGoalButton = 9;
+    public static final int SetShooterHighGoalButton = 7;
+    public static final int SetShooterLowGoalButton = 9;
     public static final int StopShooterButton = 11;
-    public static final int ToggleIntakeButton = 2;
     public static final int ShootButton = 1;
+    public static final int ToggleIntakeButton = 2;
 
     // Drive Buttons
     public static final int SwitchFront = 13;

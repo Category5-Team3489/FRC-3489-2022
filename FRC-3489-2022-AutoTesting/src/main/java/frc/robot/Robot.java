@@ -11,7 +11,8 @@ public class Robot extends TimedRobot {
 
   private RobotManager robotManager;
 
-  
+  // TODO Climber
+  // TODO 
 
   // TODO Max rate of change of set speed for teleop driving - Connor
   // TODO Button debouncer utils
@@ -93,6 +94,16 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
     robotManager.testPeriodic();
+  }
+
+  @Override
+  public void simulationInit() {
+
+  }
+
+  @Override
+  public void simulationPeriodic() {
+    
   }
 
 }

@@ -75,24 +75,6 @@ public abstract class AutoInstruction extends RobotReferences {
     public final ConcurrentInstruction concurrently(AutoInstruction... concurrentInstructions) {
         return setNext(AutoBuilder.concurrently(concurrentInstructions));
     }
-    /**
-     * Creates a test instruction
-     * @param speed Speed test motor should spin at
-     * @param seconds Seconds test motor should spin for
-     * @return A test instruction
-     */
-    public final LeftInstruction left(double speed, double seconds) {
-        return setNext(AutoBuilder.left(speed, seconds));
-    }
-    /**
-     * Creates a test instruction
-     * @param speed Speed test motor should spin at
-     * @param seconds Seconds test motor should spin for
-     * @return A test instruction
-     */
-    public final RightInstruction right(double speed, double seconds) {
-        return setNext(AutoBuilder.right(speed, seconds));
-    }
     public final CargoTransferInstruction cargoTransfer(double speed, double clicks) {
         return setNext(AutoBuilder.cargoTransfer(speed, clicks));
     }

@@ -12,7 +12,8 @@ public class DriveHandler extends RobotHandler {
     private SlewRateLimiter rightLimiter = new SlewRateLimiter(Constants.DriveSetSpeedDeltaLimiter);
 
     private boolean shouldSwitchFront() {
-        return components.leftDriveJoystick.getRawButtonPressed(Constants.SwitchFront) || components.rightDriveJoystick.getRawButtonPressed(Constants.SwitchFront);
+        return components.manipulatorJoystick.getRawButtonPressed(3);
+        //return components.leftDriveJoystick.getRawButtonPressed(Constants.SwitchFront) || components.rightDriveJoystick.getRawButtonPressed(Constants.SwitchFront);
     }
 
     @Override
@@ -21,13 +22,14 @@ public class DriveHandler extends RobotHandler {
         if (shouldSwitchFront()) {
             isFront = !isFront;
             cameraHandler.setCamera(isFront);
+            shuffleboardHandler.setString(true, "Drive Mode", isFront ? "Forward" : "Backward");
         }
         double leftY = components.leftDriveJoystick.getY();
         double rightY = components.rightDriveJoystick.getY();
+        if (Math.abs(leftY) < 0.1) leftY = 0;
+        if (Math.abs(rightY) < 0.1) rightY = 0;
         double leftSpeed = leftLimiter.calculate(leftY);
         double rightSpeed = rightLimiter.calculate(rightY);
-        if (Math.abs(leftY) < 0.1) leftSpeed = 0;
-        if (Math.abs(rightY) < 0.1) rightSpeed = 0;
         if (isFront)
             components.drive.tankDrive(rightSpeed, leftSpeed);
         else

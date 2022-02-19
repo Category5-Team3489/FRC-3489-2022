@@ -12,32 +12,30 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Constants;
 
 public final class ComponentsContainer {
-    
-    // Testing
-    public WPI_TalonFX leftTestMotor;
-    public WPI_TalonFX rightTestMotor;
-
-    // Ball System
-    public DigitalInput intakeLaserSensor;
-    public WPI_TalonSRX intakeMotor;
-    public WPI_TalonSRX cargoTransferMotor;
-    public WPI_TalonFX bottomShooterMotor;
-    public WPI_TalonFX topShooterMotor;
 
     // Joysticks
     public Joystick leftDriveJoystick;
     public Joystick rightDriveJoystick;
     public Joystick manipulatorJoystick;
 
+    // Sensors
+    public DigitalInput intakeLaserSensor = new DigitalInput(0);
+
     // Drive
-    public WPI_TalonSRX leftFrontDriveMotor;
-    public WPI_TalonSRX rightFrontDriveMotor;
-    public WPI_TalonSRX leftFollowerDriveMotor;
-    public WPI_TalonSRX rightFollowerDriveMotor;
+    public WPI_TalonSRX leftFrontDriveMotor = new WPI_TalonSRX(1);
+    public WPI_TalonSRX rightFrontDriveMotor = new WPI_TalonSRX(2);
+    public WPI_TalonSRX leftFollowerDriveMotor = new WPI_TalonSRX(3);
+    public WPI_TalonSRX rightFollowerDriveMotor = new WPI_TalonSRX(4);
     public DifferentialDrive drive;
 
-    // Climb 
-    public WPI_TalonFX ClimbMotor = new WPI_TalonFX(99999);
+    // Ball System
+    public WPI_TalonFX bottomShooterMotor = new WPI_TalonFX(5);
+    public WPI_TalonFX topShooterMotor = new WPI_TalonFX(6);
+    public WPI_TalonSRX cargoTransferMotor = new WPI_TalonSRX(7);
+    public WPI_TalonSRX intakeMotor = new WPI_TalonSRX(8);
+
+    // Climb
+    public WPI_TalonFX ClimbMotor = new WPI_TalonFX(10);
     public Solenoid topLeftSolenoid = new Solenoid(PneumaticsModuleType.REVPH, 1);
     public Solenoid topRightSolenoid = new Solenoid(PneumaticsModuleType.REVPH, 2);
     public Solenoid bottomLeftSolenoid = new Solenoid(PneumaticsModuleType.REVPH, 3);
@@ -46,25 +44,24 @@ public final class ComponentsContainer {
     public Solenoid hookSolenoid = new Solenoid(PneumaticsModuleType.REVPH, 6);
 
     public ComponentsContainer() {
+        leftFrontDriveMotor.configFactoryDefault();
+        rightFrontDriveMotor.configFactoryDefault();
+        leftFollowerDriveMotor.configFactoryDefault();
+        rightFollowerDriveMotor.configFactoryDefault();
+        
+        bottomShooterMotor.configFactoryDefault();
+        topShooterMotor.configFactoryDefault();
+        cargoTransferMotor.configFactoryDefault();
+        intakeMotor.configFactoryDefault();
+
+        leftFrontDriveMotor.configOpenloopRamp(Constants.DriveSetSpeedDeltaLimiter);
+        rightFrontDriveMotor.configOpenloopRamp(Constants.DriveSetSpeedDeltaLimiter);
+        leftFollowerDriveMotor.configOpenloopRamp(Constants.DriveSetSpeedDeltaLimiter);
+        rightFollowerDriveMotor.configOpenloopRamp(Constants.DriveSetSpeedDeltaLimiter);
+
         leftDriveJoystick = new Joystick(0);
         rightDriveJoystick = new Joystick(1);
         manipulatorJoystick = new Joystick(2);
-
-        // Ball System
-        intakeLaserSensor = new DigitalInput(0);
-        intakeMotor = new WPI_TalonSRX(21323);
-        cargoTransferMotor = new WPI_TalonSRX(21334723);
-        bottomShooterMotor = new WPI_TalonFX(321);
-        topShooterMotor = new WPI_TalonFX(2487849);
-
-        initDrive();
-    }
-
-    private void initDrive() {
-        leftFrontDriveMotor = new WPI_TalonSRX(1);
-        rightFrontDriveMotor = new WPI_TalonSRX(2);
-        leftFollowerDriveMotor = new WPI_TalonSRX(3);
-        rightFollowerDriveMotor = new WPI_TalonSRX(4);
 
         setSafeties(drive = new DifferentialDrive(leftFrontDriveMotor, rightFrontDriveMotor));
 
@@ -72,6 +69,11 @@ public final class ComponentsContainer {
         setSafeties(rightFrontDriveMotor);
         setSafeties(leftFollowerDriveMotor);
         setSafeties(rightFollowerDriveMotor);
+
+        setSafeties(bottomShooterMotor);
+        setSafeties(topShooterMotor);
+        setSafeties(cargoTransferMotor);
+        setSafeties(intakeMotor);
 
         setDefaultDrive();
     }

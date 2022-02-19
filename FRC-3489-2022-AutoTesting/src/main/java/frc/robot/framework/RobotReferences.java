@@ -13,7 +13,6 @@ public abstract class RobotReferences {
     public DriveHandler driveHandler;
     public AutoHandler autoHandler;
     public CameraHandler cameraHandler;
-    public TestHandler testHandler;
     public ClimberHandler climberHandler;
     public CargoTransferHandler cargoTransferHandler;
     public IntakeHandler intakeHandler;

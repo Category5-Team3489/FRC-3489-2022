@@ -45,6 +45,8 @@ public class CargoSystemHandler extends RobotHandler {
         highGoalShooter();
         // Push button to stop shooter Afif
         stopShooter();
+
+        shuffleboardHandler.showNumber(true, "Cargo Count", cargoCount);
     }
 
     private void shoot() {
@@ -105,6 +107,8 @@ public class CargoSystemHandler extends RobotHandler {
         // shoot low if button pressed
         if (shootLow) {
             shooterHandler.shootLow();
+            // Set shoot low shuffleboard
+            shuffleboardHandler.setString(true, "Shooter Mode", "Low");
         }
     }
 
@@ -115,6 +119,8 @@ public class CargoSystemHandler extends RobotHandler {
         // shoot high if button pressed
         if (shootHigh) {
             shooterHandler.shootHigh();
+            // Set shoot high shuffleboard
+            shuffleboardHandler.setString(true, "Shooter Mode", "High");
         }
     }
 
@@ -124,7 +130,9 @@ public class CargoSystemHandler extends RobotHandler {
         boolean stopShooter = components.manipulatorJoystick.getRawButtonPressed(Constants.StopShooterButton);
         //stops the shooter if button pressed
         if (stopShooter) {
-            shooterHandler.stopShooter(); 
+            shooterHandler.stopShooter();
+            // Set shooter stopped shuffleboard
+            shuffleboardHandler.setString(true, "Shooter Mode", "Stopped");
         }
     }
     
