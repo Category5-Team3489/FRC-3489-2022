@@ -4,103 +4,161 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
-/**
- * The VM is configured to automatically run this class, and to call the functions corresponding to
- * each mode, as described in the TimedRobot documentation. If you change the name of this class or
- * the package after creating this project, you must also update the build.gradle file in the
- * project.
- */
 public class Robot extends TimedRobot {
-  private static final String kDefaultAuto = "Default";
-  private static final String kCustomAuto = "My Auto";
-  private String m_autoSelected;
-  private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
-  /**
-   * This function is run when the robot is first started up and should be used for any
-   * initialization code.
-   */
+  private Joystick leftDrive = new Joystick(0);
+  private Joystick rightDrive = new Joystick(1);
+  private Joystick manipulator = new Joystick(2);
+
+  private WPI_TalonSRX leftFrontDriveMotor = new WPI_TalonSRX(1);
+  private WPI_TalonSRX rightFrontDriveMotor = new WPI_TalonSRX(2);
+  private WPI_TalonSRX leftFollowerDriveMotor = new WPI_TalonSRX(3);
+  private WPI_TalonSRX rightFollowerDriveMotor = new WPI_TalonSRX(4);
+  private DifferentialDrive drive;
+
+  private WPI_TalonFX shooterBottom = new WPI_TalonFX(5);
+  private WPI_TalonFX shooterTop = new WPI_TalonFX(6);
+  private WPI_TalonSRX cargoTransfer = new WPI_TalonSRX(7);
+  private WPI_TalonSRX intake = new WPI_TalonSRX(8);
+
+  private static final int Shooter = 7;
+  private static final int Cargo = 9;
+  private static final int Intake = 11;
+  private static final int ShooterKill = 8;
+  private static final int CargoKill = 10;
+  private static final int IntakeKill = 12;
+  private static final int EStop = 2;
+
+  private static final int SwitchFront = 13;
+
+  private Subsystem activeSubsystem = Subsystem.Intake;
+
+  private boolean isFrontSwitched = false;
+
+  private double shooterSpeed = 0;
+  private double cargoSpeed = 0;
+  private double intakeSpeed = 0;
+
+  enum Subsystem
+  {
+    Shooter,
+    Cargo,
+    Intake
+  }
+
   @Override
   public void robotInit() {
-    m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
-    m_chooser.addOption("My Auto", kCustomAuto);
-    SmartDashboard.putData("Auto choices", m_chooser);
+    rightFrontDriveMotor.setInverted(true);
+    rightFollowerDriveMotor.setInverted(true);
+    leftFollowerDriveMotor.follow(leftFrontDriveMotor);
+    rightFollowerDriveMotor.follow(rightFrontDriveMotor);
+
+    drive = new DifferentialDrive(leftFrontDriveMotor, rightFrontDriveMotor);
   }
 
-  /**
-   * This function is called every robot packet, no matter the mode. Use this for items like
-   * diagnostics that you want ran during disabled, autonomous, teleoperated and test.
-   *
-   * <p>This runs after the mode specific periodic functions, but before LiveWindow and
-   * SmartDashboard integrated updating.
-   */
   @Override
-  public void robotPeriodic() {}
+  public void teleopInit() {
 
-  /**
-   * This autonomous (along with the chooser code above) shows how to select between different
-   * autonomous modes using the dashboard. The sendable chooser code works with the Java
-   * SmartDashboard. If you prefer the LabVIEW Dashboard, remove all of the chooser code and
-   * uncomment the getString line to get the auto name from the text box below the Gyro
-   *
-   * <p>You can add additional auto modes by adding additional comparisons to the switch structure
-   * below with additional strings. If using the SendableChooser make sure to add them to the
-   * chooser code above as well.
-   */
-  @Override
-  public void autonomousInit() {
-    m_autoSelected = m_chooser.getSelected();
-    // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
-    System.out.println("Auto selected: " + m_autoSelected);
   }
 
-  /** This function is called periodically during autonomous. */
+  private boolean shouldSwitchFront() {
+    return leftDrive.getRawButtonPressed(SwitchFront) || rightDrive.getRawButtonPressed(SwitchFront);
+  }
+
   @Override
-  public void autonomousPeriodic() {
-    switch (m_autoSelected) {
-      case kCustomAuto:
-        // Put custom auto code here
+  public void teleopPeriodic() {
+    if (shouldSwitchFront())
+      isFrontSwitched = !isFrontSwitched;
+    double leftY = leftDrive.getY();
+    double rightY = rightDrive.getY();
+    double leftSpeed = 0;
+    double rightSpeed = 0;
+    if (Math.abs(leftY) >= 0.1) leftSpeed = leftY;
+    if (Math.abs(rightY) >= 0.1) rightSpeed = rightY;
+    if (isFrontSwitched)
+      drive.tankDrive(rightSpeed, leftSpeed);
+    else
+      drive.tankDrive(-leftSpeed, -rightSpeed);
+
+    if (manipulator.getRawButton(Shooter))
+      activeSubsystem = Subsystem.Shooter;
+    if (manipulator.getRawButton(Cargo))
+      activeSubsystem = Subsystem.Cargo;
+    if (manipulator.getRawButton(Intake))
+      activeSubsystem = Subsystem.Intake;
+
+    if (manipulator.getRawButton(ShooterKill))
+      shooterSpeed = 0;
+    if (manipulator.getRawButton(CargoKill))
+      cargoSpeed = 0;
+    if (manipulator.getRawButton(IntakeKill))
+      intakeSpeed = 0;
+
+    if (manipulator.getRawButton(EStop)) {
+      shooterSpeed = 0;
+      cargoSpeed = 0;
+      intakeSpeed = 0;
+    }
+
+    controlActiveSubsystem();
+
+    switch (activeSubsystem) {
+      case Shooter:
+        shooterBottom.set(-shooterSpeed);
+        shooterTop.set(shooterSpeed);
         break;
-      case kDefaultAuto:
-      default:
-        // Put default auto code here
+      case Cargo:
+        cargoTransfer.set(cargoSpeed);
+        break;
+      case Intake:
+        intake.set(intakeSpeed);
         break;
     }
   }
 
-  /** This function is called once when teleop is enabled. */
-  @Override
-  public void teleopInit() {}
+  private void controlActiveSubsystem() {
 
-  /** This function is called periodically during operator control. */
-  @Override
-  public void teleopPeriodic() {}
+    if (Math.abs(manipulator.getY()) < 0.1) return;
 
-  /** This function is called once when the robot is disabled. */
-  @Override
-  public void disabledInit() {}
+    switch (activeSubsystem) {
+      case Shooter:
+        shooterSpeed += getAdjust();
+        break;
+      case Cargo:
+        cargoSpeed += getAdjust();
+        break;
+      case Intake:
+        intakeSpeed += getAdjust();
+        break;
+    }
 
-  /** This function is called periodically when disabled. */
-  @Override
-  public void disabledPeriodic() {}
+    shooterSpeed = clamp(shooterSpeed, -1, 1);
+    cargoSpeed = clamp(cargoSpeed, -1, 1);
+    intakeSpeed = clamp(intakeSpeed, -1, 1);
+  }
 
-  /** This function is called once when test mode is enabled. */
-  @Override
-  public void testInit() {}
+  private double getAdjust() {
+    return manipulator.getY() * 0.01;
+  }
 
-  /** This function is called periodically during test mode. */
-  @Override
-  public void testPeriodic() {}
+  private static double clamp(double val, double min, double max) {
+    return Math.max(min, Math.min(max, val));
+  }
 
-  /** This function is called once when the robot is first started up. */
   @Override
-  public void simulationInit() {}
+  public void disabledInit() {
 
-  /** This function is called periodically whilst in simulation. */
+  }
+
   @Override
-  public void simulationPeriodic() {}
+  public void disabledPeriodic() {
+
+  }
 }
