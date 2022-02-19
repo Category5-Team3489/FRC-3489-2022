@@ -3,7 +3,6 @@ package frc.robot.auto.instructions;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.Timer;
-import frc.robot.Constants.Auto;
 import frc.robot.auto.framework.AutoInstruction;
 import frc.robot.utils.CSVUtils;
 
