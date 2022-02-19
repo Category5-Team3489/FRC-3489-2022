@@ -6,19 +6,19 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.framework.RobotManager;
-import frc.robot.utils.CSVUtils;
 
 public class Robot extends TimedRobot {
 
   private RobotManager robotManager;
 
-  // TODO Max rate of change of set speed for teleop driving
+  
+
+  // TODO Max rate of change of set speed for teleop driving - Connor
   // TODO Button debouncer utils
   // TODO Look into feedforward
   // TODO Look into PID
-  // TODO Rev robotics library and code
   // TODO Document auto framework
-  // TODO Shuffleboard utils
+  // TODO Shuffleboard utils - Afif & Mackinzie
   // TODO Simplify auto framework
   // TODO Logger handler
   // TODO High frequency periodic method in auto for PID, 200hz maybe
@@ -39,11 +39,9 @@ public class Robot extends TimedRobot {
   // TODO Fix 2 drive docs
   // TODO Auto docs
 
-  // How to connect to roborio with ftp
+  // Useful Links
   // https://docs.wpilib.org/en/stable/docs/software/roborio-info/roborio-ftp.html
-
-  // Current
-  // TODO Get rawgraphs locally https://github.com/rawgraphs/rawgraphs-app
+  // https://github.com/rawgraphs/rawgraphs-app
 
 
   @Override
@@ -75,13 +73,11 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     robotManager.teleopPeriodic();
-    System.out.println(robotManager.components.leftFrontDriveMotor.getSelectedSensorPosition());
   }
 
   @Override
   public void disabledInit() {
     robotManager.disabledInit();
-    CSVUtils.write("test.csv", true);
   }
 
   @Override

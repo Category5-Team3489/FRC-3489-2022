@@ -1,11 +1,17 @@
 Left Drive Joystick
-
+Btn 13: Switch front
 
 Right Drive Joystick
+Btn 13: Switch front
 
 
 Manipulator Joystick
+Btn 1: Shoot
 Btn 2: Intake Sequence
+Btn 7: Set Low Goal Shooting
+Btn 9: Set High Goal Shooting
+Btn 11: Stop Shooting
+
 
 POV Up: Manual Cargo Mover and Intake UP
 POV Down: Manual Cargo Mover and Intake Down

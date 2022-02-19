@@ -7,6 +7,7 @@ package frc.robot;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -46,6 +47,11 @@ public class Robot extends TimedRobot {
   private double cargoSpeed = 0;
   private double intakeSpeed = 0;
 
+  private SlewRateLimiter leftLimiter = new SlewRateLimiter(0.5);
+  private SlewRateLimiter rightLimiter = new SlewRateLimiter(0.5);
+
+  private long loop = 0;
+
   enum Subsystem
   {
     Shooter,
@@ -65,7 +71,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-
+    shooterSpeed = 0;
+    cargoSpeed = 0;
+    intakeSpeed = 0;
   }
 
   private boolean shouldSwitchFront() {
@@ -78,10 +86,10 @@ public class Robot extends TimedRobot {
       isFrontSwitched = !isFrontSwitched;
     double leftY = leftDrive.getY();
     double rightY = rightDrive.getY();
-    double leftSpeed = 0;
-    double rightSpeed = 0;
-    if (Math.abs(leftY) >= 0.1) leftSpeed = leftY;
-    if (Math.abs(rightY) >= 0.1) rightSpeed = rightY;
+    double leftSpeed = leftLimiter.calculate(leftY);
+    double rightSpeed = rightLimiter.calculate(rightY);
+    if (Math.abs(leftY) < 0.1) leftSpeed = 0;
+    if (Math.abs(rightY) < 0.1) rightSpeed = 0;
     if (isFrontSwitched)
       drive.tankDrive(rightSpeed, leftSpeed);
     else
@@ -121,11 +129,18 @@ public class Robot extends TimedRobot {
         intake.set(intakeSpeed);
         break;
     }
+
+    if (loop % 50 == 0) {
+      System.out.println("Shooter: " + ((int)(shooterSpeed * 100)));
+      System.out.println("Cargo: " + ((int)(cargoSpeed * 100)));
+      System.out.println("Intake: " + ((int)(intakeSpeed * 100)));
+    }
+    loop++;
   }
 
   private void controlActiveSubsystem() {
 
-    if (Math.abs(manipulator.getY()) < 0.1) return;
+    if (Math.abs(manipulator.getY()) < 0.2) return;
 
     switch (activeSubsystem) {
       case Shooter:
@@ -145,7 +160,7 @@ public class Robot extends TimedRobot {
   }
 
   private double getAdjust() {
-    return manipulator.getY() * 0.01;
+    return manipulator.getY() * 0.005;
   }
 
   private static double clamp(double val, double min, double max) {

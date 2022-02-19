@@ -46,30 +46,18 @@ public final class ComponentsContainer {
     public Solenoid hookSolenoid = new Solenoid(PneumaticsModuleType.REVPH, 6);
 
     public ComponentsContainer() {
+        leftDriveJoystick = new Joystick(0);
+        rightDriveJoystick = new Joystick(1);
+        manipulatorJoystick = new Joystick(2);
 
-        switch (Constants.SelectedRobot) {
-            case RobotInABox:
-                setSafeties(leftTestMotor = new WPI_TalonFX(6));
-                setSafeties(rightTestMotor = new WPI_TalonFX(9));
-                break;
-            case IonV:
-                initDrive();
-                break;
-            case Robot:
-                leftDriveJoystick = new Joystick(0);
-                rightDriveJoystick = new Joystick(1);
-                manipulatorJoystick = new Joystick(2);
+        // Ball System
+        intakeLaserSensor = new DigitalInput(0);
+        intakeMotor = new WPI_TalonSRX(21323);
+        cargoTransferMotor = new WPI_TalonSRX(21334723);
+        bottomShooterMotor = new WPI_TalonFX(321);
+        topShooterMotor = new WPI_TalonFX(2487849);
 
-                // Ball System
-                intakeLaserSensor = new DigitalInput(0);
-                intakeMotor = new WPI_TalonSRX(21323);
-                cargoTransferMotor = new WPI_TalonSRX(21334723);
-                bottomShooterMotor = new WPI_TalonFX(321);
-                topShooterMotor = new WPI_TalonFX(2487849);
-
-                initDrive();
-                break;
-        }
+        initDrive();
     }
 
     private void initDrive() {

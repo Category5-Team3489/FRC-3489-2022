@@ -4,9 +4,6 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cscore.VideoSink;
 import edu.wpi.first.cscore.VideoSource.ConnectionStrategy;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import frc.robot.Constants;
 import frc.robot.framework.RobotHandler;
 
@@ -30,26 +27,24 @@ public class CameraHandler extends RobotHandler {
             cameraA.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
             cameraB.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
     
-            ShuffleboardTab tab = Shuffleboard.getTab("3489 Camera");
+            shuffleboardHandler.createCameraWidget(server.getSource());
     
-            tab.add(server.getSource()).withWidget(BuiltInWidgets.kCameraStream).withSize(4, 4).withPosition(2, 0);
-    
-            setCamera(false);
+            setCamera(true);
         } catch (Exception e) {
             System.out.println("[CameraHandler] Couldn't init cameras");
         }
     }
 
-    public void setCamera(boolean isCameraB) {
+    public void setCamera(boolean isCameraA) {
         //Begin Debug
         if (!Constants.HasCameras) return;
         //End Debug
 
         try {
-            if (isCameraB)
-                server.setSource(cameraB);
-            else
+            if (isCameraA)
                 server.setSource(cameraA);
+            else
+                server.setSource(cameraB);
         } catch (Exception e) {
             System.out.println("[CameraHandler] Had issue switching cameras");
         }

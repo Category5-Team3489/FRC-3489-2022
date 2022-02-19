@@ -31,7 +31,9 @@ public class CargoSystemHandler extends RobotHandler {
         }
 
         // While manipulator joystick trigger is pressed move cargo from conveyor into shooter wheels
-        shoot();
+        if (!isUnderManualControl) {
+            shoot();
+        }
 
 
         // Wait on: Wrong color detection and correction
@@ -46,23 +48,34 @@ public class CargoSystemHandler extends RobotHandler {
     }
 
     private void shoot() {
+
+        if (!shooterHandler.canShoot()) {
+            cargoTransferHandler.stopIfNotIndexing();
+            return;
+        }
+        
         boolean shoot = components.manipulatorJoystick.getRawButtonPressed(Constants.ShootButton);
         if (shoot) {
-            //cargoTransferHandler.
+            cargoTransferHandler.setShootSpeed();
+            // reset cargoCount somewhere
+            cargoCount = 0;
+        }
+        else {
+            cargoTransferHandler.stopIfNotIndexing();
         }
     }
     
     private void indexConveyorIfCargoInLaserSensor() {
 
-        if (!isIntakeActivated) return;
+        if (!isIntakeActivated) return; // may also or only want to ensure is not under manual control
 
         // laser sensor input
         boolean isCargoInLaser = intakeHandler.isCargoInLaser();
         if (isCargoInLaser) {
             if (!cargoTransferHandler.isIndexing()) {
                 cargoCount++;
+                cargoTransferHandler.index();
             }
-            cargoTransferHandler.index();
         }
     }
 
@@ -73,7 +86,7 @@ public class CargoSystemHandler extends RobotHandler {
         if (shouldToggleIntake) {
             isIntakeActivated = !isIntakeActivated;
         }
-
+        // Prevents running intake if under manual control
         if (isUnderManualControl) return;
 
         if (isIntakeActivated) {

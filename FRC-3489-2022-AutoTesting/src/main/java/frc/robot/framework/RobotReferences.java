@@ -19,5 +19,6 @@ public abstract class RobotReferences {
     public IntakeHandler intakeHandler;
     public ShooterHandler shooterHandler;
     public CargoSystemHandler cargoSystemHandler;
+    public ShuffleboardHandler shuffleboardHandler;
 
 }

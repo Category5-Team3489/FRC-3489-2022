@@ -7,20 +7,15 @@ public class CargoTransferHandler extends RobotHandler {
 
     private boolean isIndexing = false;
     private boolean isIndexingForward = true;
-    private double encoderTarget = 0;
     
     public void index() {
-        if (isIndexing) return;
         components.cargoTransferMotor.setSelectedSensorPosition(0);
-        encoderTarget = Constants.ClicksPerCargoLength;
         isIndexing = true;
         isIndexingForward = true;
     }
 
     public void reverseIndex() {
-        if (isIndexing) return;
         components.cargoTransferMotor.setSelectedSensorPosition(0);
-        encoderTarget = Constants.ClicksPerCargoLength;
         isIndexing = true;
         isIndexingForward = false;
     }
@@ -42,12 +37,11 @@ public class CargoTransferHandler extends RobotHandler {
 
     @Override
     public void teleopPeriodic() {
-
         if (!isIndexing) return;
 
-        double targetDistance = Math.abs(components.cargoTransferMotor.getSelectedSensorPosition() - encoderTarget);
+        double encoderClicks = Math.abs(components.cargoTransferMotor.getSelectedSensorPosition());
 
-        if (targetDistance < Constants.ClicksPerCargoLength) { // Has not reached target
+        if (encoderClicks < Constants.ClicksPerCargoLength) { // Has not reached target
             if (isIndexingForward) {
                 components.cargoTransferMotor.set(Constants.CargoTransferMotorSpeed);
             }
@@ -58,7 +52,10 @@ public class CargoTransferHandler extends RobotHandler {
         else { // Has reached target
             set(0);
         }
-
     }
-
+    
+    public void setShootSpeed() {
+        set(Constants.CargoTransferShootSpeed);
+    }
+    
 }

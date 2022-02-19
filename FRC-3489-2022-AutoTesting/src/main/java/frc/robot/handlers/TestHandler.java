@@ -6,9 +6,7 @@ import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.Timer;
-import frc.robot.Constants;
 import frc.robot.framework.RobotHandler;
-import frc.robot.types.RobotType;
 import frc.robot.utils.CSVUtils;
 
 public class TestHandler extends RobotHandler {
@@ -36,8 +34,6 @@ public class TestHandler extends RobotHandler {
     
     @Override
     public void teleopInit() {
-        if (Constants.SelectedRobot != RobotType.RobotInABox) return;
-
         talon = components.rightTestMotor;
 
         talon.configFactoryDefault();
@@ -70,8 +66,6 @@ public class TestHandler extends RobotHandler {
 
     @Override
     public void teleopPeriodic() {
-        if (Constants.SelectedRobot != RobotType.RobotInABox) return;
-
         talon.set(TalonFXControlMode.Velocity, (TargetRPS * 2048.0) / 10.0);
 
         //addValue("RPS", (talon.getSelectedSensorVelocity() * 10.0) / 2048.0);
@@ -114,7 +108,6 @@ public class TestHandler extends RobotHandler {
 
     @Override
     public void disabledInit() {
-        if (Constants.SelectedRobot != RobotType.RobotInABox) return;
         if (timer == null) return;
         CSVUtils.write("test.csv", true);
     }

@@ -1,31 +1,39 @@
 package frc.robot;
 
-import frc.robot.types.RobotType;
-
 public final class Constants {
 
     // State
     public static final boolean HasCameras = false;
-    public static final RobotType SelectedRobot = RobotType.Robot;
     public static final boolean SafetiesEnabled = false;
+
+    // Limiters
+    public static final double DriveSetSpeedDeltaLimiter = 0.5; // (-1, 1) set speed delta per second
+
+    // Shuffleboard
+    public static final String ShuffleboardMainTabName = "3489 2022 Ducknado";
+    public static final String ShuffleboardAutoTabName = "3489 2022 Ducknado Auto";
 
     // Speeds
     public static final double IntakeMotorSpeed = 0.6;
     public static final double ReverseIntakeMotorSpeed = -0.6;
     public static final double CargoTransferMotorSpeed = 0.6;
     public static final double ReverseCargoTransferMotorSpeed = -0.6;
+    public static final double CargoTransferShootSpeed = 0.6;
 
     public static final double ShootHighBottomMotorSpeed = 0.6;
     public static final double ShootHighTopMotorSpeed = 0.6;
     public static final double ShootLowBottomMotorSpeed = 0.2;
     public static final double ShootLowTopMotorSpeed = 0.2;
 
-    // Buttons
-    public static final int SetShooterLowGoalButton = 123213;
-    public static final int SetShooterHighGoalButton = 123213;
-    public static final int StopShooterButton = 123213;
+    // Manipulator Buttons
+    public static final int SetShooterLowGoalButton = 7;
+    public static final int SetShooterHighGoalButton = 9;
+    public static final int StopShooterButton = 11;
     public static final int ToggleIntakeButton = 2;
     public static final int ShootButton = 1;
+
+    // Drive Buttons
+    public static final int SwitchFront = 13;
 
     // Clicks
     public static final double ClicksPerCargoLength = 1000;

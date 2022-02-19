@@ -27,9 +27,14 @@ public class AutoHandler extends RobotHandler {
     }
 
     @Override
+    public void robotInit() {
+        shuffleboardHandler.createAutoChooserWidget();
+    }
+
+    @Override
     public void autonomousInit() {
         runner = new AutoRunner(robotManager);
-        AutoBuilder auto = autos.get(getSelectedAuto());
+        AutoBuilder auto = autos.get(shuffleboardHandler.getSelectedAuto());
         robotManager.copyReferences(auto);
         auto.setRunner(runner);
         AutoInstruction first = auto.build();
@@ -39,9 +44,5 @@ public class AutoHandler extends RobotHandler {
     @Override
     public void autonomousPeriodic() {
         runner.periodic();
-    }
-
-    private int getSelectedAuto() {
-        return 32;
     }
 }
