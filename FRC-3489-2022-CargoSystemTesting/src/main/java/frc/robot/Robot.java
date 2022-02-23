@@ -24,10 +24,11 @@ public class Robot extends TimedRobot {
   private WPI_TalonSRX rightFollowerDriveMotor = new WPI_TalonSRX(4);
   private DifferentialDrive drive;
 
-  private WPI_TalonFX shooterBottom = new WPI_TalonFX(5);
-  private WPI_TalonFX shooterTop = new WPI_TalonFX(6);
-  private WPI_TalonSRX cargoTransfer = new WPI_TalonSRX(7);
-  private WPI_TalonSRX intake = new WPI_TalonSRX(8);
+  private WPI_TalonFX shooterBottom = new WPI_TalonFX(5); // 7
+  private WPI_TalonFX shooterTop = new WPI_TalonFX(6); // 8
+  private WPI_TalonSRX cargoTransfer = new WPI_TalonSRX(7); // 5
+  private WPI_TalonSRX intake = new WPI_TalonSRX(8); // 6
+  // 9
 
   private static final int Shooter = 7;
   private static final int Cargo = 9;

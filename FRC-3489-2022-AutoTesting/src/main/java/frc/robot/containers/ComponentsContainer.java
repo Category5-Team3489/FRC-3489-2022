@@ -21,18 +21,18 @@ public final class ComponentsContainer {
     // Sensors
     public DigitalInput intakeLaserSensor = new DigitalInput(0);
 
-    // Drive
+    // Motors
     public WPI_TalonSRX leftFrontDriveMotor = new WPI_TalonSRX(1);
     public WPI_TalonSRX rightFrontDriveMotor = new WPI_TalonSRX(2);
     public WPI_TalonSRX leftFollowerDriveMotor = new WPI_TalonSRX(3);
     public WPI_TalonSRX rightFollowerDriveMotor = new WPI_TalonSRX(4);
     public DifferentialDrive drive;
 
-    // Ball System
-    public WPI_TalonFX bottomShooterMotor = new WPI_TalonFX(5);
-    public WPI_TalonFX topShooterMotor = new WPI_TalonFX(6);
-    public WPI_TalonSRX cargoTransferMotor = new WPI_TalonSRX(7);
-    public WPI_TalonSRX intakeMotor = new WPI_TalonSRX(8);
+    public WPI_TalonSRX cargoTransferMotor = new WPI_TalonSRX(5);
+    public WPI_TalonSRX intakeMotor = new WPI_TalonSRX(6);
+    public WPI_TalonFX bottomShooterMotor = new WPI_TalonFX(7);
+    public WPI_TalonFX topShooterMotor = new WPI_TalonFX(8);
+    public WPI_TalonFX climbMotor = new WPI_TalonFX(9);
 
     // Climb
     public WPI_TalonFX ClimbMotor = new WPI_TalonFX(10);
@@ -44,20 +44,17 @@ public final class ComponentsContainer {
     public Solenoid hookSolenoid = new Solenoid(PneumaticsModuleType.REVPH, 6);
 
     public ComponentsContainer() {
-        leftFrontDriveMotor.configFactoryDefault();
-        rightFrontDriveMotor.configFactoryDefault();
-        leftFollowerDriveMotor.configFactoryDefault();
-        rightFollowerDriveMotor.configFactoryDefault();
         
-        bottomShooterMotor.configFactoryDefault();
-        topShooterMotor.configFactoryDefault();
-        cargoTransferMotor.configFactoryDefault();
-        intakeMotor.configFactoryDefault();
+        defaultDriveMotors();
 
+        defaultMotors();
+
+        /*
         leftFrontDriveMotor.configOpenloopRamp(Constants.DriveSetSpeedDeltaLimiter);
         rightFrontDriveMotor.configOpenloopRamp(Constants.DriveSetSpeedDeltaLimiter);
         leftFollowerDriveMotor.configOpenloopRamp(Constants.DriveSetSpeedDeltaLimiter);
         rightFollowerDriveMotor.configOpenloopRamp(Constants.DriveSetSpeedDeltaLimiter);
+        */
 
         leftDriveJoystick = new Joystick(0);
         rightDriveJoystick = new Joystick(1);
@@ -70,27 +67,49 @@ public final class ComponentsContainer {
         setSafeties(leftFollowerDriveMotor);
         setSafeties(rightFollowerDriveMotor);
 
-        setSafeties(bottomShooterMotor);
-        setSafeties(topShooterMotor);
         setSafeties(cargoTransferMotor);
         setSafeties(intakeMotor);
+        setSafeties(bottomShooterMotor);
+        setSafeties(topShooterMotor);
+        setSafeties(climbMotor);
 
         setDefaultDrive();
     }
 
-    public void setDefaultDrive() {
+    public void defaultDriveMotors() {
+        leftFrontDriveMotor.configFactoryDefault();
+        rightFrontDriveMotor.configFactoryDefault();
+        leftFollowerDriveMotor.configFactoryDefault();
+        rightFollowerDriveMotor.configFactoryDefault();
+    }
+
+    public void defaultMotors() {
+        cargoTransferMotor.configFactoryDefault();
+        intakeMotor.configFactoryDefault();
+        bottomShooterMotor.configFactoryDefault();
+        topShooterMotor.configFactoryDefault();
+        climbMotor.configFactoryDefault();
+    }
+
+    public void configTeleopDrive() {
+        defaultDriveMotors();
         rightFrontDriveMotor.setInverted(true);
         rightFollowerDriveMotor.setInverted(true);
         leftFollowerDriveMotor.follow(leftFrontDriveMotor, FollowerType.PercentOutput);
         rightFollowerDriveMotor.follow(rightFrontDriveMotor, FollowerType.PercentOutput);
     }
 
-    public void setPIDStraightDrive() {
+    public void configAutoPIDDrive() {
+        defaultDriveMotors();
         rightFrontDriveMotor.setInverted(true);
         rightFollowerDriveMotor.setInverted(true);
         leftFollowerDriveMotor.follow(leftFrontDriveMotor, FollowerType.PercentOutput);
         rightFrontDriveMotor.follow(leftFrontDriveMotor, FollowerType.PercentOutput);
         rightFollowerDriveMotor.follow(rightFrontDriveMotor, FollowerType.PercentOutput);
+    }
+
+    public void configAutoPIDTurn() {
+
     }
 
     private void setSafeties(WPI_TalonSRX motor) {
