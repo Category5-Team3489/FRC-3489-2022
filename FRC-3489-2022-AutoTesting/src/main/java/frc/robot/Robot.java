@@ -11,18 +11,24 @@ public class Robot extends TimedRobot {
 
   private RobotManager robotManager;
 
+  // PRIORITY
   // TODO Climber
-  // TODO 
+  // TODO PID Gyroscope turn auto instruction
+  // TODO High frequency periodic method in auto for PID, 200hz maybe
+
+  // LATER
+  // TODO Logger handler
+  // TODO Button debouncer utils
+  // TODO Shooter velocity control with PID
+  // TODO Auto docs
+
 
   // TODO Max rate of change of set speed for teleop driving - Connor
-  // TODO Button debouncer utils
   // TODO Look into feedforward
   // TODO Look into PID
   // TODO Document auto framework
   // TODO Shuffleboard utils - Afif & Mackinzie
   // TODO Simplify auto framework
-  // TODO Logger handler
-  // TODO High frequency periodic method in auto for PID, 200hz maybe
   // TODO Get class name method in RobotReferences? for logger
 
   // PID

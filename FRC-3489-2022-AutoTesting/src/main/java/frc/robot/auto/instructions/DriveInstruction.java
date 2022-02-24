@@ -3,6 +3,7 @@ package frc.robot.auto.instructions;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.Timer;
+import frc.robot.Constants;
 import frc.robot.auto.framework.AutoInstruction;
 import frc.robot.utils.CSVUtils;
 
@@ -26,23 +27,7 @@ public class DriveInstruction extends AutoInstruction {
 
     @Override
     public void init() {
-        components.setPIDStraightDrive();
-        components.leftFrontDriveMotor.setSensorPhase(true);
-
-        components.leftFrontDriveMotor.configNominalOutputForward(0, 30);
-		components.leftFrontDriveMotor.configNominalOutputReverse(0, 30);
-		components.leftFrontDriveMotor.configPeakOutputForward(speed, 30);
-		components.leftFrontDriveMotor.configPeakOutputReverse(-speed, 30);
-
-        components.leftFrontDriveMotor.configAllowableClosedloopError(0, 0, 30);
-
-        components.leftFrontDriveMotor.config_kF(0, kF, 30);
-		components.leftFrontDriveMotor.config_kP(0, kP, 30);
-		components.leftFrontDriveMotor.config_kI(0, kI, 30);
-		components.leftFrontDriveMotor.config_kD(0, kD, 30);
-        components.leftFrontDriveMotor.config_IntegralZone(0, Iz);
-
-        components.leftFrontDriveMotor.setSelectedSensorPosition(0, 0, 30);
+        components.configAutoPIDDrive(Constants.MotorControllerTimeout, speed, kF, kP, kI, kD, Iz);
 
         timer = new Timer();
         timer.start();
@@ -68,7 +53,7 @@ public class DriveInstruction extends AutoInstruction {
 
     @Override
     public void completed() {
-        components.setDefaultDrive();
+        components.configNominalDrive();
     }
 
     @Override

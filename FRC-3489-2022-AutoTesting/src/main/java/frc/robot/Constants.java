@@ -7,6 +7,7 @@ public final class Constants {
     public static final boolean SafetiesEnabled = false;
 
     // Limiters
+    public static final int MotorControllerTimeout = 30;
     public static final double DriveSetSpeedDeltaLimiter = 4; // (-1, 1) set speed delta per second
 
     // Shuffleboard

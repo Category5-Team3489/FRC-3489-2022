@@ -44,10 +44,6 @@ public final class ComponentsContainer {
     public Solenoid hookSolenoid = new Solenoid(PneumaticsModuleType.REVPH, 6);
 
     public ComponentsContainer() {
-        
-        defaultDriveMotors();
-
-        defaultMotors();
 
         /*
         leftFrontDriveMotor.configOpenloopRamp(Constants.DriveSetSpeedDeltaLimiter);
@@ -73,7 +69,8 @@ public final class ComponentsContainer {
         setSafeties(topShooterMotor);
         setSafeties(climbMotor);
 
-        setDefaultDrive();
+        defaultDriveMotors();
+        defaultMotors();
     }
 
     public void defaultDriveMotors() {
@@ -91,25 +88,60 @@ public final class ComponentsContainer {
         climbMotor.configFactoryDefault();
     }
 
-    public void configTeleopDrive() {
+    public void disableDriveMotors() {
+        leftFrontDriveMotor.stopMotor();
+        rightFrontDriveMotor.stopMotor();
+        leftFollowerDriveMotor.stopMotor();
+        rightFollowerDriveMotor.stopMotor();
+    }
+
+    public void disableMotors() {
+        cargoTransferMotor.stopMotor();
+        intakeMotor.stopMotor();
+        bottomShooterMotor.stopMotor();
+        topShooterMotor.stopMotor();
+        climbMotor.stopMotor();
+    }
+
+    public void configNominalDrive() {
         defaultDriveMotors();
+        disableDriveMotors();
         rightFrontDriveMotor.setInverted(true);
         rightFollowerDriveMotor.setInverted(true);
         leftFollowerDriveMotor.follow(leftFrontDriveMotor, FollowerType.PercentOutput);
         rightFollowerDriveMotor.follow(rightFrontDriveMotor, FollowerType.PercentOutput);
     }
 
-    public void configAutoPIDDrive() {
+    public void configAutoPIDDrive(int timeout, double speed, double kF, double kP, double kI, double kD, double Iz) {
         defaultDriveMotors();
+        disableDriveMotors();
         rightFrontDriveMotor.setInverted(true);
         rightFollowerDriveMotor.setInverted(true);
         leftFollowerDriveMotor.follow(leftFrontDriveMotor, FollowerType.PercentOutput);
         rightFrontDriveMotor.follow(leftFrontDriveMotor, FollowerType.PercentOutput);
         rightFollowerDriveMotor.follow(rightFrontDriveMotor, FollowerType.PercentOutput);
+
+        leftFrontDriveMotor.setSensorPhase(true);
+
+        leftFrontDriveMotor.configNominalOutputForward(0, timeout);
+		leftFrontDriveMotor.configNominalOutputReverse(0, timeout);
+		leftFrontDriveMotor.configPeakOutputForward(speed, timeout);
+		leftFrontDriveMotor.configPeakOutputReverse(-speed, timeout);
+
+        leftFrontDriveMotor.configAllowableClosedloopError(0, 0, timeout);
+
+        leftFrontDriveMotor.config_kF(0, kF, timeout);
+		leftFrontDriveMotor.config_kP(0, kP, timeout);
+		leftFrontDriveMotor.config_kI(0, kI, timeout);
+		leftFrontDriveMotor.config_kD(0, kD, timeout);
+        leftFrontDriveMotor.config_IntegralZone(0, Iz, timeout);
+
+        leftFrontDriveMotor.setSelectedSensorPosition(0, 0, timeout);
     }
 
     public void configAutoPIDTurn() {
-
+        defaultDriveMotors();
+        disableDriveMotors();
     }
 
     private void setSafeties(WPI_TalonSRX motor) {
