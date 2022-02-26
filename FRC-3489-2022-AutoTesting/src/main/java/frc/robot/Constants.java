@@ -45,7 +45,7 @@ public final class Constants {
     public static final int SwitchFront = 13;
 
     // Clicks
-    public static final double ClicksPerCargoLength = 1000;
+    public static final double ClicksPerCargoLength = 21000;
 
     public final class Auto {
         
