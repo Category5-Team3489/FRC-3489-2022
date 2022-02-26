@@ -47,16 +47,6 @@ public final class Constants {
 
     // Clicks
     public static final double ClicksPerCargoLength = 21000;
-<<<<<<< Updated upstream
-
-    public final class Auto {
-        
-        public static final double DriveClicksPerInch = 4096.0 / (Math.PI * 6);
-        public static final double DriveClicksPerFoot = 12 * DriveClicksPerInch;
-        public static final double CargoTransferClicksPerBall = ClicksPerCargoLength;
-    }
-=======
     public static final double DriveClicksPerInch = 4096.0 / (Math.PI * 6);
     public static final double DriveClicksPerFoot = 12 * DriveClicksPerInch;
->>>>>>> Stashed changes
 }
