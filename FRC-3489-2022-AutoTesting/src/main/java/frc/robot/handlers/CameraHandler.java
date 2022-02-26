@@ -10,7 +10,7 @@ import frc.robot.framework.RobotHandler;
 public class CameraHandler extends RobotHandler {
     
     private UsbCamera cameraA;
-    private UsbCamera cameraB;
+    //private UsbCamera cameraB;
     private VideoSink server;
 
     @Override
@@ -21,11 +21,11 @@ public class CameraHandler extends RobotHandler {
 
         try {
             cameraA = CameraServer.startAutomaticCapture(0);
-            cameraB = CameraServer.startAutomaticCapture(1);
+            //cameraB = CameraServer.startAutomaticCapture(1);
             server = CameraServer.getServer();
     
             cameraA.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
-            cameraB.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+            //cameraB.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
     
             shuffleboardHandler.createCameraWidget(server.getSource());
     
@@ -44,7 +44,7 @@ public class CameraHandler extends RobotHandler {
             if (isCameraA)
                 server.setSource(cameraA);
             else
-                server.setSource(cameraB);
+                server.setSource(cameraA);
         } catch (Exception e) {
             System.out.println("[CameraHandler] Had issue switching cameras");
         }

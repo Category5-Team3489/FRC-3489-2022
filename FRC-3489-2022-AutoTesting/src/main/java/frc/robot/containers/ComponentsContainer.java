@@ -36,12 +36,12 @@ public final class ComponentsContainer {
 
     // Climb
     public WPI_TalonFX ClimbMotor = new WPI_TalonFX(10);
-    public Solenoid topLeftSolenoid = new Solenoid(PneumaticsModuleType.REVPH, 1);
-    public Solenoid topRightSolenoid = new Solenoid(PneumaticsModuleType.REVPH, 2);
-    public Solenoid bottomLeftSolenoid = new Solenoid(PneumaticsModuleType.REVPH, 3);
-    public Solenoid bottomRightSolenoid = new Solenoid(PneumaticsModuleType.REVPH, 4);
-    public Solenoid brakeSolenoid = new Solenoid(PneumaticsModuleType.REVPH, 5);
-    public Solenoid hookSolenoid = new Solenoid(PneumaticsModuleType.REVPH, 6);
+    public Solenoid topLeftSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 1);
+    public Solenoid topRightSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 2);
+    public Solenoid bottomLeftSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 3);
+    public Solenoid bottomRightSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 4);
+    public Solenoid brakeSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 5);
+    public Solenoid hookSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 6);
 
     public ComponentsContainer() {
 

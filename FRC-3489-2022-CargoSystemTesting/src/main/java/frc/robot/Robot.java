@@ -9,6 +9,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
@@ -50,6 +52,8 @@ public class Robot extends TimedRobot {
 
   private SlewRateLimiter leftLimiter = new SlewRateLimiter(10);
   private SlewRateLimiter rightLimiter = new SlewRateLimiter(10);
+
+  private Solenoid solenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 0);
 
   private long loop = 0;
 

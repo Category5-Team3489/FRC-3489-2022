@@ -1,6 +1,6 @@
 package frc.robot.auto.autos;
 
-import frc.robot.Constants.Auto;
+import frc.robot.Constants;
 import frc.robot.auto.framework.AutoBuilder;
 import frc.robot.auto.framework.AutoInstruction;
 
@@ -10,7 +10,7 @@ public class Auto32 extends AutoBuilder {
     public AutoInstruction build() {
         AutoInstruction first = first();
 
-        first.drive(0.65, 4 * Auto.DriveClicksPerFoot);
+        first.drive(0.65, 4 * Constants.DriveClicksPerFoot);
 
         /*
         first
