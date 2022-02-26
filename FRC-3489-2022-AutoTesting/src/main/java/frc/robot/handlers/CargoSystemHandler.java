@@ -139,7 +139,7 @@ public class CargoSystemHandler extends RobotHandler {
     private void wrongColorShooter() {
         //Push button to shoot wrong color
         //get the input from the mainipulator
-        boolean wrongColor = components.manipulatorJoystick.getRawButton(Constants.WrongColorButton);
+        boolean wrongColor = components.manipulatorJoystick.getRawButtonPressed(Constants.WrongColorButton);
         //shoot wrong color at low speed if button is pressed
         if (wrongColor) {
             shooterHandler.wrongColor();
