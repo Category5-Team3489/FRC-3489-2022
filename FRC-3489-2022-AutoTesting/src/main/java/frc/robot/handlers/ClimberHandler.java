@@ -21,8 +21,8 @@ public class ClimberHandler extends RobotHandler{
     public void setBrake(boolean brakeBoolean){
         container.brakeSolenoid.set(brakeBoolean);
     }
-    public void telescope(){
-        
+    public void telescope(int teleInt){
+        container.climbMotor.set(teleInt);
     }
     public void midToHi(){
         AutoBuilder.pause(1); //pause 1 second
