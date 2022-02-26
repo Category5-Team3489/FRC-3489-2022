@@ -26,6 +26,10 @@ public final class Constants {
     public static final double ShootLowBottomMotorSpeed = 0.2;
     public static final double ShootLowTopMotorSpeed = 0.2;
 
+    public static final double WrongColorTopSpeed = 0.2;
+    public static final double WrongColorBottomSpeed = 0.2;
+
+
     // Manipulator Buttons
     public static final int SetShooterHighGoalButton = 7;
     public static final int SetShooterLowGoalButton = 9;
@@ -35,6 +39,7 @@ public final class Constants {
     public static final int ActivateTheClimber = 12; 
     public static final int ToMidClimber = 8; 
     public static final int MidToHighClimber = 10; 
+    public static final int WrongColorButton = 5;
 
     // Drive Buttons
     public static final int SwitchFront = 13;
