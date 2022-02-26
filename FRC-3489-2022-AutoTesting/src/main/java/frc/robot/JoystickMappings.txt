@@ -8,9 +8,13 @@ Btn 13: Switch front
 Manipulator Joystick
 Btn 1: Shoot
 Btn 2: Intake Sequence
-Btn 7: Set Low Goal Shooting
-Btn 9: Set High Goal Shooting
+Btn 5: Set Wrong Color Shooting
+Btn 7: Set High Goal Shooting
+Btn 8: Set Mid climber
+Btn 9: Set Low Goal Shooting
+Btn 10: Set mid to high climber
 Btn 11: Stop Shooting
+Btn 12: Start climber
 
 
 POV Up: Manual Cargo Mover and Intake UP
