@@ -32,6 +32,9 @@ public final class Constants {
     public static final int StopShooterButton = 11;
     public static final int ShootButton = 1;
     public static final int ToggleIntakeButton = 2;
+    public static final int ActivateTheClimber = 12; 
+    public static final int ToMidClimber = 8; 
+    public static final int MidToHighClimber = 10; 
 
     // Drive Buttons
     public static final int SwitchFront = 13;
