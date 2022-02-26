@@ -22,9 +22,9 @@ public class ShuffleboardHandler extends RobotHandler {
 
     @Override
     public void robotInit() {
-        shuffleboardHandler.setString(true, "Shooter Mode", "Stopped");
-        shuffleboardHandler.setNumber(true, "Cargo Count", 0);
-        shuffleboardHandler.setString(true, "Drive Mode", "Forward");
+        setString(true, "Shooter Mode", "Stopped");
+        setNumber(true, "Cargo Count", 0);
+        setString(true, "Drive Mode", "Forward");
     }
 
     @Override
