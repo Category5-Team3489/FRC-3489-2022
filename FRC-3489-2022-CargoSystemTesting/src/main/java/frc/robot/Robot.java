@@ -24,10 +24,10 @@ public class Robot extends TimedRobot {
   private WPI_TalonSRX rightFollowerDriveMotor = new WPI_TalonSRX(4);
   private DifferentialDrive drive;
 
-  private WPI_TalonFX shooterBottom = new WPI_TalonFX(5); // 7
-  private WPI_TalonFX shooterTop = new WPI_TalonFX(6); // 8
-  private WPI_TalonSRX cargoTransfer = new WPI_TalonSRX(7); // 5
-  private WPI_TalonSRX intake = new WPI_TalonSRX(8); // 6
+  private WPI_TalonFX shooterBottom = new WPI_TalonFX(7); // 7
+  private WPI_TalonFX shooterTop = new WPI_TalonFX(8); // 8
+  private WPI_TalonSRX cargoTransfer = new WPI_TalonSRX(5); // 5
+  private WPI_TalonSRX intake = new WPI_TalonSRX(6); // 6
   // 9
 
   private static final int Shooter = 7;
@@ -48,8 +48,8 @@ public class Robot extends TimedRobot {
   private double cargoSpeed = 0;
   private double intakeSpeed = 0;
 
-  private SlewRateLimiter leftLimiter = new SlewRateLimiter(0.5);
-  private SlewRateLimiter rightLimiter = new SlewRateLimiter(0.5);
+  private SlewRateLimiter leftLimiter = new SlewRateLimiter(10);
+  private SlewRateLimiter rightLimiter = new SlewRateLimiter(10);
 
   private long loop = 0;
 
