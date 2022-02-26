@@ -38,13 +38,14 @@ public class ClimberHandler extends RobotHandler{
         setBottom(false); //de-energize pnematic 2
     }
     public void lowtoMid(){
-        //drive backward between the mid and high bar 
+        //drive backward between the mid and high bar for manual 
         setBrake(false); //energize pnematic 1 
         AutoBuilder.pause(1); // pauses 1 second 
         setBottom(true); //extend pnematic 2 
+        telescope(2); //extends telescope with Pnuatic 2 
         //drive foward to make contact with the mid bar 
         AutoBuilder.pause(1);
-        //retract telescope number 1 
+        telescope(-1);  //retract telescope number 1 
 
     }
 }
