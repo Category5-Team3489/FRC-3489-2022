@@ -37,7 +37,7 @@ public class CargoSystemHandler extends RobotHandler {
 
 
         // Wait on: Wrong color detection and correction
-
+        wrongColorShooter();
 
         // Push button for setting shooter to low goal speed Mackenzie
         lowGoalShooter();
@@ -133,6 +133,18 @@ public class CargoSystemHandler extends RobotHandler {
             shooterHandler.stopShooter();
             // Set shooter stopped shuffleboard
             shuffleboardHandler.setString(true, "Shooter Mode", "Stopped");
+        }
+    }
+
+    private void wrongColorShooter() {
+        //Push button to shoot wrong color
+        //get the input from the mainipulator
+        boolean wrongColor = components.manipulatorJoystick.getRawButton(Constants.WrongColorButton);
+        //shoot wrong color at low speed if button is pressed
+        if (wrongColor) {
+            shooterHandler.wrongColor();
+            //Set shooter Wrong color on shuffleboard
+            shuffleboardHandler.setString(true, "Shooter Mode", "Wrong Color");
         }
     }
     

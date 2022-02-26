@@ -31,4 +31,8 @@ public class ShooterHandler extends RobotHandler {
         components.topShooterMotor.set(-topSpeed);
     }
 
+    public void wrongColor() {
+        setShooter(Constants.WrongColorBottomSpeed, Constants.WrongColorTopSpeed);
+    }
+
 }
