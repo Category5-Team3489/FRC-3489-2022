@@ -133,6 +133,8 @@ public abstract class AutoInstruction extends RobotReferences {
 
     public abstract void periodic();
 
+    public void fastPeriodic() {}
+
     public abstract void completed();
 
     public abstract String debug();

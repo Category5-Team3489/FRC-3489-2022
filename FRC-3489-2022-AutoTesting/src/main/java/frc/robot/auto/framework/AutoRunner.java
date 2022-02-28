@@ -27,7 +27,12 @@ public class AutoRunner {
     }
 
     public void periodic() {
-        copyInstructions().forEach(instruction -> completeInstruction(instruction));
+        checkComplete();
+        copyInstructions().forEach(AutoInstruction::periodic);
+    }
+
+    public void fastPeriodic() {
+        checkComplete();
         copyInstructions().forEach(AutoInstruction::periodic);
     }
 
@@ -43,6 +48,10 @@ public class AutoRunner {
         AutoEvent event = triggers.get(trigger);
         if (event == null) return;
         event.run();
+    }
+
+    private void checkComplete() {
+        copyInstructions().forEach(instruction -> completeInstruction(instruction));
     }
 
     private void completeInstruction(AutoInstruction instruction) {

@@ -3,6 +3,7 @@ package frc.robot.handlers;
 import java.util.HashMap;
 import java.util.Map;
 
+import frc.robot.Constants;
 import frc.robot.auto.autos.*;
 import frc.robot.auto.framework.AutoBuilder;
 import frc.robot.auto.framework.AutoInstruction;
@@ -29,11 +30,14 @@ public class AutoHandler extends RobotHandler {
     @Override
     public void robotInit() {
         shuffleboardHandler.createAutoChooserWidget();
+
+        runner = new AutoRunner(robotManager);
+
+        robot.addPeriodic(() -> runner.fastPeriodic(), Constants.FastPeriodicPerioid);
     }
 
     @Override
     public void autonomousInit() {
-        runner = new AutoRunner(robotManager);
         AutoBuilder auto = autos.get(shuffleboardHandler.getSelectedAuto());
         robotManager.copyReferences(auto);
         auto.setRunner(runner);

@@ -2,6 +2,9 @@ package frc.robot;
 
 public final class Constants {
 
+    // General
+    public static final double FastPeriodicPerioid = 1d / 200d;
+
     // State
     public static final boolean HasCameras = true;
     public static final boolean SafetiesEnabled = false;
