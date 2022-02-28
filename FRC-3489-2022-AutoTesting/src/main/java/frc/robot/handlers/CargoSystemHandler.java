@@ -150,19 +150,17 @@ public class CargoSystemHandler extends RobotHandler {
     
 
     private boolean manualIntakeAndCargoTransfer() {
-
-        // get manipulator joystick input from pov button
-        int pov = components.manipulatorJoystick.getPOV();
         
         // set intake speed based on pov
         // set cargo transfer conveyor based on pov
-        if (pov == 315 || pov == 0 || pov == 45) { // POV is up
+        double manipulatorJoystick = components.manipulatorJoystick.getY();
+        if (manipulatorJoystick > 0.5) { // manipulator is up
            // set intake speed to move up
             intakeHandler.startIntake();
             // set cargo transfer conveyor to move up
             cargoTransferHandler.set(Constants.CargoTransferMotorSpeed);
         }
-        else if (pov == 225 || pov == 180 || pov == 135) { // POV is down
+        else if (manipulatorJoystick < -0.5) { // manipulator is down
             // set intake speed to move down
             intakeHandler.reverseIntake();
             // set cargo transfer conveyor to move down
