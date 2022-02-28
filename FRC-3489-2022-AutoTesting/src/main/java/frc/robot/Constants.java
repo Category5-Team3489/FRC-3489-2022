@@ -32,15 +32,19 @@ public final class Constants {
 
     // Manipulator Buttons
     public static final int SetShooterHighGoalButton = 7;
-    public static final int SetShooterLowGoalButton = 9;
-    public static final int StopShooterButton = 11;
+    public static final int SetShooterLowGoalButton = 8;
+    public static final int StopShooterButton = 0;
     public static final int ShootButton = 1;
     public static final int ToggleIntakeButton = 2;
-    public static final int ActivateTheClimber = 12; 
-    public static final int ToMidClimber = 8; 
+    public static final int ActivateTheClimber = 11; 
+    public static final int ToMidClimber = 9; 
     public static final int MidToHighClimber = 10; 
+<<<<<<< Updated upstream
     public static final int WrongColorButton = 5;
     public static final int DebugCargoInLaserButton = 4;
+=======
+    public static final int WrongColorButton = 3;
+>>>>>>> Stashed changes
 
     // Drive Buttons
     public static final int SwitchFront = 13;
