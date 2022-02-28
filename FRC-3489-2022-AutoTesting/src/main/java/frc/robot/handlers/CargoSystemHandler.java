@@ -56,7 +56,13 @@ public class CargoSystemHandler extends RobotHandler {
             return;
         }
         
-        boolean shoot = components.manipulatorJoystick.getRawButtonPressed(Constants.ShootButton);
+        boolean shoot = components.manipulatorJoystick.getRawButton(Constants.ShootButton);
+        boolean stopShooting = components.manipulatorJoystick.getRawButtonReleased(Constants.ShootButton);
+        if(stopShooting){
+            shooterHandler.stopShooter();
+            // Set shooter stopped shuffleboard
+            shuffleboardHandler.setString(true, "Shooter Mode", "Stopped");
+        }
         if (shoot) {
             cargoTransferHandler.setShootSpeed();
             // reset cargoCount somewhere
@@ -66,7 +72,7 @@ public class CargoSystemHandler extends RobotHandler {
             cargoTransferHandler.stopIfNotIndexing();
         }
     }
-    
+
     private void indexConveyorIfCargoInLaserSensor() {
 
         if (!isIntakeActivated) return; // may also or only want to ensure is not under manual control
@@ -104,6 +110,7 @@ public class CargoSystemHandler extends RobotHandler {
         // Push button for setting shooter to low goal speed Mackenzie
         // Get button input from manipulator Joystick
         boolean shootLow = components.manipulatorJoystick.getRawButtonPressed(Constants.SetShooterLowGoalButton);
+        
         // shoot low if button pressed
         if (shootLow) {
             shooterHandler.shootLow();
