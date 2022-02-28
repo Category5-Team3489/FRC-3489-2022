@@ -10,6 +10,7 @@ public class TurnInstruction extends AutoInstruction {
     private final static double kP = 0;
     private final static double kI = 0;
     private final static double kD = 0;
+    private final static double kTolerance = 2;
 
     private PIDController controller;
 
@@ -26,6 +27,7 @@ public class TurnInstruction extends AutoInstruction {
         components.navx.reset();
         controller = new PIDController(kP, kI, kD, Constants.FastPeriodicPerioid);
         controller.setSetpoint(degrees);
+        controller.setTolerance(kTolerance);
     }
 
     @Override
@@ -39,6 +41,12 @@ public class TurnInstruction extends AutoInstruction {
         double controllerOutput = controller.calculate(currentAngle);
         double output = GeneralUtils.clamp(controllerOutput, -speed, speed);
         components.drive.tankDrive(-output, output);
+
+        // Uncomment when done tuning
+        /*
+        if (controller.atSetpoint())
+            complete();
+        */
     }
 
     @Override
