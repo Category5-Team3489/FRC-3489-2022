@@ -3,6 +3,7 @@ package frc.robot.auto.instructions;
 import edu.wpi.first.math.controller.PIDController;
 import frc.robot.Constants;
 import frc.robot.auto.framework.AutoInstruction;
+import frc.robot.utils.GeneralUtils;
 
 public class TurnInstruction extends AutoInstruction {
 
@@ -10,17 +11,21 @@ public class TurnInstruction extends AutoInstruction {
     private final static double kI = 0;
     private final static double kD = 0;
 
-    PIDController controller;
+    private PIDController controller;
+
+    private double speed;
+    private double degrees;
 
     public TurnInstruction(double speed, double degrees) {
-
+        this.speed = speed;
+        this.degrees = degrees;
     }
 
     @Override
     public void init() {
-        components.configAutoPIDTurn();
         components.navx.reset();
         controller = new PIDController(kP, kI, kD, Constants.FastPeriodicPerioid);
+        controller.setSetpoint(degrees);
     }
 
     @Override
@@ -31,12 +36,14 @@ public class TurnInstruction extends AutoInstruction {
     @Override
     public void fastPeriodic() {
         double currentAngle = components.navx.getAngle();
-
+        double controllerOutput = controller.calculate(currentAngle);
+        double output = GeneralUtils.clamp(controllerOutput, -speed, speed);
+        components.drive.tankDrive(-output, output);
     }
 
     @Override
     public void completed() {
-        components.configNominalDrive();
+        components.drive.stopMotor();
     }
 
     @Override

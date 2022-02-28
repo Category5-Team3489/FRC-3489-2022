@@ -142,11 +142,6 @@ public final class ComponentsContainer {
         leftFrontDriveMotor.setSelectedSensorPosition(0, 0, timeout);
     }
 
-    public void configAutoPIDTurn() {
-        defaultDriveMotors();
-        disableDriveMotors();
-    }
-
     private void setSafeties(WPI_TalonSRX motor) {
         motor.setSafetyEnabled(Constants.SafetiesEnabled);
     }
