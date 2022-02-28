@@ -21,8 +21,8 @@ public class ClimberHandler extends RobotHandler{
     public void setBrake(boolean brakeBoolean){
         container.brakeSolenoid.set(brakeBoolean);
     }
-    public void telescope(int teleInt){
-        container.climbMotor.set(teleInt);
+    public void telescope(Double teleSpeed){
+        container.climbMotor.set(teleSpeed);
     }
     public void midToHi(){
         AutoBuilder.pause(1); //pause 1 second
@@ -42,10 +42,10 @@ public class ClimberHandler extends RobotHandler{
         setBrake(false); //energize pnematic 1 
         AutoBuilder.pause(1); // pauses 1 second 
         setBottom(true); //extend pnematic 2 
-        telescope(2); //extends telescope with Pnuatic 2 
+        telescope(1.0); //extends telescope with Pnuatic 2 
         //drive foward to make contact with the mid bar 
         AutoBuilder.pause(1);
-        telescope(-1);  //retract telescope number 1 
+        telescope(-1.0);  //retract telescope number 1 
 
     }
 }
