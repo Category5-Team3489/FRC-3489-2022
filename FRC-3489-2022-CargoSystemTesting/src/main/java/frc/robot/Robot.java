@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -53,7 +54,16 @@ public class Robot extends TimedRobot {
   private SlewRateLimiter leftLimiter = new SlewRateLimiter(10);
   private SlewRateLimiter rightLimiter = new SlewRateLimiter(10);
 
-  private Solenoid solenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 0);
+  private Solenoid lowerLeftSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 0);
+  private Solenoid lowerRightSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 1);
+  private Solenoid upperLeftSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 2);
+  private Solenoid upperRightSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 3);
+  private Solenoid leftHookSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 4);
+  private Solenoid rightHookSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 5);
+  private Solenoid brakeSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 6);
+
+  private WPI_TalonFX climberMotor = new WPI_TalonFX(9);
+
 
   private long loop = 0;
 
@@ -79,6 +89,18 @@ public class Robot extends TimedRobot {
     shooterSpeed = 0;
     cargoSpeed = 0;
     intakeSpeed = 0;
+
+    initClimber();
+  }
+
+  private void initClimber() {
+    brakeSolenoid.set(true);
+    lowerLeftSolenoid.set(false);
+    lowerRightSolenoid.set(false);
+    upperLeftSolenoid.set(false);
+    upperRightSolenoid.set(false);
+    leftHookSolenoid.set(true);
+    rightHookSolenoid.set(true);
   }
 
   private boolean shouldSwitchFront() {

@@ -1,0 +1,29 @@
+reset button:
+brake on
+lower left off
+lower right off
+upper left off
+upper right off
+left hook on
+right hook on
+
+reset climber motor encoder button
+
+button
+lower left on
+lower right on
+
+brake = !(pov up || pov down)
+
+if (lower left) && (lower right) {
+	climber motor = pov direction
+	print climber motor clicks
+}
+
+button
+upper left on
+upper right on
+
+button
+left hook off
+right hook off

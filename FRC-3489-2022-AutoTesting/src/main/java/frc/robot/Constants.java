@@ -18,16 +18,16 @@ public final class Constants {
     public static final String ShuffleboardAutoTabName = "3489 2022 Ducknado Auto";
 
     // Speeds
-    public static final double IntakeMotorSpeed = -0.6;
-    public static final double ReverseIntakeMotorSpeed = -0.6;
-    public static final double CargoTransferMotorSpeed = 0.6;
-    public static final double ReverseCargoTransferMotorSpeed = -0.6;
+    public static final double IntakeMotorSpeed = -0.8;
+    public static final double ReverseIntakeMotorSpeed = 0.8;
+    public static final double CargoTransferMotorSpeed = -0.6;
+    public static final double ReverseCargoTransferMotorSpeed = 0.6;
     public static final double CargoTransferShootSpeed = -0.6;
 
     public static final double ShootHighBottomMotorSpeed = 0.6;
     public static final double ShootHighTopMotorSpeed = 0.6;
-    public static final double ShootLowBottomMotorSpeed = 0.2;
-    public static final double ShootLowTopMotorSpeed = 0.2;
+    public static final double ShootLowBottomMotorSpeed = 0.25;
+    public static final double ShootLowTopMotorSpeed = 0.25;
 
     public static final double WrongColorTopSpeed = 0.2;
     public static final double WrongColorBottomSpeed = 0.2;

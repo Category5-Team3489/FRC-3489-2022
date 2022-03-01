@@ -76,6 +76,8 @@ public final class ComponentsContainer {
 
         defaultDriveMotors();
         defaultMotors();
+
+        configNominalDrive();
     }
 
     public void defaultDriveMotors() {

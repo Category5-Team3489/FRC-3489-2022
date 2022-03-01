@@ -41,8 +41,8 @@ public class DriveHandler extends RobotHandler {
                 usedRightLimiter = true;
                 rightY = rightLimiter.calculate(rightY);
             }
-            leftSpeed = rightY;
-            rightSpeed = leftY;
+            leftSpeed = -leftY;
+            rightSpeed = -rightY;
         }
         else {
             if (leftY > 0) {
@@ -53,8 +53,8 @@ public class DriveHandler extends RobotHandler {
                 usedRightLimiter = true;
                 rightY = rightLimiter.calculate(rightY);
             }
-            leftSpeed = -leftY;
-            rightSpeed = -rightY;
+            leftSpeed = rightY;
+            rightSpeed = leftY;
         }
         if (!usedLeftLimiter)
             leftLimiter.calculate(leftY);
