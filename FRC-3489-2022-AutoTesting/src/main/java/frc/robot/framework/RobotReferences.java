@@ -1,5 +1,6 @@
 package frc.robot.framework;
 
+import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Robot;
 import frc.robot.containers.ComponentsContainer;
 import frc.robot.handlers.*;
@@ -19,5 +20,6 @@ public abstract class RobotReferences {
     public ShooterHandler shooterHandler;
     public CargoSystemHandler cargoSystemHandler;
     public ShuffleboardHandler shuffleboardHandler;
+    public JoystickHandler joystickHandler;
 
 }
