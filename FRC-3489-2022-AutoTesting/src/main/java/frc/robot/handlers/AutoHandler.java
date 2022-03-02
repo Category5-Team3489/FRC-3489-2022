@@ -33,7 +33,7 @@ public class AutoHandler extends RobotHandler {
 
         runner = new AutoRunner(robotManager);
 
-        robot.addPeriodic(() -> runner.fastPeriodic(), Constants.FastPeriodicPerioid);
+        robot.addPeriodic(() -> runner.fastPeriodic(), Constants.FastPeriodicPeriod);
     }
 
     @Override
