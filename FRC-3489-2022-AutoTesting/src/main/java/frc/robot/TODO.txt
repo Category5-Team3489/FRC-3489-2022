@@ -1,10 +1,18 @@
   // PRIORITY
   // TODO Climber
+  // TODO Test Auto
+  // TODO Document auto
+  // TODO Tune PID turn
+  // TODO Tune PID drive
+  // TODO More shuffleboard outputs
+  // TODO Lower cam resolution
+  // TODO Button debounce manipulator joystick
+  // TODO Drive velocity change limiting
 
   // LATER
+  // TODO Shooter velocity control with PID
   // TODO Logger handler
   // TODO Button debouncer utils
-  // TODO Shooter velocity control with PID
   // TODO Improve slew rate limiting for drive code, may only want to use abrupt breaking
   // TODO Fix 2 drive docs
 

@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -32,6 +33,7 @@ public class Robot extends TimedRobot {
   private WPI_TalonSRX intake = new WPI_TalonSRX(6); // 6
   // 9
 
+  // Manipulator
   private static final int Shooter = 7;
   private static final int Cargo = 9;
   private static final int Intake = 11;
@@ -40,7 +42,13 @@ public class Robot extends TimedRobot {
   private static final int IntakeKill = 12;
   private static final int EStop = 2;
 
+  // Drive
   private static final int SwitchFront = 13;
+  private static final int ClimberStepA = 5;
+  private static final int ClimberStepB = 6;
+  private static final int ClimberStepC = 7;
+  private static final int ResetClimberEncoder = 8;
+  private static final int ResetClimber = 9;
 
   private Subsystem activeSubsystem = Subsystem.Intake;
 
@@ -53,7 +61,16 @@ public class Robot extends TimedRobot {
   private SlewRateLimiter leftLimiter = new SlewRateLimiter(10);
   private SlewRateLimiter rightLimiter = new SlewRateLimiter(10);
 
-  private Solenoid solenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 0);
+  private Solenoid lowerLeftSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 0);
+  private Solenoid lowerRightSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 1);
+  private Solenoid upperLeftSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 2);
+  private Solenoid upperRightSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 3);
+  private Solenoid leftHookSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 4);
+  private Solenoid rightHookSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 5);
+  private Solenoid brakeSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 6);
+
+  private WPI_TalonFX climberMotor = new WPI_TalonFX(9);
+
 
   private long loop = 0;
 
@@ -79,6 +96,18 @@ public class Robot extends TimedRobot {
     shooterSpeed = 0;
     cargoSpeed = 0;
     intakeSpeed = 0;
+
+    initClimber();
+  }
+
+  private void initClimber() {
+    brakeSolenoid.set(true);
+    lowerLeftSolenoid.set(false);
+    lowerRightSolenoid.set(false);
+    upperLeftSolenoid.set(false);
+    upperRightSolenoid.set(false);
+    leftHookSolenoid.set(true);
+    rightHookSolenoid.set(true);
   }
 
   private boolean shouldSwitchFront() {
@@ -87,6 +116,38 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
+    if (getDriveButton(ClimberStepA) && canStepA()) {
+      climberStepA();
+    }
+    if (getDriveButton(ClimberStepB) && canStepB()) {
+      climberStepB();
+    }
+    if (getDriveButton(ClimberStepC) && canStepC()) {
+      climberStepC();
+    }
+    if (getDriveButton(ResetClimberEncoder)) {
+      climberMotor.setSelectedSensorPosition(0);
+    }
+    if (getDriveButton(ResetClimber)) {
+      initClimber();
+    }
+
+    double magnitude = (leftDrive.getThrottle() - 1) / -2;
+    double winch = lerp(-0.6, 0.6, magnitude);
+
+    if (leftDrive.getPOV() == 180) { // Down
+      brakeSolenoid.set(false);
+      climberMotor.set(-winch);
+    }
+    else if (leftDrive.getPOV() == 0) { // Up
+      brakeSolenoid.set(false);
+      climberMotor.set(winch);
+    }
+    else { // Off
+      brakeSolenoid.set(true);
+      climberMotor.stopMotor();
+    }
+
     if (shouldSwitchFront())
       isFrontSwitched = !isFrontSwitched;
     double leftY = leftDrive.getY();
@@ -139,6 +200,7 @@ public class Robot extends TimedRobot {
       System.out.println("Shooter: " + ((int)(shooterSpeed * 100)));
       System.out.println("Cargo: " + ((int)(cargoSpeed * 100)));
       System.out.println("Intake: " + ((int)(intakeSpeed * 100)));
+      System.out.println("Climber: " + climberMotor.getSelectedSensorPosition());
     }
     loop++;
   }
@@ -174,11 +236,57 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledInit() {
-
+    initClimber();
   }
 
   @Override
   public void disabledPeriodic() {
 
+  }
+
+  private void climberStepA() {
+    lowerLeftSolenoid.set(true);
+    lowerRightSolenoid.set(true);
+  }
+
+  private void climberStepB() {
+    upperLeftSolenoid.set(true);
+    upperRightSolenoid.set(true);
+  }
+
+  private void climberStepC() {
+    leftHookSolenoid.set(false);
+    rightHookSolenoid.set(false);
+  }
+
+  private boolean canStepA() {
+    boolean upperOff = !upperLeftSolenoid.get() && !upperRightSolenoid.get();
+    boolean hooksOn = leftHookSolenoid.get() && rightHookSolenoid.get();
+    return upperOff && hooksOn;
+  }
+
+  private boolean canStepB() {
+    boolean lowerOn = lowerLeftSolenoid.get() && lowerRightSolenoid.get();
+    boolean hooksOn = leftHookSolenoid.get() && rightHookSolenoid.get();
+    return lowerOn && hooksOn;
+  }
+
+  private boolean canStepC() {
+    boolean lowerOn = lowerLeftSolenoid.get() && lowerRightSolenoid.get();
+    boolean upperOn = upperLeftSolenoid.get() && upperRightSolenoid.get();
+    return lowerOn && upperOn;
+  }
+
+  private boolean getDriveButton(int button) {
+    return leftDrive.getRawButton(button) || rightDrive.getRawButton(button);
+  }
+
+  public void simulationPeriodic() {
+
+  }
+
+  private double lerp(double a, double b, double f)
+  {
+      return a + f * (b - a);
   }
 }

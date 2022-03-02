@@ -1,9 +1,9 @@
 package frc.robot.auto.instructions;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import frc.robot.Constants;
 import frc.robot.auto.framework.AutoInstruction;
-import frc.robot.utils.GeneralUtils;
 
 public class TurnInstruction extends AutoInstruction {
 
@@ -39,7 +39,7 @@ public class TurnInstruction extends AutoInstruction {
     public void fastPeriodic() {
         double currentAngle = components.navx.getAngle();
         double controllerOutput = controller.calculate(currentAngle);
-        double output = GeneralUtils.clamp(controllerOutput, -speed, speed);
+        double output = MathUtil.clamp(controllerOutput, -speed, speed);
         components.drive.tankDrive(-output, output);
 
         // Uncomment when done tuning
