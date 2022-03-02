@@ -21,6 +21,26 @@
           "open": true
         }
       },
+      "Talon SRX[1]/Quad Encoder": {
+        "header": {
+          "open": true
+        }
+      },
+      "Talon SRX[2]": {
+        "header": {
+          "open": true
+        }
+      },
+      "Talon SRX[3]": {
+        "header": {
+          "open": true
+        }
+      },
+      "Talon SRX[4]": {
+        "header": {
+          "open": true
+        }
+      },
       "Talon SRX[7]": {
         "header": {
           "open": true
@@ -53,11 +73,16 @@
       "/LiveWindow/Ungrouped/Talon FX [321]": "Motor Controller",
       "/LiveWindow/Ungrouped/Talon FX [5]": "Motor Controller",
       "/LiveWindow/Ungrouped/Talon FX [6]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX [7]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX [8]": "Motor Controller",
       "/LiveWindow/Ungrouped/Talon FX [99999]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX [9]": "Motor Controller",
       "/LiveWindow/Ungrouped/Talon SRX [21323]": "Motor Controller",
       "/LiveWindow/Ungrouped/Talon SRX [21334723]": "Motor Controller",
       "/LiveWindow/Ungrouped/Talon SRX [3]": "Motor Controller",
       "/LiveWindow/Ungrouped/Talon SRX [4]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon SRX [5]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon SRX [6]": "Motor Controller",
       "/LiveWindow/Ungrouped/Talon SRX [7]": "Motor Controller",
       "/LiveWindow/Ungrouped/Talon SRX [8]": "Motor Controller",
       "/Shuffleboard/3489 2022 Ducknado Auto/Auto Chooser": "String Chooser"
@@ -72,6 +97,9 @@
         "open": true
       },
       "3489 2022 Ducknado Auto": {
+        "Auto Chooser": {
+          "open": true
+        },
         "open": true
       },
       "open": true

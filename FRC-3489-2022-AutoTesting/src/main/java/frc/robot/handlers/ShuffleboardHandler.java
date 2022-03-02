@@ -13,6 +13,7 @@ import frc.robot.utils.ShuffleboardUtils;
 public class ShuffleboardHandler extends RobotHandler {
 
     private SendableChooser<Integer> autoChooser = new SendableChooser<Integer>();
+    private SendableChooser<Integer> chooseClimber = new SendableChooser<Integer>();
 
     private long loop = 0;
 
@@ -93,6 +94,18 @@ public class ShuffleboardHandler extends RobotHandler {
     public int getSelectedAuto() {
         return autoChooser.getSelected();
     }
+
+    public void chooseYourClimberWidget() {
+        SendableRegistry.setName(chooseClimber, "Choose Climber"); 
+        chooseClimber.setDefaultOption("No Climber Set :D", 0);
+        chooseClimber.addOption("To Mid Climber", 1);
+        chooseClimber.addOption("Mid to High Climber", 2);
+        ShuffleboardUtils.autoTab
+        .add(chooseClimber)
+        .withSize(1, 2);
+
+    }
     
+
     
 }
