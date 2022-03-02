@@ -1,5 +1,6 @@
 package frc.robot.handlers;
 
+import frc.robot.Constants;
 import frc.robot.auto.framework.AutoBuilder;
 import frc.robot.containers.ComponentsContainer;
 import frc.robot.framework.RobotHandler;
@@ -48,5 +49,22 @@ public class ClimberHandler extends RobotHandler{
         AutoBuilder.pause(1);
         telescope(-1.0);  //retract telescope number at a speed of 1 
 
+    }
+    public void climberButtons(){
+        boolean midClimbButtonPressed = container.manipulatorJoystick.getRawButtonPressed(Constants.ToMidClimber);
+        boolean midToHighButtonPressed = container.manipulatorJoystick.getRawButtonPressed(Constants.MidToHighClimber);
+        boolean activateClimberButtonPressed = container.manipulatorJoystick.getRawButtonPressed(Constants.ActivateTheClimber);
+
+        if (midClimbButtonPressed){
+            if (activateClimberButtonPressed) {
+                lowtoMid();
+            } 
+        }
+        if (midToHighButtonPressed) {
+            if (activateClimberButtonPressed) {
+                midToHi();
+            } 
+                
+        } 
     }
 }
