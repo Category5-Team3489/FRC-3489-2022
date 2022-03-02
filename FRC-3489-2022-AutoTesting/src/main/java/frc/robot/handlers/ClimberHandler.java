@@ -26,26 +26,27 @@ public class ClimberHandler extends RobotHandler{
     }
     public void midToHi(){
         AutoBuilder.pause(1); //pause 1 second
-        setTop(true); //extend pnematic 3
+        setTop(true); //extend top pnematics
         AutoBuilder.pause(1);//pause 1 second
-        setBrake(true); //energize pnematic 1
+        setBrake(true); //de-activate brake
         AutoBuilder.pause(1); //pause __ seconds to lower two inches
-        setBrake(false);
+        setBrake(false); //activate brake
         AutoBuilder.pause(1); //pause 1 second
-        setHookPnematic(false); //de-energize pnematic 4
+        setHookPnematic(true); //energize hook
         AutoBuilder.pause(1); //pause 1 second
-        setTop(false); //de-energize pnematic 3
-        setBottom(false); //de-energize pnematic 2
+        setTop(false); //retract top pnematics
+        setBottom(false); //retract bottom pnematics
+        setTop(true); //de-energize hook
     }
     public void lowtoMid(){
         //drive backward between the mid and high bar for manual 
-        setBrake(false); //energize pnematic 1 
+        setBrake(false); // activate brake
         AutoBuilder.pause(1); // pauses 1 second 
-        setBottom(true); //extend pnematic 2 
-        telescope(1.0); //extends telescope with Pnuatic 2 
+        setBottom(true); //extend bottom pnematics 
+        telescope(1.0); //extends telescope at a speed of 1 
         //drive foward to make contact with the mid bar 
         AutoBuilder.pause(1);
-        telescope(-1.0);  //retract telescope number 1 
+        telescope(-1.0);  //retract telescope number at a speed of 1 
 
     }
 }
