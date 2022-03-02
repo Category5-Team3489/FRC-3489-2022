@@ -25,7 +25,7 @@ public class TurnInstruction extends AutoInstruction {
     @Override
     public void init() {
         components.navx.reset();
-        controller = new PIDController(kP, kI, kD, Constants.FastPeriodicPerioid);
+        controller = new PIDController(kP, kI, kD, Constants.FastPeriodicPeriod);
         controller.setSetpoint(degrees);
         controller.setTolerance(kTolerance);
     }
