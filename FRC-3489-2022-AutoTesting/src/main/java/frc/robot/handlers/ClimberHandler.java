@@ -8,6 +8,7 @@ import frc.robot.framework.RobotHandler;
 public class ClimberHandler extends RobotHandler{
     ComponentsContainer container;
 
+
     public void setBottom(boolean botBoolean){
         container.bottomLeftSolenoid.set(botBoolean);
         container.bottomRightSolenoid.set(botBoolean);
@@ -54,13 +55,21 @@ public class ClimberHandler extends RobotHandler{
         boolean midClimbButtonPressed = container.manipulatorJoystick.getRawButtonPressed(Constants.ToMidClimber);
         boolean midToHighButtonPressed = container.manipulatorJoystick.getRawButtonPressed(Constants.MidToHighClimber);
         boolean activateClimberButtonPressed = container.manipulatorJoystick.getRawButtonPressed(Constants.ActivateTheClimber);
+        boolean midClimb = false;
+        boolean midToHighClimb = false;
 
         if (midClimbButtonPressed){
+            midClimb = !midClimb;
+        }
+        if(midToHighButtonPressed){
+            midToHighClimb = !midToHighClimb;
+        }
+        if(midClimb){
             if (activateClimberButtonPressed) {
                 lowtoMid();
-            } 
+            }
         }
-        if (midToHighButtonPressed) {
+        if (midToHighClimb) {
             if (activateClimberButtonPressed) {
                 midToHi();
             } 

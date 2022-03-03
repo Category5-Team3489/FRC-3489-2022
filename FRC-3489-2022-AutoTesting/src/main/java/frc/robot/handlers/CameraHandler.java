@@ -25,7 +25,12 @@ public class CameraHandler extends RobotHandler {
             server = CameraServer.getServer();
     
             cameraA.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+            cameraA.setResolution(Constants.CameraPixelWidth, Constants.CameraPixelHeight);
+            cameraA.setFPS(Constants.CameraFPS);
+
             cameraB.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+            cameraB.setResolution(Constants.CameraPixelWidth, Constants.CameraPixelHeight);
+            cameraB.setFPS(Constants.CameraFPS);
     
             shuffleboardHandler.createCameraWidget(server.getSource());
     

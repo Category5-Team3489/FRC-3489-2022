@@ -1,15 +1,18 @@
-  // PRIORITY
+  // Do without testing yet
   // TODO Climber
+  // TODO More shuffleboard outputs
+  
+  // negative up on climber
+  
+  // PRIORITY
+  // TODO Button debounce manipulator joystick
   // TODO Test Auto
-  // TODO Document auto
   // TODO Tune PID turn
   // TODO Tune PID drive
-  // TODO More shuffleboard outputs
-  // TODO Lower cam resolution
-  // TODO Button debounce manipulator joystick
   // TODO Drive velocity change limiting
   
   // LATER
+  // TODO Document auto
   // TODO Shooter velocity control with PID
   // TODO Logger handler
   // TODO Button debouncer utils

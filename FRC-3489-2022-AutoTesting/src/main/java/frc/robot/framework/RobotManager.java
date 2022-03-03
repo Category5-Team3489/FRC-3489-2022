@@ -25,7 +25,7 @@ public final class RobotManager extends RobotHandler {
         handlers.add(shooterHandler = new ShooterHandler());
         handlers.add(cargoSystemHandler = new CargoSystemHandler());
         handlers.add(shuffleboardHandler = new ShuffleboardHandler());
-        handlers.add(joystickHandler = new JoystickHandler());
+        handlers.add(buttonHandler = new ButtonHandler());
 
         for (RobotReferences references : handlers) {
             copyReferences(references);
@@ -46,7 +46,7 @@ public final class RobotManager extends RobotHandler {
         references.shooterHandler = shooterHandler;
         references.cargoSystemHandler = cargoSystemHandler;
         references.shuffleboardHandler = shuffleboardHandler;
-        references.joystickHandler = joystickHandler;
+        references.buttonHandler = buttonHandler;
     }
 
     public void robotInit() {

@@ -4,6 +4,10 @@ public final class Constants {
 
     // General
     public static final double FastPeriodicPeriod = 1d / 200d;
+    public static final int CameraPixelWidth = 400;
+    public static final int CameraPixelHeight = 300;
+    public static final int CameraFPS = 20;
+    public static final double ButtonDebounceTime = 0.1;
 
     // State
     public static final boolean HasCameras = true;
