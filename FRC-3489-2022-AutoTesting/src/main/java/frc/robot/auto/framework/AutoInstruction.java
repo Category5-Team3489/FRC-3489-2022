@@ -78,8 +78,8 @@ public abstract class AutoInstruction extends RobotReferences {
     public final CargoTransferInstruction cargoTransfer(double speed, double clicks) {
         return setNext(AutoBuilder.cargoTransfer(speed, clicks));
     }
-    public final IntakeInstruction intake(double speed, double seconds) {
-        return setNext(AutoBuilder.intake(speed, seconds));
+    public final IntakeInstruction intake(double seconds) {
+        return setNext(AutoBuilder.intake(seconds));
     }
     public final ShootInstruction shoot(double speed, double seconds) {
         return setNext(AutoBuilder.shoot(speed, seconds));

@@ -110,8 +110,8 @@ public abstract class AutoBuilder extends RobotReferences {
     public static final CargoTransferInstruction cargoTransfer(double speed, double clicks) {
         return new CargoTransferInstruction(speed, clicks);
     }
-    public static final IntakeInstruction intake(double speed, double seconds) {
-        return new IntakeInstruction(speed, seconds);
+    public static final IntakeInstruction intake(double seconds) {
+        return new IntakeInstruction(seconds);
     }
     public static final ShootInstruction shoot(double speed, double seconds) {
         return new ShootInstruction(speed, seconds);

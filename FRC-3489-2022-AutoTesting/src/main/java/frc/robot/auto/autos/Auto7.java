@@ -19,7 +19,7 @@ public class Auto7 extends AutoBuilder {
             .pause(1)
             .concurrently(      //Intake ball while driving to terminal
                 drive(0.65, 13 * Constants.DriveClicksPerFoot),
-                intake(0.8, 5)
+                intake(5)
             );
 
       return first;

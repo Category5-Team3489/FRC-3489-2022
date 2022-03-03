@@ -19,7 +19,7 @@ public class Auto6 extends AutoBuilder {
         .pause(1) //Wait one second
         .concurrently( //drive forward while intaking
             drive(0.65, 4.5 * Constants.DriveClicksPerFoot), //Drive at 65% for 4.5 feet
-            intake(0.6, 6) //intake at 60% speed for 6 seconde
+            intake(6) //intake at 60% speed for 6 seconde
         )
         .pause(1) //wait for one second
         .turn(.5, -100) //turn right 100 degrees at 50% speed

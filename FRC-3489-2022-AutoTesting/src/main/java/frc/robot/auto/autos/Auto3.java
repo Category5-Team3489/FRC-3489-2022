@@ -12,7 +12,7 @@ public class Auto3 extends AutoBuilder {
         first
         .concurrently(
             drive(0.65, 7.5 * Constants.DriveClicksPerFoot), // 7.5 ft at 65% 
-            intake(0.5, 10)
+            intake(10)
         )
         .drive(-0.65, 7.5 * Constants.DriveClicksPerFoot) // 7.5 ft at 65%
         .concurrently(

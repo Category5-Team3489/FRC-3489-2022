@@ -18,7 +18,7 @@ public class Auto5 extends AutoBuilder {
         )
         .concurrently(
             drive(0.65, 7.5 * Constants.DriveClicksPerFoot), //drive foward at 65% and for 7.5 feet 
-            intake(0.8, 2) //intake for 80 and 2 
+            intake(2) //intake for 80 and 2 
         ) 
         .turn(0.4, 180) //turn backwards 
         .drive(0.65, 7.5 * Constants.DriveClicksPerFoot)//drives for 7.5 foot 
