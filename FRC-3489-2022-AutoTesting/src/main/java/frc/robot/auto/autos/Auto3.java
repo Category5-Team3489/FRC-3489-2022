@@ -14,7 +14,9 @@ public class Auto3 extends AutoBuilder {
             drive(0.65, 7.5 * Constants.DriveClicksPerFoot), // 7.5 ft at 65% 
             intake(10)
         )
+        .pause(1)
         .drive(-0.65, 7.5 * Constants.DriveClicksPerFoot) // 7.5 ft at 65%
+        .pause(1)
         .concurrently(
             shoot(0.65, 3),
             pause(1)
