@@ -8,39 +8,40 @@ public class ClimberHandler extends RobotHandler{
     ComponentsContainer container;
 
 
-    public void setBottom(boolean botBoolean){
-        container.bottomLeftSolenoid.set(botBoolean);
-        container.bottomRightSolenoid.set(botBoolean);
+    public void setLower(boolean value){
+        container.lowerLeftSolenoid.set(value);
+        container.lowerRightSolenoid.set(value);
     }
-    public void setTop(boolean topBoolean){
-        container.topLeftSolenoid.set(topBoolean);
-        container.topRightSolenoid.set(topBoolean);
+    public void setUpper(boolean value){
+        container.upperLeftSolenoid.set(value);
+        container.upperRightSolenoid.set(value);
     }
-    public void setHookPnematic(boolean hookBoolean){
-        container.hookSolenoid.set(hookBoolean);
+    public void setHooks(boolean value){
+        container.leftHookSolenoid.set(value);
+        container.rightHookSolenoid.set(value);
     }
-    public void setBrake(boolean brakeBoolean){
-        container.brakeSolenoid.set(brakeBoolean);
+    public void setBrake(boolean value){
+        container.brakeSolenoid.set(value);
     }
-    public void telescope(Double teleSpeed){
-        container.climbMotor.set(teleSpeed);
+    public void telescope(Double speed){
+        container.telescopeMotor.set(speed);
     }
     public void midToHi(){
         
-        setTop(true); //extend top pnematics
+        setUpper(true); //extend top pnematics
         
         setBrake(true); //de-activate brake
         
         setBrake(false); //activate brake
-        setHookPnematic(true); //energize hook
-        setTop(false); //retract top pnematics
-        setBottom(false); //retract bottom pnematics
-        setHookPnematic(false); //de-energize hook
+        setHooks(true); //energize hook
+        setUpper(false); //retract top pnematics
+        setLower(false); //retract bottom pnematics
+        setHooks(false); //de-energize hook
     }
     public void lowtoMid(){
         //drive backward between the mid and high bar for manual 
         setBrake(false); //activate brake
-        setBottom(true); //extend bottom pnematics 
+        setLower(true); //extend bottom pnematics 
         telescope(1.0); //extends telescope at a speed of 1 
         //drive foward to make contact with the mid bar 
         telescope(-1.0);  //retract telescope number at a speed of 1 
@@ -70,5 +71,11 @@ public class ClimberHandler extends RobotHandler{
             } 
                 
         } 
+    }
+
+    // Turn off all other stuff, intake, cargo mover, shooter
+
+    private void disableOtherSystems() {
+
     }
 }

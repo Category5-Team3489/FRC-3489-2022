@@ -37,16 +37,16 @@ public final class ComponentsContainer {
     public WPI_TalonSRX intakeMotor = new WPI_TalonSRX(6);
     public WPI_TalonFX bottomShooterMotor = new WPI_TalonFX(7);
     public WPI_TalonFX topShooterMotor = new WPI_TalonFX(8);
-    public WPI_TalonFX climbMotor = new WPI_TalonFX(9);
+    public WPI_TalonFX telescopeMotor = new WPI_TalonFX(9);
 
     // Climb
-    public WPI_TalonFX ClimbMotor = new WPI_TalonFX(10);
-    public Solenoid topLeftSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 1);
-    public Solenoid topRightSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 2);
-    public Solenoid bottomLeftSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 3);
-    public Solenoid bottomRightSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 4);
-    public Solenoid brakeSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 5);
-    public Solenoid hookSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 6);
+    public Solenoid lowerLeftSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 0);
+    public Solenoid lowerRightSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 1);
+    public Solenoid upperLeftSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 2);
+    public Solenoid upperRightSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 3);
+    public Solenoid leftHookSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 4);
+    public Solenoid rightHookSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 5);
+    public Solenoid brakeSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 6);
 
     public ComponentsContainer() {
 
@@ -72,7 +72,7 @@ public final class ComponentsContainer {
         setSafeties(intakeMotor);
         setSafeties(bottomShooterMotor);
         setSafeties(topShooterMotor);
-        setSafeties(climbMotor);
+        setSafeties(telescopeMotor);
 
         defaultDriveMotors();
         defaultMotors();
@@ -92,7 +92,7 @@ public final class ComponentsContainer {
         intakeMotor.configFactoryDefault();
         bottomShooterMotor.configFactoryDefault();
         topShooterMotor.configFactoryDefault();
-        climbMotor.configFactoryDefault();
+        telescopeMotor.configFactoryDefault();
     }
 
     public void disableDriveMotors() {
@@ -107,7 +107,7 @@ public final class ComponentsContainer {
         intakeMotor.stopMotor();
         bottomShooterMotor.stopMotor();
         topShooterMotor.stopMotor();
-        climbMotor.stopMotor();
+        telescopeMotor.stopMotor();
     }
 
     public void configNominalDrive() {

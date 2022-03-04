@@ -20,7 +20,9 @@ public class Auto7 extends AutoBuilder {
             .concurrently(      //Intake ball while driving to terminal
                 drive(0.65, 13 * Constants.DriveClicksPerFoot),
                 intake(5)
-            );
+            )
+            .turn(0.5, -30)    //Turn right 30 degrees
+            .drive(0.5, 12 * Constants.DriveClicksPerFoot);   // drive forward 12 ft
 
       return first;
     }   

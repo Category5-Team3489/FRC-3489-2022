@@ -16,7 +16,10 @@ public class Auto2 extends AutoBuilder {
                 .cargoTransfer(0.5, 5 * Constants.ClicksPerCargoLength)        
         )
         .pause(1)
-        .drive(0.65, 5 * Constants.DriveClicksPerFoot)
+        .concurrently(
+            intake(5),
+            drive(0.65, 5 * Constants.DriveClicksPerFoot)
+        )
         .pause(1)
         .drive(-0.65, 5 * Constants.DriveClicksPerFoot)
         .concurrently(

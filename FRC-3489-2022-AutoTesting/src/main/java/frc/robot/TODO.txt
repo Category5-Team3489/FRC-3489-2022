@@ -1,6 +1,9 @@
   // Do without testing yet
   // TODO Climber
   // TODO More shuffleboard outputs
+  // New turn instruction use arc lengths and dist between
+  // Scouting app
+  // map out climber stuff
   
   // negative up on climber
   
