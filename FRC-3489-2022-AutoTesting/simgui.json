@@ -16,6 +16,16 @@
           "open": true
         }
       },
+      "Talon FX[9]": {
+        "header": {
+          "open": true
+        }
+      },
+      "Talon FX[9]/Integrated Sensor": {
+        "header": {
+          "open": true
+        }
+      },
       "Talon SRX[1]": {
         "header": {
           "open": true
@@ -85,11 +95,15 @@
       "/LiveWindow/Ungrouped/Talon SRX [6]": "Motor Controller",
       "/LiveWindow/Ungrouped/Talon SRX [7]": "Motor Controller",
       "/LiveWindow/Ungrouped/Talon SRX [8]": "Motor Controller",
+      "/Shuffleboard/3489 2022 Auto/Auto Chooser": "String Chooser",
       "/Shuffleboard/3489 2022 Ducknado Auto/Auto Chooser": "String Chooser"
     }
   },
   "NetworkTables": {
     "Shuffleboard": {
+      "3489 2022": {
+        "open": true
+      },
       "3489 2022 Ducknado": {
         "USB Camera 0": {
           "open": true

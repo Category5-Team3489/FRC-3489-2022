@@ -62,3 +62,20 @@ src\app\pages\private\matchscouting\matchscouting.page.html
 
 compile webapp
 ionic build --prod
+
+
+docker commands
+
+docker inspect scoutapi
+docker exec -it scoutapi bash
+docker ps
+ctrl D exit
+
+
+export
+exportweb
+update matches
+update teams
+
+http://scoutpi/api/matchdata/exportweb.php
+http://scoutpi/api/matchdata/export.php

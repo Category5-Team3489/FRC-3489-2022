@@ -60,10 +60,9 @@ public class Robot extends TimedRobot {
   private SlewRateLimiter leftLimiter = new SlewRateLimiter(10);
   private SlewRateLimiter rightLimiter = new SlewRateLimiter(10);
 
-  private Solenoid lowerSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 1);
-  private Solenoid upperSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 2);
-  private Solenoid leftHookSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 3);
-  private Solenoid rightHookSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 4);
+  private Solenoid lowerSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 2);
+  private Solenoid upperSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 3);
+  private Solenoid hookSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 4);
   private Solenoid brakeSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 5);
 
   private WPI_TalonFX climberMotor = new WPI_TalonFX(9);
@@ -101,8 +100,7 @@ public class Robot extends TimedRobot {
     brakeSolenoid.set(false);
     lowerSolenoid.set(false);
     upperSolenoid.set(false);
-    leftHookSolenoid.set(false);
-    rightHookSolenoid.set(false);
+    hookSolenoid.set(false);
   }
 
   private boolean shouldSwitchFront() {
@@ -111,13 +109,13 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    if (getDriveButton(ClimberStepA) && canStepA()) {
+    if (getDriveButton(ClimberStepA)) {
       climberStepA();
     }
-    if (getDriveButton(ClimberStepB) && canStepB()) {
+    if (getDriveButton(ClimberStepB)) {
       climberStepB();
     }
-    if (getDriveButton(ClimberStepC) && canStepC()) {
+    if (getDriveButton(ClimberStepC)) {
       climberStepC();
     }
     if (getDriveButton(ResetClimberEncoder)) {
@@ -131,15 +129,15 @@ public class Robot extends TimedRobot {
     double winch = lerp(-0.6, 0.6, magnitude);
 
     if (leftDrive.getPOV() == 180) { // Down
-      brakeSolenoid.set(false);
+      brakeSolenoid.set(true);
       climberMotor.set(-winch);
     }
     else if (leftDrive.getPOV() == 0) { // Up
-      brakeSolenoid.set(false);
+      brakeSolenoid.set(true);
       climberMotor.set(winch);
     }
     else { // Off
-      brakeSolenoid.set(true);
+      brakeSolenoid.set(false);
       climberMotor.stopMotor();
     }
 
@@ -248,19 +246,18 @@ public class Robot extends TimedRobot {
   }
 
   private void climberStepC() {
-    leftHookSolenoid.set(false);
-    rightHookSolenoid.set(false);
+    hookSolenoid.set(true);
   }
 
   private boolean canStepA() {
-    boolean upperOff = !upperSolenoid.get();
-    boolean hooksOn = leftHookSolenoid.get() && rightHookSolenoid.get();
+    boolean upperOff = upperSolenoid.get();
+    boolean hooksOn = hookSolenoid.get();
     return upperOff && hooksOn;
   }
 
   private boolean canStepB() {
     boolean lowerOn = lowerSolenoid.get();
-    boolean hooksOn = leftHookSolenoid.get() && rightHookSolenoid.get();
+    boolean hooksOn = hookSolenoid.get();
     return lowerOn && hooksOn;
   }
 

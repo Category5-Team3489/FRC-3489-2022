@@ -1,6 +1,4 @@
   // Do without testing yet
-  // Button debounce stuff
-  // TODO Climber
   // TODO More shuffleboard outputs
   // New turn instruction use arc lengths and dist between
   // Scouting app
@@ -8,8 +6,8 @@
   // Add climber manual control in case it doesnt work right
   // test climb code
   // figure out how pneumatics are set up for climber
-  // E Stop climber button
   // Reset method for handlers?
+  // Solenoid constants wrong
   
   // negative up on climber
   

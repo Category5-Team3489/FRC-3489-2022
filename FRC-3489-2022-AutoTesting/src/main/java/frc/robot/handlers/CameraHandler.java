@@ -15,7 +15,6 @@ public class CameraHandler extends RobotHandler {
 
     @Override
     public void robotInit() {
-
         try {
             cameraA = CameraServer.startAutomaticCapture(0);
             cameraB = CameraServer.startAutomaticCapture(1);
