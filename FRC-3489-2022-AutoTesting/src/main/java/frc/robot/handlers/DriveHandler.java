@@ -11,14 +11,9 @@ public class DriveHandler extends RobotHandler {
     private SlewRateLimiter leftLimiter = new SlewRateLimiter(Constants.DriveSetSpeedDeltaLimiter);
     private SlewRateLimiter rightLimiter = new SlewRateLimiter(Constants.DriveSetSpeedDeltaLimiter);
 
-    private boolean shouldSwitchFront() {
-        return components.rightDriveJoystick.getRawButtonPressed(Constants.ButtonSwitchFront);
-    }
-
     @Override
     public void teleopPeriodic() {
-        //Switch driving direction
-        if (shouldSwitchFront()) {
+        if (buttonHandler.switchFrontPressed()) {
             isFront = !isFront;
             cameraHandler.setCamera(isFront);
             shuffleboardHandler.setString(true, "Drive Mode", isFront ? "Forward" : "Backward");

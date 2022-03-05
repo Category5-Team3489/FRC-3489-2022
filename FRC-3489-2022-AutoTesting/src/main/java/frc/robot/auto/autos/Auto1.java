@@ -13,10 +13,8 @@ public class Auto1 extends AutoBuilder {
         first
         .drive(0.65, 12 * Constants.ClicksPerFootDriven) //12 ft at 0.65% 
         .pause(1)
-        .turn(0.4, 30)
-        .drive(0.65, 8.4375 * Constants.ClicksPerFootDriven) // 8.4375 ft at 0.65% 
-        .turn(0.4, 120)
-        .drive(0.65, 3 * Constants.ClicksPerFootDriven); // 3 ft for 0.65% 
+        .turn(0.4, 70)
+        .drive(0.65, 8.4375 * Constants.ClicksPerFootDriven); // 8.4375 ft at 0.65% 
 
         return first;
     }

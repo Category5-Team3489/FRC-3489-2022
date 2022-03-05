@@ -40,28 +40,20 @@ public final class ComponentsContainer {
     public WPI_TalonFX telescopeMotor = new WPI_TalonFX(9);
 
     // Climb
-    public Solenoid lowerLeftSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 0);
-    public Solenoid lowerRightSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 1);
-    public Solenoid upperLeftSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 2);
-    public Solenoid upperRightSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 3);
-    public Solenoid leftHookSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 4);
-    public Solenoid rightHookSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 5);
-    public Solenoid brakeSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 6);
+    public Solenoid lowerSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 0);
+    public Solenoid upperSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 1);
+    public Solenoid hookSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 2);
+    public Solenoid brakeSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 3);
 
     public ComponentsContainer() {
-
-        /*
-        leftFrontDriveMotor.configOpenloopRamp(Constants.DriveSetSpeedDeltaLimiter);
-        rightFrontDriveMotor.configOpenloopRamp(Constants.DriveSetSpeedDeltaLimiter);
-        leftFollowerDriveMotor.configOpenloopRamp(Constants.DriveSetSpeedDeltaLimiter);
-        rightFollowerDriveMotor.configOpenloopRamp(Constants.DriveSetSpeedDeltaLimiter);
-        */
 
         leftDriveJoystick = new Joystick(0);
         rightDriveJoystick = new Joystick(1);
         manipulatorJoystick = new Joystick(2);
 
-        setSafeties(drive = new DifferentialDrive(leftFrontDriveMotor, rightFrontDriveMotor));
+        drive = new DifferentialDrive(leftFrontDriveMotor, rightFrontDriveMotor);
+
+        setSafeties(drive);
 
         setSafeties(leftFrontDriveMotor);
         setSafeties(rightFrontDriveMotor);

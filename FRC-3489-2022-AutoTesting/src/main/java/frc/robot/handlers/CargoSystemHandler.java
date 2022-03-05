@@ -7,20 +7,23 @@ public class CargoSystemHandler extends RobotHandler {
 
     private boolean isIntakeActivated = false;
     private int cargoCount = 0;
+    private boolean isUnderManualControl = false;
     
     @Override
     public void teleopPeriodic() {
 
-        // Joystick Inputs
-        // Done: POV knob controls cargo transfer conveyor manually and set intake also
-        boolean isUnderManualControl = manualIntakeAndCargoTransfer();
+        if (climberHandler.isClimbing()) {
+            intakeHandler.stopIntake();
+            isIntakeActivated = false;
+            cargoTransferHandler.set(0);
+            shooterHandler.stopShooter();
+            return;
+        }
 
-        // If 2 balls inside stop intaking
+        isUnderManualControl = manualIntakeAndCargoTransfer();
+
         if (cargoCount < 2) {
-            // Toggle button for activating intake probably trigger on manipulator joystick
-            toggleIntake(isUnderManualControl);
-
-            // Index cargo transfer conveyor when ball is in laser sensor
+            toggleIntake();
             indexConveyorIfCargoInLaserSensor();
         }
         else {
@@ -30,42 +33,30 @@ public class CargoSystemHandler extends RobotHandler {
             }
         }
 
-        // While manipulator joystick trigger is pressed move cargo from conveyor into shooter wheels
         if (!isUnderManualControl) {
             shoot();
         }
 
-
-        // Wait on: Wrong color detection and correction
-        wrongColorShooter();
-
-        // Push button for setting shooter to low goal speed Mackenzie
-        lowGoalShooter();
-        // Push button for setting shooter to high goal speed Alex
-        highGoalShooter();
-        // Push button to stop shooter Afif
+        shootLowGoal();
+        shootHighGoal();
+        shootWrongColor();
         stopShooter();
 
         shuffleboardHandler.showNumber(true, "Cargo Count", cargoCount);
     }
 
     private void shoot() {
-
         if (!shooterHandler.canShoot()) {
             cargoTransferHandler.stopIfNotIndexing();
             return;
         }
-        
         boolean shoot = components.manipulatorJoystick.getRawButton(Constants.ButtonShoot);
-        boolean stopShooting = components.manipulatorJoystick.getRawButtonReleased(Constants.ButtonShoot);
-        if(stopShooting){
+
+        if(buttonHandler.shootUnpressed())
             shooterHandler.stopShooter();
-            // Set shooter stopped shuffleboard
-            shuffleboardHandler.setString(true, "Shooter Mode", "Stopped");
-        }
+        
         if (shoot) {
             cargoTransferHandler.setShootSpeed();
-            // reset cargoCount somewhere
             cargoCount = 0;
         }
         else {
@@ -74,10 +65,9 @@ public class CargoSystemHandler extends RobotHandler {
     }
 
     private void indexConveyorIfCargoInLaserSensor() {
-
-        if (!isIntakeActivated) return; // may also or only want to ensure is not under manual control
-
-        // laser sensor input
+        if (!isIntakeActivated || isUnderManualControl)
+            return;
+        
         boolean isCargoInLaser = intakeHandler.isCargoInLaser();
         if (isCargoInLaser) {
             if (!cargoTransferHandler.isIndexing()) {
@@ -87,98 +77,62 @@ public class CargoSystemHandler extends RobotHandler {
         }
     }
 
-    private void toggleIntake(boolean isUnderManualControl) {
-        // Toggle button for activating intake probably trigger on manipulator joystick
-
-        boolean shouldToggleIntake = components.manipulatorJoystick.getRawButtonPressed(Constants.ButtonToggleIntake);
-        if (shouldToggleIntake) {
+    private void toggleIntake() {
+        if (buttonHandler.toggleIntakePressed())
             isIntakeActivated = !isIntakeActivated;
-        }
-        // Prevents running intake if under manual control
-        if (isUnderManualControl) return;
 
-        if (isIntakeActivated) {
+        if (isUnderManualControl)
+            return;
+
+        if (isIntakeActivated)
             intakeHandler.startIntake();
-        }
-        else {
+        else
             intakeHandler.stopIntake();
-        }
-
     }
 
-    private void lowGoalShooter() {
-        // Push button for setting shooter to low goal speed Mackenzie
-        // Get button input from manipulator Joystick
-        boolean shootLow = components.manipulatorJoystick.getRawButtonPressed(Constants.ButtonShootLowGoal);
-        
-        // shoot low if button pressed
-        if (shootLow) {
+    private void shootLowGoal() {
+        boolean isPressed = components.manipulatorJoystick.getRawButtonPressed(Constants.ButtonShootLowGoal);
+        if (isPressed) {
             shooterHandler.shootLow();
-            // Set shoot low shuffleboard
-            shuffleboardHandler.setString(true, "Shooter Mode", "Low");
         }
     }
 
-    private void highGoalShooter() {
-        // Push button for setting shooter to high goal speed Alex
-        // Get button input from manipulator Joystick
-        boolean shootHigh = components.manipulatorJoystick.getRawButtonPressed(Constants.ButtonShootHighGoal);
-        // shoot high if button pressed
-        if (shootHigh) {
+    private void shootHighGoal() {
+        boolean isPressed = components.manipulatorJoystick.getRawButtonPressed(Constants.ButtonShootHighGoal);
+        if (isPressed) {
             shooterHandler.shootHigh();
-            // Set shoot high shuffleboard
-            shuffleboardHandler.setString(true, "Shooter Mode", "High");
+        }
+    }
+
+    private void shootWrongColor() {
+        boolean isPressed = components.manipulatorJoystick.getRawButton(Constants.ButtonShootWrongColor);
+        if (isPressed) {
+            shooterHandler.setWrongColor();
         }
     }
 
     private void stopShooter() {
-        // Push button to stop shooter Afif
-        //get the input from the manipulator 
-        boolean stopShooter = components.manipulatorJoystick.getRawButtonPressed(Constants.ButtonStopShooter);
-        //stops the shooter if button pressed
-        if (stopShooter) {
+        boolean isPressed = components.manipulatorJoystick.getRawButtonPressed(Constants.ButtonStopShooter);
+        if (isPressed) {
             shooterHandler.stopShooter();
-            // Set shooter stopped shuffleboard
-            shuffleboardHandler.setString(true, "Shooter Mode", "Stopped");
-        }
-    }
-
-    private void wrongColorShooter() {
-        //Push button to shoot wrong color
-        //get the input from the mainipulator
-        boolean wrongColor = components.manipulatorJoystick.getRawButton(Constants.ButtonWrongColor);
-        //shoot wrong color at low speed if button is pressed
-        if (wrongColor) {
-            shooterHandler.wrongColor();
-            //Set shooter Wrong color on shuffleboard
-            shuffleboardHandler.setString(true, "Shooter Mode", "Wrong Color");
         }
     }
     
 
     private boolean manualIntakeAndCargoTransfer() {
-        
-        // set intake speed based on pov
-        // set cargo transfer conveyor based on pov
         double manipulatorJoystick = components.manipulatorJoystick.getY();
-        if (manipulatorJoystick > 0.5) { // manipulator is up
-           // set intake speed to move up
+        if (manipulatorJoystick > Constants.ManualCargoSystemControlThreshhold) {
             intakeHandler.startIntake();
-            // set cargo transfer conveyor to move up
             cargoTransferHandler.set(Constants.CargoTransferMotorSpeed);
         }
-        else if (manipulatorJoystick < -0.5) { // manipulator is down
-            // set intake speed to move down
+        else if (manipulatorJoystick < -Constants.ManualCargoSystemControlThreshhold) {
             intakeHandler.reverseIntake();
-            // set cargo transfer conveyor to move down
             cargoTransferHandler.set(Constants.ReverseCargoTransferMotorSpeed);
         }
         else {
-            // stopping motors
             cargoTransferHandler.stopIfNotIndexing();
             return false;
         }
-
         return true;
     }
 

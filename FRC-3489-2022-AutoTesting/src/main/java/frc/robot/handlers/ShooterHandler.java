@@ -7,17 +7,25 @@ public class ShooterHandler extends RobotHandler {
 
     private double lastBottomSpeed = 0;
     private double lastTopSpeed = 0;
-    
-    public void shootHigh() {
-        setShooter(Constants.ShootHighBottomMotorSpeed, Constants.ShootHighTopMotorSpeed);
-    }
 
     public void shootLow() {
         setShooter(Constants.ShootLowBottomMotorSpeed, Constants.ShootLowTopMotorSpeed);
+        shuffleboardHandler.setString(true, "Shooter Mode", "Low");
+    }
+    
+    public void shootHigh() {
+        setShooter(Constants.ShootHighBottomMotorSpeed, Constants.ShootHighTopMotorSpeed);
+        shuffleboardHandler.setString(true, "Shooter Mode", "High");
+    }
+
+    public void setWrongColor() {
+        setShooter(Constants.WrongColorBottomSpeed, Constants.WrongColorTopSpeed);
+        shuffleboardHandler.setString(true, "Shooter Mode", "Wrong Color");
     }
 
     public void stopShooter() {
         setShooter(0, 0);
+        shuffleboardHandler.setString(true, "Shooter Mode", "Stopped");
     }
 
     public boolean canShoot() {
@@ -29,10 +37,6 @@ public class ShooterHandler extends RobotHandler {
         lastTopSpeed = topSpeed;
         components.bottomShooterMotor.set(bottomSpeed);
         components.topShooterMotor.set(-topSpeed);
-    }
-
-    public void wrongColor() {
-        setShooter(Constants.WrongColorBottomSpeed, Constants.WrongColorTopSpeed);
     }
 
 }

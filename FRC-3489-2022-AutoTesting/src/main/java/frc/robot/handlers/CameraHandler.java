@@ -15,9 +15,6 @@ public class CameraHandler extends RobotHandler {
 
     @Override
     public void robotInit() {
-        //Begin For Debugging Only
-        if (!Constants.HasCameras) return;
-        //End For Debugging Only
 
         try {
             cameraA = CameraServer.startAutomaticCapture(0);
@@ -41,10 +38,6 @@ public class CameraHandler extends RobotHandler {
     }
 
     public void setCamera(boolean isCameraA) {
-        //Begin Debug
-        if (!Constants.HasCameras) return;
-        //End Debug
-
         try {
             if (isCameraA)
                 server.setSource(cameraA);

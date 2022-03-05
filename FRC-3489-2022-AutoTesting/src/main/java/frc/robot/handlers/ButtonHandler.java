@@ -1,8 +1,5 @@
 package frc.robot.handlers;
 
-//import java.util.HashMap;
-//import java.util.Map;
-
 import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.filter.Debouncer.DebounceType;
 import frc.robot.Constants;
@@ -10,17 +7,29 @@ import frc.robot.framework.RobotHandler;
 
 public class ButtonHandler extends RobotHandler {
 
-    private Debouncer midClimb = new Debouncer(Constants.ButtonDebounceTime, DebounceType.kRising);
-    private Debouncer midToHigh = new Debouncer(Constants.ButtonDebounceTime, DebounceType.kRising);
     private Debouncer switchFront = new Debouncer(Constants.ButtonDebounceTime, DebounceType.kRising);
     private Debouncer toggleIntake = new Debouncer(Constants.ButtonDebounceTime, DebounceType.kRising);
+    private Debouncer shootReleased = new Debouncer(Constants.ButtonDebounceTime, DebounceType.kFalling);
+
+    private boolean switchFrontPressed = false;
+    private boolean toggleIntakePressed = false;
+    private boolean shootUnpressed = false;
 
     @Override
     public void teleopPeriodic() {
-        midClimb.calculate(components.manipulatorJoystick.getRawButton(Constants.ButtonClimbMid));
-        midToHigh.calculate(components.manipulatorJoystick.getRawButton(Constants.ButtonClimbMidToHigh));
-        switchFront.calculate(components.rightDriveJoystick.getRawButton(Constants.ButtonSwitchFront));
-        toggleIntake.calculate(components.manipulatorJoystick.getRawButton(Constants.ButtonToggleIntake));
+        switchFrontPressed = switchFront.calculate(components.rightDriveJoystick.getRawButton(Constants.ButtonSwitchFront));
+        toggleIntakePressed = toggleIntake.calculate(components.manipulatorJoystick.getRawButton(Constants.ButtonToggleIntake));
+        shootUnpressed = shootReleased.calculate(components.manipulatorJoystick.getRawButton(Constants.ButtonShoot));
+    }
+
+    public boolean switchFrontPressed() {
+        return switchFrontPressed;
+    }
+    public boolean toggleIntakePressed() {
+        return toggleIntakePressed;
+    }
+    public boolean shootUnpressed() {
+        return shootUnpressed;
     }
     
     /*

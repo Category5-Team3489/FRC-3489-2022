@@ -30,9 +30,7 @@ public class AutoHandler extends RobotHandler {
     @Override
     public void robotInit() {
         shuffleboardHandler.createAutoChooserWidget();
-
         runner = new AutoRunner(robotManager);
-
         robot.addPeriodic(() -> runner.fastPeriodic(), Constants.FastPeriodicPeriod);
     }
 

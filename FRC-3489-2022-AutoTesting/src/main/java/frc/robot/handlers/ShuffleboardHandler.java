@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.framework.RobotHandler;
+import frc.robot.types.ClimberStep;
 import frc.robot.utils.ShuffleboardUtils;
 
 //https://docs.wpilib.org/en/stable/docs/software/dashboards/shuffleboard/getting-started/index.html
@@ -13,7 +14,6 @@ import frc.robot.utils.ShuffleboardUtils;
 public class ShuffleboardHandler extends RobotHandler {
 
     private SendableChooser<Integer> autoChooser = new SendableChooser<Integer>();
-    private SendableChooser<Integer> chooseClimber = new SendableChooser<Integer>();
 
     private long loop = 0;
 
@@ -26,6 +26,7 @@ public class ShuffleboardHandler extends RobotHandler {
         setString(true, "Shooter Mode", "Stopped");
         setNumber(true, "Cargo Count", 0);
         setString(true, "Drive Mode", "Forward");
+        setString(true, "Climber Step", ClimberStep.S0Default.toString());
     }
 
     @Override
@@ -94,18 +95,5 @@ public class ShuffleboardHandler extends RobotHandler {
     public int getSelectedAuto() {
         return autoChooser.getSelected();
     }
-
-    public void chooseYourClimberWidget() {
-        SendableRegistry.setName(chooseClimber, "Choose Climber"); 
-        chooseClimber.setDefaultOption("No Climber Set :D", 0);
-        chooseClimber.addOption("To Mid Climber", 1);
-        chooseClimber.addOption("Mid to High Climber", 2);
-        ShuffleboardUtils.autoTab
-        .add(chooseClimber)
-        .withSize(1, 2);
-
-    }
-    
-
     
 }

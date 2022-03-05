@@ -11,11 +11,11 @@ public class Auto3 extends AutoBuilder {
 
         first
         .concurrently(
-            drive(0.65, 7.5 * Constants.ClicksPerFootDriven), // 7.5 ft at 65% 
+            drive(0.65, 4 * Constants.ClicksPerFootDriven), // 4 ft at 65% 
             intake(10)
         )
         .pause(1)
-        .drive(-0.65, 7.5 * Constants.ClicksPerFootDriven) // 7.5 ft at 65%
+        .drive(-0.65, 4 * Constants.ClicksPerFootDriven) // 4 ft at 65%
         .pause(1)
         .concurrently(
             shoot(0.65, 3),

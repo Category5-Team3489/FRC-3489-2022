@@ -19,8 +19,6 @@ public class Auto4 extends AutoBuilder {
         .pause(1) // Wait one sec after shooting
         .drive(0.65, 12 * Constants.ClicksPerFootDriven) // Drive at 65% for 12 feet
         .pause(1) // Wait one sec for ball to roll away
-        .turn(0.4, 30) // Turn at 40% speed 30 degrees to the left
-        .drive(0.65, 8.4375 * Constants.ClicksPerFootDriven) // Drive at 65% for 8.4375 feet
         .turn(0.4, 120)
         .drive(0.65, 3 * Constants.ClicksPerFootDriven); //3 feet at 0.65% speed 
         return first;
