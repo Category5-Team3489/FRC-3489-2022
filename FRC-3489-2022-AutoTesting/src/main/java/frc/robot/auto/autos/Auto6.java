@@ -16,6 +16,7 @@ public class Auto6 extends AutoBuilder {
             drive(0.65, 4.5 * Constants.DriveClicksPerFoot), //Drive at 65% for 4.5 feet
             intake(6) //intake at 60% speed for 6 seconde
         )
+        .drive(-0.65, 4.5 * Constants.DriveClicksPerFoot)
         .pause(1) //Wait one second
         .concurrently( //shoot high
             shoot(0.5, 3), //Set shooter to 50% for 3 seconds

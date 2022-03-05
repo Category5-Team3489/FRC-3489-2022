@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -61,13 +60,11 @@ public class Robot extends TimedRobot {
   private SlewRateLimiter leftLimiter = new SlewRateLimiter(10);
   private SlewRateLimiter rightLimiter = new SlewRateLimiter(10);
 
-  private Solenoid lowerLeftSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 0);
-  private Solenoid lowerRightSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 1);
-  private Solenoid upperLeftSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 2);
-  private Solenoid upperRightSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 3);
-  private Solenoid leftHookSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 4);
-  private Solenoid rightHookSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 5);
-  private Solenoid brakeSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 6);
+  private Solenoid lowerSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 1);
+  private Solenoid upperSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 2);
+  private Solenoid leftHookSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 3);
+  private Solenoid rightHookSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 4);
+  private Solenoid brakeSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 5);
 
   private WPI_TalonFX climberMotor = new WPI_TalonFX(9);
 
@@ -101,13 +98,11 @@ public class Robot extends TimedRobot {
   }
 
   private void initClimber() {
-    brakeSolenoid.set(true);
-    lowerLeftSolenoid.set(false);
-    lowerRightSolenoid.set(false);
-    upperLeftSolenoid.set(false);
-    upperRightSolenoid.set(false);
-    leftHookSolenoid.set(true);
-    rightHookSolenoid.set(true);
+    brakeSolenoid.set(false);
+    lowerSolenoid.set(false);
+    upperSolenoid.set(false);
+    leftHookSolenoid.set(false);
+    rightHookSolenoid.set(false);
   }
 
   private boolean shouldSwitchFront() {
@@ -245,13 +240,11 @@ public class Robot extends TimedRobot {
   }
 
   private void climberStepA() {
-    lowerLeftSolenoid.set(true);
-    lowerRightSolenoid.set(true);
+    lowerSolenoid.set(true);
   }
 
   private void climberStepB() {
-    upperLeftSolenoid.set(true);
-    upperRightSolenoid.set(true);
+    upperSolenoid.set(true);
   }
 
   private void climberStepC() {
@@ -260,20 +253,20 @@ public class Robot extends TimedRobot {
   }
 
   private boolean canStepA() {
-    boolean upperOff = !upperLeftSolenoid.get() && !upperRightSolenoid.get();
+    boolean upperOff = !upperSolenoid.get();
     boolean hooksOn = leftHookSolenoid.get() && rightHookSolenoid.get();
     return upperOff && hooksOn;
   }
 
   private boolean canStepB() {
-    boolean lowerOn = lowerLeftSolenoid.get() && lowerRightSolenoid.get();
+    boolean lowerOn = lowerSolenoid.get();
     boolean hooksOn = leftHookSolenoid.get() && rightHookSolenoid.get();
     return lowerOn && hooksOn;
   }
 
   private boolean canStepC() {
-    boolean lowerOn = lowerLeftSolenoid.get() && lowerRightSolenoid.get();
-    boolean upperOn = upperLeftSolenoid.get() && upperRightSolenoid.get();
+    boolean lowerOn = lowerSolenoid.get();
+    boolean upperOn = upperSolenoid.get();
     return lowerOn && upperOn;
   }
 

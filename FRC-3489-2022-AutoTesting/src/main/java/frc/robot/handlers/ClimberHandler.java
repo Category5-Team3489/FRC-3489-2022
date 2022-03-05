@@ -3,6 +3,7 @@ package frc.robot.handlers;
 import frc.robot.Constants;
 import frc.robot.containers.ComponentsContainer;
 import frc.robot.framework.RobotHandler;
+import frc.robot.types.ClimberStep;
 
 public class ClimberHandler extends RobotHandler{
     ComponentsContainer container;
@@ -39,8 +40,7 @@ public class ClimberHandler extends RobotHandler{
         setHooks(false); //de-energize hook
     }
     public void lowtoMid(){
-        //drive backward between the mid and high bar for manual 
-        setBrake(false); //activate brake
+        setBrake(true); //deactivate brake
         setLower(true); //extend bottom pnematics 
         telescope(1.0); //extends telescope at a speed of 1 
         //drive foward to make contact with the mid bar 
@@ -73,8 +73,6 @@ public class ClimberHandler extends RobotHandler{
         } 
     }
 
-    // Turn off all other stuff, intake, cargo mover, shooter
-
     private void disableOtherSystems() {
 
     }
@@ -86,5 +84,50 @@ public class ClimberHandler extends RobotHandler{
         setHooks(false);
     }
 
-    private void 
+    private ClimberStep climberStep = ClimberStep.S0Default;
+
+    @Override
+    public void teleopPeriodic() {
+        // Turn off all other stuff, intake, cargo mover, shooter
+        // add debounce
+        boolean midClimbButtonPressed = container.manipulatorJoystick.getRawButtonPressed(Constants.ToMidClimber);
+        boolean midToHighButtonPressed = container.manipulatorJoystick.getRawButtonPressed(Constants.MidToHighClimber);
+        boolean activateClimberButtonPressed = container.manipulatorJoystick.getRawButtonPressed(Constants.ActivateTheClimber);
+        // add stop climb button
+        // add manual control stuff
+        switch (climberStep) {
+            case S0Default:
+                break;
+            case S1BrakeOffAndLowerOn:
+                break;
+            case S2ExtendTelesope:
+                break;
+            case S3DriveToMidBar:
+                break;
+            case S4RetractTelescope:
+                break;
+            case S5BrakeOn:
+                break;
+            case S6MidBarClimbComplete:
+                break;
+            case S7UpperOn:
+                break;
+            case S8ExtendTelesopeSlightly:
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void nextStep() {
+        int step = climberStep.ordinal();
+        int last = ClimberStep.values().length - 1;
+        step++;
+        if (step >= last) {
+            climberStep = ClimberStep.S0Default;
+        }
+        else {
+            climberStep = ClimberStep.values()[step];
+        }
+    }
 }

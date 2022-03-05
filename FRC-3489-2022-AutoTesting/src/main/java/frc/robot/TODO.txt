@@ -4,6 +4,10 @@
   // New turn instruction use arc lengths and dist between
   // Scouting app
   // map out climber stuff
+  // simple mid climb stuff?
+  // Add climber manual control in case it doesnt work right
+  // test climb code
+  // figure out how pneumatics are set up for climber
   
   // negative up on climber
   
