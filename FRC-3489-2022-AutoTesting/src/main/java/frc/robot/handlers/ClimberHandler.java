@@ -78,4 +78,13 @@ public class ClimberHandler extends RobotHandler{
     private void disableOtherSystems() {
 
     }
+
+    private void init() {
+        setBrake(false);
+        setLower(false);
+        setUpper(false);
+        setHooks(false);
+    }
+
+    private void 
 }
