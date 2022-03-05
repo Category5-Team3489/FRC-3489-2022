@@ -38,23 +38,25 @@ public final class Constants {
 
 
     // Manipulator Buttons
-    public static final int SetShooterHighGoalButton = 7;
-    public static final int SetShooterLowGoalButton = 8;
-    public static final int ShootButton = 1;
-    public static final int ToggleIntakeButton = 2;
-    public static final int ActivateTheClimber = 11; 
-    public static final int ToMidClimber = 9; 
-    public static final int MidToHighClimber = 10; 
-    public static final int DebugCargoInLaserButton = 4;
-    public static final int WrongColorButton = 3; 
-    public static final int StopShooterButton = 6;
+    public static final int ButtonToggleIntake = 2;
+    public static final int ButtonShoot = 1;
+    public static final int ButtonDebugCargoInLaser = 4;
+    public static final int ButtonWrongColor = 3;
+    
+    public static final int ButtonShootLowGoal = 8;
+    public static final int ButtonShootHighGoal = 7;
+    public static final int ButtonStopShooter = 6;
+
+    public static final int ButtonClimbActivate = 11;
+    public static final int ButtonClimbMid = 9;
+    public static final int ButtonClimbMidToHigh = 10;
 
     // Drive Buttons
-    public static final int SwitchFront = 13;
+    public static final int ButtonSwitchFront = 13;
 
     // Clicks
     public static final double ClicksPerCargoLength = 21000;
-    public static final double DriveClicksPerInch = 4096.0 / (Math.PI * 6);
-    public static final double DriveClicksPerFoot = 12 * DriveClicksPerInch;
+    public static final double ClicksPerInchDriven = 4096.0 / (Math.PI * 6);
+    public static final double ClicksPerFootDriven = 12 * ClicksPerInchDriven;
    
 }

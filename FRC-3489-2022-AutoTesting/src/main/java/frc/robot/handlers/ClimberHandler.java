@@ -48,9 +48,9 @@ public class ClimberHandler extends RobotHandler{
 
     }
     public void climberButtons(){
-        boolean midClimbButtonPressed = container.manipulatorJoystick.getRawButtonPressed(Constants.ToMidClimber);
-        boolean midToHighButtonPressed = container.manipulatorJoystick.getRawButtonPressed(Constants.MidToHighClimber);
-        boolean activateClimberButtonPressed = container.manipulatorJoystick.getRawButtonPressed(Constants.ActivateTheClimber);
+        boolean midClimbButtonPressed = container.manipulatorJoystick.getRawButtonPressed(Constants.ButtonClimbMid);
+        boolean midToHighButtonPressed = container.manipulatorJoystick.getRawButtonPressed(Constants.ButtonClimbMidToHigh);
+        boolean activateClimberButtonPressed = container.manipulatorJoystick.getRawButtonPressed(Constants.ButtonClimbActivate);
         boolean midClimb = false;
         boolean midToHighClimb = false;
 
@@ -90,9 +90,9 @@ public class ClimberHandler extends RobotHandler{
     public void teleopPeriodic() {
         // Turn off all other stuff, intake, cargo mover, shooter
         // add debounce
-        boolean midClimbButtonPressed = container.manipulatorJoystick.getRawButtonPressed(Constants.ToMidClimber);
-        boolean midToHighButtonPressed = container.manipulatorJoystick.getRawButtonPressed(Constants.MidToHighClimber);
-        boolean activateClimberButtonPressed = container.manipulatorJoystick.getRawButtonPressed(Constants.ActivateTheClimber);
+        boolean midClimbButtonPressed = container.manipulatorJoystick.getRawButtonPressed(Constants.ButtonClimbMid);
+        boolean midToHighButtonPressed = container.manipulatorJoystick.getRawButtonPressed(Constants.ButtonClimbMidToHigh);
+        boolean activateClimberButtonPressed = container.manipulatorJoystick.getRawButtonPressed(Constants.ButtonClimbActivate);
         // add stop climb button
         // add manual control stuff
         switch (climberStep) {

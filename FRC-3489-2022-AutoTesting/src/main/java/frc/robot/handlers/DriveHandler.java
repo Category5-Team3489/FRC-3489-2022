@@ -12,7 +12,7 @@ public class DriveHandler extends RobotHandler {
     private SlewRateLimiter rightLimiter = new SlewRateLimiter(Constants.DriveSetSpeedDeltaLimiter);
 
     private boolean shouldSwitchFront() {
-        return components.rightDriveJoystick.getRawButtonPressed(Constants.SwitchFront);
+        return components.rightDriveJoystick.getRawButtonPressed(Constants.ButtonSwitchFront);
     }
 
     @Override

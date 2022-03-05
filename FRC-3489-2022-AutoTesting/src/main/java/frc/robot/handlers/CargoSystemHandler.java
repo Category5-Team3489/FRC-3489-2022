@@ -56,8 +56,8 @@ public class CargoSystemHandler extends RobotHandler {
             return;
         }
         
-        boolean shoot = components.manipulatorJoystick.getRawButton(Constants.ShootButton);
-        boolean stopShooting = components.manipulatorJoystick.getRawButtonReleased(Constants.ShootButton);
+        boolean shoot = components.manipulatorJoystick.getRawButton(Constants.ButtonShoot);
+        boolean stopShooting = components.manipulatorJoystick.getRawButtonReleased(Constants.ButtonShoot);
         if(stopShooting){
             shooterHandler.stopShooter();
             // Set shooter stopped shuffleboard
@@ -90,7 +90,7 @@ public class CargoSystemHandler extends RobotHandler {
     private void toggleIntake(boolean isUnderManualControl) {
         // Toggle button for activating intake probably trigger on manipulator joystick
 
-        boolean shouldToggleIntake = components.manipulatorJoystick.getRawButtonPressed(Constants.ToggleIntakeButton);
+        boolean shouldToggleIntake = components.manipulatorJoystick.getRawButtonPressed(Constants.ButtonToggleIntake);
         if (shouldToggleIntake) {
             isIntakeActivated = !isIntakeActivated;
         }
@@ -109,7 +109,7 @@ public class CargoSystemHandler extends RobotHandler {
     private void lowGoalShooter() {
         // Push button for setting shooter to low goal speed Mackenzie
         // Get button input from manipulator Joystick
-        boolean shootLow = components.manipulatorJoystick.getRawButtonPressed(Constants.SetShooterLowGoalButton);
+        boolean shootLow = components.manipulatorJoystick.getRawButtonPressed(Constants.ButtonShootLowGoal);
         
         // shoot low if button pressed
         if (shootLow) {
@@ -122,7 +122,7 @@ public class CargoSystemHandler extends RobotHandler {
     private void highGoalShooter() {
         // Push button for setting shooter to high goal speed Alex
         // Get button input from manipulator Joystick
-        boolean shootHigh = components.manipulatorJoystick.getRawButtonPressed(Constants.SetShooterHighGoalButton);
+        boolean shootHigh = components.manipulatorJoystick.getRawButtonPressed(Constants.ButtonShootHighGoal);
         // shoot high if button pressed
         if (shootHigh) {
             shooterHandler.shootHigh();
@@ -134,7 +134,7 @@ public class CargoSystemHandler extends RobotHandler {
     private void stopShooter() {
         // Push button to stop shooter Afif
         //get the input from the manipulator 
-        boolean stopShooter = components.manipulatorJoystick.getRawButtonPressed(Constants.StopShooterButton);
+        boolean stopShooter = components.manipulatorJoystick.getRawButtonPressed(Constants.ButtonStopShooter);
         //stops the shooter if button pressed
         if (stopShooter) {
             shooterHandler.stopShooter();
@@ -146,7 +146,7 @@ public class CargoSystemHandler extends RobotHandler {
     private void wrongColorShooter() {
         //Push button to shoot wrong color
         //get the input from the mainipulator
-        boolean wrongColor = components.manipulatorJoystick.getRawButton(Constants.WrongColorButton);
+        boolean wrongColor = components.manipulatorJoystick.getRawButton(Constants.ButtonWrongColor);
         //shoot wrong color at low speed if button is pressed
         if (wrongColor) {
             shooterHandler.wrongColor();

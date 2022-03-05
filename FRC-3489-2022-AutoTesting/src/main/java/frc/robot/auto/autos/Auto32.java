@@ -10,7 +10,7 @@ public class Auto32 extends AutoBuilder {
     public AutoInstruction build() {
         AutoInstruction first = first();
 
-        first.drive(0.65, 4 * Constants.DriveClicksPerFoot);
+        first.drive(0.65, 4 * Constants.ClicksPerFootDriven);
 
         /*
         first

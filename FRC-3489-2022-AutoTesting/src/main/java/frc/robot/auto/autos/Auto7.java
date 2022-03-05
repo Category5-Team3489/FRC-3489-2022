@@ -18,11 +18,11 @@ public class Auto7 extends AutoBuilder {
             )
             .pause(1)
             .concurrently(      //Intake ball while driving to terminal
-                drive(0.65, 13 * Constants.DriveClicksPerFoot),
+                drive(0.65, 13 * Constants.ClicksPerFootDriven),
                 intake(5)
             )
             .turn(0.5, -30)    //Turn right 30 degrees
-            .drive(0.5, 12 * Constants.DriveClicksPerFoot);   // drive forward 12 ft
+            .drive(0.5, 12 * Constants.ClicksPerFootDriven);   // drive forward 12 ft
 
       return first;
     }   

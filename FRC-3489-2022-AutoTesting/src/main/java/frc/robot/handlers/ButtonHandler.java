@@ -17,10 +17,10 @@ public class ButtonHandler extends RobotHandler {
 
     @Override
     public void teleopPeriodic() {
-        midClimb.calculate(components.manipulatorJoystick.getRawButton(Constants.ToMidClimber));
-        midToHigh.calculate(components.manipulatorJoystick.getRawButton(Constants.MidToHighClimber));
-        switchFront.calculate(components.rightDriveJoystick.getRawButton(Constants.SwitchFront));
-        toggleIntake.calculate(components.manipulatorJoystick.getRawButton(Constants.ToggleIntakeButton));
+        midClimb.calculate(components.manipulatorJoystick.getRawButton(Constants.ButtonClimbMid));
+        midToHigh.calculate(components.manipulatorJoystick.getRawButton(Constants.ButtonClimbMidToHigh));
+        switchFront.calculate(components.rightDriveJoystick.getRawButton(Constants.ButtonSwitchFront));
+        toggleIntake.calculate(components.manipulatorJoystick.getRawButton(Constants.ButtonToggleIntake));
     }
     
     /*

@@ -19,7 +19,7 @@ public class IntakeHandler extends RobotHandler {
 
     public boolean isCargoInLaser() {
         // TODO REMOVE WHEN LASER SENSOR EXISTS!!!
-        return components.manipulatorJoystick.getRawButton(Constants.DebugCargoInLaserButton);
+        return components.manipulatorJoystick.getRawButton(Constants.ButtonDebugCargoInLaser);
         //return components.intakeLaserSensor.get();
     }
     

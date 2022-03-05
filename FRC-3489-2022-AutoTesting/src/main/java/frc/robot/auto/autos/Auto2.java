@@ -18,10 +18,10 @@ public class Auto2 extends AutoBuilder {
         .pause(1)
         .concurrently(
             intake(5),
-            drive(0.65, 5 * Constants.DriveClicksPerFoot)
+            drive(0.65, 5 * Constants.ClicksPerFootDriven)
         )
         .pause(1)
-        .drive(-0.65, 5 * Constants.DriveClicksPerFoot)
+        .drive(-0.65, 5 * Constants.ClicksPerFootDriven)
         .concurrently(
             shoot(0.65, 3),
             pause(1)
