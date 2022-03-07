@@ -8,8 +8,7 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
-// TODO Uncomment when navx exists
-//import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Constants;
@@ -23,8 +22,7 @@ public final class ComponentsContainer {
 
     // Sensors
     public DigitalInput intakeLaserSensor = new DigitalInput(0);
-    // TODO Uncomment when navx exists
-    public AHRS navx;// = new AHRS(SPI.Port.kMXP, (byte)200);
+    public AHRS navx = new AHRS(SPI.Port.kMXP, (byte)200);
 
     // Motors
     public WPI_TalonSRX leftFrontDriveMotor = new WPI_TalonSRX(1);

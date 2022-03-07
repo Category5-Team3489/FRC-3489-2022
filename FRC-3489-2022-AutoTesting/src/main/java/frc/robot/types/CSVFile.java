@@ -6,6 +6,8 @@ public class CSVFile {
     private String data = "";
 
     public void setColumns(String... columns) {
+        if (columns.length <= 0)
+            return;
         columnsRow = "";
         for (int i = 0; i < columns.length - 2; i++) {
             columnsRow += columns[i] + ",";

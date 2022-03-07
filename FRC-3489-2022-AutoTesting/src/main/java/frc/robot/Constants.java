@@ -12,8 +12,6 @@ public final class Constants {
     public static final int MotorControllerTimeout = 30;
     public static final double DriveSetSpeedDeltaLimiter = 8; // (-1, 1) set speed delta per second
     public static final double ManualCargoSystemControlThreshhold = 0.4;
-
-    // Shuffleboard
     public static final String ShuffleboardMainTabName = "3489 2022";
     public static final String ShuffleboardAutoTabName = "3489 2022 Auto";
 
@@ -42,10 +40,10 @@ public final class Constants {
 
 
 
-    // Manipulator Buttons 10
+    // Manipulator Buttons 4
     public static final int ButtonToggleIntake = 2;
     public static final int ButtonShoot = 1;
-    public static final int ButtonDebugCargoInLaser = 4;
+    //public static final int ButtonDebugCargoInLaser = 4;
     
     public static final int ButtonShootLowGoal = 8;
     public static final int ButtonShootHighGoal = 7;
@@ -76,4 +74,9 @@ public final class Constants {
     public static final double S1TimeDelay = 2;
     public static final double S7TimeDelay = 2;
     public static final double S9TimeDelay = 1;
+
+    public static final class TimeDelays
+    {
+        
+    }
 }

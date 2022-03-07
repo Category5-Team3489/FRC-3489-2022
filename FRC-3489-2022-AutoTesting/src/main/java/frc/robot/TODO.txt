@@ -1,45 +1,52 @@
-  // Do without testing yet
-  // TODO More shuffleboard outputs
-  // New turn instruction use arc lengths and dist between
-  // Scouting app
-  // simple mid climb stuff?
-  // Add climber manual control in case it doesnt work right
-  // test climb code
-  // figure out how pneumatics are set up for climber
-  // Reset method for handlers?
-  // Solenoid constants wrong
-  
-  // negative up on climber
-  
-  // PRIORITY
-  // TODO Button debounce manipulator joystick
-  // TODO Test Auto
-  // TODO Tune PID turn
-  // TODO Tune PID drive
-  // TODO Drive velocity change limiting
-  // Handling ball count at beginning of match
-  
-  // LATER
-  // TODO Document auto
-  // TODO Shooter velocity control with PID
-  // TODO Logger handler
-  // TODO Button debouncer utils
-  // TODO Improve slew rate limiting for drive code, may only want to use abrupt breaking
-  // TODO Fix 2 drive docs
+// Do without testing yet
+// Scouting app
+// test climb code
+// New turn instruction use arc lengths and dist between
+// figure out how pneumatics are set up for climber
+// Reset method for handlers?
+// Solenoid constants wrong
 
-  // MAYBE???
-  // TODO Auto docs
-  // TODO Get class name method in RobotReferences? for logger
+// Notes
+// negative up on climber
 
-  // Useful info
-  // look at Ziegler–Nichols tuning
-  // https://docs.wpilib.org/en/stable/docs/software/roborio-info/roborio-ftp.html
-  // https://github.com/rawgraphs/rawgraphs-app
+// After anderson
+// Move climber stuff to auto instructions
+// Add auto instruction for periodically checking if complete, fancy wait until
+// Make auto runner also work during teleop, maybe use robot periodic? with checks for current phase?
 
-  // OLD
-  // TODO Conditional integration? May be better than clamping??
-  // TODO Clamp integration when D is above threshold? May cause jerk when I starts influencing
-  // TODO Integrator anti-windup?
-  // PID Constant interpolation?
-  // PID X set speed, Y voltage drop
-  // TODO Revaluate PID constants when accel stops?
+// Think about
+// TODO More shuffleboard outputs
+// simple mid climb stuff?
+// Add climber manual control in case it doesnt work right
+
+
+// PRIORITY
+// TODO Test Auto
+// TODO Tune PID turn
+// TODO Tune PID drive
+// Handling ball count at beginning of match
+
+// LATER
+// TODO Document auto
+// TODO Shooter velocity control with PID
+// TODO Logger handler
+// TODO Button debouncer utils
+// TODO Improve slew rate limiting for drive code, may only want to use abrupt breaking
+// TODO Fix 2 drive docs
+
+// MAYBE???
+// TODO Auto docs
+// TODO Get class name method in RobotReferences? for logger
+
+// Useful info
+// look at Ziegler–Nichols tuning
+// https://docs.wpilib.org/en/stable/docs/software/roborio-info/roborio-ftp.html
+// https://github.com/rawgraphs/rawgraphs-app
+
+// OLD
+// TODO Conditional integration? May be better than clamping??
+// TODO Clamp integration when D is above threshold? May cause jerk when I starts influencing
+// TODO Integrator anti-windup?
+// PID Constant interpolation?
+// PID X set speed, Y voltage drop
+// TODO Revaluate PID constants when accel stops?

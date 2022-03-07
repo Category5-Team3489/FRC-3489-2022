@@ -11,7 +11,7 @@ public class AutoRunner {
 
     private RobotManager robotManager;
 
-    private List<AutoInstruction> concurrentInstructions = new ArrayList<AutoInstruction>();
+    private List<AutoInstruction> instructions = new ArrayList<AutoInstruction>();
 
     private Map<String, AutoEvent> triggers = new HashMap<String, AutoEvent>();
 
@@ -21,7 +21,7 @@ public class AutoRunner {
     
     public void beginExecution(AutoInstruction instruction) {
         robotManager.copyReferences(instruction);
-        concurrentInstructions.add(instruction);
+        instructions.add(instruction);
         instruction.init();
         completeInstruction(instruction);
     }
@@ -58,10 +58,10 @@ public class AutoRunner {
         if (!instruction.hasCompleted()) return;
         instruction.completed();
         instruction.execute(nextInstruction -> beginExecution(nextInstruction));
-        concurrentInstructions.remove(instruction);
+        instructions.remove(instruction);
     }
 
     private List<AutoInstruction> copyInstructions() {
-        return new ArrayList<AutoInstruction>(concurrentInstructions);
+        return new ArrayList<AutoInstruction>(instructions);
     }
 }
