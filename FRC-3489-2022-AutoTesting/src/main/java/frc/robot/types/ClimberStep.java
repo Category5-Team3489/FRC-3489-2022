@@ -2,15 +2,14 @@ package frc.robot.types;
 
 public enum ClimberStep {
     S0Default,
-    S1UnbreakAndExtendLower,
+    S1ExtendLower,
     S2ExtendTelesope,
     S3DriveToMidBar,
     S4RetractTelescope,
-    S5Brake,
-    S6FinishedMidBarClimb,
-    S7ExtendUpper,
-    S8ExtendTelesopeSlightly,
-    S9RetractTelescopeAndUnhook,
-    S10DefaultAndDisabled,
-    S11EStop
+    S5FinishedMidBarClimb,
+    S6ExtendUpper,
+    S7ExtendTelesopeSlightly,
+    S8UnhookAndRetractTelescope,
+    S9DefaultAndDisabled,
+    S10EStop
 }

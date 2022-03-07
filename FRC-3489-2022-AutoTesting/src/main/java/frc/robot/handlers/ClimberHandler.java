@@ -17,16 +17,16 @@ public class ClimberHandler extends RobotHandler{
         components.lowerSolenoid.set(value);
     }
     private void setUpper(boolean value) {
-        components.upperSolenoid.set(!value);
+        components.upperSolenoid.set(value);
     }
     private void setHooks(boolean value) {
-        components.hookSolenoid.set(value);
+        components.hookSolenoid.set(!value);
     }
     private void setBrake(boolean value) {
         components.brakeSolenoid.set(!value);
     }
     private void setTelescope(double speed) {
-        components.telescopeMotor.set(speed);
+        components.telescopeMotor.set(speed); // Positive up
     }
 
     private void resetTelecopeEncoders() {
@@ -45,6 +45,13 @@ public class ClimberHandler extends RobotHandler{
     private boolean climbActivateButton = false;
     private boolean climbResetButton = false;
     private boolean climbEStopButton = false;
+
+    private boolean shouldInit() {
+        if (stepInitialized)
+            return false;
+        stepInitialized = true;
+        return true;
+    }
 
     private void setStep(ClimberStep step) {
         climberStep = step;
@@ -104,8 +111,8 @@ public class ClimberHandler extends RobotHandler{
             case S0Default:
                 S0Default();
                 break;
-            case S1UnbreakAndExtendLower:
-                S1UnbreakAndExtendLower();
+            case S1ExtendLower:
+                S1ExtendLower();
                 break;
             case S2ExtendTelesope:
                 S2ExtendTelesope();
@@ -116,26 +123,23 @@ public class ClimberHandler extends RobotHandler{
             case S4RetractTelescope:
                 S4RetractTelescope();
                 break;
-            case S5Brake:
-                S5Brake();
+            case S5FinishedMidBarClimb:
+                S5FinishedMidBarClimb();
                 break;
-            case S6FinishedMidBarClimb:
-                S6FinishedMidBarClimb();
+            case S6ExtendUpper:
+                S6ExtendUpper();
                 break;
-            case S7ExtendUpper:
-                S7ExtendUpper();
+            case S7ExtendTelesopeSlightly:
+                S7ExtendTelesopeSlightly();
                 break;
-            case S8ExtendTelesopeSlightly:
-                S8ExtendTelesopeSlightly();
+            case S8UnhookAndRetractTelescope:
+                S8UnhookAndRetractTelescope();
                 break;
-            case S9RetractTelescopeAndUnhook:
-                S9RetractTelescopeAndUnhook();
+            case S9DefaultAndDisabled:
+                S9DefaultAndDisabled();
                 break;
-            case S10DefaultAndDisabled:
-                S10DefaultAndDisabled();
-                break;
-            case S11EStop:
-                S11EStop();
+            case S10EStop:
+                S10EStop();
                 break;
             default:
                 break;
@@ -145,29 +149,28 @@ public class ClimberHandler extends RobotHandler{
     // TODO safties for anything with encoders
 
     private void S0Default() {
-        if (!stepInitialized) {
-            stepInitialized = true;
-            setBrake(false);
+        if (shouldInit()) {
+            setBrake(true);
             setLower(false);
             setUpper(false);
-            setHooks(false);
+            setHooks(true);
         }
         if (shouldClimb())
             nextStep();
+        // TODO May not want, but could help recover if you misclick
+        if (shouldClimbHigh())
+            setStep(ClimberStep.S7ExtendUpper);
     }
-    private void S1UnbreakAndExtendLower() {
-        if (!stepInitialized) {
-            stepInitialized = true;
-            setBrake(true);
+    private void S1ExtendLower() {
+        if (shouldInit()) {
+            setBrake(false);
             setLower(true);
         }
         if (timer.hasElapsed(Constants.S1TimeDelay))
             nextStep();
     }
     private void S2ExtendTelesope() {
-        if (!stepInitialized) {
-            setBrake(true);
-            stepInitialized = true;
+        if (shouldInit()) {
             resetTelecopeEncoders();
         }
         if (getTelecopeEncoderPosition() < Constants.ClicksExtendTelesope) {
@@ -180,8 +183,7 @@ public class ClimberHandler extends RobotHandler{
         }
     }
     private void S3DriveToMidBar() {
-        if (!stepInitialized) {
-            stepInitialized = true;
+        if (shouldInit()) {
             components.leftFrontDriveMotor.setSelectedSensorPosition(0);
         }
         double driveEncoderPosition = Math.abs(components.leftFrontDriveMotor.getSelectedSensorPosition());
@@ -194,8 +196,7 @@ public class ClimberHandler extends RobotHandler{
         }
     }
     private void S4RetractTelescope() {
-        if (!stepInitialized) {
-            stepInitialized = true;
+        if (shouldInit()) {
             resetTelecopeEncoders();
         }
         if (getTelecopeEncoderPosition() < Constants.ClicksRetractTelesope) {
@@ -206,28 +207,19 @@ public class ClimberHandler extends RobotHandler{
             nextStep();
         }
     }
-    private void S5Brake() {
-        if (!stepInitialized) {
-            stepInitialized = true;
-            setBrake(false);
-        }
-        nextStep();
-    }
-    private void S6FinishedMidBarClimb() {
+    private void S5FinishedMidBarClimb() {
         if (shouldClimbHigh())
             nextStep();
     }
-    private void S7ExtendUpper() {
-        if (!stepInitialized) {
-            stepInitialized = true;
+    private void S6ExtendUpper() {
+        if (shouldInit()) {
             setUpper(true);
         }
         if (timer.hasElapsed(Constants.S7TimeDelay))
             nextStep();
     }
-    private void S8ExtendTelesopeSlightly() {
-        if (!stepInitialized) {
-            stepInitialized = true;
+    private void S7ExtendTelesopeSlightly() {
+        if (shouldInit()) {
             resetTelecopeEncoders();
             setBrake(true);
         }
@@ -240,9 +232,8 @@ public class ClimberHandler extends RobotHandler{
             nextStep();
         }
     }
-    private void S9RetractTelescopeAndUnhook() {
-        if (!stepInitialized) {
-            stepInitialized = true;
+    private void S8UnhookAndRetractTelescope() {
+        if (shouldInit()) {
             resetTelecopeEncoders();
             setBrake(true);
             setHooks(true);
@@ -257,20 +248,19 @@ public class ClimberHandler extends RobotHandler{
                 nextStep();
         }
     }
-    private void S10DefaultAndDisabled() {
-        if (!stepInitialized) {
-            stepInitialized = true;
+    private void S9DefaultAndDisabled() {
+        if (shouldInit()) {
             setBrake(false);
             setLower(false);
             setUpper(false);
             setHooks(false);
         }
     }
-    private void S11EStop() {
-        if (!stepInitialized) {
-            stepInitialized = true;
+    private void S10EStop() {
+        if (shouldInit()) {
+            components.drive.stopMotor();
             setTelescope(0);
-            setBrake(false);
+            setBrake(true);
         }
     }
 }
