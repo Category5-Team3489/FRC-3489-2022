@@ -105,7 +105,7 @@ public class ClimberHandler extends RobotHandler{
             setStep(ClimberStep.S0Default);
 
         if (shouldEStop())
-            setStep(ClimberStep.S11EStop);
+            setStep(ClimberStep.S9EStop);
 
         switch (climberStep) {
             case S0Default:
@@ -135,7 +135,7 @@ public class ClimberHandler extends RobotHandler{
             case S8DefaultAndDisabled:
                 S8DefaultAndDisabled();
                 break;
-            case S10EStop:
+            case S9EStop:
                 S9EStop();
                 break;
             default:
@@ -156,7 +156,7 @@ public class ClimberHandler extends RobotHandler{
             nextStep();
         // TODO May not want, but could help recover if you misclick
         if (shouldClimbHigh())
-            setStep(ClimberStep.S7ExtendUpper);
+            setStep(ClimberStep.S5ExtendUpper);
     }
     private void S1ExtendLower() {
         if (shouldInit()) {
