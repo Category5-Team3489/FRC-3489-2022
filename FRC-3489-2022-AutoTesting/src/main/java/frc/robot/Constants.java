@@ -10,10 +10,11 @@ public final class Constants {
     public static final double ButtonDebounceTime = 0.1;
     public static final boolean SafetiesEnabled = false;
     public static final int MotorControllerTimeout = 30;
-    public static final double DriveSetSpeedDeltaLimiter = 8; // (-1, 1) set speed delta per second
+    public static final double DriveSetSpeedDeltaLimiter = 2; // (-1, 1) set speed delta per second
     public static final double ManualCargoSystemControlThreshhold = 0.4;
     public static final String ShuffleboardMainTabName = "3489 2022";
     public static final String ShuffleboardAutoTabName = "3489 2022 Auto";
+    public static final double ClimberPitchThreshold = 7;
 
     // Speeds
     public static final double IntakeMotorSpeed = -0.8;
@@ -32,7 +33,7 @@ public final class Constants {
     public static final double WrongColorTopSpeed = 0.2;
     public static final double WrongColorBottomSpeed = 0.2;
 
-    public static final double DriveToMidBarSpeed = 0.35;
+    public static final double DriveToMidBarSpeed = 0.65;
     public static final double TelescopeExtendSpeed = -0.6;
     public static final double SlightlyExtendSpeed = -0.2;
     public static final double TelescopeRetractSpeed = 0.6;
@@ -64,16 +65,16 @@ public final class Constants {
     public static final double ClicksPerInchDriven = 4096.0 / (Math.PI * 6);
     public static final double ClicksPerFootDriven = 12 * ClicksPerInchDriven;
 
-    public static final double ClicksExtendTelesope = 107000;
-    public static final double ClicksRetractTelesope = 107000;
+    public static final double ClicksExtendTelesope = 105000;
+    public static final double ClicksRetractTelesope = 105000;
     public static final double ClicksExtendTelescopeSlightly = ClicksExtendTelesope * 0.1;
-    public static final double ClicksRetractTelescopeMajorly = ClicksExtendTelesope * 0.8;
-    public static final double ClicksToDriveToMidBar = 1 * ClicksPerFootDriven;
+    public static final double ClicksRetractTelescopeMajorly = ClicksExtendTelesope * 0.5;
+    //public static final double ClicksToDriveToMidBar = 1 * ClicksPerFootDriven;
 
     // Time Delays
-    public static final double S1TimeDelay = 2;
-    public static final double S7TimeDelay = 2;
-    public static final double S9TimeDelay = 1;
+    public static final double S1TimeDelay = 1;
+    public static final double S5TimeDelay = 1;
+    public static final double S8TimeDelay = 1;
 
     public static final class TimeDelays
     {

@@ -24,6 +24,7 @@ public class AutoHandler extends RobotHandler {
         autos.put(5, new Auto5());
         autos.put(6, new Auto6());
         autos.put(7, new Auto7());
+        autos.put(16, new AutoQuick());
         autos.put(32, new Auto32());
     }
 

@@ -53,6 +53,7 @@ public class DriveInstruction extends AutoInstruction {
 
     @Override
     public void completed() {
+        CSVUtils.write("test.csv", true);
         components.configNominalDrive();
     }
 

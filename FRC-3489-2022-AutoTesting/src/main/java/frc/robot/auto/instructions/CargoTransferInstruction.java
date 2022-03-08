@@ -21,7 +21,7 @@ public class CargoTransferInstruction extends AutoInstruction {
     public void periodic() {
         double encoderClicks = Math.abs(components.cargoTransferMotor.getSelectedSensorPosition());
         if (encoderClicks < cargoTransferClicks) { // Has not reached target
-            cargoTransferHandler.set(cargoTransferSpeed);
+            cargoTransferHandler.set(-cargoTransferSpeed);
         }
         else { // Has reached target
             complete();

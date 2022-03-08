@@ -8,7 +8,8 @@ public enum ClimberStep {
     S4FinishedMidBarClimb,
     S5ExtendUpper,
     S6ExtendTelesopeSlightly,
-    S7UnhookAndRetractTelescope,
-    S8DefaultAndDisabled,
-    S9EStop
+    S7ConfirmUnhook,
+    S8UnhookAndRetractTelescope,
+    S9DefaultAndDisabled,
+    S10EStop
 }

@@ -1,10 +1,8 @@
-// Do without testing yet
 // Scouting app
-// test climb code
 // New turn instruction use arc lengths and dist between
-// figure out how pneumatics are set up for climber
 // Reset method for handlers?
-// Solenoid constants wrong
+// drive based on seconds auto ///////////////////////////////////////////////////
+// Slew limiting only on decel
 
 // Notes
 // negative up on climber
