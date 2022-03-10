@@ -11,7 +11,7 @@ public final class Constants {
     public static final boolean SafetiesEnabled = false;
     public static final int MotorControllerTimeout = 30;
     public static final double DriveSetSpeedDeltaLimiter = 8; // (-1, 1) set speed delta per second
-    public static final double ManualCargoSystemControlThreshhold = 0.4;
+    public static final double ManualCargoSystemControlThreshhold = 0.75;
     public static final String ShuffleboardMainTabName = "3489 2022";
     public static final String ShuffleboardAutoTabName = "3489 2022 Auto";
     public static final double ClimberPitchThreshold = 4;
