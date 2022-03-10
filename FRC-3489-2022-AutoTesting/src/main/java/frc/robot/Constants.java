@@ -7,7 +7,7 @@ public final class Constants {
     public static final int CameraPixelWidth = 178;
     public static final int CameraPixelHeight = 100;
     public static final int CameraFPS = 20;
-    public static final double ButtonDebounceTime = 0.1;
+    public static final double ButtonDebounceTime = 0.5;
     public static final boolean SafetiesEnabled = false;
     public static final int MotorControllerTimeout = 30;
     public static final double DriveSetSpeedDeltaLimiter = 8; // (-1, 1) set speed delta per second

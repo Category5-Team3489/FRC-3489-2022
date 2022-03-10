@@ -46,13 +46,25 @@ public class CargoSystemHandler extends RobotHandler {
     }
 
     private void shoot() {
+        /*
         if (!shooterHandler.canShoot()) {
             cargoTransferHandler.stopIfNotIndexing();
             return;
         }
+        */
         boolean shoot = components.manipulatorJoystick.getRawButton(Constants.ButtonShoot);
-
+        //System.out.println(shoot ? "T" : "F");
         if(buttonHandler.shootUnpressed())
+            shooterHandler.stopShooter();
+        
+        if (shoot) {
+            cargoTransferHandler.setShootSpeed();
+            cargoCount = 0;
+        }
+        else {
+            cargoTransferHandler.stopIfNotIndexing();
+        }
+        /* if(buttonHandler.shootUnpressed())
             shooterHandler.stopShooter();
             cargoTransferHandler.stopIfNotIndexing();
         
@@ -62,7 +74,7 @@ public class CargoSystemHandler extends RobotHandler {
         }
         else {
             //cargoTransferHandler.stopIfNotIndexing();
-        }
+        } */
     }
 
     private void indexConveyorIfCargoInLaserSensor() {
