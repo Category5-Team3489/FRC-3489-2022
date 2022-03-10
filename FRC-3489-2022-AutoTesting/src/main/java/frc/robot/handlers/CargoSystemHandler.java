@@ -54,13 +54,14 @@ public class CargoSystemHandler extends RobotHandler {
 
         if(buttonHandler.shootUnpressed())
             shooterHandler.stopShooter();
+            cargoTransferHandler.stopIfNotIndexing();
         
         if (shoot) {
             cargoTransferHandler.setShootSpeed();
             cargoCount = 0;
         }
         else {
-            cargoTransferHandler.stopIfNotIndexing();
+            //cargoTransferHandler.stopIfNotIndexing();
         }
     }
 
@@ -122,11 +123,11 @@ public class CargoSystemHandler extends RobotHandler {
     private boolean manualIntakeAndCargoTransfer() {
         double manipulatorJoystick = components.manipulatorJoystick.getY();
         if (manipulatorJoystick > Constants.ManualCargoSystemControlThreshhold) {
-            intakeHandler.startIntake();
+            intakeHandler.reverseIntake();
             cargoTransferHandler.set(Constants.ReverseCargoTransferMotorSpeed);
         }
         else if (manipulatorJoystick < -Constants.ManualCargoSystemControlThreshhold) {
-            intakeHandler.reverseIntake();
+            intakeHandler.startIntake();
             cargoTransferHandler.set(Constants.CargoTransferMotorSpeed);
         }
         else {
