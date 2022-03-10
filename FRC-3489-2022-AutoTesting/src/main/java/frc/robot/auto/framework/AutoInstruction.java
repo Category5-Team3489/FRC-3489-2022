@@ -87,6 +87,9 @@ public abstract class AutoInstruction extends RobotReferences {
     public final TurnInstruction turn(double speed, double degrees) {
         return setNext(AutoBuilder.turn(speed, degrees));
     }
+    public final DriveSecondsInstruction driveSeconds(double speed, double seconds) {
+        return setNext(AutoBuilder.driveSeconds(speed, seconds));
+    }
 
     /**
      * Asynchronously runs a set of instructions

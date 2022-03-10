@@ -119,6 +119,9 @@ public abstract class AutoBuilder extends RobotReferences {
     public static final TurnInstruction turn(double speed, double degrees) {
         return new TurnInstruction(speed, degrees);
     }
+    public static final DriveSecondsInstruction driveSeconds(double speed, double seconds) {
+        return new DriveSecondsInstruction(speed, seconds);
+    }
 
     /**
      * Asynchronously runs a set of instructions
