@@ -81,6 +81,15 @@ public final class Constants {
         
     }
 
+    public static final class SafteyTimeouts
+    {
+        public static final double S2SafetyTimeout = 3;
+        public static final double S3DriveSafetyTimeout = 2;
+        public static final double S3RetractTimeout = 3;
+        public static final double S6SafetyTimeout = 2;
+        public static final double S8SafetyTimeout = 3;
+    }
+
     public static final class Climber
     {
         

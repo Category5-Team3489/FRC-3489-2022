@@ -1,7 +1,6 @@
 // Scouting app
 // New turn instruction use arc lengths and dist between
 // Reset method for handlers?
-// drive based on seconds auto ///////////////////////////////////////////////////
 // Slew limiting only on decel
 
 // Notes

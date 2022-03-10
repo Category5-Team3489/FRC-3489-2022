@@ -182,7 +182,6 @@ public class ClimberHandler extends RobotHandler{
         }
         if (shouldClimb())
             nextStep();
-        // TODO May not want, but could help recover if you misclick
         if (shouldClimbHigh())
             setStep(ClimberStep.S5ExtendUpper);
     }
@@ -206,6 +205,9 @@ public class ClimberHandler extends RobotHandler{
             setTelescope(0);
             nextStep();
         }
+        if (timer.hasElapsed(Constants.SafteyTimeouts.S2SafetyTimeout)) {
+            nextStep();
+        }
     }
     boolean s3StartRetract = false;
     private void S3DriveToMidBarThenRetractTelescope() {
@@ -216,14 +218,23 @@ public class ClimberHandler extends RobotHandler{
             s3StartRetract = false;
         }
         components.drive.tankDrive(Constants.DriveToMidBarSpeed, Constants.DriveToMidBarSpeed);
-        if (Math.abs(components.navx.getPitch()) > Constants.ClimberPitchThreshold)
+        if (Math.abs(components.navx.getPitch()) > Constants.ClimberPitchThreshold ||
+        timer.hasElapsed(Constants.SafteyTimeouts.S3DriveSafetyTimeout)) {
             s3StartRetract = true;
+            timer.reset();
+        }
         if (s3StartRetract) {
             if (getTelecopeEncoderPosition() < Constants.ClicksRetractTelesope) {
                 setBrake(false);
                 setTelescope(Constants.TelescopeRetractSpeed);
             }
             else {
+                components.drive.stopMotor();
+                setTelescope(0);
+                setBrake(true);
+                nextStep();
+            }
+            if (timer.hasElapsed(Constants.SafteyTimeouts.S3RetractTimeout)) {
                 components.drive.stopMotor();
                 setTelescope(0);
                 setBrake(true);
@@ -255,6 +266,11 @@ public class ClimberHandler extends RobotHandler{
             setBrake(true);
             nextStep();
         }
+        if (timer.hasElapsed(Constants.SafteyTimeouts.S6SafetyTimeout)) {
+            setTelescope(0);
+            setBrake(true);
+            nextStep();
+        }
     }
     private void S7ConfirmUnhook() {
         if (shouldClimb() || shouldClimbHigh())
@@ -270,6 +286,12 @@ public class ClimberHandler extends RobotHandler{
             setTelescope(Constants.TelescopeRetractSpeed);
         }
         else {
+            setTelescope(0);
+            setBrake(true);
+            if (timer.hasElapsed(Constants.S8TimeDelay))
+                nextStep();
+        }
+        if (timer.hasElapsed(Constants.SafteyTimeouts.S8SafetyTimeout)) {
             setTelescope(0);
             setBrake(true);
             if (timer.hasElapsed(Constants.S8TimeDelay))
