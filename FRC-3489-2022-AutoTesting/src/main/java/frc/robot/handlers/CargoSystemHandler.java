@@ -123,11 +123,11 @@ public class CargoSystemHandler extends RobotHandler {
         double manipulatorJoystick = components.manipulatorJoystick.getY();
         if (manipulatorJoystick > Constants.ManualCargoSystemControlThreshhold) {
             intakeHandler.startIntake();
-            cargoTransferHandler.set(Constants.CargoTransferMotorSpeed);
+            cargoTransferHandler.set(Constants.ReverseCargoTransferMotorSpeed);
         }
         else if (manipulatorJoystick < -Constants.ManualCargoSystemControlThreshhold) {
             intakeHandler.reverseIntake();
-            cargoTransferHandler.set(Constants.ReverseCargoTransferMotorSpeed);
+            cargoTransferHandler.set(Constants.CargoTransferMotorSpeed);
         }
         else {
             cargoTransferHandler.stopIfNotIndexing();
