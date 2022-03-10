@@ -10,11 +10,11 @@ public final class Constants {
     public static final double ButtonDebounceTime = 0.1;
     public static final boolean SafetiesEnabled = false;
     public static final int MotorControllerTimeout = 30;
-    public static final double DriveSetSpeedDeltaLimiter = 2; // (-1, 1) set speed delta per second
+    public static final double DriveSetSpeedDeltaLimiter = 8; // (-1, 1) set speed delta per second
     public static final double ManualCargoSystemControlThreshhold = 0.4;
     public static final String ShuffleboardMainTabName = "3489 2022";
     public static final String ShuffleboardAutoTabName = "3489 2022 Auto";
-    public static final double ClimberPitchThreshold = 7;
+    public static final double ClimberPitchThreshold = 4;
 
     // Speeds
     public static final double IntakeMotorSpeed = -0.8;
@@ -33,7 +33,7 @@ public final class Constants {
     public static final double WrongColorTopSpeed = 0.2;
     public static final double WrongColorBottomSpeed = 0.2;
 
-    public static final double DriveToMidBarSpeed = 0.65;
+    public static final double DriveToMidBarSpeed = 0.6;
     public static final double TelescopeExtendSpeed = -0.6;
     public static final double SlightlyExtendSpeed = -0.2;
     public static final double TelescopeRetractSpeed = 0.6;
