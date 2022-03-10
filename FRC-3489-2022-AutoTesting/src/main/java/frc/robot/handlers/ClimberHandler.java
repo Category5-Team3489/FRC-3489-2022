@@ -206,6 +206,8 @@ public class ClimberHandler extends RobotHandler{
             nextStep();
         }
         if (timer.hasElapsed(Constants.SafteyTimeouts.S2SafetyTimeout)) {
+            setBrake(true);
+            setTelescope(0);
             nextStep();
         }
     }
