@@ -59,6 +59,7 @@ public final class Constants {
 
     // Drive Buttons
     public static final int ButtonSwitchFront = 13;
+    public static final int ButtonSwitchFrontB = 7;
 
     // Clicks
     public static final double ClicksPerCargoLength = 21000;

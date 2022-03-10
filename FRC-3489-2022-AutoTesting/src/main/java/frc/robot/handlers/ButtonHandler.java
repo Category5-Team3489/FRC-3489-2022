@@ -17,13 +17,14 @@ public class ButtonHandler extends RobotHandler {
 
     @Override
     public void teleopPeriodic() {
-        switchFrontPressed = switchFront.calculate(components.rightDriveJoystick.getRawButton(Constants.ButtonSwitchFront));
+        //switchFrontPressed = switchFront.calculate(components.rightDriveJoystick.getRawButton(Constants.ButtonSwitchFront));
         toggleIntakePressed = toggleIntake.calculate(components.manipulatorJoystick.getRawButton(Constants.ButtonToggleIntake));
         shootUnpressed = shootReleased.calculate(components.manipulatorJoystick.getRawButton(Constants.ButtonShoot));
     }
 
     public boolean switchFrontPressed() {
-        return switchFrontPressed;
+        return components.rightDriveJoystick.getRawButtonPressed(Constants.ButtonSwitchFront) ||
+        components.rightDriveJoystick.getRawButtonPressed(Constants.ButtonSwitchFrontB);
     }
     public boolean toggleIntakePressed() {
         return toggleIntakePressed;

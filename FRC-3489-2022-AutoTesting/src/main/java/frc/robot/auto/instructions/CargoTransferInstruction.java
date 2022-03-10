@@ -14,7 +14,7 @@ public class CargoTransferInstruction extends AutoInstruction {
 
     @Override
     public void init() {
-
+        components.cargoTransferMotor.setSelectedSensorPosition(0);
     }
 
     @Override

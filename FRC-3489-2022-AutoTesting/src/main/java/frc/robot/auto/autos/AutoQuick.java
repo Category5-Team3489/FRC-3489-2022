@@ -19,7 +19,7 @@ public class AutoQuick extends AutoBuilder {
             pause(2)
                 .cargoTransfer(0.5, 5 * Constants.ClicksPerCargoLength)        
         )
-        .driveSeconds(0.65, 1.5);
+        .driveSeconds(0.65, 1);
 
         return first;
     }

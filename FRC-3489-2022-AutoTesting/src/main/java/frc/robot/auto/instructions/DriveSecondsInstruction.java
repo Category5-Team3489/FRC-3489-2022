@@ -29,7 +29,7 @@ public class DriveSecondsInstruction extends AutoInstruction {
 
     @Override
     public void completed() {
-        
+        components.drive.stopMotor();
     }
 
     @Override

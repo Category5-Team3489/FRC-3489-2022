@@ -16,8 +16,8 @@ public class CameraHandler extends RobotHandler {
     @Override
     public void robotInit() {
         try {
-            cameraA = CameraServer.startAutomaticCapture(0);
-            cameraB = CameraServer.startAutomaticCapture(1);
+            cameraA = CameraServer.startAutomaticCapture(1);
+            cameraB = CameraServer.startAutomaticCapture(0);
             server = CameraServer.getServer();
     
             cameraA.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
