@@ -14,9 +14,9 @@ public class AutoQuickPickup extends AutoBuilder {
         // drive out of tarmac
         first
         .concurrently(
-            shoot(0.5, 6),
-            pause(3)
-                .cargoTransfer(0.5, 5 * Constants.ClicksPerCargoLength)        
+            shoot(0.5, 4),
+            pause(2)
+                .cargoTransfer(0.5, 5 * Constants.ClicksPerCargoLength)
         )
         .concurrently(
             driveSeconds(0.65, 1.5),
@@ -29,7 +29,24 @@ public class AutoQuickPickup extends AutoBuilder {
         .onCompleted(() -> {
             cargoTransferHandler.set(0);
         })
-        .print("message");
+        .concurrently(
+            driveSeconds(-0.65, 1.5)
+        )
+        .concurrently(
+            shoot(0.5, 4),
+            pause(0.5)
+            .cargoTransfer(0.5, 5 * Constants.ClicksPerCargoLength)
+            /*
+            .onCompleted(() -> {
+                cargoTransferHandler.set(-0.5);
+            })
+            .pause(3)
+            .onCompleted(() -> {
+                cargoTransferHandler.set(0);
+            })  
+            */      
+        )
+        .driveSeconds(0.65, 1.5);
 
         return first;
     }

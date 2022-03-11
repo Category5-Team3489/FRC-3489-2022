@@ -10,8 +10,8 @@ import frc.robot.utils.CSVUtils;
 public class DriveInstruction extends AutoInstruction {
 
     private final static double kP = 0.12;
-    private final static double kI = 0.001;//0.001;//0.0005;//0.001;
-    private final static double kD = 2;//2;//5;
+    private final static double kI = 0;//0.001;//0.0005;//0.001;
+    private final static double kD = 5;//2;//5;
     private final static double kF = 0;
     private final static double Iz = 750; // required error to reset I accumulator
 
@@ -49,8 +49,10 @@ public class DriveInstruction extends AutoInstruction {
         addValue("CP100ms", components.leftFrontDriveMotor.getSelectedSensorVelocity());
         addValue("Error", components.leftFrontDriveMotor.getClosedLoopError());
         //complete();
+        /*
         if (Math.abs(components.leftFollowerDriveMotor.getClosedLoopError()) < Constants.ClicksPerInchDriven * 4)
             complete();
+        */
     }
 
     @Override

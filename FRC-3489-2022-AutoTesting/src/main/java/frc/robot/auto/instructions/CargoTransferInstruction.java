@@ -7,6 +7,8 @@ public class CargoTransferInstruction extends AutoInstruction {
     private double cargoTransferSpeed;
     private double cargoTransferClicks;
 
+    private boolean init = false;
+
     public CargoTransferInstruction(double speed, double clicks) {
         cargoTransferSpeed = speed;
         cargoTransferClicks = clicks;
@@ -19,6 +21,10 @@ public class CargoTransferInstruction extends AutoInstruction {
 
     @Override
     public void periodic() {
+        if (!init) {
+            init = true;
+            components.cargoTransferMotor.setSelectedSensorPosition(0);
+        }
         double encoderClicks = Math.abs(components.cargoTransferMotor.getSelectedSensorPosition());
         if (encoderClicks < cargoTransferClicks) { // Has not reached target
             cargoTransferHandler.set(-cargoTransferSpeed);
