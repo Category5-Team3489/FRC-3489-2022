@@ -1,0 +1,12 @@
+Click browse as guest to log into the chromebook
+go to http://scoutpi
+go to settings
+Match the alliance and scout position in the settings to what is on the back of your laptop
+Optionally set dark theme, save them eyeballs
+Save settings
+In top left menu, click the lines... go to login
+Click login, DONT TYPE IN ANYTHING
+Select the match number
+Select the team you are scouting
+Enter your name
+Select select match
