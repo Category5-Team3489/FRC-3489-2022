@@ -24,8 +24,8 @@ public final class Constants {
     public static final double ReverseCargoTransferMotorSpeed = 0.6;
     public static final double CargoTransferShootSpeed = -0.6;
 
-    public static final double ShootLowBottomMotorSpeed = 0.3;
-    public static final double ShootLowTopMotorSpeed = 0.3;
+    public static final double ShootLowBottomMotorSpeed = 0.4;
+    public static final double ShootLowTopMotorSpeed = 0.4;
 
     public static final double ShootHighBottomMotorSpeed = 0.5;
     public static final double ShootHighTopMotorSpeed = 0.5;

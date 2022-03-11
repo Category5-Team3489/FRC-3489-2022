@@ -15,27 +15,24 @@ public class AutoQuickPickup extends AutoBuilder {
         first
         .concurrently(
             shoot(0.5, 4),
-            pause(2)
+            pause(3)
                 .cargoTransfer(0.5, 5 * Constants.ClicksPerCargoLength)
         )
         .concurrently(
             driveSeconds(0.65, 1.5),
             intake(2)
         )
-        .onCompleted(() -> {
-            cargoTransferHandler.set(-0.5);
-        })
-        .pause(0.5)
-        .onCompleted(() -> {
-            cargoTransferHandler.set(0);
-        })
+        .cargoTransfer(0.5, 5.5 * Constants.ClicksPerCargoLength)
         .concurrently(
-            driveSeconds(-0.65, 1.5)
+            driveSeconds(-0.65, 1)
         )
         .concurrently(
             shoot(0.5, 4),
-            pause(0.5)
-            .cargoTransfer(0.5, 5 * Constants.ClicksPerCargoLength)
+            pause(2)
+            .cargoTransfer(0.5, 50 * Constants.ClicksPerCargoLength)
+            .completeOn(getTrigger("stop")),
+            pause(4)
+                .onCompleted(setTrigger("stop"))
             /*
             .onCompleted(() -> {
                 cargoTransferHandler.set(-0.5);
@@ -43,10 +40,9 @@ public class AutoQuickPickup extends AutoBuilder {
             .pause(3)
             .onCompleted(() -> {
                 cargoTransferHandler.set(0);
-            })  
-            */      
-        )
-        .driveSeconds(0.65, 1.5);
+            })
+            */
+        );
 
         return first;
     }
