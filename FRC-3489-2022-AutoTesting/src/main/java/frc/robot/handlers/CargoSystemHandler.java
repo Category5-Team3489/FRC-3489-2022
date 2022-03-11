@@ -23,19 +23,14 @@ public class CargoSystemHandler extends RobotHandler {
 
         isUnderManualControl = manualIntakeAndCargoTransfer();
 
-        
-        //if (cargoCount < 2) {
         toggleIntake();
         indexConveyorIfCargoInLaserSensor();
-        /*
-        }
-        else {
+        if (cargoCount == 2 && intakeHandler.isCargoInLaser()) {
             if (!isUnderManualControl) {
                 isIntakeActivated = false;
                 intakeHandler.stopIntake();
             }
         }
-        */
 
         if (!isUnderManualControl) {
             shoot();

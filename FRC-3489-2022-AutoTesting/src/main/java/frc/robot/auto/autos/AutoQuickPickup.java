@@ -23,9 +23,9 @@ public class AutoQuickPickup extends AutoBuilder {
             intake(2)
         )
         .onCompleted(() -> {
-            cargoTransferHandler.set(0.5);
+            cargoTransferHandler.set(-0.5);
         })
-        .pause(0.25)
+        .pause(0.5)
         .onCompleted(() -> {
             cargoTransferHandler.set(0);
         })

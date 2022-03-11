@@ -17,7 +17,7 @@ public final class Constants {
     public static final double ClimberPitchThreshold = 4;
 
     // Speeds
-    public static final double IntakeMotorSpeed = -0.8;
+    public static final double IntakeMotorSpeed = -1;
     public static final double ReverseIntakeMotorSpeed = 0.8;
 
     public static final double CargoTransferMotorSpeed = -0.6;
@@ -62,7 +62,7 @@ public final class Constants {
     public static final int ButtonSwitchFrontB = 7;
 
     // Clicks
-    public static final double ClicksPerCargoLength = 21000;
+    public static final double ClicksPerCargoLength = 11159;//21k
     public static final double ClicksPerInchDriven = 4096.0 / (Math.PI * 6);
     public static final double ClicksPerFootDriven = 12 * ClicksPerInchDriven;
 
