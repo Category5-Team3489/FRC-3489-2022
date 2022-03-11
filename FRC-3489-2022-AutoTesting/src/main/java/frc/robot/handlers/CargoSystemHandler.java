@@ -152,13 +152,16 @@ public class CargoSystemHandler extends RobotHandler {
         double manipulatorJoystick = components.manipulatorJoystick.getY();
         if (manipulatorJoystick > Constants.ManualCargoSystemControlThreshhold) {
             intakeHandler.reverseIntake();
+            shuffleboardHandler.showBoolean(true, "Intake Running", true);
             cargoTransferHandler.set(Constants.ReverseCargoTransferMotorSpeed);
         }
         else if (manipulatorJoystick < -Constants.ManualCargoSystemControlThreshhold) {
             intakeHandler.startIntake();
+            shuffleboardHandler.showBoolean(true, "Intake Running", true);
             cargoTransferHandler.set(Constants.CargoTransferMotorSpeed);
         }
         else {
+            shuffleboardHandler.showBoolean(true, "Intake Running", isIntakeActivated);
             cargoTransferHandler.stopIfNotIndexing();
             return false;
         }
