@@ -27,6 +27,8 @@ public class ShuffleboardHandler extends RobotHandler {
         setNumber(true, "Cargo Count", 0);
         setString(true, "Drive Mode", "Forward");
         setString(true, "Climber Step", ClimberStep.S0Default.toString());
+        setString(true, "Selected Auto", "None");
+        setBoolean(true, "Intake Running", false);
     }
 
     @Override
@@ -87,6 +89,7 @@ public class ShuffleboardHandler extends RobotHandler {
         autoChooser.addOption("6: Shoot Intake Human", 6);
         autoChooser.addOption("7: Shoot Intake", 7);
         autoChooser.addOption("16: Auto Simple", 16);
+        autoChooser.addOption("17: Auto Simple Pickup", 17);
         autoChooser.addOption("32: Test", 32);
         ShuffleboardUtils.autoTab
             .add(autoChooser)

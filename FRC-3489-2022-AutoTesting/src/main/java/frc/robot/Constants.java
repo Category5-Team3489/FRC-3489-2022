@@ -77,6 +77,8 @@ public final class Constants {
     public static final double S5TimeDelay = 1;
     public static final double S8TimeDelay = 1;
 
+    public static final double ShootStopTimeDelay = 3;
+
     public static final class TimeDelays
     {
         

@@ -25,6 +25,7 @@ public class AutoHandler extends RobotHandler {
         autos.put(6, new Auto6());
         autos.put(7, new Auto7());
         autos.put(16, new AutoQuick());
+        autos.put(17, new AutoQuickPickup());
         autos.put(32, new Auto32());
     }
 
@@ -33,6 +34,11 @@ public class AutoHandler extends RobotHandler {
         shuffleboardHandler.createAutoChooserWidget();
         runner = new AutoRunner(robotManager);
         robot.addPeriodic(() -> runner.fastPeriodic(), Constants.FastPeriodicPeriod);
+    }
+
+    @Override
+    public void robotPeriodic() {
+        shuffleboardHandler.showString(true, "Selected Auto", String.valueOf(shuffleboardHandler.getSelectedAuto()));
     }
 
     @Override
