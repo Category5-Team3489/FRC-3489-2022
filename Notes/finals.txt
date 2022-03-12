@@ -1,0 +1,49 @@
+QF 1
+Blue alliance
+General info about alliance: Not very coordinated
+1102 takes a while to aim
+4074 has slow cylce time, plays by itself, no defence
+4823 some defence, slow cycle time
+
+Red
+General info about alliance: Got a lot of points from 1293's defense, other robots went for high score
+4265 shoots only when they are fully loaded with 2 cargo, could be a good target for defending against
+4020 chase balls, fast cycle time, 25 sec climb, good target for defending against when they are trying to climb
+1293 mainly defense
+
+QF 2 and QF 6
+Blue
+Focus of alliance: Score balls  :  
+1466: works by themselves  : 
+3490 gets pushed very easily mecanum, trys hard to score, Defense is very effective for stopping 3490 from climbing
+	
+6366 takes a long time to climb, tried hard to score during tele
+	
+3490 is last to climb
+	
+
+Red
+Alliance: 7525 defense, Score 2393 and 343 tried to score very high
+7525 defense held cargo from opponents, 
+343 slow lineup to shoot, weakest link 
+2393 very fast climb, very accurate and flexible shooting
+
+QF 3
+Blue
+Alliance: 281 all score, coordinated over the whole field
+1287: Wants to score, normal climber speed , pushable in tele 1st to climb
+8575: slow lineup, defender at end game
+281: 2nd to climb, good at tele
+
+Red
+Alliance: 3824 def and blocks robots from getting cargo, 4451 high scorer, 364 second scorer
+4451: very fast cycle, 20 sec traversal, 1st to climb
+364: shoots anywhere mid range, and shoot what they have 2nd to climb
+3824: holds cargo and defense
+
+QF 4:
+Red
+Alliance: were coordinated, 1051 find balls on their own side, 5727 went everywhere, 7085 defense
+5727: fast cycle, last climber
+1051: short range, medium cycle times, first to climb, trav 30 sec
+7085: 2nd to climb, defense
