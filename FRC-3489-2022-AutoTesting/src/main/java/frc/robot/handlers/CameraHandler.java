@@ -12,6 +12,7 @@ public class CameraHandler extends RobotHandler {
     private UsbCamera cameraA;
     private UsbCamera cameraB;
     private VideoSink server;
+    public boolean isCameraA;
 
     @Override
     public void robotInit() {
@@ -37,6 +38,7 @@ public class CameraHandler extends RobotHandler {
     }
 
     public void setCamera(boolean isCameraA) {
+        this.isCameraA = isCameraA;
         try {
             if (isCameraA)
                 server.setSource(cameraA);
