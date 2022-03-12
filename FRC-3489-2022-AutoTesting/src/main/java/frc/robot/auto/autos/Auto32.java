@@ -1,6 +1,6 @@
 package frc.robot.auto.autos;
 
-import frc.robot.Constants;
+//import frc.robot.Constants;
 import frc.robot.auto.framework.AutoBuilder;
 import frc.robot.auto.framework.AutoInstruction;
 
