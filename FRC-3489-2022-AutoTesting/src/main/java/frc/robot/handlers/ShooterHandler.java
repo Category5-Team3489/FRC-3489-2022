@@ -15,9 +15,6 @@ public class ShooterHandler extends RobotHandler {
     
     public void shootHigh() {
         setShooter(Constants.ShootHighBottomMotorSpeed, Constants.ShootHighTopMotorSpeed);
-        if (cameraHandler.isCameraA) {
-            cameraHandler.setCamera(false);
-        }
         shuffleboardHandler.setString(true, "Shooter Mode", "High");
     }
 
@@ -28,9 +25,6 @@ public class ShooterHandler extends RobotHandler {
 
     public void stopShooter() {
         setShooter(0, 0);
-        if (!driveHandler.isFront()) {
-            cameraHandler.setCamera(driveHandler.isFront());
-        }
         shuffleboardHandler.setString(true, "Shooter Mode", "Stopped");
     }
 
