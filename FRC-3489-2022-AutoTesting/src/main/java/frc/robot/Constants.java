@@ -35,7 +35,7 @@ public final class Constants {
 
     public static final double DriveToMidBarSpeed = 0.6;
     public static final double TelescopeExtendSpeed = -0.6;
-    public static final double SlightlyExtendSpeed = -0.2;
+    public static final double SlightlyExtendSpeed = -0.05;
     public static final double TelescopeRetractSpeed = 0.6;
 
 
@@ -75,7 +75,7 @@ public final class Constants {
     // Time Delays
     public static final double S1TimeDelay = 1;
     public static final double S5TimeDelay = 1;
-    public static final double S8TimeDelay = 1;
+    public static final double S8TimeDelay = 3;
 
     public static final double ShootStopTimeDelay = 3;
 

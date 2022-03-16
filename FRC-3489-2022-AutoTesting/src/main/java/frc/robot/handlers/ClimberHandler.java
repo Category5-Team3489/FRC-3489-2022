@@ -256,6 +256,9 @@ public class ClimberHandler extends RobotHandler{
             nextStep();
     }
     private void S6ExtendTelesopeSlightly() {
+        nextStep();
+        return;
+        /*
         if (shouldInit()) {
             resetTelecopeEncoders();
             setBrake(false);
@@ -273,12 +276,20 @@ public class ClimberHandler extends RobotHandler{
             setBrake(true);
             nextStep();
         }
+        */
     }
     private void S7ConfirmUnhook() {
-        if (shouldClimb() || shouldClimbHigh())
+        if (shouldClimb() || shouldClimbHigh()) {
             nextStep();
+        }
     }
     private void S8UnhookAndRetractTelescope() {
+        if (shouldInit()) {
+            setHooks(true);
+        }
+        if (timer.hasElapsed(Constants.S8TimeDelay))
+            nextStep();
+        /*
         if (shouldInit()) {
             resetTelecopeEncoders();
             setBrake(false);
@@ -299,6 +310,7 @@ public class ClimberHandler extends RobotHandler{
             if (timer.hasElapsed(Constants.S8TimeDelay))
                 nextStep();
         }
+        */
     }
     private void S9DefaultAndDisabled() {
         if (shouldInit()) {
