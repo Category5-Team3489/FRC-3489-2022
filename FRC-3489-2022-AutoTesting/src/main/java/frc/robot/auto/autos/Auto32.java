@@ -12,7 +12,7 @@ public class Auto32 extends AutoBuilder {
 
         first
         //.drive(0.65, 4 * Constants.ClicksPerFootDriven);
-        .turn(0.5, 180);
+        .turn(0.85, 180);
 
         /*
         first

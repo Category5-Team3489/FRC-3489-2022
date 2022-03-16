@@ -33,7 +33,7 @@ public class AutoRunner {
 
     public void fastPeriodic() {
         checkComplete();
-        copyInstructions().forEach(AutoInstruction::periodic);
+        copyInstructions().forEach(AutoInstruction::fastPeriodic);
     }
 
     public AutoEvent getTrigger(String trigger) {

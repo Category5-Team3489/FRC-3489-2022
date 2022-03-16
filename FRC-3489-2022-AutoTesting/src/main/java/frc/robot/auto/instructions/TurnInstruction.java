@@ -7,9 +7,9 @@ import frc.robot.auto.framework.AutoInstruction;
 
 public class TurnInstruction extends AutoInstruction {
 
-    private final static double kP = 0;
-    private final static double kI = 0;
-    private final static double kD = 0;
+    private final static double kP = -0.1;
+    private final static double kI = -0.0001;//-0.001;//-0.001;//-0.05;//0.005;
+    private final static double kD = -0.01;//.001;
     private final static double kTolerance = 2;
 
     private PIDController controller;
@@ -32,8 +32,10 @@ public class TurnInstruction extends AutoInstruction {
 
     @Override
     public void periodic() {
-
+        System.out.println(cachedOutput);
     }
+
+    private double cachedOutput = 0;
 
     @Override
     public void fastPeriodic() {
@@ -41,12 +43,14 @@ public class TurnInstruction extends AutoInstruction {
         double controllerOutput = controller.calculate(currentAngle);
         double output = MathUtil.clamp(controllerOutput, -speed, speed);
         components.drive.tankDrive(-output, output);
+        //controller.setIntegratorRange(minimumIntegral, maximumIntegral);
+        cachedOutput = currentAngle;
+
+        //System.out.println(output);
 
         // Uncomment when done tuning
-        /*
         if (controller.atSetpoint())
             complete();
-        */
     }
 
     @Override
