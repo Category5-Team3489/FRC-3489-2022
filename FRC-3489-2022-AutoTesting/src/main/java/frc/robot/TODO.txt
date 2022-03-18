@@ -2,6 +2,11 @@
 // New turn instruction use arc lengths and dist between
 // Reset method for handlers?
 // Slew limiting only on decel
+// No slew limiting????????????????? ?//////////////////////////////////
+// Auto aim /////////////////////////////////
+// Move pid stuff so can be used in teleo //////////////////////////
+// Map ball trajectory //////////////////////
+// Scale shooter speed based on distances ////////////////////////
 
 // Notes
 // negative up on climber

@@ -20,6 +20,8 @@ public final class Constants {
     public static final double IntakeMotorSpeed = -1;
     public static final double ReverseIntakeMotorSpeed = 0.8;
 
+    public static final double AutoAimFrictionOvercomeMotorSpeed = 0.425;
+
     public static final double CargoTransferMotorSpeed = -0.6;
     public static final double ReverseCargoTransferMotorSpeed = 0.6;
     public static final double CargoTransferShootSpeed = -0.6;
