@@ -1,6 +1,6 @@
 package frc.robot.handlers;
 
-import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -20,7 +20,22 @@ public class DriveHandler extends RobotHandler {
     private NetworkTableEntry pipeline = limelight.getEntry("pipeline");
     private NetworkTableEntry targetX = limelight.getEntry("tx");
     private NetworkTableEntry targetY = limelight.getEntry("ty");
-    private NetworkTableEntry targetArea = limelight.getEntry("ta");
+    //private NetworkTableEntry targetArea = limelight.getEntry("ta");
+
+    private PIDController autoAimController = new PIDController(0.1, 0, 0);
+
+    private static double AutoAimTolerance = 0;
+
+    @Override
+    public void robotInit() {
+        autoAimController.setSetpoint(0);
+        autoAimController.setTolerance(AutoAimTolerance);
+    }
+
+    @Override
+    public void robotPeriodic() {
+        System.out.println(getDistanceEstimate());
+    }
 
     @Override
     public void teleopPeriodic() {
@@ -28,15 +43,18 @@ public class DriveHandler extends RobotHandler {
             isFront = !isFront;
             shuffleboardHandler.setString(true, "Drive Mode", isFront ? "Forward" : "Backward");
         }
+
         if (components.manipulatorJoystick.getRawButtonPressed(4)) {
             isDriving = !isDriving;
             if (isDriving) {
-                // set pipeline
+                pipeline.setNumber(0);
             }
             else {
-
+                autoAimController.reset();
+                pipeline.setNumber(0);
             }
         }
+
         if (isDriving) {
             drive();
         }
@@ -60,16 +78,18 @@ public class DriveHandler extends RobotHandler {
 
     private void aim() {
         double targetXOffset = targetX.getDouble(0);
-        double adjustSpeed = Math.abs(targetXOffset) * 0.005;
-        System.out.println(getDistanceEstimate());
-        double speed = Constants.AutoAimFrictionOvercomeMotorSpeed + adjustSpeed;
+        //double adjustSpeed = Math.abs(targetXOffset) * 0.005;
+        double speed = Constants.AutoAimFrictionOvercomeMotorSpeed + Math.abs(autoAimController.calculate(targetXOffset));
         //double speed = components.manipulatorJoystick.getX();
         //shuffleboardHandler.setDouble(true, "Debug Speed", speed);
-        if (targetXOffset < 1.5) {
-            components.drive.tankDrive(-speed, speed);
-        }
-        else if (targetXOffset > 1.5) {
-            components.drive.tankDrive(speed, -speed);
+        //components.drive.tankDrive(speed, -speed);
+        if (!autoAimController.atSetpoint()) {
+            if (targetXOffset < 0) {
+                components.drive.tankDrive(-speed, speed);
+            }
+            else {
+                components.drive.tankDrive(speed, -speed);
+            }
         }
         else {
             components.drive.stopMotor();
@@ -79,8 +99,9 @@ public class DriveHandler extends RobotHandler {
     private double getDistanceEstimate()
     {
         double targetYOffset = targetY.getDouble(0);
-        if (targetYOffset == 0) return -1;
-        double distance = 67 / Math.sin((47 + targetYOffset) * 0.01745);
+        if (targetYOffset == 0)
+            return -1;
+        double distance = 67.625 / Math.tan(Math.toRadians(46.13 + targetYOffset));
         return distance;
     }
 

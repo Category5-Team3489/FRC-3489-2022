@@ -136,6 +136,28 @@ public final class ComponentsContainer {
         leftFrontDriveMotor.setSelectedSensorPosition(0, 0, timeout);
     }
 
+    public void configShooterPID(int timeout, double kF, double kP, double kI, double kD, double Iz) {
+        bottomShooterMotor.configFactoryDefault();
+        topShooterMotor.configFactoryDefault();
+
+        bottomShooterMotor.setSensorPhase(true);
+        topShooterMotor.setSensorPhase(true);
+
+        bottomShooterMotor.configNominalOutputForward(0, timeout);
+		bottomShooterMotor.configNominalOutputReverse(0, timeout);
+		leftFrontDriveMotor.configPeakOutputForward(1, timeout);
+		leftFrontDriveMotor.configPeakOutputReverse(-1, timeout);
+        leftFrontDriveMotor.configAllowableClosedloopError(0, 0, timeout);
+
+        leftFrontDriveMotor.config_kF(0, kF, timeout);
+		leftFrontDriveMotor.config_kP(0, kP, timeout);
+		leftFrontDriveMotor.config_kI(0, kI, timeout);
+		leftFrontDriveMotor.config_kD(0, kD, timeout);
+        leftFrontDriveMotor.config_IntegralZone(0, Iz, timeout);
+
+        leftFrontDriveMotor.setSelectedSensorPosition(0, 0, timeout);
+    }
+
     private void setSafeties(WPI_TalonSRX motor) {
         motor.setSafetyEnabled(Constants.SafetiesEnabled);
     }

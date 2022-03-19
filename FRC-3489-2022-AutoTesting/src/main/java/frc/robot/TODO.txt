@@ -1,5 +1,3 @@
-// Scouting app
-// New turn instruction use arc lengths and dist between
 // Reset method for handlers?
 // Slew limiting only on decel
 // No slew limiting????????????????? ?//////////////////////////////////
@@ -7,6 +5,7 @@
 // Move pid stuff so can be used in teleo //////////////////////////
 // Map ball trajectory //////////////////////
 // Scale shooter speed based on distances ////////////////////////
+// limelight climb cam //////////////////////////////
 
 // Notes
 // negative up on climber

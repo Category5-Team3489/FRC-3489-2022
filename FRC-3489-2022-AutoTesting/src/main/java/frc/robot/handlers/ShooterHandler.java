@@ -8,6 +8,14 @@ public class ShooterHandler extends RobotHandler {
     private double lastBottomSpeed = 0;
     private double lastTopSpeed = 0;
 
+    /*
+    private final static double kP = 0.11;
+    private final static double kI = 0.0001;//0.001;//0.0005;//0.001;
+    private final static double kD = 25;//2;//5;
+    private final static double kF = 0;
+    private final static double Iz = 750; // required error to reset I accumulator
+    */
+
     public void shootLow() {
         setShooter(Constants.ShootLowBottomMotorSpeed, Constants.ShootLowTopMotorSpeed);
         shuffleboardHandler.setString(true, "Shooter Mode", "Low");

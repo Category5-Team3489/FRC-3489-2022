@@ -214,3 +214,104 @@ Event	"Team #"	"Match #"	Scout	Note	AQ1	AQ2	AQ3	AQ4	AQ5	TQ1	TQ2	TQ3	EQ1	EQ2
 16	4265	41	35	"ran out of time to climb."	1	1	0	2	0	1	12	2	0	0
 16	4451	41	38	""	1	1	0	0	1	5	0	2	5	26
 16	7085	41	4	""	0	1	0	0	1	0	0	1	0	0
+16	343	42	36	""	" "	" "	" "	" "	" "	" "	" "	" "	" "	" "
+16	1102	42	40	"mediocre at best.  slow intake, inprecise shooter, very short range."	0	1	2	0	0	5	0	0	2	3
+16	2080	42	35	"hit other robots while they were shooting"	1	0	0	0	0	1	0	1	2	20
+16	3976	42	38	"tryed going for high but could not do it was to slow "	1	1	0	0	1	0	0	1	3	10
+16	6366	42	4	""	1	1	1	0	1	1	0	1	3	45
+16	6961	42	36	""	1	1	0	0	0	9	0	2	0	0
+16	1466	43	35	""	1	1	1	0	0	0	6	2	1	5
+16	2393	43	41	"Did not make as many shots as other matches since it got defended a lot by blue"	1	1	0	1	0	0	0	0	4	10
+16	4073	43	36	""	1	1	0	1	0	0	3	1	0	0
+16	5130	43	38	""	1	1	1	0	1	3	0	2	0	0
+16	6167	43	40	"despite having climbers, shooter, and intake, this robot can only be described as a BLT.  broke itself trying to ram onto low bar"	1	1	0	0	0	0	0	0	0	0
+16	7525	43	4	"played defense "	1	1	1	0	0	0	0	0	0	0
+16	1287	44	35	""	1	1	0	1	0	0	4	1	4	50
+16	1758	44	36	"tipped over mid match"	1	0	0	0	0	0	1	0	0	0
+16	3824	44	40	""	1	1	0	0	2	2	2	0	2	0
+16	4020	44	38	""	1	1	0	4	0	0	3	2	5	30
+16	4074	44	4	""	1	1	1	0	0	1	0	2	3	10
+16	8137	44	41	"No intake, relies on human player to put cargo in it. Does not aim well and usually deosnt put enough power in the outake for it to reach the high goal"	1	1	0	0	0	1	0	0	0	0
+16	281	45	36	"tipped a little while moving and trying to climb"	1	1	1	0	0	2	0	1	3	10
+16	2815	45	35	""	1	1	1	0	0	6	0	2	2	40
+16	3489	45	41	"Almost made it to high bar"	0	0	0	0	0	1	2	0	2	0
+16	3490	45	38	""	1	1	1	0	2	2	0	2	3	7
+16	8575	45	4	""	1	1	1	0	2	0	10	2	0	0
+16	343	46	35	"ran out of time to finish climb"	1	1	0	1	2	7	0	2	2	40
+16	4533	46	38	"robot got stuck in the middle of the game. and started to humm a lot. "	1	1	0	0	2	0	1	2	0	0
+16	6107	46	4	""	0	1	0	0	2	0	0	1	1	30
+16	6366	46	36	"spent a full 80 seconds trying to get to high bar"	1	0	1	0	0	1	0	0	3	8
+16	7085	46	41	"Almost fell over, very unbalanced. Has no visable intake, relies on human player for cargo. Was not able to do anything outside of autonomous"	1	1	0	0	0	0	0	1	0	0
+16	364	47	35	"Cargo got stuck in the shooter and they were unable to shoot for most of the match."	1	1	0	3	0	0	2	2	2	20
+16	1051	47	40	"almost made traversel, before falling."	1	1	0	2	0	0	3	0	3	0
+16	4748	47	41	"Did not move move for the first half of the match and when it did it moved a little to the side then stopped then stopped moving for the rest of the match"	0	1	0	0	0	0	0	0	0	0
+16	6693	47	38	"stopped moving towards the end of the game."	1	0	0	0	0	0	0	1	0	0
+16	6961	47	36	"stopped moving 15 sec into teleop"	1	1	1	0	0	1	0	0	0	0
+16	7525	47	4	"played defense"	1	1	0	0	0	0	0	1	0	0
+16	1466	48	36	""	1	1	1	0	0	8	0	1	0	0
+16	1758	48	35	"tried to climb low"	1	1	0	0	0	0	2	2	0	0
+16	2393	48	41	"Went mainly for high goal this match"	1	0	0	1	0	0	3	2	4	0
+16	3824	48	40	"had a lot of trouble with intake.  basically ended up a BLT with climbers"	1	1	0	0	2	0	0	0	2	6
+16	4074	48	38	""	1	1	1	0	1	2	0	2	3	0
+16	5727	48	4	"very fast climb"	1	1	0	0	1	0	14	2	3	5
+16	2080	49	35	""	1	1	0	1	2	0	0	2	2	20
+16	3489	49	40	""	1	1	0	0	0	0	6	0	0	0
+16	3490	49	41	"Good synergy with other teams, played well."	1	0	1	0	0	8	1	0	0	0
+16	4020	49	36	""	1	1	0	5	0	0	10	2	5	16
+16	4582	49	38	""	1	1	1	0	2	2	0	2	0	0
+16	8137	49	4	""	1	1	0	0	2	0	0	1	0	0
+16	342	50	41	"cargo bounced out of high goal a couple of times"	1	1	0	0	0	0	.3	0	2	0
+16	1293	50	35	"no shooter or climber. defense"	0	1	0	0	1	0	0	0	0	0
+16	3976	50	38	"can't pick up balls "	1	1	0	0	1	0	0	0	0	0
+16	4073	50	36	""	1	1	0	0	0	0	1	1	0	0
+16	4265	50	4	""	1	1	0	1	0	0	13	3	0	0
+16	4823	50	17	"did not do much and was not reliable in shooting, could only shoot in low goal but only made one shot, has climber but i believe it can only go low goal"	1	0	0	0	0	1	0	1	1	30
+16	1287	51	17	"was having trouble picking up balls so it decided to go on defense attempted mid bar but was to late when its hooks went up, but it looks like it can traverse to high or traversal bar"	1	1	0	0	0	0	0	1	0	0
+16	4451	51	39	"the climber didn't lock and touched the ground but they still got the point"	1	1	0	0	0	3	2	2	1	0
+16	5130	51	40	"auto sequence was very basic, dumped cargo, exited bay.  got stuck on a cargo and had to be freed.  the intake was slow and unreliable"	1	1	1	0	0	7	0	2	0	0
+16	6167	51	35	"could not see auto. defense. tried to climb low"	0	0	0	0	0	1	0	1	1	0
+16	343	52	40	"slow climber, disconnect in driver and manipulator.  while its a decent robot, it still misses most of its shots, and all high goal attempts."	1	1	0	1	0	4	0	0	3	22
+16	364	52	39	"great consistent shots and has a climber chose not to climb intake looked great. "	1	1	0	4	0	0	12	2	0	0
+16	1051	52	22	"spent a lot of time lining up for the high goal"	1	1	0	1	0	0	4	1	5	42
+16	1102	52	17	"can shoot high and low goal almost fell off mid bar was hanging on by one hook but looks like it can climb"	1	1	1	0	0	0	5	2	3	22
+16	4074	52	35	"Could not see autonomous. Did not intake or shoot."	1	0	0	0	0	0	0	1	3	20
+16	6693	52	4	"no movement during match"	0	0	0	0	0	0	0	0	0	0
+16	1539	53	39	"intake looks broke and seems unable to shoot. toast"	1	1	0	0	0	0	0	1	0	0
+16	3489	53	17	"not accurate in shooting in the begining"	1	1	1	0	0	0	4	2	4	20
+16	4533	53	22	"intake is very flimsy, spent a lot of time lining up for high goal and missed every shot. ran out of time to climb"	1	1	0	0	0	0	0	2	1	15
+16	5727	53	35	""	1	1	0	0	0	0	10	2	3	10
+16	6961	53	4	""	1	0	0	0	0	1	0	1	0	0
+16	8137	53	40	"very simple auto, no firing.  PLAYER LOADED ONLY.  "	0	0	0	0	0	0	0	1	0	0
+16	342	54	17	"good accurate shooting can climb higher i believe but did not have enough time"	1	1	1	0	0	0	3	2	3	24
+16	1293	54	39	"did not move after autonomous. did nothing"	0	1	0	0	0	0	0	0	0	0
+16	4582	54	35	""	1	1	1	0	0	2	0	2	0	0
+16	7525	54	4	""	0	1	0	0	0	0	0	0	0	0
+16	8575	54	22	"intake looks like it got bent while being defended"	1	1	0	1	0	0	0	2	0	0
+16	1758	55	17	"very wobbly, but accurate at shooting although it uses ram climbing"	1	1	0	0	0	0	9	2	2	10
+16	4020	55	35	""	1	1	0	4	0	0	12	2	5	30
+16	4073	55	4	"didn't take a lot of shots"	1	1	0	1	0	0	2	2	0	0
+16	4265	55	39	"kinda wobbly still shoots strait buckets.  "	1	1	0	2	0	0	14	2	0	0
+16	4748	55	22	"failed to get on to low bar with passive climber. did not move at all during most of the match"	0	1	0	0	0	0	0	0	1	8
+16	5130	55	40	"spent the duration of the match chasing after cargo"	1	0	0	1	0	0	0	0	0	0
+16	1287	56	40	"missed high goal in auto.started climbing at 1 minute left, 20 seconds to get onto high bar"	1	1	0	0	0	0	1	2	5	43
+16	1466	56	22	"did not line up straight for the low bar to flip up their passive climber."	1	1	1	0	0	5	0	2	1	4
+16	2815	56	39	"it can only shoot low. it was seemingly stuck on the bars. they have climbed traversal."	1	0	0	0	0	2	0	2	4	0
+16	3824	56	17	"mainly played defense is not reliable to shoot"	1	1	0	0	0	0	0	1	3	15
+16	3976	56	35	"Stopped moving after shooting 1 ball at start of teleop."	1	0	0	0	0	1	0	1	0	0
+16	6107	56	4	"problems with robot"	0	0	0	0	2	0	0	0	1	0
+16	2080	57	26	"shooter is inconsistent, chased balls, slow cycle times"	0	0	0	0	0	1	0	0	3	5
+16	2393	57	17	"can shoot both but mainly shoots low has a accurate shooting system"	1	1	0	2	0	5	0	2	5	30
+16	3490	57	35	"Stopped moving after trying to shoot in teleop. shot after 30 seconds but still did not move."	1	1	1	0	1	1	0	1	0	0
+16	4451	57	4	""	1	1	0	1	0	10	0	2	5	20
+16	4823	57	40	"cable broke during auto, lost shooter"	1	0	0	0	0	0	0	1	0	0
+16	6167	57	39	"the chain on it broke and boned its wheels could do nothing for the rest of the mach. "	1	1	0	0	0	0	0	1	0	0
+16	281	58	26	"scored points while having robots defend it"	1	1	1	0	0	7	0	0	3	6
+16	1293	58	17	"very wobbly it almost fell over a lot, mainly played defense did not shoot at all,fell over later in the match and could not get up"	0	1	0	0	1	0	0	0	0	0
+16	4074	58	40	"while they had improved the shooter, they still cannot target the high goal.  in addition, they are unstable when they go to score"	1	1	0	1	0	6	0	2	3	4
+16	6961	58	35	"defense. almost fell over. intake could not pick up cargo."	0	0	0	0	0	0	0	0	0	0
+16	7525	58	4	"played defense"	0	1	0	0	0	0	0	0	0	0
+16	1051	59	17	"was being defended and knocked around"	1	1	0	2	0	0	4	2	5	30
+16	1102	59	35	""	1	0	0	0	0	0	6	3	3	10
+16	4020	59	26	"consistent shooter, good use of swerve drive"	1	1	0	2	0	0	6	2	5	20
+16	4073	59	4	"intake broke played defense didn't work all match"	1	1	0	1	0	0	1	1	0	0
+16	5727	59	40	"missed most shots"	1	1	1	1	0	5	0	0	3	0
