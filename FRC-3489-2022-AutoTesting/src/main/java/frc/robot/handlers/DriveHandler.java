@@ -12,6 +12,7 @@ public class DriveHandler extends RobotHandler {
 
     private boolean isFront = true;
     private boolean isDriving = true;
+    private boolean isCentering = false;
 
     private SlewRateLimiter leftLimiter = new SlewRateLimiter(Constants.DriveSetSpeedDeltaLimiter);
     private SlewRateLimiter rightLimiter = new SlewRateLimiter(Constants.DriveSetSpeedDeltaLimiter);
@@ -22,9 +23,12 @@ public class DriveHandler extends RobotHandler {
     private NetworkTableEntry targetY = limelight.getEntry("ty");
     //private NetworkTableEntry targetArea = limelight.getEntry("ta");
 
-    private PIDController autoAimController = new PIDController(0.1, 0, 0);
 
-    private static double AutoAimTolerance = 0;
+    private PIDController autoAimController = new PIDController(0.0125, 0.004, 0.0001);
+
+    private static double AutoAimTolerance = 1.5;
+
+    private long loop = 0;
 
     @Override
     public void robotInit() {
@@ -34,7 +38,9 @@ public class DriveHandler extends RobotHandler {
 
     @Override
     public void robotPeriodic() {
-        System.out.println(getDistanceEstimate());
+        loop++;
+        if (loop % 25 == 0)
+            System.out.println(getDistanceEstimate());
     }
 
     @Override
@@ -47,7 +53,7 @@ public class DriveHandler extends RobotHandler {
         if (components.manipulatorJoystick.getRawButtonPressed(4)) {
             isDriving = !isDriving;
             if (isDriving) {
-                pipeline.setNumber(0);
+                pipeline.setNumber(1);
             }
             else {
                 autoAimController.reset();

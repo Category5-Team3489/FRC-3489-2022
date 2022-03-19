@@ -13,6 +13,7 @@ public class CargoSystemHandler extends RobotHandler {
     @Override
     public void teleopPeriodic() {
 
+        // TODO spams setting stuff
         if (climberHandler.isClimbing()) {
             intakeHandler.stopIntake();
             isIntakeActivated = false;
@@ -112,7 +113,7 @@ public class CargoSystemHandler extends RobotHandler {
         if (components.manipulatorJoystick.getRawButtonPressed(Constants.ButtonToggleIntake)) {
             isIntakeActivated = !isIntakeActivated;
             if (isIntakeActivated)
-                intakeHandler.startIntake();
+                intakeHandler.forwardIntake();
             else
                 intakeHandler.stopIntake();
             shuffleboardHandler.setBoolean(true, "Intake Running", isIntakeActivated);
@@ -151,12 +152,12 @@ public class CargoSystemHandler extends RobotHandler {
     private boolean manualIntakeAndCargoTransfer() {
         double manipulatorJoystick = components.manipulatorJoystick.getY();
         if (manipulatorJoystick > Constants.ManualCargoSystemControlThreshhold) {
-            intakeHandler.reverseIntake();
+            intakeHandler.backwardIntake();
             shuffleboardHandler.showBoolean(true, "Intake Running", true);
             cargoTransferHandler.set(Constants.ReverseCargoTransferMotorSpeed);
         }
         else if (manipulatorJoystick < -Constants.ManualCargoSystemControlThreshhold) {
-            intakeHandler.startIntake();
+            intakeHandler.forwardIntake();
             shuffleboardHandler.showBoolean(true, "Intake Running", true);
             cargoTransferHandler.set(Constants.CargoTransferMotorSpeed);
         }

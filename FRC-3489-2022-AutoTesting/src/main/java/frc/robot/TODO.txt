@@ -1,11 +1,11 @@
 // Reset method for handlers?
 // Slew limiting only on decel
 // No slew limiting????????????????? ?//////////////////////////////////
-// Auto aim /////////////////////////////////
 // Move pid stuff so can be used in teleo //////////////////////////
 // Map ball trajectory //////////////////////
 // Scale shooter speed based on distances ////////////////////////
 // limelight climb cam //////////////////////////////
+// Decrease CAN traffic
 
 // Notes
 // negative up on climber
@@ -16,7 +16,6 @@
 // Make auto runner also work during teleop, maybe use robot periodic? with checks for current phase?
 
 // Think about
-// TODO More shuffleboard outputs
 // simple mid climb stuff?
 // Add climber manual control in case it doesnt work right
 

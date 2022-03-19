@@ -19,7 +19,7 @@ public class IntakeInstruction extends AutoInstruction {
 
     @Override
     public void periodic() {
-        intakeHandler.startIntake();
+        intakeHandler.forwardIntake();
         if (timer.hasElapsed(intakePeriod))
             complete();
     }
