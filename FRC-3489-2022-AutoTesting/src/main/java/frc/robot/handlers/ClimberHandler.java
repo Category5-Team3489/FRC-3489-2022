@@ -189,7 +189,7 @@ public class ClimberHandler extends RobotHandler{
         if (shouldInit()) {
             setLower(true);
         }
-        if (timer.hasElapsed(Constants.S1TimeDelay))
+        if (timer.hasElapsed(Constants.Climber.S1TimeDelay))
             nextStep();
     }
     private void S2ExtendTelesope() {
@@ -197,7 +197,7 @@ public class ClimberHandler extends RobotHandler{
             setBrake(false);
             resetTelecopeEncoders();
         }
-        if (getTelecopeEncoderPosition() < Constants.ClicksExtendTelesope) {
+        if (getTelecopeEncoderPosition() < Constants.Climber.ExtendTelesopeClicks) {
             setTelescope(Constants.TelescopeExtendSpeed);
         }
         else {
@@ -205,7 +205,7 @@ public class ClimberHandler extends RobotHandler{
             setTelescope(0);
             nextStep();
         }
-        if (timer.hasElapsed(Constants.SafteyTimeouts.S2SafetyTimeout)) {
+        if (timer.hasElapsed(Constants.Climber.S2SafetyTimeout)) {
             setBrake(true);
             setTelescope(0);
             nextStep();
@@ -221,12 +221,12 @@ public class ClimberHandler extends RobotHandler{
         }
         components.drive.tankDrive(Constants.DriveToMidBarSpeed, Constants.DriveToMidBarSpeed);
         if (Math.abs(components.navx.getPitch()) > Constants.ClimberPitchThreshold ||
-        timer.hasElapsed(Constants.SafteyTimeouts.S3DriveSafetyTimeout)) {
+        timer.hasElapsed(Constants.Climber.S3DriveSafetyTimeout)) {
             s3StartRetract = true;
             timer.reset();
         }
         if (s3StartRetract) {
-            if (getTelecopeEncoderPosition() < Constants.ClicksRetractTelesope) {
+            if (getTelecopeEncoderPosition() < Constants.Climber.RetractTelesopeClicks) {
                 setBrake(false);
                 setTelescope(Constants.TelescopeRetractSpeed);
             }
@@ -236,7 +236,7 @@ public class ClimberHandler extends RobotHandler{
                 setBrake(true);
                 nextStep();
             }
-            if (timer.hasElapsed(Constants.SafteyTimeouts.S3RetractTimeout)) {
+            if (timer.hasElapsed(Constants.Climber.S3RetractTimeout)) {
                 components.drive.stopMotor();
                 setTelescope(0);
                 setBrake(true);
@@ -252,7 +252,7 @@ public class ClimberHandler extends RobotHandler{
         if (shouldInit()) {
             setUpper(true);
         }
-        if (timer.hasElapsed(Constants.S5TimeDelay))
+        if (timer.hasElapsed(Constants.Climber.S5TimeDelay))
             nextStep();
     }
     private void S6ExtendTelesopeSlightly() {
@@ -287,7 +287,7 @@ public class ClimberHandler extends RobotHandler{
         if (shouldInit()) {
             setHooks(true);
         }
-        if (timer.hasElapsed(Constants.S8TimeDelay))
+        if (timer.hasElapsed(Constants.Climber.S8TimeDelay))
             nextStep();
         /*
         if (shouldInit()) {

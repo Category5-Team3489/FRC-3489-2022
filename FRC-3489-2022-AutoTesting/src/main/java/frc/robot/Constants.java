@@ -15,12 +15,14 @@ public final class Constants {
     public static final String ShuffleboardMainTabName = "3489 2022";
     public static final String ShuffleboardAutoTabName = "3489 2022 Auto";
     public static final double ClimberPitchThreshold = 4;
+    public static final double ShuffleboardShowUpdateRate = 4;
+    public static final int ShuffleboardShowUpdatePeriod = (int)(50 /ShuffleboardShowUpdateRate); 
 
     // Speeds
     public static final double IntakeMotorSpeed = -1;
     public static final double ReverseIntakeMotorSpeed = 0.8;
 
-    public static final double AutoAimFrictionOvercomeMotorSpeed = 0.55;
+    public static final double DriveAutoAimFrictionOvercomeMotorSpeed = 0.55;
 
     public static final double CargoTransferMotorSpeed = -0.6;
     public static final double ReverseCargoTransferMotorSpeed = 0.6;
@@ -68,35 +70,21 @@ public final class Constants {
     public static final double ClicksPerInchDriven = 4096.0 / (Math.PI * 6);
     public static final double ClicksPerFootDriven = 12 * ClicksPerInchDriven;
 
-    public static final double ClicksExtendTelesope = 105000;
-    public static final double ClicksRetractTelesope = 105000;
-    public static final double ClicksExtendTelescopeSlightly = ClicksExtendTelesope * 0.1;
-    public static final double ClicksRetractTelescopeMajorly = ClicksExtendTelesope * 0.5;
-    //public static final double ClicksToDriveToMidBar = 1 * ClicksPerFootDriven;
-
-    // Time Delays
-    public static final double S1TimeDelay = 1;
-    public static final double S5TimeDelay = 1;
-    public static final double S8TimeDelay = 3;
-
     public static final double ShootStopTimeDelay = 3;
 
-    public static final class TimeDelays
+    public static final class Climber
     {
-        
-    }
+        public static final double ExtendTelesopeClicks = 105000;
+        public static final double RetractTelesopeClicks = 105000;
 
-    public static final class SafteyTimeouts
-    {
+        public static final double S1TimeDelay = 1;
+        public static final double S5TimeDelay = 1;
+        public static final double S8TimeDelay = 3;
+
         public static final double S2SafetyTimeout = 3;
         public static final double S3DriveSafetyTimeout = 2;
         public static final double S3RetractTimeout = 3;
         public static final double S6SafetyTimeout = 2;
         public static final double S8SafetyTimeout = 3;
-    }
-
-    public static final class Climber
-    {
-        
     }
 }

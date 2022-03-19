@@ -5,6 +5,7 @@ import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import frc.robot.Constants;
 import frc.robot.framework.RobotHandler;
 import frc.robot.types.ClimberStep;
 import frc.robot.utils.ShuffleboardUtils;
@@ -17,8 +18,8 @@ public class ShuffleboardHandler extends RobotHandler {
 
     private long loop = 0;
 
-    private boolean shouldSet() {
-        return loop % 50 == 0;
+    private boolean shouldShowUpdate() {
+        return loop % Constants.ShuffleboardShowUpdatePeriod == 0;
     }
 
     @Override
@@ -50,19 +51,19 @@ public class ShuffleboardHandler extends RobotHandler {
     }
 
     public void showBoolean(boolean isMainTab, String name, Boolean value) {
-        if (shouldSet())
+        if (shouldShowUpdate())
             setBoolean(isMainTab, name, value);
     }
     public void showDouble(boolean isMainTab, String name, Double value) {
-        if (shouldSet())
+        if (shouldShowUpdate())
             setDouble(isMainTab, name, value);
     }
     public void showString(boolean isMainTab, String name, String value) {
-        if (shouldSet())
+        if (shouldShowUpdate())
             setString(isMainTab, name, value);
     }
     public void showNumber(boolean isMainTab, String name, Number value) {
-        if (shouldSet())
+        if (shouldShowUpdate())
             setNumber(isMainTab, name, value);
     }
 

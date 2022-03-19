@@ -105,8 +105,6 @@ public class CargoSystemHandler extends RobotHandler {
     }
 
     private void toggleIntake() {
-        //if (buttonHandler.toggleIntakePressed())
-
         if (isUnderManualControl)
             return;
 
@@ -135,7 +133,7 @@ public class CargoSystemHandler extends RobotHandler {
     }
 
     private void shootWrongColor() {
-        boolean isPressed = components.manipulatorJoystick.getRawButton(Constants.ButtonShootWrongColor);
+        boolean isPressed = components.manipulatorJoystick.getRawButtonPressed(Constants.ButtonShootWrongColor);
         if (isPressed) {
             shooterHandler.setWrongColor();
         }
