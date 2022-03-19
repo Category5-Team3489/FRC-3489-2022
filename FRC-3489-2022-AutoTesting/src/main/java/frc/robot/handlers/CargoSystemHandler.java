@@ -3,33 +3,39 @@ package frc.robot.handlers;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
 import frc.robot.framework.RobotHandler;
+import frc.robot.interfaces.ISetShuffleboardState;
 
-public class CargoSystemHandler extends RobotHandler {
+public class CargoSystemHandler extends RobotHandler implements ISetShuffleboardState {
 
     private boolean isIntakeActivated = false;
-    private int cargoCount = 0;
     private boolean isUnderManualControl = false;
+
+    private int cargoCount = 0;
+
+    private Timer stopShooterTimer = new Timer();
+    private boolean stopShooterTimerRunning = false;
     
     @Override
     public void teleopPeriodic() {
 
         // TODO spams setting stuff
         if (climberHandler.isClimbing()) {
-            intakeHandler.stopIntake();
             isIntakeActivated = false;
+            isUnderManualControl = false;
+            intakeHandler.stop();
             cargoTransferHandler.set(0);
-            shooterHandler.stopShooter();
+            shooterHandler.stop();
             return;
         }
 
-        isUnderManualControl = manualIntakeAndCargoTransfer();
+        isUnderManualControl = manualCargoSystem();
 
         toggleIntake();
         indexConveyorIfCargoInLaserSensor();
         if (cargoCount == 2 && intakeHandler.isCargoInLaser()) {
             if (!isUnderManualControl) {
                 isIntakeActivated = false;
-                intakeHandler.stopIntake();
+                intakeHandler.stop();
             }
         }
 
@@ -37,58 +43,38 @@ public class CargoSystemHandler extends RobotHandler {
             shoot();
         }
 
+        stopShooter();
         shootLowGoal();
         shootHighGoal();
         shootWrongColor();
-        stopShooter();
-
-        shuffleboardHandler.showNumber(true, "Cargo Count", cargoCount);
     }
 
-    private Timer shootTimer = new Timer();
-    private boolean shootTimerRunning = false;
+    @Override
+    public void setShuffleboardState() {
+        shuffleboardHandler.setNumber(true, "Cargo Count", cargoCount);
+    }
 
     private void shoot() {
-        /*
-        if (!shooterHandler.canShoot()) {
-            cargoTransferHandler.stopIfNotIndexing();
-            return;
-        }
-        */
-        boolean shoot = components.manipulatorJoystick.getRawButton(Constants.ButtonShoot);
-        //System.out.println(shoot ? "T" : "F");
-        //if(buttonHandler.shootUnpressed())
-            //shooterHandler.stopShooter();
+        boolean shouldShoot = components.manipulatorJoystick.getRawButton(Constants.ButtonShoot);
         
-        if (shoot) {
-            if (!shootTimerRunning) {
-                shootTimer.start();
-                shootTimerRunning = true;
+        if (shouldShoot) {
+            if (!stopShooterTimerRunning) {
+                stopShooterTimer.start();
+                stopShooterTimerRunning = true;
             }
-            shootTimer.reset();
+            stopShooterTimer.reset();
             cargoTransferHandler.setShootSpeed();
-            cargoCount = 0;
+            setCargoCount(0);
         }
         else {
             cargoTransferHandler.stopIfNotIndexing();
         }
-        if (shootTimerRunning && shootTimer.hasElapsed(Constants.ShootStopTimeDelay)) {
-            shootTimer.stop();
-            shootTimer.reset();
-            shootTimerRunning = false;
-            shooterHandler.stopShooter();
+        if (stopShooterTimerRunning && stopShooterTimer.hasElapsed(Constants.ShootStopTimeDelay)) {
+            stopShooterTimer.stop();
+            stopShooterTimer.reset();
+            stopShooterTimerRunning = false;
+            shooterHandler.stop();
         }
-        /* if(buttonHandler.shootUnpressed())
-            shooterHandler.stopShooter();
-            cargoTransferHandler.stopIfNotIndexing();
-        
-        if (shoot) {
-            cargoTransferHandler.setShootSpeed();
-            cargoCount = 0;
-        }
-        else {
-            //cargoTransferHandler.stopIfNotIndexing();
-        } */
     }
 
     private void indexConveyorIfCargoInLaserSensor() {
@@ -98,7 +84,7 @@ public class CargoSystemHandler extends RobotHandler {
         boolean isCargoInLaser = intakeHandler.isCargoInLaser();
         if (isCargoInLaser) {
             if (!cargoTransferHandler.isIndexing()) {
-                cargoCount++;
+                setCargoCount(cargoCount + 1);
                 cargoTransferHandler.index();
             }
         }
@@ -108,63 +94,63 @@ public class CargoSystemHandler extends RobotHandler {
         if (isUnderManualControl)
             return;
 
-        if (components.manipulatorJoystick.getRawButtonPressed(Constants.ButtonToggleIntake)) {
+        boolean shouldToggleIntake = components.manipulatorJoystick.getRawButtonPressed(Constants.ButtonToggleIntake);
+        if (shouldToggleIntake) {
             isIntakeActivated = !isIntakeActivated;
             if (isIntakeActivated)
                 intakeHandler.forwardIntake();
             else
-                intakeHandler.stopIntake();
-            shuffleboardHandler.setBoolean(true, "Intake Running", isIntakeActivated);
-        }
-    }
-
-    private void shootLowGoal() {
-        boolean isPressed = components.manipulatorJoystick.getRawButtonPressed(Constants.ButtonShootLowGoal);
-        if (isPressed) {
-            shooterHandler.shootLow();
-        }
-    }
-
-    private void shootHighGoal() {
-        boolean isPressed = components.manipulatorJoystick.getRawButtonPressed(Constants.ButtonShootHighGoal);
-        if (isPressed) {
-            shooterHandler.shootHigh();
-        }
-    }
-
-    private void shootWrongColor() {
-        boolean isPressed = components.manipulatorJoystick.getRawButtonPressed(Constants.ButtonShootWrongColor);
-        if (isPressed) {
-            shooterHandler.setWrongColor();
+                intakeHandler.stop();
         }
     }
 
     private void stopShooter() {
         boolean isPressed = components.manipulatorJoystick.getRawButtonPressed(Constants.ButtonStopShooter);
         if (isPressed) {
-            shooterHandler.stopShooter();
+            shooterHandler.stop();
+        }
+    }
+    private void shootLowGoal() {
+        boolean isPressed = components.manipulatorJoystick.getRawButtonPressed(Constants.ButtonShootLowGoal);
+        if (isPressed) {
+            shooterHandler.shootLow();
+        }
+    }
+    private void shootHighGoal() {
+        boolean isPressed = components.manipulatorJoystick.getRawButtonPressed(Constants.ButtonShootHighGoal);
+        if (isPressed) {
+            shooterHandler.shootHigh();
+        }
+    }
+    private void shootWrongColor() {
+        boolean isPressed = components.manipulatorJoystick.getRawButtonPressed(Constants.ButtonShootWrongColor);
+        if (isPressed) {
+            shooterHandler.setWrongColor();
         }
     }
     
-
-    private boolean manualIntakeAndCargoTransfer() {
+    private boolean manualCargoSystem() {
         double manipulatorJoystick = components.manipulatorJoystick.getY();
         if (manipulatorJoystick > Constants.ManualCargoSystemControlThreshhold) {
             intakeHandler.backwardIntake();
-            shuffleboardHandler.showBoolean(true, "Intake Running", true);
             cargoTransferHandler.set(Constants.ReverseCargoTransferMotorSpeed);
         }
         else if (manipulatorJoystick < -Constants.ManualCargoSystemControlThreshhold) {
             intakeHandler.forwardIntake();
-            shuffleboardHandler.showBoolean(true, "Intake Running", true);
             cargoTransferHandler.set(Constants.CargoTransferMotorSpeed);
         }
         else {
-            shuffleboardHandler.showBoolean(true, "Intake Running", isIntakeActivated);
             cargoTransferHandler.stopIfNotIndexing();
             return false;
         }
         return true;
+    }
+
+    private void setCargoCount(int desired) {
+        if (cargoCount != desired) {
+            cargoCount = desired;
+            setShuffleboardState();
+        }
     }
 
 }

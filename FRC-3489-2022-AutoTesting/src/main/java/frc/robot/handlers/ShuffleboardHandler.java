@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.Constants;
 import frc.robot.framework.RobotHandler;
+import frc.robot.interfaces.ISetShuffleboardState;
 import frc.robot.types.ClimberStep;
 import frc.robot.utils.ShuffleboardUtils;
 
@@ -24,12 +25,12 @@ public class ShuffleboardHandler extends RobotHandler {
 
     @Override
     public void robotInit() {
-        setString(true, "Shooter Mode", "Stopped");
-        setNumber(true, "Cargo Count", 0);
-        setString(true, "Drive Mode", "Forward");
+        robotManager.forEachHandler((handler) -> {
+            if (handler instanceof ISetShuffleboardState) {
+                ((ISetShuffleboardState)handler).setShuffleboardState();
+            }
+        });
         setString(true, "Climber Step", ClimberStep.S0Default.toString());
-        setString(true, "Selected Auto", "None");
-        setBoolean(true, "Intake Running", false);
     }
 
     @Override

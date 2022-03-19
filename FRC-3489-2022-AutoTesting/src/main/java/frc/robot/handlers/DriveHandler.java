@@ -7,8 +7,9 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import frc.robot.Constants;
 import frc.robot.framework.RobotHandler;
+import frc.robot.interfaces.ISetShuffleboardState;
 
-public class DriveHandler extends RobotHandler {
+public class DriveHandler extends RobotHandler implements ISetShuffleboardState {
 
     private boolean isFront = true;
     private boolean isDriving = true;
@@ -45,9 +46,10 @@ public class DriveHandler extends RobotHandler {
 
     @Override
     public void teleopPeriodic() {
-        if (buttonHandler.switchFrontPressed()) {
+        boolean switchFrontPressed = shouldSwitchFront();
+        if (switchFrontPressed) {
             isFront = !isFront;
-            shuffleboardHandler.setString(true, "Drive Mode", isFront ? "Forward" : "Backward");
+            setShuffleboardState();
         }
 
         if (components.manipulatorJoystick.getRawButtonPressed(4)) {
@@ -69,6 +71,15 @@ public class DriveHandler extends RobotHandler {
         }
     }
 
+    public boolean isFront() {
+        return isFront;
+    }
+
+    @Override
+    public void setShuffleboardState() {
+        shuffleboardHandler.setString(true, "Front Switched", isFront ? "Forward" : "Backward");
+    }
+
     private void drive() {
         double leftY = components.leftDriveJoystick.getY();
         double rightY = components.rightDriveJoystick.getY();
@@ -85,7 +96,7 @@ public class DriveHandler extends RobotHandler {
     private void aim() {
         double targetXOffset = targetX.getDouble(0);
         //double adjustSpeed = Math.abs(targetXOffset) * 0.005;
-        double speed = Constants.AutoAimFrictionOvercomeMotorSpeed + Math.abs(autoAimController.calculate(targetXOffset));
+        double speed = Constants.DriveAutoAimFrictionOvercomeMotorSpeed + Math.abs(autoAimController.calculate(targetXOffset));
         //double speed = components.manipulatorJoystick.getX();
         //shuffleboardHandler.setDouble(true, "Debug Speed", speed);
         //components.drive.tankDrive(speed, -speed);
@@ -111,8 +122,9 @@ public class DriveHandler extends RobotHandler {
         return distance;
     }
 
-    public boolean isFront() {
-        return isFront;
+    private boolean shouldSwitchFront() {
+        return components.rightDriveJoystick.getRawButtonPressed(Constants.ButtonSwitchFront) ||
+            components.rightDriveJoystick.getRawButtonPressed(Constants.ButtonSwitchFrontB);
     }
 
 }

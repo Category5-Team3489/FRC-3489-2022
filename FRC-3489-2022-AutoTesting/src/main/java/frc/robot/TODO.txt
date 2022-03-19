@@ -6,6 +6,8 @@
 // Scale shooter speed based on distances ////////////////////////
 // limelight climb cam //////////////////////////////
 // Decrease CAN traffic
+// Think about intake, how to index, may be indexing to far, or stopping to fast when cargo hits laser sensor
+// Make climber shuffleboard step follow new shuffleboard interface
 
 // Notes
 // negative up on climber
@@ -18,6 +20,7 @@
 // Think about
 // simple mid climb stuff?
 // Add climber manual control in case it doesnt work right
+// Hash code for shuffleboard simple widgets to avoid setting unnessisarily, or maybe not????/
 
 
 // PRIORITY

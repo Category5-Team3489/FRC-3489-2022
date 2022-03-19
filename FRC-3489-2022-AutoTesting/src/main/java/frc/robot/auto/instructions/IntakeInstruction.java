@@ -26,7 +26,7 @@ public class IntakeInstruction extends AutoInstruction {
 
     @Override
     public void completed() {
-        intakeHandler.stopIntake();
+        intakeHandler.stop();
     }
 
     @Override

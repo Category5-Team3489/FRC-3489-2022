@@ -4,7 +4,7 @@ public final class Constants {
 
     // General
     public static final double FastPeriodicPeriod = 1d / 200d;
-    public static final int CameraPixelWidth = 178;
+    public static final int CameraPixelWidth = 100;
     public static final int CameraPixelHeight = 100;
     public static final int CameraFPS = 20;
     public static final double ButtonDebounceTime = 0.5;
@@ -19,8 +19,8 @@ public final class Constants {
     public static final int ShuffleboardShowUpdatePeriod = (int)(50 /ShuffleboardShowUpdateRate); 
 
     // Speeds
-    public static final double IntakeMotorSpeed = -1;
-    public static final double ReverseIntakeMotorSpeed = 0.8;
+    public static final double ForwardIntakeMotorSpeed = -1;
+    public static final double BackwardIntakeMotorSpeed = 0.8;
 
     public static final double DriveAutoAimFrictionOvercomeMotorSpeed = 0.55;
 
@@ -67,10 +67,19 @@ public final class Constants {
 
     // Clicks
     public static final double ClicksPerCargoLength = 11159;//21k
-    public static final double ClicksPerInchDriven = 4096.0 / (Math.PI * 6);
-    public static final double ClicksPerFootDriven = 12 * ClicksPerInchDriven;
 
     public static final double ShootStopTimeDelay = 3;
+
+    public static final class Auto
+    {
+        public static final double ClicksPerInchDriven = 4096.0 / (Math.PI * 6);
+        public static final double ClicksPerFootDriven = 12 * ClicksPerInchDriven;
+    }
+
+    public static final class Shooter
+    {
+        public static final double CanShootSpeedThreshold = 0.15;
+    }
 
     public static final class Climber
     {

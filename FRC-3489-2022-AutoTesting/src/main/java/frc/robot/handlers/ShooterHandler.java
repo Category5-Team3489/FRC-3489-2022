@@ -2,11 +2,15 @@ package frc.robot.handlers;
 
 import frc.robot.Constants;
 import frc.robot.framework.RobotHandler;
+import frc.robot.interfaces.ISetShuffleboardState;
+import frc.robot.types.ShooterState;
 
-public class ShooterHandler extends RobotHandler {
+public class ShooterHandler extends RobotHandler implements ISetShuffleboardState {
 
-    private double lastBottomSpeed = 0;
-    private double lastTopSpeed = 0;
+    private ShooterState shooterState = ShooterState.Disabled;
+
+    private double currentBottomSpeed = 0;
+    private double currentTopSpeed = 0;
 
     /*
     private final static double kP = 0.11;
@@ -17,34 +21,75 @@ public class ShooterHandler extends RobotHandler {
     */
 
     public void shootLow() {
-        setShooter(Constants.ShootLowBottomMotorSpeed, Constants.ShootLowTopMotorSpeed);
-        shuffleboardHandler.setString(true, "Shooter Mode", "Low");
+        if (update(ShooterState.High)) {
+            setShooter(Constants.ShootLowBottomMotorSpeed, Constants.ShootLowTopMotorSpeed);
+            setShuffleboardState();
+        }
     }
     
     public void shootHigh() {
-        setShooter(Constants.ShootHighBottomMotorSpeed, Constants.ShootHighTopMotorSpeed);
-        shuffleboardHandler.setString(true, "Shooter Mode", "High");
+        if (update(ShooterState.High)) {
+            setShooter(Constants.ShootHighBottomMotorSpeed, Constants.ShootHighTopMotorSpeed);
+            setShuffleboardState();
+        }
     }
 
     public void setWrongColor() {
-        setShooter(Constants.WrongColorBottomSpeed, Constants.WrongColorTopSpeed);
-        shuffleboardHandler.setString(true, "Shooter Mode", "Wrong Color");
+        if (update(ShooterState.WrongColor)) {
+            setShooter(Constants.WrongColorBottomSpeed, Constants.WrongColorTopSpeed);
+            setShuffleboardState();
+        }
     }
 
-    public void stopShooter() {
-        setShooter(0, 0);
-        shuffleboardHandler.setString(true, "Shooter Mode", "Stopped");
+    public void stop() {
+        if (update(ShooterState.Disabled)) {
+            setShooter(0, 0);
+            setShuffleboardState();
+        }
     }
 
     public boolean canShoot() {
-        return Math.abs(lastBottomSpeed) > 0.1 && Math.abs(lastTopSpeed) > 0.1;
+        return currentBottomSpeed > Constants.Shooter.CanShootSpeedThreshold && currentTopSpeed > Constants.Shooter.CanShootSpeedThreshold;
     }
 
     public void setShooter(double bottomSpeed, double topSpeed) {
-        lastBottomSpeed = bottomSpeed;
-        lastTopSpeed = topSpeed;
+        currentBottomSpeed = bottomSpeed;
+        currentTopSpeed = topSpeed;
         components.bottomShooterMotor.set(bottomSpeed);
         components.topShooterMotor.set(-topSpeed);
+    }
+
+    public ShooterState getShooterState() {
+        return shooterState;
+    }
+
+    @Override
+    public void setShuffleboardState() {
+        switch (shooterState) {
+            case Disabled:
+                shuffleboardHandler.setString(true, "Shooter State", "Disabled");
+                break;
+            case Low:
+                shuffleboardHandler.setString(true, "Shooter State", "Low");
+                break;
+            case High:
+                shuffleboardHandler.setString(true, "Shooter State", "High");
+                break;
+            case WrongColor:
+                shuffleboardHandler.setString(true, "Shooter State", "Wrong Color");
+                break;
+            case Running:
+                shuffleboardHandler.setString(true, "Shooter State", "Running");
+                break;
+        }
+    }
+
+    private boolean update(ShooterState desired) {
+        if (shooterState != desired) {
+            shooterState = desired;
+            return true;
+        }
+        return false;
     }
 
 }

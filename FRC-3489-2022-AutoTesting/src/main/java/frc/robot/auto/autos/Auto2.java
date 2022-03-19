@@ -1,6 +1,7 @@
 package frc.robot.auto.autos;
 
 import frc.robot.Constants;
+import frc.robot.Constants.Auto;
 import frc.robot.auto.framework.AutoBuilder;
 import frc.robot.auto.framework.AutoInstruction;
 
@@ -18,10 +19,10 @@ public class Auto2 extends AutoBuilder {
         .pause(1)
         .concurrently(
             intake(5),
-            drive(0.65, 4 * Constants.ClicksPerFootDriven)
+            drive(0.65, 4 * Auto.ClicksPerFootDriven)
         )
         .pause(1)
-        .drive(-0.65, 4 * Constants.ClicksPerFootDriven)
+        .drive(-0.65, 4 * Auto.ClicksPerFootDriven)
         .concurrently(
             shoot(0.65, 3),
             pause(1)

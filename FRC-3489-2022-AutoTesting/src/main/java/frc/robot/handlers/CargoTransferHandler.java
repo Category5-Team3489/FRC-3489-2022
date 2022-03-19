@@ -26,9 +26,8 @@ public class CargoTransferHandler extends RobotHandler {
     }
 
     public void stopIfNotIndexing() {
-        if (!isIndexing) {
+        if (!isIndexing)
             components.cargoTransferMotor.stopMotor();
-        }
     }
 
     public boolean isIndexing() {
@@ -37,7 +36,8 @@ public class CargoTransferHandler extends RobotHandler {
 
     @Override
     public void teleopPeriodic() {
-        if (!isIndexing) return;
+        if (!isIndexing)
+            return;
 
         double encoderClicks = Math.abs(components.cargoTransferMotor.getSelectedSensorPosition());
 

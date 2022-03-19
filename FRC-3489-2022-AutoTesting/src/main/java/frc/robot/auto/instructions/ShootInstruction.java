@@ -28,7 +28,7 @@ public class ShootInstruction extends AutoInstruction {
 
     @Override
     public void completed() {
-        shooterHandler.stopShooter();
+        shooterHandler.stop();
     }
 
     @Override

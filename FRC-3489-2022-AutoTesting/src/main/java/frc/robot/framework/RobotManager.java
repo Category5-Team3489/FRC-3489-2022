@@ -2,6 +2,7 @@ package frc.robot.framework;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import frc.robot.Robot;
 import frc.robot.containers.ComponentsContainer;
@@ -24,8 +25,9 @@ public final class RobotManager extends RobotHandler {
         handlers.add(intakeHandler = new IntakeHandler());
         handlers.add(shooterHandler = new ShooterHandler());
         handlers.add(cargoSystemHandler = new CargoSystemHandler());
+
+        // SHUFFLEBOARD MUST BE LAST
         handlers.add(shuffleboardHandler = new ShuffleboardHandler());
-        handlers.add(buttonHandler = new ButtonHandler());
 
         for (RobotReferences references : handlers) {
             copyReferences(references);
@@ -45,8 +47,13 @@ public final class RobotManager extends RobotHandler {
         references.intakeHandler = intakeHandler;
         references.shooterHandler = shooterHandler;
         references.cargoSystemHandler = cargoSystemHandler;
+
+        // SHUFFLEBOARD MUST BE LAST
         references.shuffleboardHandler = shuffleboardHandler;
-        references.buttonHandler = buttonHandler;
+    }
+
+    public void forEachHandler(Consumer<RobotHandler> action) {
+        handlers.forEach(action);
     }
 
     public void robotInit() {

@@ -18,7 +18,8 @@ public abstract class RobotReferences {
     public IntakeHandler intakeHandler;
     public ShooterHandler shooterHandler;
     public CargoSystemHandler cargoSystemHandler;
+    
+    // SHUFFLEBOARD MUST BE LAST
     public ShuffleboardHandler shuffleboardHandler;
-    public ButtonHandler buttonHandler;
 
 }

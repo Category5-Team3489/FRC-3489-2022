@@ -9,12 +9,15 @@ import frc.robot.auto.framework.AutoBuilder;
 import frc.robot.auto.framework.AutoInstruction;
 import frc.robot.auto.framework.AutoRunner;
 import frc.robot.framework.RobotHandler;
+import frc.robot.interfaces.ISetShuffleboardState;
 
-public class AutoHandler extends RobotHandler {
+public class AutoHandler extends RobotHandler implements ISetShuffleboardState {
 
     public AutoRunner runner;
 
     private Map<Integer, AutoBuilder> autos = new HashMap<Integer, AutoBuilder>();
+
+    private int selectedAuto = 0;
 
     public AutoHandler() {
         autos.put(1, new Auto1());
@@ -38,12 +41,19 @@ public class AutoHandler extends RobotHandler {
 
     @Override
     public void robotPeriodic() {
-        shuffleboardHandler.showString(true, "Selected Auto", String.valueOf(shuffleboardHandler.getSelectedAuto()));
+        int currentSelectedAuto = shuffleboardHandler.getSelectedAuto();
+        if (selectedAuto != currentSelectedAuto) {
+            selectedAuto = currentSelectedAuto;
+            setShuffleboardState();
+        }
     }
 
     @Override
     public void autonomousInit() {
-        AutoBuilder auto = autos.get(shuffleboardHandler.getSelectedAuto());
+        int selectedAuto = shuffleboardHandler.getSelectedAuto();
+        if (!autos.containsKey(selectedAuto))
+            return;
+        AutoBuilder auto = autos.get(selectedAuto);
         robotManager.copyReferences(auto);
         auto.setRunner(runner);
         AutoInstruction first = auto.build();
@@ -53,5 +63,10 @@ public class AutoHandler extends RobotHandler {
     @Override
     public void autonomousPeriodic() {
         runner.periodic();
+    }
+
+    @Override
+    public void setShuffleboardState() {
+        shuffleboardHandler.setNumber(true, "Selected Auto", selectedAuto);
     }
 }
