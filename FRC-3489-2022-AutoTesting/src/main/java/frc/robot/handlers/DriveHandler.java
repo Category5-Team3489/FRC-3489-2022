@@ -13,7 +13,7 @@ public class DriveHandler extends RobotHandler implements ISetShuffleboardState 
 
     private boolean isFront = true;
     private boolean isDriving = true;
-    private boolean isCentering = false;
+    //private boolean isCentering = false;
 
     private SlewRateLimiter leftLimiter = new SlewRateLimiter(Constants.DriveSetSpeedDeltaLimiter);
     private SlewRateLimiter rightLimiter = new SlewRateLimiter(Constants.DriveSetSpeedDeltaLimiter);
