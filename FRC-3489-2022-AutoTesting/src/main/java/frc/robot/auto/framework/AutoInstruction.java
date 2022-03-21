@@ -21,7 +21,7 @@ public abstract class AutoInstruction extends RobotReferences {
         return this;
     }
 
-    protected final void complete() {
+    public final void complete() {
         completed = true;
         completedEvent.run();
     }
@@ -121,14 +121,18 @@ public abstract class AutoInstruction extends RobotReferences {
     }
 
     public final void execute(Consumer<AutoInstruction> executor) {
-        if (next == null) return;
+        if (next == null)
+            return;
         executor.accept(next);
     }
 
-    public boolean anyBelowIncomplete() {
-        if (next == null) return false;
-        if (!next.hasCompleted()) return true;
-        if (next.anyBelowIncomplete()) return true;
+    public boolean anySequentialIncomplete() {
+        if (next == null)
+            return false;
+        if (!next.hasCompleted())
+            return true;
+        if (next.anySequentialIncomplete())
+            return true;
         return false;
     }
 

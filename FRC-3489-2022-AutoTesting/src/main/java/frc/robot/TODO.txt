@@ -9,6 +9,15 @@
 // Think about intake, how to index, may be indexing to far, or stopping to fast when cargo hits laser sensor
 // Add auto aim drive centering /////////////////////////////////////////////////
 
+// Add with timeout to auto instruction ///////////////////////////////////////////////////
+// in with timeout, will need to add start time of all instructions and check for that in auto runner, when doing withTimeout,
+// only need one timeout default is double.MaxValue, when calling withTimeout, only need to change that value if the timeout is less than the current timeout
+// Add auto instruction for periodically checking if complete, fancy wait until ///////////////////
+// Clearing for all auto instructions when running during teleop after auto
+
+// Fast periodic that covers all handlers
+// Get game phase method in robot manager??? if fast periodic in all handlers
+
 // TO INSTALL REV ROBOTICS LIBRARY
 // https://github.com/REVrobotics/REV-Software-Binaries/releases/download/revlib-2022.1.1/REVLib-offline-v2022.1.1.zip
 // also read: https://docs.revrobotics.com/sparkmax/software-resources/spark-max-api-information#c++-and-java
@@ -18,13 +27,13 @@
 
 // After anderson
 // Move climber stuff to auto instructions
-// Add auto instruction for periodically checking if complete, fancy wait until
 // Make auto runner also work during teleop, maybe use robot periodic? with checks for current phase?
 
 // Think about
 // simple mid climb stuff?
 // Add climber manual control in case it doesnt work right
 // Hash code for shuffleboard simple widgets to avoid setting unnessisarily, or maybe not????/
+// Button debouncer
 
 
 // PRIORITY
@@ -37,8 +46,6 @@
 // TODO Document auto
 // TODO Shooter velocity control with PID
 // TODO Logger handler
-// TODO Button debouncer utils
-// TODO Improve slew rate limiting for drive code, may only want to use abrupt breaking
 // TODO Fix 2 drive docs
 
 // MAYBE???

@@ -68,6 +68,11 @@ public final class ComponentsContainer {
     }
 
     public void defaultDriveMotors() {
+        leftFrontDriveMotor.restoreFactoryDefaults();
+        rightFrontDriveMotor.restoreFactoryDefaults();
+        leftFollowerDriveMotor.restoreFactoryDefaults();
+        rightFollowerDriveMotor.restoreFactoryDefaults();
+
         leftFrontDriveMotor.setIdleMode(IdleMode.kBrake);
         rightFrontDriveMotor.setIdleMode(IdleMode.kBrake);
         leftFollowerDriveMotor.setIdleMode(IdleMode.kBrake);
