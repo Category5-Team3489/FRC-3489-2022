@@ -23,7 +23,7 @@ public class CargoSystemHandler extends RobotHandler implements IShuffleboardSta
             isIntakeActivated = false;
             isUnderManualControl = false;
             intakeHandler.stop();
-            cargoTransferHandler.set(0);
+            cargoTransferHandler.stop();
             shooterHandler.stop();
             return;
         }

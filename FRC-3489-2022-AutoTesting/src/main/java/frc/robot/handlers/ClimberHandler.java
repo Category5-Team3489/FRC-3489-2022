@@ -176,8 +176,6 @@ public class ClimberHandler extends RobotHandler implements IShuffleboardState {
         }
     }
 
-    // TODO safties for anything with encoders
-
     private void S0Default() {
         if (shouldInit()) {
             setBrake(true);

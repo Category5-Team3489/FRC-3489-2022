@@ -25,6 +25,10 @@ public class CargoTransferHandler extends RobotHandler {
         components.cargoTransferMotor.set(speed);
     }
 
+    public void stop() {
+        set(0);
+    }
+
     public void stopIfNotIndexing() {
         if (!isIndexing)
             components.cargoTransferMotor.stopMotor();
