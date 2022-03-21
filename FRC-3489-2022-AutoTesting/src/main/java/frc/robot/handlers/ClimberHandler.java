@@ -218,14 +218,13 @@ public class ClimberHandler extends RobotHandler implements IShuffleboardState {
     boolean s3StartRetract = false;
     private void S3DriveToMidBarThenRetractTelescope() {
         if (shouldInit()) {
-            components.leftFrontDriveMotor.setSelectedSensorPosition(0);
             resetTelecopeEncoders();
             components.navx.reset();
             s3StartRetract = false;
         }
         components.drive.tankDrive(Constants.DriveToMidBarSpeed, Constants.DriveToMidBarSpeed);
         if (Math.abs(components.navx.getPitch()) > Constants.ClimberPitchThreshold ||
-        timer.hasElapsed(Constants.Climber.S3DriveSafetyTimeout)) {
+            timer.hasElapsed(Constants.Climber.S3DriveSafetyTimeout)) {
             s3StartRetract = true;
             timer.reset();
         }

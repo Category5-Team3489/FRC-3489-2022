@@ -1,6 +1,6 @@
 package frc.robot.auto.instructions;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
+//import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
@@ -43,11 +43,11 @@ public class DriveInstruction extends AutoInstruction {
 
     @Override
     public void periodic() {
-        components.leftFrontDriveMotor.set(ControlMode.Position, clicks);
+        //components.leftFrontDriveMotor.set(ControlMode.Position, clicks);
         //System.out.println("Speed: " + components.leftFrontDriveMotor.getMotorOutputPercent());
         //System.out.println("Error: " + components.leftFrontDriveMotor.getClosedLoopError() / Auto.DriveClicksPerInch);
-        addValue("CP100ms", components.leftFrontDriveMotor.getSelectedSensorVelocity());
-        addValue("Error", components.leftFrontDriveMotor.getClosedLoopError());
+        //addValue("CP100ms", components.leftFrontDriveMotor.getSelectedSensorVelocity());
+        //addValue("Error", components.leftFrontDriveMotor.getClosedLoopError());
         //complete();
         /*
         if (Math.abs(components.leftFollowerDriveMotor.getClosedLoopError()) < Constants.ClicksPerInchDriven * 4)
@@ -66,9 +66,11 @@ public class DriveInstruction extends AutoInstruction {
         return getInstructionName();
     }
 
+    /*
     private void addValue(String category, double value) {
         CSVUtils.add("test.csv", timer.get() + "," + category + "," + value + ",0");
     }
+    */
 
     private void addNote(double note) {
         CSVUtils.add("test.csv", "0,Notes,0," + note);

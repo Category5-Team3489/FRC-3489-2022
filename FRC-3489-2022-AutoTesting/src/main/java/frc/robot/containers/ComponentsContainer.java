@@ -1,9 +1,11 @@
 package frc.robot.containers;
 
-import com.ctre.phoenix.motorcontrol.FollowerType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
@@ -25,10 +27,10 @@ public final class ComponentsContainer {
     public AHRS navx = new AHRS(SPI.Port.kMXP, (byte)200);
 
     // Motors
-    public WPI_TalonSRX leftFrontDriveMotor = new WPI_TalonSRX(1);
-    public WPI_TalonSRX rightFrontDriveMotor = new WPI_TalonSRX(2);
-    public WPI_TalonSRX leftFollowerDriveMotor = new WPI_TalonSRX(3);
-    public WPI_TalonSRX rightFollowerDriveMotor = new WPI_TalonSRX(4);
+    public CANSparkMax leftFrontDriveMotor = new CANSparkMax(1, MotorType.kBrushless);
+    public CANSparkMax rightFrontDriveMotor = new CANSparkMax(2, MotorType.kBrushless);
+    public CANSparkMax leftFollowerDriveMotor = new CANSparkMax(3, MotorType.kBrushless);
+    public CANSparkMax rightFollowerDriveMotor = new CANSparkMax(4, MotorType.kBrushless);
     public DifferentialDrive drive;
 
     public WPI_TalonSRX cargoTransferMotor = new WPI_TalonSRX(5);
@@ -53,11 +55,6 @@ public final class ComponentsContainer {
 
         setSafeties(drive);
 
-        setSafeties(leftFrontDriveMotor);
-        setSafeties(rightFrontDriveMotor);
-        setSafeties(leftFollowerDriveMotor);
-        setSafeties(rightFollowerDriveMotor);
-
         setSafeties(cargoTransferMotor);
         setSafeties(intakeMotor);
         setSafeties(bottomShooterMotor);
@@ -71,10 +68,10 @@ public final class ComponentsContainer {
     }
 
     public void defaultDriveMotors() {
-        leftFrontDriveMotor.configFactoryDefault();
-        rightFrontDriveMotor.configFactoryDefault();
-        leftFollowerDriveMotor.configFactoryDefault();
-        rightFollowerDriveMotor.configFactoryDefault();
+        leftFrontDriveMotor.setIdleMode(IdleMode.kBrake);
+        rightFrontDriveMotor.setIdleMode(IdleMode.kBrake);
+        leftFollowerDriveMotor.setIdleMode(IdleMode.kBrake);
+        rightFollowerDriveMotor.setIdleMode(IdleMode.kBrake);
     }
 
     public void defaultMotors() {
@@ -105,18 +102,19 @@ public final class ComponentsContainer {
         disableDriveMotors();
         rightFrontDriveMotor.setInverted(true);
         rightFollowerDriveMotor.setInverted(true);
-        leftFollowerDriveMotor.follow(leftFrontDriveMotor, FollowerType.PercentOutput);
-        rightFollowerDriveMotor.follow(rightFrontDriveMotor, FollowerType.PercentOutput);
+        leftFollowerDriveMotor.follow(leftFrontDriveMotor);
+        rightFollowerDriveMotor.follow(rightFrontDriveMotor);
     }
 
     public void configAutoPIDDrive(int timeout, double speed, double kF, double kP, double kI, double kD, double Iz) {
+        /*
         defaultDriveMotors();
         disableDriveMotors();
         rightFrontDriveMotor.setInverted(true);
         rightFollowerDriveMotor.setInverted(true);
-        leftFollowerDriveMotor.follow(leftFrontDriveMotor, FollowerType.PercentOutput);
-        rightFrontDriveMotor.follow(leftFrontDriveMotor, FollowerType.PercentOutput);
-        rightFollowerDriveMotor.follow(rightFrontDriveMotor, FollowerType.PercentOutput);
+        leftFollowerDriveMotor.follow(leftFrontDriveMotor);
+        rightFrontDriveMotor.follow(leftFrontDriveMotor);
+        rightFollowerDriveMotor.follow(rightFrontDriveMotor);
 
         leftFrontDriveMotor.setSensorPhase(true);
 
@@ -134,9 +132,11 @@ public final class ComponentsContainer {
         leftFrontDriveMotor.config_IntegralZone(0, Iz, timeout);
 
         leftFrontDriveMotor.setSelectedSensorPosition(0, 0, timeout);
+        */
     }
 
     public void configShooterPID(int timeout, double kF, double kP, double kI, double kD, double Iz) {
+        /*
         bottomShooterMotor.configFactoryDefault();
         topShooterMotor.configFactoryDefault();
 
@@ -156,6 +156,7 @@ public final class ComponentsContainer {
         leftFrontDriveMotor.config_IntegralZone(0, Iz, timeout);
 
         leftFrontDriveMotor.setSelectedSensorPosition(0, 0, timeout);
+        */
     }
 
     private void setSafeties(WPI_TalonSRX motor) {

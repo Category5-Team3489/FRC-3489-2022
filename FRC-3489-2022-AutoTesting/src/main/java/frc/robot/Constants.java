@@ -70,9 +70,16 @@ public final class Constants {
 
     public static final double ShootStopTimeDelay = 3;
 
+    public static final class Drive
+    {
+        public static final double GearRatio = 7.31;
+        public static final double ClicksPerMotorRev = 42;
+        public static final double ClicksPerRev = GearRatio * ClicksPerMotorRev;
+    }
+
     public static final class Auto
     {
-        public static final double ClicksPerInchDriven = 4096.0 / (Math.PI * 6);
+        public static final double ClicksPerInchDriven = Drive.ClicksPerRev / (Math.PI * 6);
         public static final double ClicksPerFootDriven = 12 * ClicksPerInchDriven;
     }
 
