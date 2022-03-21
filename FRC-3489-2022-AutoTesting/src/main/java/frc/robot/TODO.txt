@@ -7,7 +7,6 @@
 // limelight climb cam //////////////////////////////
 // Decrease CAN traffic
 // Think about intake, how to index, may be indexing to far, or stopping to fast when cargo hits laser sensor
-// Make climber shuffleboard step follow new shuffleboard interface
 // Add auto aim drive centering /////////////////////////////////////////////////
 
 // Notes
