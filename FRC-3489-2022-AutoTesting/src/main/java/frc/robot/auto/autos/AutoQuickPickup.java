@@ -22,14 +22,14 @@ public class AutoQuickPickup extends AutoBuilder {
             driveSeconds(0.65, 1.5),
             intake(2)
         )
-        .cargoTransfer(0.5, 5.5 * Constants.ClicksPerCargoLength)
+        .cargoTransfer(0.5, 0.5 * Constants.ClicksPerCargoLength)
         .concurrently(
             driveSeconds(-0.65, 1)
         )
         .concurrently(
             shoot(0.5, 4),
             pause(2)
-            .cargoTransfer(0.5, 50 * Constants.ClicksPerCargoLength)
+            .cargoTransfer(0.5, 10 * Constants.ClicksPerCargoLength)
             .completeOn(getTrigger("stop")),
             pause(4)
                 .onCompleted(setTrigger("stop"))
