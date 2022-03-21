@@ -7,9 +7,9 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import frc.robot.Constants;
 import frc.robot.framework.RobotHandler;
-import frc.robot.interfaces.ISetShuffleboardState;
+import frc.robot.interfaces.IShuffleboardState;
 
-public class DriveHandler extends RobotHandler implements ISetShuffleboardState {
+public class DriveHandler extends RobotHandler implements IShuffleboardState {
 
     private boolean isFront = true;
     private boolean isDriving = true;
@@ -35,6 +35,7 @@ public class DriveHandler extends RobotHandler implements ISetShuffleboardState 
     public void robotInit() {
         autoAimController.setSetpoint(0);
         autoAimController.setTolerance(AutoAimTolerance);
+        setDriveState();
     }
 
     @Override
@@ -54,13 +55,7 @@ public class DriveHandler extends RobotHandler implements ISetShuffleboardState 
 
         if (components.manipulatorJoystick.getRawButtonPressed(4)) {
             isDriving = !isDriving;
-            if (isDriving) {
-                pipeline.setNumber(1);
-            }
-            else {
-                autoAimController.reset();
-                pipeline.setNumber(0);
-            }
+            setDriveState();
         }
 
         if (isDriving) {
@@ -78,6 +73,17 @@ public class DriveHandler extends RobotHandler implements ISetShuffleboardState 
     @Override
     public void setShuffleboardState() {
         shuffleboardHandler.setString(true, "Front Switched", isFront ? "Forward" : "Backward");
+        shuffleboardHandler.setBoolean(true, "Auto Aiming", !isDriving);
+    }
+
+    private void setDriveState() {
+        if (isDriving) {
+            pipeline.setNumber(1);
+        }
+        else {
+            autoAimController.reset();
+            pipeline.setNumber(0);
+        }
     }
 
     private void drive() {

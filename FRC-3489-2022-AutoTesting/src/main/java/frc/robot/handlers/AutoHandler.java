@@ -9,9 +9,9 @@ import frc.robot.auto.framework.AutoBuilder;
 import frc.robot.auto.framework.AutoInstruction;
 import frc.robot.auto.framework.AutoRunner;
 import frc.robot.framework.RobotHandler;
-import frc.robot.interfaces.ISetShuffleboardState;
+import frc.robot.interfaces.IShuffleboardState;
 
-public class AutoHandler extends RobotHandler implements ISetShuffleboardState {
+public class AutoHandler extends RobotHandler implements IShuffleboardState {
 
     public AutoRunner runner;
 

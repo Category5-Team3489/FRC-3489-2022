@@ -3,9 +3,9 @@ package frc.robot.handlers;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
 import frc.robot.framework.RobotHandler;
-import frc.robot.interfaces.ISetShuffleboardState;
+import frc.robot.interfaces.IShuffleboardState;
 
-public class CargoSystemHandler extends RobotHandler implements ISetShuffleboardState {
+public class CargoSystemHandler extends RobotHandler implements IShuffleboardState {
 
     private boolean isIntakeActivated = false;
     private boolean isUnderManualControl = false;

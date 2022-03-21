@@ -2,10 +2,10 @@ package frc.robot.handlers;
 
 import frc.robot.Constants;
 import frc.robot.framework.RobotHandler;
-import frc.robot.interfaces.ISetShuffleboardState;
+import frc.robot.interfaces.IShuffleboardState;
 import frc.robot.types.IntakeState;
 
-public class IntakeHandler extends RobotHandler implements ISetShuffleboardState {
+public class IntakeHandler extends RobotHandler implements IShuffleboardState {
 
     private IntakeState intakeState = IntakeState.Disabled;
 

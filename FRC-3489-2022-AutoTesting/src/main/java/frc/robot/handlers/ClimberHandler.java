@@ -3,12 +3,17 @@ package frc.robot.handlers;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
 import frc.robot.framework.RobotHandler;
+import frc.robot.interfaces.IShuffleboardState;
 import frc.robot.types.ClimberStep;
 
-public class ClimberHandler extends RobotHandler{
+public class ClimberHandler extends RobotHandler implements IShuffleboardState {
 
     public boolean isClimbing() {
         return climberStep != ClimberStep.S0Default;
+    }
+
+    public void setShuffleboardState() {
+        shuffleboardHandler.setString(true, "Climber Step", climberStep.toString());
     }
 
     private void setLower(boolean value) {
@@ -57,7 +62,7 @@ public class ClimberHandler extends RobotHandler{
         climberStep = step;
         stepInitialized = false;
         timer.reset();
-        shuffleboardHandler.setString(true, "Climber Step", step.toString());
+        setShuffleboardState();
     }
 
     private void nextStep() {
@@ -94,7 +99,7 @@ public class ClimberHandler extends RobotHandler{
         resetTelecopeEncoders();
     }
 
-    private boolean wasControllingTelescopeManually = false;
+    private boolean underManualControl = false;
 
     @Override
     public void teleopPeriodic() {
@@ -106,24 +111,24 @@ public class ClimberHandler extends RobotHandler{
 
         if (climbActivateButton) {
             if (components.rightDriveJoystick.getPOV() == 0) {
-                wasControllingTelescopeManually = true;
+                underManualControl = true;
                 setBrake(false);
                 setTelescope(Constants.TelescopeExtendSpeed);
             }
             else if (components.rightDriveJoystick.getPOV() == 180) {
-                wasControllingTelescopeManually = true;
+                underManualControl = true;
                 setBrake(false);
                 setTelescope(Constants.TelescopeRetractSpeed);
             }
         }
 
-        if (wasControllingTelescopeManually && components.rightDriveJoystick.getPOV() == -1) {
-            wasControllingTelescopeManually = false;
+        if (underManualControl && components.rightDriveJoystick.getPOV() == -1) {
+            underManualControl = false;
             setBrake(true);
             setTelescope(0);
         }
 
-        if (wasControllingTelescopeManually)
+        if (underManualControl)
             return;
 
         if (shouldReset())
@@ -211,6 +216,7 @@ public class ClimberHandler extends RobotHandler{
             nextStep();
         }
     }
+    // TODO replace by adding a step for s3StartRetract
     boolean s3StartRetract = false;
     private void S3DriveToMidBarThenRetractTelescope() {
         if (shouldInit()) {

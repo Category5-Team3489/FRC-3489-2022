@@ -1,5 +1,5 @@
 package frc.robot.interfaces;
 
-public interface ISetShuffleboardState {
+public interface IShuffleboardState {
     void setShuffleboardState();
 }

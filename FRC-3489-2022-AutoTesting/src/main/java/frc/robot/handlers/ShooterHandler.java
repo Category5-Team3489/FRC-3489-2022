@@ -2,10 +2,10 @@ package frc.robot.handlers;
 
 import frc.robot.Constants;
 import frc.robot.framework.RobotHandler;
-import frc.robot.interfaces.ISetShuffleboardState;
+import frc.robot.interfaces.IShuffleboardState;
 import frc.robot.types.ShooterState;
 
-public class ShooterHandler extends RobotHandler implements ISetShuffleboardState {
+public class ShooterHandler extends RobotHandler implements IShuffleboardState {
 
     private ShooterState shooterState = ShooterState.Disabled;
 
@@ -65,23 +65,7 @@ public class ShooterHandler extends RobotHandler implements ISetShuffleboardStat
 
     @Override
     public void setShuffleboardState() {
-        switch (shooterState) {
-            case Disabled:
-                shuffleboardHandler.setString(true, "Shooter State", "Disabled");
-                break;
-            case Low:
-                shuffleboardHandler.setString(true, "Shooter State", "Low");
-                break;
-            case High:
-                shuffleboardHandler.setString(true, "Shooter State", "High");
-                break;
-            case WrongColor:
-                shuffleboardHandler.setString(true, "Shooter State", "Wrong Color");
-                break;
-            case Running:
-                shuffleboardHandler.setString(true, "Shooter State", "Running");
-                break;
-        }
+        shuffleboardHandler.setString(true, "Shooter State", shooterState.toString());
     }
 
     private boolean update(ShooterState desired) {
