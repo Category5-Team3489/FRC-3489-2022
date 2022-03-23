@@ -24,6 +24,7 @@ Separate climbing sequence
 Stop spam setting cargo transfer handler
 Organize TODO
 Spam setting pnuematics?
+Organize constants
 
 
 // Tagging auto instructions so only certain ones can be cancelled
