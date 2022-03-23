@@ -21,7 +21,7 @@ public class ShooterHandler extends RobotHandler implements IShuffleboardState {
     */
 
     public void shootLow() {
-        if (update(ShooterState.High)) {
+        if (update(ShooterState.Low)) {
             setShooter(Constants.ShootLowBottomMotorSpeed, Constants.ShootLowTopMotorSpeed);
             setShuffleboardState();
         }
