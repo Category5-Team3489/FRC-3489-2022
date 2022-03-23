@@ -1,24 +1,26 @@
 package frc.robot.auto.framework;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.auto.instructions.*;
 import frc.robot.framework.RobotReferences;
 
 public abstract class AutoInstruction extends RobotReferences {
 
-    private boolean completed = false;
-
     protected final AutoEvent completedEvent = new AutoEvent();
+    private final Timer timer = new Timer();
+    private final List<Supplier<Boolean>> periodicExtensions = new ArrayList<Supplier<Boolean>>();
 
-    /**
-     * Allows a runnable to be executed when the instruction completes
-     * @param runnable Runnable to executed on completion
-     * @return This instruction
-     */
-    public final AutoInstruction onCompleted(Runnable runnable) {
-        completedEvent.sub(runnable);
-        return this;
+    private boolean completed = false;
+    private AutoInstruction next = null;
+    private double timeout = Double.MAX_VALUE;
+
+    public final void begin() {
+        timer.start();
     }
 
     public final void complete() {
@@ -28,6 +30,20 @@ public abstract class AutoInstruction extends RobotReferences {
 
     public final boolean hasCompleted() {
         return completed;
+    }
+
+    public final boolean hasTimedOut() {
+        return timer.hasElapsed(timeout);
+    }
+
+    /**
+     * Allows a runnable to be executed when the instruction completes
+     * @param runnable Runnable to executed on completion
+     * @return This instruction
+     */
+    public final AutoInstruction onCompleted(Runnable runnable) {
+        completedEvent.sub(runnable);
+        return this;
     }
 
     /**
@@ -40,7 +56,11 @@ public abstract class AutoInstruction extends RobotReferences {
         return this;
     }
 
-    private AutoInstruction next = null;
+    public final AutoInstruction withTimeout(double timeout) {
+        if (this.timeout > timeout)
+            this.timeout = timeout;
+        return this;
+    }
 
     /**
      * Creates a blank instruction
@@ -102,6 +122,10 @@ public abstract class AutoInstruction extends RobotReferences {
         }
         return this;
     }
+    public final AutoInstruction periodically(Supplier<Boolean> periodicExtension) {
+        periodicExtensions.add(periodicExtension);
+        return this;
+    }
     /**
      * Prints a message
      * @param message The message
@@ -124,6 +148,13 @@ public abstract class AutoInstruction extends RobotReferences {
         if (next == null)
             return;
         executor.accept(next);
+    }
+
+    public final void executePeriodicExtensions() {
+        new ArrayList<Supplier<Boolean>>(periodicExtensions).forEach(periodicExtension -> {
+            if (periodicExtension.get())
+                complete();
+        });
     }
 
     public boolean anySequentialIncomplete() {

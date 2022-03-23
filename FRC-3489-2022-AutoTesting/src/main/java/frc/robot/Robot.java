@@ -15,6 +15,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     robotManager = new RobotManager(this);
     robotManager.robotInit();
+    addPeriodic(() -> robotManager.robotFastPeriodic(), Constants.FastPeriodicPeriod);
   }
 
   @Override

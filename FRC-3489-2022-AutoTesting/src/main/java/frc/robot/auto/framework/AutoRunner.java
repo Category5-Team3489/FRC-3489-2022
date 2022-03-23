@@ -11,9 +11,9 @@ public class AutoRunner {
 
     private RobotManager robotManager;
 
-    private List<AutoInstruction> instructions = new ArrayList<AutoInstruction>();
+    private final List<AutoInstruction> instructions = new ArrayList<AutoInstruction>();
 
-    private Map<String, AutoEvent> triggers = new HashMap<String, AutoEvent>();
+    private final Map<String, AutoEvent> triggers = new HashMap<String, AutoEvent>();
 
     public AutoRunner(RobotManager robotManager) {
         this.robotManager = robotManager;
@@ -22,13 +22,22 @@ public class AutoRunner {
     public void beginExecution(AutoInstruction instruction) {
         robotManager.copyReferences(instruction);
         instructions.add(instruction);
+        instruction.begin();
         instruction.init();
-        completeInstruction(instruction);
+        tryCompleteInstruction(instruction);
+    }
+
+    public void cancelExecution() {
+        copyInstructions().forEach(AutoInstruction::completed);
+        instructions.clear();
     }
 
     public void periodic() {
         checkComplete();
-        copyInstructions().forEach(AutoInstruction::periodic);
+        copyInstructions().forEach(instruction -> {
+            instruction.periodic();
+            instruction.executePeriodicExtensions();
+        });
     }
 
     public void fastPeriodic() {
@@ -46,16 +55,20 @@ public class AutoRunner {
 
     public void setTrigger(String trigger) {
         AutoEvent event = triggers.get(trigger);
-        if (event == null) return;
+        if (event == null)
+            return;
         event.run();
     }
 
     private void checkComplete() {
-        copyInstructions().forEach(instruction -> completeInstruction(instruction));
+        copyInstructions().forEach(instruction -> tryCompleteInstruction(instruction));
     }
 
-    private void completeInstruction(AutoInstruction instruction) {
-        if (!instruction.hasCompleted()) return;
+    private void tryCompleteInstruction(AutoInstruction instruction) {
+        if (instruction.hasTimedOut())
+            instruction.complete();
+        if (!instruction.hasCompleted())
+            return;
         instruction.completed();
         instruction.execute(nextInstruction -> beginExecution(nextInstruction));
         instructions.remove(instruction);

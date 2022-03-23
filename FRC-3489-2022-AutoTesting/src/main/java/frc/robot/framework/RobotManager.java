@@ -7,8 +7,11 @@ import java.util.function.Consumer;
 import frc.robot.Robot;
 import frc.robot.containers.ComponentsContainer;
 import frc.robot.handlers.*;
+import frc.robot.types.RobotPhase;
 
 public final class RobotManager extends RobotHandler {
+
+    public RobotPhase robotPhase = RobotPhase.Disabled;
 
     private List<RobotHandler> handlers = new ArrayList<RobotHandler>();
 
@@ -63,24 +66,28 @@ public final class RobotManager extends RobotHandler {
         handlers.forEach(RobotHandler::robotPeriodic);
     }
     public void disabledInit() {
+        robotPhase = RobotPhase.Disabled;
         handlers.forEach(RobotHandler::disabledInit);
     }
     public void disabledPeriodic() {
         handlers.forEach(RobotHandler::disabledPeriodic);
     }
     public void autonomousInit() {
+        robotPhase = RobotPhase.Autonomous;
         handlers.forEach(RobotHandler::autonomousInit);
     }
     public void autonomousPeriodic() {
         handlers.forEach(RobotHandler::autonomousPeriodic);
     }
     public void teleopInit() {
+        robotPhase = RobotPhase.Teleop;
         handlers.forEach(RobotHandler::teleopInit);
     }
     public void teleopPeriodic() {
         handlers.forEach(RobotHandler::teleopPeriodic);
     }
     public void testInit() {
+        robotPhase = RobotPhase.Test;
         handlers.forEach(RobotHandler::testInit);
     }
     public void testPeriodic() {

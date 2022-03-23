@@ -3,10 +3,8 @@ package frc.robot.handlers;
 import java.util.HashMap;
 import java.util.Map;
 
-import frc.robot.Constants;
 import frc.robot.auto.autos.*;
 import frc.robot.auto.framework.AutoBuilder;
-import frc.robot.auto.framework.AutoInstruction;
 import frc.robot.auto.framework.AutoRunner;
 import frc.robot.framework.RobotHandler;
 import frc.robot.interfaces.IShuffleboardState;
@@ -36,11 +34,11 @@ public class AutoHandler extends RobotHandler implements IShuffleboardState {
     public void robotInit() {
         shuffleboardHandler.createAutoChooserWidget();
         runner = new AutoRunner(robotManager);
-        robot.addPeriodic(() -> runner.fastPeriodic(), Constants.FastPeriodicPeriod);
     }
 
     @Override
     public void robotPeriodic() {
+        runner.periodic();
         int currentSelectedAuto = shuffleboardHandler.getSelectedAuto();
         if (selectedAuto != currentSelectedAuto) {
             selectedAuto = currentSelectedAuto;
@@ -49,20 +47,30 @@ public class AutoHandler extends RobotHandler implements IShuffleboardState {
     }
 
     @Override
+    public void robotFastPeriodic() {
+        runner.fastPeriodic();
+    }
+
+    @Override
     public void autonomousInit() {
+        runner.cancelExecution();
         int selectedAuto = shuffleboardHandler.getSelectedAuto();
         if (!autos.containsKey(selectedAuto))
             return;
         AutoBuilder auto = autos.get(selectedAuto);
         robotManager.copyReferences(auto);
         auto.setRunner(runner);
-        AutoInstruction first = auto.build();
-        auto.begin(first);
+        auto.begin(auto.build());
     }
-    
+
     @Override
-    public void autonomousPeriodic() {
-        runner.periodic();
+    public void teleopInit() {
+        runner.cancelExecution();
+    }
+
+    @Override
+    public void disabledInit() {
+        runner.cancelExecution();
     }
 
     @Override

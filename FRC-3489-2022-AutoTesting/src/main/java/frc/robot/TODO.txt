@@ -9,9 +9,9 @@
 // Think about intake, how to index, may be indexing to far, or stopping to fast when cargo hits laser sensor
 // Add auto aim drive centering /////////////////////////////////////////////////
 
-// Add with timeout to auto instruction ///////////////////////////////////////////////////
-// in with timeout, will need to add start time of all instructions and check for that in auto runner, when doing withTimeout,
-// only need one timeout default is double.MaxValue, when calling withTimeout, only need to change that value if the timeout is less than the current timeout
+// May want some way of cancelling running instructions?
+// Or just save the instruction and use on complete
+
 // Add auto instruction for periodically checking if complete, fancy wait until ///////////////////
 // Clearing for all auto instructions when running during teleop after auto
 
