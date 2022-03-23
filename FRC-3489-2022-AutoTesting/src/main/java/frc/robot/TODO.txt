@@ -1,6 +1,7 @@
 Slew limiting only on decel
-No slew limiting????????????????? ?//////////////////////////////////
-Move pid stuff so can be used in teleo //////////////////////////
+No slew limiting?
+
+Move pid stuff so can be used in teleop //////////
 Map ball trajectory //////////////////////
 Scale shooter speed based on distances ////////////////////////
 Decrease CAN traffic
@@ -21,11 +22,12 @@ Use velocity of winch as a safety, or current draw, to prevent bagpipe falcon th
 Optimizing other motor speeds
 Separate climbing sequence
 
+Handling ball count at beginning of match
+
 Stop spam setting cargo transfer handler
 Organize TODO
 Spam setting pnuematics?
 Organize constants
-
 
 // Tagging auto instructions so only certain ones can be cancelled
 
@@ -46,14 +48,6 @@ Organize constants
 // Button debouncer
 // Dynamically defining instructions, may need value providers for dynamic instruction imput, boolean provider, double provider
 // Camera tracking balls
-// 
-
-
-// PRIORITY
-// TODO Test Auto
-// TODO Tune PID turn
-// TODO Tune PID drive
-// Handling ball count at beginning of match
 
 // LATER
 // TODO Document auto
