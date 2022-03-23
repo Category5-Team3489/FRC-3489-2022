@@ -1,5 +1,6 @@
 package frc.robot.handlers;
 
+import edu.wpi.first.cscore.HttpCamera;
 import edu.wpi.first.cscore.VideoSource;
 import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
@@ -75,6 +76,13 @@ public class ShuffleboardHandler extends RobotHandler {
             .withWidget(BuiltInWidgets.kCameraStream)
             .withSize(4, 4)
             .withPosition(0, 0);
+    }
+
+    public void createLimelightCameraWidget(HttpCamera source) {
+        ShuffleboardUtils.mainTab
+            .add(source)
+            .withWidget(BuiltInWidgets.kCameraStream)
+            .withSize(2, 2);
     }
 
     public void createAutoChooserWidget() {

@@ -11,7 +11,7 @@ import frc.robot.types.RobotPhase;
 
 public final class RobotManager extends RobotHandler {
 
-    public RobotPhase robotPhase = RobotPhase.Disabled;
+    private RobotPhase robotPhase = RobotPhase.Disabled;
 
     private List<RobotHandler> handlers = new ArrayList<RobotHandler>();
 
@@ -57,6 +57,10 @@ public final class RobotManager extends RobotHandler {
 
     public void forEachHandler(Consumer<RobotHandler> action) {
         handlers.forEach(action);
+    }
+
+    public RobotPhase getRobotPhase() {
+        return robotPhase;
     }
 
     public void robotInit() {

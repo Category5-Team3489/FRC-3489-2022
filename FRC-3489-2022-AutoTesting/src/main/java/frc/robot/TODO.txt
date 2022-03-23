@@ -1,22 +1,13 @@
-// Reset method for handlers?
 // Slew limiting only on decel
 // No slew limiting????????????????? ?//////////////////////////////////
 // Move pid stuff so can be used in teleo //////////////////////////
 // Map ball trajectory //////////////////////
 // Scale shooter speed based on distances ////////////////////////
-// limelight climb cam //////////////////////////////
 // Decrease CAN traffic
 // Think about intake, how to index, may be indexing to far, or stopping to fast when cargo hits laser sensor
 // Add auto aim drive centering /////////////////////////////////////////////////
 
-// May want some way of cancelling running instructions?
-// Or just save the instruction and use on complete
-
-// Add auto instruction for periodically checking if complete, fancy wait until ///////////////////
-// Clearing for all auto instructions when running during teleop after auto
-
-// Fast periodic that covers all handlers
-// Get game phase method in robot manager??? if fast periodic in all handlers
+// Tagging auto instructions so only certain ones can be cancelled
 
 // TO INSTALL REV ROBOTICS LIBRARY
 // https://github.com/REVrobotics/REV-Software-Binaries/releases/download/revlib-2022.1.1/REVLib-offline-v2022.1.1.zip
@@ -24,6 +15,9 @@
 
 // Notes
 // negative up on climber
+
+// Decisions
+// Reset method for handlers? Can just put a disabled init in there
 
 // After anderson
 // Move climber stuff to auto instructions

@@ -28,8 +28,14 @@ public class AutoRunner {
     }
 
     public void cancelExecution() {
-        copyInstructions().forEach(AutoInstruction::completed);
-        instructions.clear();
+        List<AutoInstruction> copiedInstructions;
+        while ((copiedInstructions = copyInstructions()).size() > 0) {
+            copiedInstructions.forEach(instruction -> {
+                instruction.complete();
+                instruction.completed();
+                instructions.remove(instruction);
+            });
+        }
     }
 
     public void periodic() {
@@ -70,7 +76,7 @@ public class AutoRunner {
         if (!instruction.hasCompleted())
             return;
         instruction.completed();
-        instruction.execute(nextInstruction -> beginExecution(nextInstruction));
+        instruction.executeNext(nextInstruction -> beginExecution(nextInstruction));
         instructions.remove(instruction);
     }
 

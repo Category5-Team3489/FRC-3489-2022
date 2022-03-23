@@ -144,7 +144,7 @@ public abstract class AutoInstruction extends RobotReferences {
         return AutoBuilder.waitUntil(event);
     }
 
-    public final void execute(Consumer<AutoInstruction> executor) {
+    public final void executeNext(Consumer<AutoInstruction> executor) {
         if (next == null)
             return;
         executor.accept(next);
