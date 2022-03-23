@@ -5,12 +5,12 @@ Map ball trajectory //////////////////////
 Scale shooter speed based on distances ////////////////////////
 Decrease CAN traffic
 Think about intake, how to index, may be indexing to far, or stopping to fast when cargo hits laser sensor
-Add auto aim drive centering /////////////////////////////////////////////////
+Add auto aim drive centering
 Move climber stuff to auto instructions
 Test ball spin for helping accuracy
 Look over scouting questions
 Tuning turn PID
-PID with new 
+PID with new
 Turning button during tele if turning pid works well?
 Current limiting motors?, 342 guy said may help
 Improve team previewer
@@ -19,7 +19,11 @@ Optimizing climing sequence speed, maybe make winch faster
 Make climbing sequence two buttons
 Use velocity of winch as a safety, or current draw, to prevent bagpipe falcon that dies
 Optimizing other motor speeds
+Separate climbing sequence
 
+Stop spam setting cargo transfer handler
+Organize TODO
+Spam setting pnuematics?
 
 
 // Tagging auto instructions so only certain ones can be cancelled
