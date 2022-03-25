@@ -9,12 +9,31 @@ import frc.robot.types.ClimberStep;
 
 public class ClimberHandler extends RobotHandler implements IShuffleboardState {
 
+    private double telescopeEncoderOffset = 0;
+
+    private ClimberStep climberStep = ClimberStep.Default;
+    private boolean stepInitialized = false;
+    private boolean climbingToHighBar = false;
+
+    private boolean climbMidButton = false;
+    private boolean climbHighButton = false;
+    private boolean climbActivateButton = false;
+    private boolean climbResetButton = false;
+    private boolean climbEStopButton = false;
+
     public boolean isClimbing() {
         return climberStep != ClimberStep.Default;
     }
 
     public void setShuffleboardState() {
         shuffleboardHandler.setString(true, "Climber Step", climberStep.toString());
+    }
+
+    private void resetTelecopeEncoders() {
+        telescopeEncoderOffset = components.telescopeMotor.getSelectedSensorPosition();
+    }
+    private double getTelecopeEncoderPosition() {
+        return Math.abs(components.telescopeMotor.getSelectedSensorPosition() - telescopeEncoderOffset);
     }
 
     private void setLower(boolean value) {
@@ -32,26 +51,6 @@ public class ClimberHandler extends RobotHandler implements IShuffleboardState {
     private void setTelescope(double speed) {
         components.telescopeMotor.set(-speed); // Positive up
     }
-
-    private void resetTelecopeEncoders() {
-        telescopeEncoderOffset = components.telescopeMotor.getSelectedSensorPosition();
-    }
-    private double getTelecopeEncoderPosition() {
-        return Math.abs(components.telescopeMotor.getSelectedSensorPosition() - telescopeEncoderOffset);
-    }
-
-    private ClimberStep climberStep = ClimberStep.Default;
-    private boolean stepInitialized = false;
-
-    private boolean climbMidButton = false;
-    private boolean climbHighButton = false;
-    private boolean climbActivateButton = false;
-    private boolean climbResetButton = false;
-    private boolean climbEStopButton = false;
-
-    private double telescopeEncoderOffset = 0;
-
-    private boolean climbingToHighBar = false;
 
     private boolean shouldInit() {
         if (stepInitialized)
