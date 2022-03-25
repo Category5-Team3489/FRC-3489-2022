@@ -1,33 +1,35 @@
+
+// Drive
 Slew limiting only on decel
 No slew limiting?
 
-Move pid stuff so can be used in teleop //////////
-Map ball trajectory //////////////////////
-Scale shooter speed based on distances ////////////////////////
-Decrease CAN traffic
-Think about intake, how to index, may be indexing to far, or stopping to fast when cargo hits laser sensor
-Add auto aim drive centering
-Move climber stuff to auto instructions
-Test ball spin for helping accuracy
+// Scouting
 Look over scouting questions
-Tuning turn PID
-PID with new
-Turning button during tele if turning pid works well?
-Current limiting motors?, 342 guy said may help
 Improve team previewer
 No human player question for scouting, too hard to answer, bryan said???
-Optimizing climing sequence speed, maybe make winch faster
-Make climbing sequence two buttons
-Use velocity of winch as a safety, or current draw, to prevent bagpipe falcon that dies
+
+// Drive PID
+Turning button during tele if turning pid works well?
+Tuning turn PID
+PID with new drive motors
+Add auto aim drive centering ////////// IF NO SHOOTER RANGE FINDING AND SPEED SCALING
+
+// Shooter PID and Shooter range finding and shooting
+Move pid stuff so can be used in teleop
+Map ball trajectory
+Scale shooter speed based on distances
+Test ball spin for helping accuracy
+
+// General
+Decrease CAN traffic
+Think about intake, how to index, may be indexing to far, or stopping to fast when cargo hits laser sensor
+Current limiting motors?, 342 guy said may help
 Optimizing other motor speeds
-Separate climbing sequence
-
+Optimizing climing sequence speed, maybe make winch faster, combine first 2 instructions
 Handling ball count at beginning of match
-
-Stop spam setting cargo transfer handler
-Organize TODO
-Spam setting pnuematics?
 Organize constants
+Stop spam setting cargo transfer handler
+Spam setting pnuematics?
 
 // Tagging auto instructions so only certain ones can be cancelled
 
