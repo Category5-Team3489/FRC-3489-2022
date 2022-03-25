@@ -2,6 +2,10 @@ package frc.robot.handlers;
 
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
+import frc.robot.auto.framework.AutoBuilder;
+import frc.robot.auto.framework.AutoInstruction;
+import frc.robot.auto.instructions.DriveInstruction;
+import frc.robot.auto.instructions.DriveSecondsInstruction;
 import frc.robot.framework.RobotHandler;
 import frc.robot.interfaces.IShuffleboardState;
 import frc.robot.types.ClimberStep;
@@ -103,6 +107,10 @@ public class ClimberHandler extends RobotHandler implements IShuffleboardState {
 
     @Override
     public void teleopPeriodic() {
+
+        
+
+
         climbButton = components.manipulatorJoystick.getRawButton(Constants.ButtonClimb);
         climbHighButton = components.manipulatorJoystick.getRawButton(Constants.ButtonClimbHigh);
         climbActivateButton = components.manipulatorJoystick.getRawButton(Constants.ButtonClimbActivate);
@@ -214,39 +222,6 @@ public class ClimberHandler extends RobotHandler implements IShuffleboardState {
             nextStep();
         }
     }
-    // TODO replace by adding a step for s3StartRetract
-    boolean s3StartRetract = false;
-    private void S3DriveToMidBarThenRetractTelescope() {
-        if (shouldInit()) {
-            resetTelecopeEncoders();
-            components.navx.reset();
-            s3StartRetract = false;
-        }
-        components.drive.tankDrive(Constants.DriveToMidBarSpeed, Constants.DriveToMidBarSpeed);
-        if (Math.abs(components.navx.getPitch()) > Constants.ClimberPitchThreshold ||
-            timer.hasElapsed(Constants.Climber.S3DriveSafetyTimeout)) {
-            s3StartRetract = true;
-            timer.reset();
-        }
-        if (s3StartRetract) {
-            if (getTelecopeEncoderPosition() < Constants.Climber.RetractTelesopeClicks) {
-                setBrake(false);
-                setTelescope(Constants.TelescopeRetractSpeed);
-            }
-            else {
-                components.drive.stopMotor();
-                setTelescope(0);
-                setBrake(true);
-                nextStep();
-            }
-            if (timer.hasElapsed(Constants.Climber.S3RetractTimeout)) {
-                components.drive.stopMotor();
-                setTelescope(0);
-                setBrake(true);
-                nextStep();
-            }
-        }
-    }
     private void S4FinishedMidBarClimb() {
         if (shouldClimbHigh())
             nextStep();
@@ -329,5 +304,63 @@ public class ClimberHandler extends RobotHandler implements IShuffleboardState {
             setTelescope(0);
             setBrake(true);
         }
+    }
+
+    private AutoInstruction driveToMidBar() {
+        AutoInstruction instruction = AutoBuilder.blank(false)
+        .onInitialized(() -> {
+            components.navx.reset();
+            components.drive.tankDrive(Constants.DriveToMidBarSpeed, Constants.DriveToMidBarSpeed);
+        })
+        .periodically(() -> {
+            return Math.abs(components.navx.getPitch()) > Constants.Climber.PitchThreshold;
+        })
+        .onCompleted(() -> {
+            components.drive.stopMotor();
+        })
+        .withTimeout(2);
+        return instruction;
+    }
+
+    private AutoInstruction retractTelescopeOnMidBar() {
+        AutoInstruction instruction = AutoBuilder.blank(false)
+        .onInitialized(() -> {
+            setBrake(false);
+            setTelescope(Constants.TelescopeRetractSpeed);
+            resetTelecopeEncoders();
+        })
+        .periodically(() -> {
+            return getTelecopeEncoderPosition() > Constants.Climber.RetractTelesopeClicks ||
+            components.telescopeMotor.getStatorCurrent() > Constants.Climber.TelescopeMotorCurrentSafety;
+        })
+        .onCompleted(() -> {
+            setTelescope(0);
+            setBrake(true);
+        })
+        .withTimeout(2);
+        return instruction;
+    }
+
+    private AutoInstruction defaultAndDisabled() {
+        AutoInstruction instruction = AutoBuilder.blank(false)
+        .onInitialized(() -> {
+            components.drive.stopMotor();
+            setTelescope(0);
+            setBrake(true);
+            setLower(false);
+            setUpper(false);
+            setHooks(false);
+        });
+        return instruction;
+    }
+
+    private AutoInstruction emergencyStop() {
+        AutoInstruction instruction = AutoBuilder.blank(false)
+        .onInitialized(() -> {
+            components.drive.stopMotor();
+            setTelescope(0);
+            setBrake(true);
+        });
+        return instruction;
     }
 }

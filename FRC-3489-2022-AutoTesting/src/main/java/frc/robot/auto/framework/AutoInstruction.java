@@ -11,6 +11,7 @@ import frc.robot.framework.RobotReferences;
 
 public abstract class AutoInstruction extends RobotReferences {
 
+    protected final AutoEvent initializedEvent = new AutoEvent();
     protected final AutoEvent completedEvent = new AutoEvent();
     private final Timer timer = new Timer();
     private final List<Supplier<Boolean>> periodicExtensions = new ArrayList<Supplier<Boolean>>();
@@ -21,6 +22,7 @@ public abstract class AutoInstruction extends RobotReferences {
 
     public final void begin() {
         timer.start();
+        initializedEvent.run();
     }
 
     public final void complete() {
@@ -34,6 +36,11 @@ public abstract class AutoInstruction extends RobotReferences {
 
     public final boolean hasTimedOut() {
         return timer.hasElapsed(timeout);
+    }
+
+    public final AutoInstruction onInitialized(Runnable runnable) {
+        initializedEvent.sub(runnable);
+        return this;
     }
 
     /**
