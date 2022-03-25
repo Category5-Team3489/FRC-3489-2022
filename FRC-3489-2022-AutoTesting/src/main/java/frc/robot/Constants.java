@@ -15,7 +15,7 @@ public final class Constants {
     public static final String ShuffleboardMainTabName = "3489 2022";
     public static final String ShuffleboardAutoTabName = "3489 2022 Auto";
     public static final double ShuffleboardShowUpdateRate = 4;
-    public static final int ShuffleboardShowUpdatePeriod = (int)(50 /ShuffleboardShowUpdateRate); 
+    public static final int ShuffleboardShowUpdatePeriod = (int)(50 / ShuffleboardShowUpdateRate); 
 
     // Speeds
     public static final double ForwardIntakeMotorSpeed = -1;
@@ -54,7 +54,7 @@ public final class Constants {
     public static final int ButtonShootWrongColor = 3;
     public static final int ButtonStopShooter = 6;
 
-    public static final int ButtonClimb = 9;
+    public static final int ButtonClimbMid = 9;
     public static final int ButtonClimbHigh = 10;
     public static final int ButtonClimbActivate = 5;
     public static final int ButtonClimbReset = 11;
@@ -95,16 +95,6 @@ public final class Constants {
         public static final double PitchThreshold = 4;
 
         // TODO find current draw for bagpipe falcon
-        public static final double telescopeMotorCurrentSafety = Double.MAX_VALUE;
-
-        public static final double S1TimeDelay = 1;
-        public static final double S5TimeDelay = 1;
-        public static final double S8TimeDelay = 3;
-
-        public static final double S2SafetyTimeout = 3;
-        public static final double S3DriveSafetyTimeout = 2;
-        public static final double S3RetractTimeout = 3;
-        public static final double S6SafetyTimeout = 2;
-        public static final double S8SafetyTimeout = 3;
+        public static final double TelescopeMotorCurrentSafety = Double.MAX_VALUE;
     }
 }

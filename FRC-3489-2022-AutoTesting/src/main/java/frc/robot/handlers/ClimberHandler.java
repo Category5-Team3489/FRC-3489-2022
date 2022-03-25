@@ -1,11 +1,8 @@
 package frc.robot.handlers;
 
-import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
 import frc.robot.auto.framework.AutoBuilder;
 import frc.robot.auto.framework.AutoInstruction;
-import frc.robot.auto.instructions.DriveInstruction;
-import frc.robot.auto.instructions.DriveSecondsInstruction;
 import frc.robot.framework.RobotHandler;
 import frc.robot.interfaces.IShuffleboardState;
 import frc.robot.types.ClimberStep;
@@ -13,7 +10,7 @@ import frc.robot.types.ClimberStep;
 public class ClimberHandler extends RobotHandler implements IShuffleboardState {
 
     public boolean isClimbing() {
-        return climberStep != ClimberStep.S0Default;
+        return climberStep != ClimberStep.Default;
     }
 
     public void setShuffleboardState() {
@@ -43,17 +40,18 @@ public class ClimberHandler extends RobotHandler implements IShuffleboardState {
         return Math.abs(components.telescopeMotor.getSelectedSensorPosition() - telescopeEncoderOffset);
     }
 
-    private ClimberStep climberStep = ClimberStep.S0Default;
-    private Timer timer = new Timer();
+    private ClimberStep climberStep = ClimberStep.Default;
     private boolean stepInitialized = false;
 
-    private boolean climbButton = false;
+    private boolean climbMidButton = false;
     private boolean climbHighButton = false;
     private boolean climbActivateButton = false;
     private boolean climbResetButton = false;
     private boolean climbEStopButton = false;
 
     private double telescopeEncoderOffset = 0;
+
+    private boolean climbingToHighBar = false;
 
     private boolean shouldInit() {
         if (stepInitialized)
@@ -65,7 +63,6 @@ public class ClimberHandler extends RobotHandler implements IShuffleboardState {
     private void setStep(ClimberStep step) {
         climberStep = step;
         stepInitialized = false;
-        timer.reset();
         setShuffleboardState();
     }
 
@@ -74,15 +71,15 @@ public class ClimberHandler extends RobotHandler implements IShuffleboardState {
         int last = ClimberStep.values().length - 1;
         step++;
         if (step >= last) {
-            setStep(ClimberStep.S0Default);
+            setStep(ClimberStep.Default);
         }
         else {
             setStep(ClimberStep.values()[step]);
         }
     }
 
-    private boolean shouldClimb() {
-        return climbButton && climbActivateButton;
+    private boolean shouldClimbMid() {
+        return climbMidButton && climbActivateButton;
     }
 
     private boolean shouldClimbHigh() {
@@ -99,7 +96,6 @@ public class ClimberHandler extends RobotHandler implements IShuffleboardState {
 
     @Override
     public void teleopInit() {
-        timer.start();
         resetTelecopeEncoders();
     }
 
@@ -108,10 +104,7 @@ public class ClimberHandler extends RobotHandler implements IShuffleboardState {
     @Override
     public void teleopPeriodic() {
 
-        
-
-
-        climbButton = components.manipulatorJoystick.getRawButton(Constants.ButtonClimb);
+        climbMidButton = components.manipulatorJoystick.getRawButton(Constants.ButtonClimbMid);
         climbHighButton = components.manipulatorJoystick.getRawButton(Constants.ButtonClimbHigh);
         climbActivateButton = components.manipulatorJoystick.getRawButton(Constants.ButtonClimbActivate);
         climbResetButton = components.manipulatorJoystick.getRawButton(Constants.ButtonClimbReset);
@@ -140,170 +133,108 @@ public class ClimberHandler extends RobotHandler implements IShuffleboardState {
             return;
 
         if (shouldReset())
-            setStep(ClimberStep.S0Default);
+            setStep(ClimberStep.Default);
 
         if (shouldEStop())
-            setStep(ClimberStep.S10EStop);
+            setStep(ClimberStep.EStop);
 
         switch (climberStep) {
-            case S0Default:
-                S0Default();
+            case Default:
+                if (shouldInit()) {
+                    execute(disabled());
+                }
+                if (shouldClimbMid()) {
+                    climbingToHighBar = false;
+                    setStep(ClimberStep.ExtendTelescope);
+                }
+                if (shouldClimbHigh()) {
+                    climbingToHighBar = true;
+                    setStep(ClimberStep.ExtendLower);
+                }
                 break;
-            case S1ExtendLower:
-                S1ExtendLower();
+            case ExtendLower:
+                if (shouldInit()) {
+                    execute(extendLower());
+                }
                 break;
-            case S2ExtendTelesope:
-                S2ExtendTelesope();
+            case ExtendTelescope:
+                if (shouldInit()) {
+                    execute(extendTelescope());
+                }
                 break;
-            case S3DriveToMidBarThenRetractTelescope:
-                S3DriveToMidBarThenRetractTelescope();
+            case DriveToMidBar:
+                if (shouldInit()) {
+                    execute(driveToMidBar());
+                }
                 break;
-            case S4FinishedMidBarClimb:
-                S4FinishedMidBarClimb();
+            case RetractTelescopeOnMidBar:
+                if (shouldInit()) {
+                    execute(retractTelescopeOnMidBar());
+                }
                 break;
-            case S5ExtendUpper:
-                S5ExtendUpper();
+            case FinishedMidBarClimb:
+                if (climbingToHighBar) {
+                    if (shouldClimbHigh()) {
+                        nextStep();
+                    }
+                }
+                else {
+                    setStep(ClimberStep.Disabled);
+                }
                 break;
-            case S6ExtendTelesopeSlightly:
-                S6ExtendTelesopeSlightly();
+            case ExtendUpper:
+                if (shouldInit()) {
+                    execute(extendUpper());
+                }
                 break;
-            case S7ConfirmUnhook:
-                S7ConfirmUnhook();
+            case Unhook:
+                if (shouldInit()) {
+                    execute(unhook());
+                }
                 break;
-            case S8UnhookAndRetractTelescope:
-                S8UnhookAndRetractTelescope();
+            case Disabled:
+                if (shouldInit()) {
+                    execute(disabled());
+                }
                 break;
-            case S9DefaultAndDisabled:
-                S9DefaultAndDisabled();
-                break;
-            case S10EStop:
-                S10EStop();
+            case EStop:
+                if (shouldInit()) {
+                    execute(emergencyStop());
+                }
                 break;
             default:
                 break;
         }
     }
 
-    private void S0Default() {
-        if (shouldInit()) {
-            setBrake(true);
-            setLower(false);
-            setUpper(false);
-            setHooks(false);
-        }
-        if (shouldClimb())
-            nextStep();
-        if (shouldClimbHigh())
-            setStep(ClimberStep.S5ExtendUpper);
-    }
-    private void S1ExtendLower() {
-        if (shouldInit()) {
+    private AutoInstruction extendLower() {
+        AutoInstruction instruction = AutoBuilder.blank(false)
+        .onInitialized(() -> {
             setLower(true);
-        }
-        if (timer.hasElapsed(Constants.Climber.S1TimeDelay))
-            nextStep();
+        })
+        .onCompleted(() -> nextStep())
+        .withTimeout(1);
+        return instruction;
     }
-    private void S2ExtendTelesope() {
-        if (shouldInit()) {
+
+    private AutoInstruction extendTelescope() {
+        AutoInstruction instruction = AutoBuilder.blank(false)
+        .onInitialized(() -> {
             setBrake(false);
-            resetTelecopeEncoders();
-        }
-        if (getTelecopeEncoderPosition() < Constants.Climber.ExtendTelesopeClicks) {
             setTelescope(Constants.TelescopeExtendSpeed);
-        }
-        else {
-            setBrake(true);
-            setTelescope(0);
-            nextStep();
-        }
-        if (timer.hasElapsed(Constants.Climber.S2SafetyTimeout)) {
-            setBrake(true);
-            setTelescope(0);
-            nextStep();
-        }
-    }
-    private void S4FinishedMidBarClimb() {
-        if (shouldClimbHigh())
-            nextStep();
-    }
-    private void S5ExtendUpper() {
-        if (shouldInit()) {
-            setUpper(true);
-        }
-        if (timer.hasElapsed(Constants.Climber.S5TimeDelay))
-            nextStep();
-    }
-    private void S6ExtendTelesopeSlightly() {
-        nextStep();
-        return;
-        /*
-        if (shouldInit()) {
             resetTelecopeEncoders();
-            setBrake(false);
-        }
-        if (getTelecopeEncoderPosition() < Constants.ClicksExtendTelescopeSlightly) {
-            setTelescope(Constants.TelescopeExtendSpeed);
-        }
-        else {
+        })
+        .periodically(() -> {
+            return getTelecopeEncoderPosition() > Constants.Climber.ExtendTelesopeClicks ||
+            components.telescopeMotor.getStatorCurrent() > Constants.Climber.TelescopeMotorCurrentSafety;
+        })
+        .onCompleted(() -> {
             setTelescope(0);
             setBrake(true);
             nextStep();
-        }
-        if (timer.hasElapsed(Constants.SafteyTimeouts.S6SafetyTimeout)) {
-            setTelescope(0);
-            setBrake(true);
-            nextStep();
-        }
-        */
-    }
-    private void S7ConfirmUnhook() {
-        if (shouldClimb() || shouldClimbHigh()) {
-            nextStep();
-        }
-    }
-    private void S8UnhookAndRetractTelescope() {
-        if (shouldInit()) {
-            setHooks(true);
-        }
-        if (timer.hasElapsed(Constants.Climber.S8TimeDelay))
-            nextStep();
-        /*
-        if (shouldInit()) {
-            resetTelecopeEncoders();
-            setBrake(false);
-            setHooks(true);
-        }
-        if (getTelecopeEncoderPosition() < Constants.ClicksRetractTelescopeMajorly) {
-            setTelescope(Constants.TelescopeRetractSpeed);
-        }
-        else {
-            setTelescope(0);
-            setBrake(true);
-            if (timer.hasElapsed(Constants.S8TimeDelay))
-                nextStep();
-        }
-        if (timer.hasElapsed(Constants.SafteyTimeouts.S8SafetyTimeout)) {
-            setTelescope(0);
-            setBrake(true);
-            if (timer.hasElapsed(Constants.S8TimeDelay))
-                nextStep();
-        }
-        */
-    }
-    private void S9DefaultAndDisabled() {
-        if (shouldInit()) {
-            setBrake(true);
-            setLower(false);
-            setUpper(false);
-            setHooks(false);
-        }
-    }
-    private void S10EStop() {
-        if (shouldInit()) {
-            components.drive.stopMotor();
-            setTelescope(0);
-            setBrake(true);
-        }
+        })
+        .withTimeout(2);
+        return instruction;
     }
 
     private AutoInstruction driveToMidBar() {
@@ -317,6 +248,7 @@ public class ClimberHandler extends RobotHandler implements IShuffleboardState {
         })
         .onCompleted(() -> {
             components.drive.stopMotor();
+            nextStep();
         })
         .withTimeout(2);
         return instruction;
@@ -336,12 +268,33 @@ public class ClimberHandler extends RobotHandler implements IShuffleboardState {
         .onCompleted(() -> {
             setTelescope(0);
             setBrake(true);
+            nextStep();
         })
         .withTimeout(2);
         return instruction;
     }
 
-    private AutoInstruction defaultAndDisabled() {
+    private AutoInstruction extendUpper() {
+        AutoInstruction instruction = AutoBuilder.blank(false)
+        .onInitialized(() -> {
+            setUpper(true);
+        })
+        .onCompleted(() -> nextStep())
+        .withTimeout(1);
+        return instruction;
+    }
+
+    private AutoInstruction unhook() {
+        AutoInstruction instruction = AutoBuilder.blank(false)
+        .onInitialized(() -> {
+            setHooks(true);
+        })
+        .onCompleted(() -> nextStep())
+        .withTimeout(3);
+        return instruction;
+    }
+
+    private AutoInstruction disabled() {
         AutoInstruction instruction = AutoBuilder.blank(false)
         .onInitialized(() -> {
             components.drive.stopMotor();
@@ -362,5 +315,9 @@ public class ClimberHandler extends RobotHandler implements IShuffleboardState {
             setBrake(true);
         });
         return instruction;
+    }
+
+    private void execute(AutoInstruction instruction) {
+        autoHandler.runner.beginExecution(instruction);
     }
 }
