@@ -14,7 +14,6 @@ public final class Constants {
     public static final double ManualCargoSystemControlThreshhold = 0.75;
     public static final String ShuffleboardMainTabName = "3489 2022";
     public static final String ShuffleboardAutoTabName = "3489 2022 Auto";
-    public static final double ClimberPitchThreshold = 4;
     public static final double ShuffleboardShowUpdateRate = 4;
     public static final int ShuffleboardShowUpdatePeriod = (int)(50 /ShuffleboardShowUpdateRate); 
 
@@ -92,6 +91,11 @@ public final class Constants {
     {
         public static final double ExtendTelesopeClicks = 105000;
         public static final double RetractTelesopeClicks = 105000;
+
+        public static final double PitchThreshold = 4;
+
+        // TODO find current draw for bagpipe falcon
+        public static final double telescopeMotorCurrentSafety = Double.MAX_VALUE;
 
         public static final double S1TimeDelay = 1;
         public static final double S5TimeDelay = 1;
