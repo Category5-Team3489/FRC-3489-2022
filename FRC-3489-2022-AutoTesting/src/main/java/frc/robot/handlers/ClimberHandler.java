@@ -1,5 +1,6 @@
 package frc.robot.handlers;
 
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
 import frc.robot.auto.framework.AutoBuilder;
 import frc.robot.auto.framework.AutoInstruction;
@@ -14,6 +15,7 @@ public class ClimberHandler extends RobotHandler implements IShuffleboardState {
     private ClimberStep climberStep = ClimberStep.Default;
     private boolean stepInitialized = false;
     private boolean climbingToHighBar = false;
+    private Timer timer = new Timer();
 
     private boolean climbMidButton = false;
     private boolean climbHighButton = false;
@@ -62,6 +64,7 @@ public class ClimberHandler extends RobotHandler implements IShuffleboardState {
     private void setStep(ClimberStep step) {
         climberStep = step;
         stepInitialized = false;
+        timer.reset();
         setShuffleboardState();
     }
 
@@ -95,6 +98,7 @@ public class ClimberHandler extends RobotHandler implements IShuffleboardState {
 
     @Override
     public void teleopInit() {
+        timer.start();
         resetTelecopeEncoders();
     }
 
@@ -140,7 +144,7 @@ public class ClimberHandler extends RobotHandler implements IShuffleboardState {
         switch (climberStep) {
             case Default:
                 if (shouldInit()) {
-                    execute(disabled());
+                    disable();
                 }
                 if (shouldClimbMid()) {
                     climbingToHighBar = false;
@@ -153,8 +157,10 @@ public class ClimberHandler extends RobotHandler implements IShuffleboardState {
                 break;
             case ExtendLower:
                 if (shouldInit()) {
-                    execute(extendLower());
+                    setLower(true);
                 }
+                if (timer.hasElapsed(1))
+                    nextStep();
                 break;
             case ExtendTelescope:
                 if (shouldInit()) {
@@ -183,37 +189,33 @@ public class ClimberHandler extends RobotHandler implements IShuffleboardState {
                 break;
             case ExtendUpper:
                 if (shouldInit()) {
-                    execute(extendUpper());
+                    setUpper(true);
                 }
+                if (timer.hasElapsed(1))
+                    nextStep();
                 break;
             case Unhook:
                 if (shouldInit()) {
-                    execute(unhook());
+                    setHooks(true);
                 }
+                if (timer.hasElapsed(3))
+                    nextStep();
                 break;
             case Disabled:
                 if (shouldInit()) {
-                    execute(disabled());
+                    disable();
                 }
                 break;
             case EStop:
                 if (shouldInit()) {
-                    execute(emergencyStop());
+                    components.drive.stopMotor();
+                    setTelescope(0);
+                    setBrake(true);
                 }
                 break;
             default:
                 break;
         }
-    }
-
-    private AutoInstruction extendLower() {
-        AutoInstruction instruction = AutoBuilder.blank(false)
-        .onInitialized(() -> {
-            setLower(true);
-        })
-        .onCompleted(() -> nextStep())
-        .withTimeout(1);
-        return instruction;
     }
 
     private AutoInstruction extendTelescope() {
@@ -273,47 +275,13 @@ public class ClimberHandler extends RobotHandler implements IShuffleboardState {
         return instruction;
     }
 
-    private AutoInstruction extendUpper() {
-        AutoInstruction instruction = AutoBuilder.blank(false)
-        .onInitialized(() -> {
-            setUpper(true);
-        })
-        .onCompleted(() -> nextStep())
-        .withTimeout(1);
-        return instruction;
-    }
-
-    private AutoInstruction unhook() {
-        AutoInstruction instruction = AutoBuilder.blank(false)
-        .onInitialized(() -> {
-            setHooks(true);
-        })
-        .onCompleted(() -> nextStep())
-        .withTimeout(3);
-        return instruction;
-    }
-
-    private AutoInstruction disabled() {
-        AutoInstruction instruction = AutoBuilder.blank(false)
-        .onInitialized(() -> {
-            components.drive.stopMotor();
-            setTelescope(0);
-            setBrake(true);
-            setLower(false);
-            setUpper(false);
-            setHooks(false);
-        });
-        return instruction;
-    }
-
-    private AutoInstruction emergencyStop() {
-        AutoInstruction instruction = AutoBuilder.blank(false)
-        .onInitialized(() -> {
-            components.drive.stopMotor();
-            setTelescope(0);
-            setBrake(true);
-        });
-        return instruction;
+    private void disable() {
+        components.drive.stopMotor();
+        setTelescope(0);
+        setBrake(true);
+        setLower(false);
+        setUpper(false);
+        setHooks(false);
     }
 
     private void execute(AutoInstruction instruction) {
