@@ -10,6 +10,9 @@ import frc.robot.framework.RobotHandler;
 
 public class CameraHandler extends RobotHandler {
 
+    private boolean servoPositionIndexDirectionReversed = false;
+    private int servoPositionIndex = Constants.Camera.ServoStartingPositionIndex;
+
     @Override
     public void robotInit() {
         try {
@@ -27,5 +30,33 @@ public class CameraHandler extends RobotHandler {
         } catch (Exception e) {
             System.out.println("[CameraHandler] Couldn't init cameras");
         }
+    }
+
+    @Override
+    public void teleopPeriodic() {
+        if(shouldSwitchCamera()){
+            nextServoPosition();
+        }
+    }
+
+    public void nextServoPosition() {
+        if (!servoPositionIndexDirectionReversed)
+            servoPositionIndex++;
+        else
+            servoPositionIndex--;
+        if (servoPositionIndex == Constants.Camera.ServoPositions.length) {
+            servoPositionIndexDirectionReversed = true;
+            servoPositionIndex = Constants.Camera.ServoPositions.length - 2;
+        }
+        else if (servoPositionIndex == -1) {
+            servoPositionIndexDirectionReversed = false;
+            servoPositionIndex = 1;
+        }
+        components.cameraServo.setAngle(Constants.Camera.ServoPositions[servoPositionIndex]);
+    }
+
+    private boolean shouldSwitchCamera() {
+        return components.rightDriveJoystick.getRawButtonPressed(Constants.ButtonSwitchCamera) ||
+            components.rightDriveJoystick.getRawButtonPressed(Constants.ButtonSwitchCameraB);
     }
 }

@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Constants;
@@ -26,6 +27,9 @@ public final class ComponentsContainer {
     public DigitalInput intakeLaserSensor = new DigitalInput(0);
     public AHRS navx = new AHRS(SPI.Port.kMXP, (byte)200);
 
+    // Servos
+    public Servo cameraServo = new Servo(1);
+
     // Motors
     public CANSparkMax leftFrontDriveMotor = new CANSparkMax(1, MotorType.kBrushless);
     public CANSparkMax rightFrontDriveMotor = new CANSparkMax(2, MotorType.kBrushless);
@@ -34,7 +38,7 @@ public final class ComponentsContainer {
     public DifferentialDrive drive;
 
     public WPI_TalonSRX cargoTransferMotor = new WPI_TalonSRX(5);
-    public WPI_TalonSRX intakeMotor = new WPI_TalonSRX(6);
+    public WPI_TalonFX intakeMotor = new WPI_TalonFX(6);
     public WPI_TalonFX bottomShooterMotor = new WPI_TalonFX(7);
     public WPI_TalonFX topShooterMotor = new WPI_TalonFX(8);
     public WPI_TalonFX telescopeMotor = new WPI_TalonFX(9);
@@ -44,6 +48,9 @@ public final class ComponentsContainer {
     public Solenoid upperSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 3);
     public Solenoid hookSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 4);
     public Solenoid brakeSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 5);
+
+    // Intake
+    public Solenoid intakeSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 6);
 
     public ComponentsContainer() {
 

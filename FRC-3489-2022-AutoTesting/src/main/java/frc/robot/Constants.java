@@ -18,8 +18,8 @@ public final class Constants {
     public static final int ShuffleboardShowUpdatePeriod = (int)(50 / ShuffleboardShowUpdateRate); 
 
     // Speeds
-    public static final double ForwardIntakeMotorSpeed = -1;
-    public static final double BackwardIntakeMotorSpeed = 0.8;
+    public static final double ForwardIntakeMotorSpeed = 1;
+    public static final double BackwardIntakeMotorSpeed = -0.8;
 
     public static final double DriveAutoAimFrictionOvercomeMotorSpeed = 0.55;
 
@@ -36,7 +36,7 @@ public final class Constants {
     public static final double WrongColorTopSpeed = 0.2;
     public static final double WrongColorBottomSpeed = 0.2;
 
-    public static final double DriveToMidBarSpeed = 0.6;
+    public static final double DriveToMidBarSpeed = 0.5;
     public static final double TelescopeExtendSpeed = -0.8;
     public static final double SlightlyExtendSpeed = -0.05;
     public static final double TelescopeRetractSpeed = 0.6;
@@ -44,9 +44,10 @@ public final class Constants {
 
 
 
-    // Manipulator Buttons 4
+    // Manipulator Buttons
     public static final int ButtonToggleIntake = 2;
     public static final int ButtonShoot = 1;
+    public static final int ButtonAimCenterShoot = 4;
     //public static final int ButtonDebugCargoInLaser = 4;
     
     public static final int ButtonShootLowGoal = 8;
@@ -61,8 +62,8 @@ public final class Constants {
     public static final int ButtonClimbEStop = 12;
 
     // Drive Buttons
-    public static final int ButtonSwitchFront = 13;
-    public static final int ButtonSwitchFrontB = 7;
+    public static final int ButtonSwitchCamera = 13;
+    public static final int ButtonSwitchCameraB = 7;
 
     // Clicks
     public static final double ClicksPerCargoLength = 11159;//21k
@@ -74,6 +75,17 @@ public final class Constants {
         public static final double GearRatio = 7.31;
         public static final double ClicksPerMotorRev = 42;
         public static final double ClicksPerRev = GearRatio * ClicksPerMotorRev;
+
+        public static final double AimTolerance = 1.5; // degrees
+        public static final double CenterTolerance = 3; // inches
+
+        public static final double AimFrictionMotorSpeed = 0.55;
+        public static final double CenterFrictionMotorSpeed = 0.4;
+
+        public static final double ShooterDelay = 0.5;
+        public static final double ShootTime = 1.75;
+
+        public static final double ShootingDistance = 96; // inches
     }
 
     public static final class Auto
@@ -90,11 +102,17 @@ public final class Constants {
     public static final class Climber
     {
         public static final double ExtendTelesopeClicks = 105000;
-        public static final double RetractTelesopeClicks = 105000;
+        public static final double RetractTelesopeClicks = 105000 * 1.05;
 
         public static final double PitchThreshold = 4;
 
         // TODO find current draw for bagpipe falcon
         public static final double TelescopeMotorCurrentSafety = Double.MAX_VALUE;
+    }
+
+    public static final class Camera
+    {
+        public static final int ServoStartingPositionIndex = 0;
+        public static final double[] ServoPositions = { 0, 30, 60, 90 };
     }
 }

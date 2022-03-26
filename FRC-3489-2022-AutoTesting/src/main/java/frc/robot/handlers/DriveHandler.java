@@ -1,96 +1,122 @@
 package frc.robot.handlers;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
 import frc.robot.framework.RobotHandler;
 import frc.robot.interfaces.IShuffleboardState;
+import frc.robot.types.DriveState;
 
 public class DriveHandler extends RobotHandler implements IShuffleboardState {
 
+    // State
     private boolean isFront = true;
-    private boolean isDriving = true;
-    //private boolean isCentering = false;
+    private boolean driveStateInit = false;
+    private DriveState driveState = DriveState.Driving;
+    private double distanceEstimate = 0;
+    private Timer shootingTimer = new Timer();
 
-    private SlewRateLimiter leftLimiter = new SlewRateLimiter(Constants.DriveSetSpeedDeltaLimiter);
-    private SlewRateLimiter rightLimiter = new SlewRateLimiter(Constants.DriveSetSpeedDeltaLimiter);
+    // Slew limiting
+    //private SlewRateLimiter leftLimiter = new SlewRateLimiter(Constants.DriveSetSpeedDeltaLimiter);
+    //private SlewRateLimiter rightLimiter = new SlewRateLimiter(Constants.DriveSetSpeedDeltaLimiter);
 
+    // Limelight
     private NetworkTable limelight = NetworkTableInstance.getDefault().getTable("limelight");
     private NetworkTableEntry pipeline = limelight.getEntry("pipeline");
     private NetworkTableEntry targetX = limelight.getEntry("tx");
     private NetworkTableEntry targetY = limelight.getEntry("ty");
     //private NetworkTableEntry targetArea = limelight.getEntry("ta");
 
+    // PID controllers
+    private PIDController aimController = new PIDController(0.0125, 0.004, 0.0001);
+    private PIDController centerController = new PIDController(0, 0, 0);
 
-    private PIDController autoAimController = new PIDController(0.0125, 0.004, 0.0001);
-
-    private static double AutoAimTolerance = 1.5;
-
-    private long loop = 0;
+    public boolean isFront() {
+        return isFront;
+    }
+    
+    public DriveState getDriveState() {
+        return driveState;
+    }
 
     @Override
     public void robotInit() {
-        autoAimController.setSetpoint(0);
-        autoAimController.setTolerance(AutoAimTolerance);
-        setDriveState();
+        aimController.setSetpoint(0);
+        aimController.setTolerance(Constants.Drive.AimTolerance);
+        centerController.setSetpoint(0);
+        centerController.setTolerance(Constants.Drive.CenterTolerance);
+        pipeline.setNumber(1);
     }
 
     @Override
     public void robotPeriodic() {
-        loop++;
-        if (loop % 25 == 0)
-            System.out.println(getDistanceEstimate());
+        distanceEstimate = getDistanceEstimate();
+        shuffleboardHandler.showDouble(true, "Distance Estimate", distanceEstimate);
     }
 
     @Override
     public void teleopPeriodic() {
+        if (climberHandler.isClimbing())
+            return;
+
+        /*
         boolean switchFrontPressed = shouldSwitchFront();
         if (switchFrontPressed) {
             isFront = !isFront;
             setShuffleboardState();
         }
+        */
 
-        if (components.manipulatorJoystick.getRawButtonPressed(4)) {
-            isDriving = !isDriving;
-            setDriveState();
+        if (components.manipulatorJoystick.getRawButtonPressed(Constants.ButtonAimCenterShoot)) {
+            if (driveState == DriveState.Driving) {
+                setDriveState(DriveState.Aiming);
+                aimController.reset();
+                centerController.reset();
+                shootingTimer.stop();
+                shootingTimer.reset();
+                pipeline.setNumber(0);
+            }
+            else {
+                setDriveState(DriveState.Driving);
+                pipeline.setNumber(1);
+            }
         }
 
-        if (isDriving) {
-            drive();
+        switch (driveState) {
+            case Driving:
+                drive();
+                break;
+            case Aiming:
+                aim();
+                break;
+            case Centering:
+                center();
+                break;
+            case Shooting:
+                shoot();
+                break;
         }
-        else {
-            aim();
-        }
-    }
-
-    public boolean isFront() {
-        return isFront;
     }
 
     @Override
     public void setShuffleboardState() {
-        shuffleboardHandler.setString(true, "Front Switched", isFront ? "Forward" : "Backward");
-        shuffleboardHandler.setBoolean(true, "Auto Aiming", !isDriving);
-    }
-
-    private void setDriveState() {
-        if (isDriving) {
-            pipeline.setNumber(1);
-        }
-        else {
-            autoAimController.reset();
-            pipeline.setNumber(0);
-        }
+        //shuffleboardHandler.setString(true, "Front Switched", isFront ? "Forward" : "Backward");
+        shuffleboardHandler.setBoolean(true, "Auto Aiming", driveState != DriveState.Driving);
     }
 
     private void drive() {
+        if (shouldInit()) {
+
+        }
         double leftY = components.leftDriveJoystick.getY();
         double rightY = components.rightDriveJoystick.getY();
-        double leftSpeed = leftLimiter.calculate(leftY);
-        double rightSpeed = rightLimiter.calculate(rightY);
+        //double leftSpeed = leftLimiter.calculate(leftY);
+        //double rightSpeed = rightLimiter.calculate(rightY);
+        double leftSpeed = leftY;
+        double rightSpeed = rightY;
         if (Math.abs(leftY) < 0.1) leftSpeed = 0;
         if (Math.abs(rightY) < 0.1) rightSpeed = 0;
         if (isFront)
@@ -100,22 +126,55 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
     }
 
     private void aim() {
+        if (shouldInit()) {
+            
+        }
         double targetXOffset = targetX.getDouble(0);
-        //double adjustSpeed = Math.abs(targetXOffset) * 0.005;
-        double speed = Constants.DriveAutoAimFrictionOvercomeMotorSpeed + Math.abs(autoAimController.calculate(targetXOffset));
-        //double speed = components.manipulatorJoystick.getX();
-        //shuffleboardHandler.setDouble(true, "Debug Speed", speed);
-        //components.drive.tankDrive(speed, -speed);
-        if (!autoAimController.atSetpoint()) {
-            if (targetXOffset < 0) {
-                components.drive.tankDrive(-speed, speed);
-            }
-            else {
-                components.drive.tankDrive(speed, -speed);
-            }
+        double aimControllerOutput = aimController.calculate(targetXOffset);
+        double frictionConstant = aimControllerOutput > 0 ? Constants.Drive.AimFrictionMotorSpeed : -Constants.Drive.AimFrictionMotorSpeed;
+        double speed = frictionConstant + aimControllerOutput;
+        if (!aimController.atSetpoint()) {
+            components.drive.tankDrive(-speed, speed);
         }
         else {
             components.drive.stopMotor();
+            setDriveState(DriveState.Centering);
+        }
+    }
+
+    private void center() {
+        if (distanceEstimate == -1) {
+            setDriveState(DriveState.Driving);
+        }
+        if (shouldInit()) {
+
+        }
+        double centerControllerOutput = centerController.calculate(distanceEstimate - Constants.Drive.ShootingDistance);
+        double frictionConstant = centerControllerOutput > 0 ? Constants.Drive.CenterFrictionMotorSpeed : -Constants.Drive.CenterFrictionMotorSpeed;
+        double speed = frictionConstant + centerControllerOutput;
+        if (!centerController.atSetpoint()) {
+            components.drive.tankDrive(speed, speed);
+        }
+        else {
+            components.drive.stopMotor();
+            setDriveState(DriveState.Shooting);
+        }
+    }
+
+    private void shoot() {
+        if (shouldInit()) {
+            shootingTimer.start();
+            shooterHandler.shootHigh();
+        }
+        if (shootingTimer.hasElapsed(Constants.Drive.ShooterDelay)) {
+            // Run cargo mover
+            cargoTransferHandler.setShootSpeed();
+        } else if (shootingTimer.hasElapsed(Constants.Drive.ShooterDelay + Constants.Drive.ShootTime)) {
+            // Stop cargo mover
+            // Switch drive state back to normal teleop driving
+            cargoTransferHandler.stop();
+            shooterHandler.stop();
+            setDriveState(DriveState.Driving);
         }
     }
 
@@ -128,9 +187,22 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
         return distance;
     }
 
+    /*
     private boolean shouldSwitchFront() {
         return components.rightDriveJoystick.getRawButtonPressed(Constants.ButtonSwitchFront) ||
             components.rightDriveJoystick.getRawButtonPressed(Constants.ButtonSwitchFrontB);
     }
+    */
 
+    private boolean shouldInit() {
+        if (driveStateInit)
+            return false;
+        driveStateInit = true;
+        return true;
+    }
+
+    private void setDriveState(DriveState driveState) {
+        this.driveState = driveState;
+        driveStateInit = false;
+    }
 }

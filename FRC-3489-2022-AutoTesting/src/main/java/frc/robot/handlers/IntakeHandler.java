@@ -10,18 +10,26 @@ public class IntakeHandler extends RobotHandler implements IShuffleboardState {
     private IntakeState intakeState = IntakeState.Disabled;
 
     public void stop() {
-        if (update(IntakeState.Disabled))
+        if (update(IntakeState.Disabled)) {
             components.intakeMotor.stopMotor();
+            components.intakeSolenoid.set(false);
+        }
     }
 
-    public void forwardIntake() {
-        if (update(IntakeState.Forward))
+    public void forwardIntake(boolean setSolenoid) {
+        if (update(IntakeState.Forward)) {
             components.intakeMotor.set(Constants.ForwardIntakeMotorSpeed);
+            if (setSolenoid)
+                components.intakeSolenoid.set(true);
+        }
     }
     
-    public void backwardIntake(){
-        if (update(IntakeState.Backward))
+    public void backwardIntake(boolean setSolenoid){
+        if (update(IntakeState.Backward)) {
             components.intakeMotor.set(Constants.BackwardIntakeMotorSpeed);
+            if (setSolenoid)
+                components.intakeSolenoid.set(true);
+        }
     }
 
     public boolean isCargoInLaser() {

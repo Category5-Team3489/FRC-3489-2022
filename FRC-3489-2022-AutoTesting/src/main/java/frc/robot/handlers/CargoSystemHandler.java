@@ -32,6 +32,7 @@ public class CargoSystemHandler extends RobotHandler implements IShuffleboardSta
 
         toggleIntake();
         indexConveyorIfCargoInLaserSensor();
+        
         if (cargoCount == 2 && intakeHandler.isCargoInLaser()) {
             if (!isUnderManualControl) {
                 isIntakeActivated = false;
@@ -93,14 +94,15 @@ public class CargoSystemHandler extends RobotHandler implements IShuffleboardSta
     private void toggleIntake() {
         if (isUnderManualControl)
             return;
-
         boolean shouldToggleIntake = components.manipulatorJoystick.getRawButtonPressed(Constants.ButtonToggleIntake);
         if (shouldToggleIntake) {
             isIntakeActivated = !isIntakeActivated;
-            if (isIntakeActivated)
-                intakeHandler.forwardIntake();
-            else
+            if (isIntakeActivated) {
+                intakeHandler.forwardIntake(true);
+            }
+            else {
                 intakeHandler.stop();
+            }
         }
     }
 
@@ -132,11 +134,11 @@ public class CargoSystemHandler extends RobotHandler implements IShuffleboardSta
     private boolean manualCargoSystem() {
         double manipulatorJoystick = components.manipulatorJoystick.getY();
         if (manipulatorJoystick > Constants.ManualCargoSystemControlThreshhold) {
-            intakeHandler.backwardIntake();
+            intakeHandler.backwardIntake(false);
             cargoTransferHandler.set(Constants.ReverseCargoTransferMotorSpeed);
         }
         else if (manipulatorJoystick < -Constants.ManualCargoSystemControlThreshhold) {
-            intakeHandler.forwardIntake();
+            intakeHandler.forwardIntake(false);
             cargoTransferHandler.set(Constants.CargoTransferMotorSpeed);
         }
         else {

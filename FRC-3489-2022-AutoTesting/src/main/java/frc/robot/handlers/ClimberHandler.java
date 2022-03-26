@@ -148,11 +148,11 @@ public class ClimberHandler extends RobotHandler implements IShuffleboardState {
                 }
                 if (shouldClimbMid()) {
                     climbingToHighBar = false;
-                    setStep(ClimberStep.ExtendTelescope);
+                    nextStep();
                 }
                 if (shouldClimbHigh()) {
                     climbingToHighBar = true;
-                    setStep(ClimberStep.ExtendLower);
+                    nextStep();
                 }
                 break;
             case ExtendLower:
@@ -191,14 +191,19 @@ public class ClimberHandler extends RobotHandler implements IShuffleboardState {
                 if (shouldInit()) {
                     setUpper(true);
                 }
-                if (timer.hasElapsed(1))
+                if (timer.hasElapsed(2))
                     nextStep();
+                break;
+            case ConfirmUnhook:
+                if (shouldClimbHigh()) {
+                    nextStep();
+                }
                 break;
             case Unhook:
                 if (shouldInit()) {
                     setHooks(true);
                 }
-                if (timer.hasElapsed(3))
+                if (timer.hasElapsed(0.75))
                     nextStep();
                 break;
             case Disabled:
@@ -251,7 +256,7 @@ public class ClimberHandler extends RobotHandler implements IShuffleboardState {
             components.drive.stopMotor();
             nextStep();
         })
-        .withTimeout(2);
+        .withTimeout(4);
         return instruction;
     }
 

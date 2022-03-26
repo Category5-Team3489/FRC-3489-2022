@@ -1,24 +1,48 @@
 
-// Drive
-Slew limiting only on decel
-No slew limiting?
+// Needs to happen before SMR
+Functionality:
+    Two simple autos:
+        1: Shoot ball, back up out of tarmac
+        2: Shoot ball, back up, pick up ball, move forward, shoot, backup
+    Shooting from launch pad shooter speeds, with no centering
+    Shoot speed scaling based on distance
+    May not need ButtonShootWrongColor, could use to shoot from launch pad
+
+
+
+
+
+
+Testing:
+    Test climbing
+    Test intake
+    Make simple auto and test
+
+// Not completely necessary
+Use built in PID on motor controllers for centering the robot to auto aim
+
+// Really want
+Prevent bagpipe intake falcon, reverse intake
+Find current draw to prevent bagpipe falcon on winch
+PID drive with new drive motors
+PID turn with new motors
+Map ball trajectory
+Scale shooter speed based on distances
+Shooter velocity control with PID
+
+// Really want not completely necessary
+Move pid stuff so can be used in teleop
+Turning button during tele if turning pid works well?
+Test ball spin for helping accuracy
 
 // Scouting
+Improve going through scouting data and ordering teams for alliance selection
+Team previewer show 3 teams at once and compare data
+Displaying robot picture in team previewer from pit scouting
 Look over scouting questions
 Improve team previewer
 No human player question for scouting, too hard to answer, bryan said???
-
-// Drive PID
-Turning button during tele if turning pid works well?
-Tuning turn PID
-PID with new drive motors
-Add auto aim drive centering ////////// IF NO SHOOTER RANGE FINDING AND SPEED SCALING
-
-// Shooter PID and Shooter range finding and shooting
-Move pid stuff so can be used in teleop
-Map ball trajectory
-Scale shooter speed based on distances
-Test ball spin for helping accuracy
+Heatmap for scouting somehow?
 
 // General
 Decrease CAN traffic
@@ -28,10 +52,10 @@ Optimizing other motor speeds
 Optimizing climing sequence speed, maybe make winch faster, combine first 2 instructions
 Handling ball count at beginning of match
 Organize constants
-Stop spam setting cargo transfer handler
-Spam setting pnuematics?
 
-// Tagging auto instructions so only certain ones can be cancelled
+// Check later
+Spam setting pnuematics?
+Stop spam setting cargo transfer handler
 
 // TO INSTALL REV ROBOTICS LIBRARY
 // https://github.com/REVrobotics/REV-Software-Binaries/releases/download/revlib-2022.1.1/REVLib-offline-v2022.1.1.zip
@@ -42,24 +66,18 @@ Spam setting pnuematics?
 
 // Decisions
 // Reset method for handlers? Can just put a disabled init in there
+// Got rid of slew limiting, wheelie rollers on robot now
 
 // Think about
-// simple mid climb stuff?
-// Add climber manual control in case it doesnt work right
-// Hash code for shuffleboard simple widgets to avoid setting unnessisarily, or maybe not????/
-// Button debouncer
-// Dynamically defining instructions, may need value providers for dynamic instruction imput, boolean provider, double provider
-// Camera tracking balls
-
-// LATER
-// TODO Document auto
-// TODO Shooter velocity control with PID
-// TODO Logger handler
-// TODO Fix 2 drive docs
-
-// MAYBE???
-// TODO Auto docs
-// TODO Get class name method in RobotReferences? for logger
+Hash code for shuffleboard simple widgets to avoid setting unnessisarily, or maybe not????/
+Button debouncer
+Dynamically defining instructions, may need value providers for dynamic instruction imput, boolean provider, double provider
+Camera tracking balls
+Document auto framework
+Logger handler
+Fix 2 drive docs
+Get class name method in RobotReferences? for logger
+Tagging auto instructions so only certain ones can be cancelled
 
 // Useful info
 // look at Ziegler–Nichols tuning
