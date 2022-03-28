@@ -1,5 +1,16 @@
 
-// Needs to happen before SMR
+// Needs to happen before SMR quals
+Fix intake
+Limelight auto aim x axis, get friction constant
+Scouting app new matches and event id for export stuff, php scripts
+Maybe make shooter PID happen?
+
+Usb B cable
+
+
+
+
+
 Functionality:
     Two simple autos:
         1: Shoot ball, back up out of tarmac

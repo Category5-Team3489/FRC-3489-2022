@@ -18,6 +18,8 @@ public class CargoSystemHandler extends RobotHandler implements IShuffleboardSta
     @Override
     public void teleopPeriodic() {
 
+        boolean isCargoInLaser = intakeHandler.isCargoInLaser();
+
         // TODO spams setting stuff
         if (climberHandler.isClimbing()) {
             isIntakeActivated = false;
@@ -31,9 +33,9 @@ public class CargoSystemHandler extends RobotHandler implements IShuffleboardSta
         isUnderManualControl = manualCargoSystem();
 
         toggleIntake();
-        indexConveyorIfCargoInLaserSensor();
+        indexConveyorIfCargoInLaserSensor(isCargoInLaser);
         
-        if (cargoCount == 2 && intakeHandler.isCargoInLaser()) {
+        if (cargoCount == 2 && isCargoInLaser) {
             if (!isUnderManualControl) {
                 isIntakeActivated = false;
                 intakeHandler.stop();
@@ -78,11 +80,10 @@ public class CargoSystemHandler extends RobotHandler implements IShuffleboardSta
         }
     }
 
-    private void indexConveyorIfCargoInLaserSensor() {
+    private void indexConveyorIfCargoInLaserSensor(boolean isCargoInLaser) {
         if (!isIntakeActivated || isUnderManualControl)
             return;
-        
-        boolean isCargoInLaser = intakeHandler.isCargoInLaser();
+
         if (isCargoInLaser) {
             if (!cargoTransferHandler.isIndexing()) {
                 setCargoCount(cargoCount + 1);

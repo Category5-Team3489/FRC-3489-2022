@@ -68,7 +68,7 @@ public final class Constants {
     // Clicks
     public static final double ClicksPerCargoLength = 11159;//21k
 
-    public static final double ShootStopTimeDelay = 3;
+    public static final double ShootStopTimeDelay = 2; // was 3 and was too slow
 
     public static final class Drive
     {
@@ -86,6 +86,12 @@ public final class Constants {
         public static final double ShootTime = 1.75;
 
         public static final double ShootingDistance = 96; // inches
+    }
+
+    public static final class Intake
+    {
+        public static final double LaserSensorDelay = 0.2;
+        public static final int LaserSensorCycleDelay = (int)(LaserSensorDelay * 50);
     }
 
     public static final class Auto

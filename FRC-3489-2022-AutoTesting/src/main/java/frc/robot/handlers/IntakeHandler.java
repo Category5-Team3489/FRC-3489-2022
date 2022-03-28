@@ -1,5 +1,8 @@
 package frc.robot.handlers;
 
+import java.util.PriorityQueue;
+import java.util.Queue;
+
 import frc.robot.Constants;
 import frc.robot.framework.RobotHandler;
 import frc.robot.interfaces.IShuffleboardState;
@@ -8,6 +11,15 @@ import frc.robot.types.IntakeState;
 public class IntakeHandler extends RobotHandler implements IShuffleboardState {
 
     private IntakeState intakeState = IntakeState.Disabled;
+
+    private Queue<Boolean> laserSensorInput = new PriorityQueue<Boolean>();
+
+    @Override
+    public void robotInit() {
+        for (int i = 0; i < Constants.Intake.LaserSensorCycleDelay; i++) {
+            laserSensorInput.add(false);
+        }
+    }
 
     public void stop() {
         if (update(IntakeState.Disabled)) {
@@ -33,7 +45,9 @@ public class IntakeHandler extends RobotHandler implements IShuffleboardState {
     }
 
     public boolean isCargoInLaser() {
-        return !components.intakeLaserSensor.get();
+        boolean laserSensor = !components.intakeLaserSensor.get();
+        laserSensorInput.add(laserSensor);
+        return laserSensorInput.remove();
     }
 
     public IntakeState getIntakeState() {

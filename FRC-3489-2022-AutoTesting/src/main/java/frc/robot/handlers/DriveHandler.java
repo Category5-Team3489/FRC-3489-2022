@@ -31,7 +31,7 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
     //private NetworkTableEntry targetArea = limelight.getEntry("ta");
 
     // PID controllers
-    private PIDController aimController = new PIDController(0.0125, 0.004, 0.0001);
+    private PIDController aimController = new PIDController(0, 0, 0); // 0.0125, 0.004, 0.0001
     private PIDController centerController = new PIDController(0, 0, 0);
 
     public boolean isFront() {
@@ -129,6 +129,12 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
         if (shouldInit()) {
             
         }
+        // test friction overcome speed
+        double speed = components.manipulatorJoystick.getX();
+        System.out.println(speed);
+        components.drive.tankDrive(speed, -speed);
+        return;
+        /*
         double targetXOffset = targetX.getDouble(0);
         double aimControllerOutput = aimController.calculate(targetXOffset);
         double frictionConstant = aimControllerOutput > 0 ? Constants.Drive.AimFrictionMotorSpeed : -Constants.Drive.AimFrictionMotorSpeed;
@@ -140,6 +146,7 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
             components.drive.stopMotor();
             setDriveState(DriveState.Centering);
         }
+        */
     }
 
     private void center() {
