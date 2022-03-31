@@ -7,6 +7,7 @@ import frc.robot.auto.framework.AutoInstruction;
 import frc.robot.framework.RobotHandler;
 import frc.robot.interfaces.IShuffleboardState;
 import frc.robot.types.ClimberStep;
+import frc.robot.utils.GeneralUtils;
 
 public class ClimberHandler extends RobotHandler implements IShuffleboardState {
 
@@ -244,6 +245,7 @@ public class ClimberHandler extends RobotHandler implements IShuffleboardState {
     }
 
     private AutoInstruction driveToMidBar() {
+        /*
         AutoInstruction instruction = AutoBuilder.blank(false)
         .onInitialized(() -> {
             components.navx.reset();
@@ -251,6 +253,28 @@ public class ClimberHandler extends RobotHandler implements IShuffleboardState {
         })
         .periodically(() -> {
             return Math.abs(components.navx.getPitch()) > Constants.Climber.PitchThreshold;
+        })
+        .onCompleted(() -> {
+            components.drive.stopMotor();
+            nextStep();
+        })
+        .withTimeout(4);
+        return instruction;
+        */
+        AutoInstruction instruction = AutoBuilder.blank(false);
+        instruction.onInitialized(() -> {
+            components.navx.reset();
+        })
+        .periodically(() -> {
+            if (!instruction.timer.hasElapsed(1)) {
+                double speed = GeneralUtils.lerp(Constants.Climber.DriveToMidBarSpeedA, Constants.Climber.DriveToMidBarSpeedB, instruction.timer.get() / 1d);
+                components.drive.tankDrive(speed, speed);
+            }
+            else {
+                components.drive.tankDrive(Constants.Climber.SquareOnMidBarSpeed, Constants.Climber.SquareOnMidBarSpeed);
+                return Math.abs(components.navx.getPitch()) > Constants.Climber.PitchThreshold;
+            }
+            return false;
         })
         .onCompleted(() -> {
             components.drive.stopMotor();

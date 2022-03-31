@@ -1,24 +1,29 @@
 package frc.robot.auto.instructions;
 
+import com.revrobotics.RelativeEncoder;
+
 //import com.ctre.phoenix.motorcontrol.ControlMode;
 
-import edu.wpi.first.wpilibj.Timer;
-import frc.robot.Constants;
+//import edu.wpi.first.wpilibj.Timer;
 import frc.robot.auto.framework.AutoInstruction;
-import frc.robot.utils.CSVUtils;
+//import frc.robot.utils.CSVUtils;
 
 public class DriveInstruction extends AutoInstruction {
 
+    /*
     private final static double kP = 0.11;
     private final static double kI = 0.0001;//0.001;//0.0005;//0.001;
     private final static double kD = 25;//2;//5;
     private final static double kF = 0;
     private final static double Iz = 750; // required error to reset I accumulator
 
+    private Timer timer;
+    */
+
     private double speed;
     private double clicks;
 
-    private Timer timer;
+    private RelativeEncoder encoder;
 
     public DriveInstruction(double speed, double clicks) {
         this.speed = speed;
@@ -27,8 +32,9 @@ public class DriveInstruction extends AutoInstruction {
 
     @Override
     public void init() {
-        components.configAutoPIDDrive(Constants.MotorControllerTimeout, speed, kF, kP, kI, kD, Iz);
+        //components.configAutoPIDDrive(Constants.MotorControllerTimeout, speed, kF, kP, kI, kD, Iz);
 
+        /*
         timer = new Timer();
         timer.start();
         CSVUtils.setColumns("test.csv", "Time,Category,Value,Notes");
@@ -39,6 +45,11 @@ public class DriveInstruction extends AutoInstruction {
         addNote(kD);
         addNote(Iz);
         addNote(clicks);
+        */
+
+        components.drive.tankDrive(speed, speed);
+        encoder = components.leftFrontDriveMotor.getEncoder();
+        encoder.setPosition(0);
     }
 
     @Override
@@ -53,11 +64,14 @@ public class DriveInstruction extends AutoInstruction {
         if (Math.abs(components.leftFollowerDriveMotor.getClosedLoopError()) < Constants.ClicksPerInchDriven * 4)
             complete();
         */
+        //if (Math.abs(components.leftFollowerDriveMotor.getClosedLoopError()) < Constants.ClicksPerInchDriven * 4)
+        System.out.println("F: (" + components.leftFrontDriveMotor.getEncoder().getPosition() + ", " + components.rightFrontDriveMotor.getEncoder().getPosition() + ")");
+        System.out.println("B: (" + components.leftFollowerDriveMotor.getEncoder().getPosition() + ", " + components.rightFollowerDriveMotor.getEncoder().getPosition() + ")");
     }
 
     @Override
     public void completed() {
-        CSVUtils.write("test.csv", true);
+        //CSVUtils.write("test.csv", true);
         components.configNominalDrive();
     }
 
@@ -72,8 +86,10 @@ public class DriveInstruction extends AutoInstruction {
     }
     */
 
+    /*
     private void addNote(double note) {
         CSVUtils.add("test.csv", "0,Notes,0," + note);
     }
+    */
 
 }

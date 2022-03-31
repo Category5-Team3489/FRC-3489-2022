@@ -5,9 +5,6 @@ Limelight auto aim x axis, get friction constant
 Scouting app new matches and event id for export stuff, php scripts
 Maybe make shooter PID happen?
 
-Usb B cable
-
-
 
 
 

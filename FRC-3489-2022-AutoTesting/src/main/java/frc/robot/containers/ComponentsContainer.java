@@ -28,7 +28,7 @@ public final class ComponentsContainer {
     public AHRS navx = new AHRS(SPI.Port.kMXP, (byte)200);
 
     // Servos
-    public Servo cameraServo = new Servo(1);
+    public Servo cameraServo = new Servo(7);
 
     // Motors
     public CANSparkMax leftFrontDriveMotor = new CANSparkMax(1, MotorType.kBrushless);

@@ -1,0 +1,34 @@
+----On field----
+Limelight calibration
+Code to switch pipelines based on alliance in drivestation programatically
+get simple auto and 2 simple autos
+
+Decrease index dist?
+
+-- Pit TODO important
+Make intake better
+
+auto aim x-axis
+
+-- practice field --
+get friction constant for auto aim turn
+get friction constant for auto aim drive
+neo drive stuff
+
+-- Improvements --
+Position threshold for limelight centering, if already close, dont correct?
+R and B alliance pipelines if needed
+
+-- Future --
+If time:
+Make an auto instruction that uses encoder clicks than stops motors when hit target
+Log file shooter rps -> shooter pid? if needed
+
+????
+Slight shooter speed scaling based on range
+
+
+86
+89
+limelight dist near far
+

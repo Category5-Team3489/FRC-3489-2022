@@ -7,6 +7,7 @@ import edu.wpi.first.cscore.VideoSink;
 import edu.wpi.first.cscore.VideoSource.ConnectionStrategy;
 import frc.robot.Constants;
 import frc.robot.framework.RobotHandler;
+//import frc.robot.utils.GeneralUtils;
 
 public class CameraHandler extends RobotHandler {
 
@@ -33,7 +34,17 @@ public class CameraHandler extends RobotHandler {
     }
 
     @Override
+    public void teleopInit() {
+        components.cameraServo.setAngle(Constants.Camera.ServoPositions[Constants.Camera.ServoStartingPositionIndex]);
+        servoPositionIndex = Constants.Camera.ServoStartingPositionIndex;
+    }
+
+    @Override
     public void teleopPeriodic() {
+        /*
+        double throttle = components.manipulatorJoystick.getThrottle();
+        components.cameraServo.setAngle(GeneralUtils.lerp(70, 140, (throttle + 1d) / 2d));
+        */
         if(shouldSwitchCamera()){
             nextServoPosition();
         }

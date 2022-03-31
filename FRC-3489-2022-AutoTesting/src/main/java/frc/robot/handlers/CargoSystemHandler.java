@@ -14,6 +14,8 @@ public class CargoSystemHandler extends RobotHandler implements IShuffleboardSta
 
     private Timer stopShooterTimer = new Timer();
     private boolean stopShooterTimerRunning = false;
+
+    private Timer oneBallDelay = new Timer();
     
     @Override
     public void teleopPeriodic() {
@@ -85,10 +87,23 @@ public class CargoSystemHandler extends RobotHandler implements IShuffleboardSta
             return;
 
         if (isCargoInLaser) {
-            if (!cargoTransferHandler.isIndexing()) {
+            if (cargoCount == 0) {
+                setCargoCount(1);
+                oneBallDelay.reset();
+                oneBallDelay.start();
+            }
+            else if (cargoCount >= 1 && oneBallDelay.hasElapsed(1) && !cargoTransferHandler.isIndexing()) {
+                setCargoCount(cargoCount + 1);
+                cargoTransferHandler.index();
+                isIntakeActivated = true;
+                intakeHandler.forwardIntake(false);
+            }
+            /*
+            if (cargoCount < 2 && !cargoTransferHandler.isIndexing()) {
                 setCargoCount(cargoCount + 1);
                 cargoTransferHandler.index();
             }
+            */
         }
     }
 

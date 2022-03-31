@@ -26,7 +26,7 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
     // Limelight
     private NetworkTable limelight = NetworkTableInstance.getDefault().getTable("limelight");
     private NetworkTableEntry pipeline = limelight.getEntry("pipeline");
-    private NetworkTableEntry targetX = limelight.getEntry("tx");
+    //private NetworkTableEntry targetX = limelight.getEntry("tx");
     private NetworkTableEntry targetY = limelight.getEntry("ty");
     //private NetworkTableEntry targetArea = limelight.getEntry("ta");
 
@@ -48,7 +48,8 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
         aimController.setTolerance(Constants.Drive.AimTolerance);
         centerController.setSetpoint(0);
         centerController.setTolerance(Constants.Drive.CenterTolerance);
-        pipeline.setNumber(1);
+        // TODO ----------------------------------------------------------------
+        pipeline.setNumber(2);
     }
 
     @Override
@@ -77,11 +78,12 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
                 centerController.reset();
                 shootingTimer.stop();
                 shootingTimer.reset();
-                pipeline.setNumber(0);
+                pipeline.setNumber(2);
             }
             else {
                 setDriveState(DriveState.Driving);
-                pipeline.setNumber(1);
+                // TODO /////////////////////////////////////////////////////////
+                pipeline.setNumber(2);
             }
         }
 

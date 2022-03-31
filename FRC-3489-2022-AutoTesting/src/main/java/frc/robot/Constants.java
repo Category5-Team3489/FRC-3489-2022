@@ -90,8 +90,8 @@ public final class Constants {
 
     public static final class Intake
     {
-        public static final double LaserSensorDelay = 0.2;
-        public static final int LaserSensorCycleDelay = (int)(LaserSensorDelay * 50);
+        //public static final double LaserSensorDelay = 2;
+        //public static final int LaserSensorCycleDelay = (int)(LaserSensorDelay * 50);
     }
 
     public static final class Auto
@@ -114,11 +114,15 @@ public final class Constants {
 
         // TODO find current draw for bagpipe falcon
         public static final double TelescopeMotorCurrentSafety = Double.MAX_VALUE;
+
+        public static final double DriveToMidBarSpeedA = 0.4;
+        public static final double DriveToMidBarSpeedB = 0.275;
+        public static final double SquareOnMidBarSpeed = 0.55;
     }
 
     public static final class Camera
     {
         public static final int ServoStartingPositionIndex = 0;
-        public static final double[] ServoPositions = { 0, 30, 60, 90 };
+        public static final double[] ServoPositions = { 70, 140 };
     }
 }

@@ -13,7 +13,7 @@ public abstract class AutoInstruction extends RobotReferences {
 
     protected final AutoEvent initializedEvent = new AutoEvent();
     protected final AutoEvent completedEvent = new AutoEvent();
-    private final Timer timer = new Timer();
+    public final Timer timer = new Timer();
     private final List<Supplier<Boolean>> periodicExtensions = new ArrayList<Supplier<Boolean>>();
 
     private boolean completed = false;
