@@ -7,7 +7,6 @@ import frc.robot.auto.framework.AutoInstruction;
 import frc.robot.framework.RobotHandler;
 import frc.robot.interfaces.IShuffleboardState;
 import frc.robot.types.ClimberStep;
-import frc.robot.utils.GeneralUtils;
 
 public class ClimberHandler extends RobotHandler implements IShuffleboardState {
 

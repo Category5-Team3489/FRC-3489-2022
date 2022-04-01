@@ -77,10 +77,10 @@ public final class Constants {
         public static final double ClicksPerRev = GearRatio * ClicksPerMotorRev;
 
         public static final double AimTolerance = 1.5; // degrees
-        public static final double CenterTolerance = 1.5; // inches
+        public static final double CenterTolerance = 3; // inches // was 2
 
-        public static final double AimFrictionMotorSpeed = 0.25; // .55
-        public static final double CenterFrictionMotorSpeed = 0.15;
+        public static final double AimFrictionMotorSpeed = 0.25; // was 25
+        public static final double CenterFrictionMotorSpeed = 0.15; // was 15
 
         public static final double ShooterDelay = 0.5;
         public static final double ShootTime = 1.75;

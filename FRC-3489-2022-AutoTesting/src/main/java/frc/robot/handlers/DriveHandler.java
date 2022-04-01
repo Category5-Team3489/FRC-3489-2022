@@ -176,13 +176,15 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
 
     private void shoot() {
         if (shouldInit()) {
+            shootingTimer.reset();
             shootingTimer.start();
             shooterHandler.shootHigh();
         }
         if (shootingTimer.hasElapsed(Constants.Drive.ShooterDelay)) {
             // Run cargo mover
-            cargoTransferHandler.set(0.5);
-        } else if (shootingTimer.hasElapsed(Constants.Drive.ShooterDelay + Constants.Drive.ShootTime)) {
+            cargoTransferHandler.setShootSpeed();
+        }
+        if (shootingTimer.hasElapsed(Constants.Drive.ShooterDelay + Constants.Drive.ShootTime)) {
             // Stop cargo mover
             // Switch drive state back to normal teleop driving
             cargoTransferHandler.stop();
@@ -217,5 +219,6 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
     private void setDriveState(DriveState driveState) {
         this.driveState = driveState;
         driveStateInit = false;
+        shuffleboardHandler.setString(true, "Drive State", driveState.toString());
     }
 }

@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
 import frc.robot.framework.RobotHandler;
 import frc.robot.interfaces.IShuffleboardState;
+import frc.robot.types.DriveState;
 
 public class CargoSystemHandler extends RobotHandler implements IShuffleboardState {
 
@@ -21,6 +22,10 @@ public class CargoSystemHandler extends RobotHandler implements IShuffleboardSta
     public void teleopPeriodic() {
 
         boolean isCargoInLaser = intakeHandler.isCargoInLaser();
+
+        if (driveHandler.getDriveState() != DriveState.Driving) {
+            return;
+        }
 
         // TODO spams setting stuff
         if (climberHandler.isClimbing()) {
