@@ -27,7 +27,7 @@ public class AutoQuickPickupAim extends AutoBuilder {
         )
         .cargoTransfer(0.5, 0.5 * Constants.ClicksPerCargoLength)
         .concurrently(
-            driveSeconds(-0.65, 1 * 0.75)
+            driveSeconds(-0.65, (1 * 0.75) - 0.1)
         )
         .blank(false)
         .periodically(() -> {
