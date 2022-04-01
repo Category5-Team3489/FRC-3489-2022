@@ -1,5 +1,4 @@
 limelight filtering
-navx testing
 
 
 ----On field----
