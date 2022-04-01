@@ -26,7 +26,7 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
 
     // Limelight
     private NetworkTable limelight = NetworkTableInstance.getDefault().getTable("limelight");
-    private NetworkTableEntry pipeline = limelight.getEntry("pipeline");
+    public NetworkTableEntry pipeline = limelight.getEntry("pipeline");
     private NetworkTableEntry targetX = limelight.getEntry("tx");
     private NetworkTableEntry targetY = limelight.getEntry("ty");
     //private NetworkTableEntry targetArea = limelight.getEntry("ta");
@@ -153,6 +153,21 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
             components.drive.stopMotor();
             setDriveState(DriveState.Centering);
         }
+    }
+
+    public boolean autoAim() {
+        double targetXOffset = targetX.getDouble(0);
+        double aimControllerOutput = aimController.calculate(targetXOffset);
+        double frictionConstant = aimControllerOutput > 0 ? Constants.Drive.AimFrictionMotorSpeed : -Constants.Drive.AimFrictionMotorSpeed;
+        double speed = frictionConstant + aimControllerOutput;
+        if (!aimController.atSetpoint()) {
+            components.drive.tankDrive(-speed, speed);
+        }
+        else {
+            components.drive.stopMotor();
+            return true;
+        }
+        return false;
     }
 
     private void center() {

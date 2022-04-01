@@ -1,6 +1,4 @@
--- Morning --
-figure out climber
-auto
+phantom ball
 
 
 FIx cargo mover colliding sets in drive auto aim, increase tolarances

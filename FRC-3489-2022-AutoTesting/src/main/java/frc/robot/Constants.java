@@ -107,8 +107,8 @@ public final class Constants {
 
     public static final class Climber
     {
-        public static final double ExtendTelesopeClicks = 105000;
-        public static final double RetractTelesopeClicks = 105000 * 1.05;
+        public static final double ExtendTelesopeClicks = 105000 * 0.88;
+        public static final double RetractTelesopeClicks = 105000 * 1.05 * 0.88;
 
         public static final double PitchThreshold = 4;
 

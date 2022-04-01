@@ -97,6 +97,7 @@ public class ShuffleboardHandler extends RobotHandler {
         autoChooser.addOption("7: Shoot Intake", 7);
         autoChooser.addOption("16: Auto Simple", 16);
         autoChooser.addOption("17: Auto Simple Pickup", 17);
+        autoChooser.addOption("18: Auto Auto Aim???", 18);
         autoChooser.addOption("32: Test", 32);
         ShuffleboardUtils.autoTab
             .add(autoChooser)

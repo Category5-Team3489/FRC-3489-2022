@@ -27,6 +27,7 @@ public class AutoHandler extends RobotHandler implements IShuffleboardState {
         autos.put(7, new Auto7());
         autos.put(16, new AutoQuick());
         autos.put(17, new AutoQuickPickup());
+        autos.put(18, new AutoQuickPickupAim());
         autos.put(32, new Auto32());
     }
 
