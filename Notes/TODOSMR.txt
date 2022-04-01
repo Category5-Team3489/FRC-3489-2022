@@ -1,23 +1,8 @@
-phantom ball
-
-
-FIx cargo mover colliding sets in drive auto aim, increase tolarances
 limelight filtering
 
 
 ----On field----
-Limelight calibration
-Code to switch pipelines based on alliance in drivestation programatically
 get simple auto and 2 simple autos
-
-Decrease index dist?
-
--- Pit TODO important
-Make intake better
-
-LOWER CLIMB DRIVE SPEED?
-
-auto aim x-axis
 
 -- practice field --
 get friction constant for auto aim turn
@@ -27,6 +12,7 @@ neo drive stuff
 -- Improvements --
 Position threshold for limelight centering, if already close, dont correct?
 R and B alliance pipelines if needed
+Code to switch pipelines based on alliance in drivestation programatically
 
 -- Future --
 If time:

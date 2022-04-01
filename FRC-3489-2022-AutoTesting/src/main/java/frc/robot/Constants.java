@@ -110,14 +110,14 @@ public final class Constants {
         public static final double ExtendTelesopeClicks = 105000 * 0.88;
         public static final double RetractTelesopeClicks = 105000 * 1.05 * 0.88;
 
-        public static final double PitchThreshold = 4;
+        public static final double PitchThreshold = 2.5;
 
         // TODO find current draw for bagpipe falcon
         public static final double TelescopeMotorCurrentSafety = Double.MAX_VALUE;
 
         //public static final double DriveToMidBarSpeedA = 0.25;//0.325;
         //public static final double DriveToMidBarSpeedB = 0.25;
-        public static final double SquareOnMidBarSpeed = 0.3;
+        public static final double SquareOnMidBarSpeed = 0.35;///////////////////////////////
 
         public static final double DriveToMidBarTime = 1.75 * 1.5;
     }

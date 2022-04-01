@@ -42,12 +42,14 @@ public class CargoSystemHandler extends RobotHandler implements IShuffleboardSta
         toggleIntake();
         indexConveyorIfCargoInLaserSensor(isCargoInLaser);
         
+        /*
         if (cargoCount == 2 && isCargoInLaser) {
             if (!isUnderManualControl) {
                 isIntakeActivated = false;
                 intakeHandler.stop();
             }
         }
+        */
 
         if (!isUnderManualControl) {
             shoot();
@@ -98,6 +100,8 @@ public class CargoSystemHandler extends RobotHandler implements IShuffleboardSta
             }
             else if (cargoCount == 1 && !cargoTransferHandler.isIndexing()) {
                 setCargoCount(cargoCount + 1);
+                isIntakeActivated = false;
+                intakeHandler.stop();
             }
             /*
             if (cargoCount == 0) {
