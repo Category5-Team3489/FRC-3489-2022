@@ -1,8 +1,10 @@
 -- Morning --
 figure out climber
-show number of matches for each team panel
-sort teams by attribute in team previewer
 auto
+
+
+FIx cargo mover colliding sets in drive auto aim, increase tolarances
+limelight filtering
 
 
 ----On field----
@@ -40,4 +42,8 @@ Slight shooter speed scaling based on range
 86
 89
 limelight dist near far
+
+
+show number of matches for each team panel
+sort teams by attribute in team previewer
 

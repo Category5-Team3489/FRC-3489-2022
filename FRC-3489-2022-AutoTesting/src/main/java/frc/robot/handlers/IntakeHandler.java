@@ -67,6 +67,7 @@ public class IntakeHandler extends RobotHandler implements IShuffleboardState {
     private boolean update(IntakeState desired) {
         if (intakeState != desired) {
             intakeState = desired;
+            setShuffleboardState();
             return true;
         }
         return false;

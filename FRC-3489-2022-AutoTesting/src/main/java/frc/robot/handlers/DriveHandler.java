@@ -18,6 +18,7 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
     private DriveState driveState = DriveState.Driving;
     private double distanceEstimate = 0;
     private Timer shootingTimer = new Timer();
+    private Timer autoAimTimer = new Timer();
 
     // Slew limiting
     //private SlewRateLimiter leftLimiter = new SlewRateLimiter(Constants.DriveSetSpeedDeltaLimiter);
@@ -31,8 +32,8 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
     //private NetworkTableEntry targetArea = limelight.getEntry("ta");
 
     // PID controllers
-    private PIDController aimController = new PIDController(0.0125 / 2, 0, 0); // 0.0125, 0.004, 0.0001
-    private PIDController centerController = new PIDController(0, 0, 0);
+    private PIDController aimController = new PIDController(0.0025 * 2, 0, 0); // 0.0125, 0.004, 0.0001
+    private PIDController centerController = new PIDController(0.0025 * 1.75 * 1.5, 0, 0);
 
     public boolean isFront() {
         return isFront;
@@ -60,6 +61,8 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
 
     @Override
     public void teleopPeriodic() {
+        shuffleboardHandler.showBoolean(true, "Auto Aiming", driveState == DriveState.Shooting);
+
         if (climberHandler.isClimbing())
             return;
 
@@ -79,6 +82,8 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
                 shootingTimer.stop();
                 shootingTimer.reset();
                 pipeline.setNumber(0);
+                autoAimTimer.reset();
+                autoAimTimer.start();
             }
             else {
                 setDriveState(DriveState.Driving);
@@ -106,7 +111,6 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
     @Override
     public void setShuffleboardState() {
         //shuffleboardHandler.setString(true, "Front Switched", isFront ? "Forward" : "Backward");
-        shuffleboardHandler.setBoolean(true, "Auto Aiming", driveState != DriveState.Driving);
     }
 
     private void drive() {
@@ -135,7 +139,7 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
         // test friction overcome speed
         double speed = components.manipulatorJoystick.getX();
         System.out.println(speed);
-        components.drive.tankDrive(speed, -speed);
+        components.drive.tankDrive(speed, speed);
         return;
         */
         double targetXOffset = targetX.getDouble(0);
@@ -177,7 +181,7 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
         }
         if (shootingTimer.hasElapsed(Constants.Drive.ShooterDelay)) {
             // Run cargo mover
-            cargoTransferHandler.setShootSpeed();
+            cargoTransferHandler.set(0.5);
         } else if (shootingTimer.hasElapsed(Constants.Drive.ShooterDelay + Constants.Drive.ShootTime)) {
             // Stop cargo mover
             // Switch drive state back to normal teleop driving

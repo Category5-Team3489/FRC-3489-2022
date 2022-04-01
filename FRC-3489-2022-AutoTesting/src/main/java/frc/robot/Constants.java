@@ -77,15 +77,15 @@ public final class Constants {
         public static final double ClicksPerRev = GearRatio * ClicksPerMotorRev;
 
         public static final double AimTolerance = 1.5; // degrees
-        public static final double CenterTolerance = 3; // inches
+        public static final double CenterTolerance = 1.5; // inches
 
-        public static final double AimFrictionMotorSpeed = 0.55;
-        public static final double CenterFrictionMotorSpeed = 0.4;
+        public static final double AimFrictionMotorSpeed = 0.25; // .55
+        public static final double CenterFrictionMotorSpeed = 0.15;
 
         public static final double ShooterDelay = 0.5;
         public static final double ShootTime = 1.75;
 
-        public static final double ShootingDistance = 96; // inches
+        public static final double ShootingDistance = 105; // inches 107
     }
 
     public static final class Intake
@@ -115,9 +115,11 @@ public final class Constants {
         // TODO find current draw for bagpipe falcon
         public static final double TelescopeMotorCurrentSafety = Double.MAX_VALUE;
 
-        public static final double DriveToMidBarSpeedA = 0.4;
-        public static final double DriveToMidBarSpeedB = 0.275;
-        public static final double SquareOnMidBarSpeed = 0.55;
+        //public static final double DriveToMidBarSpeedA = 0.25;//0.325;
+        //public static final double DriveToMidBarSpeedB = 0.25;
+        public static final double SquareOnMidBarSpeed = 0.3;
+
+        public static final double DriveToMidBarTime = 1.75 * 1.5;
     }
 
     public static final class Camera

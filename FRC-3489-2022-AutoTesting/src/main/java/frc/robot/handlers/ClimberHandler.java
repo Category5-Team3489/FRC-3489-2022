@@ -204,7 +204,7 @@ public class ClimberHandler extends RobotHandler implements IShuffleboardState {
                 if (shouldInit()) {
                     setHooks(true);
                 }
-                if (timer.hasElapsed(0.75))
+                if (timer.hasElapsed(1.5))
                     nextStep();
                 break;
             case Disabled:
@@ -269,11 +269,29 @@ public class ClimberHandler extends RobotHandler implements IShuffleboardState {
             squareOnMidBarTimer.reset();
             squareOnMidBarTimer.start();
         })
+        .periodically(() -> {
+            /*
+            if (Math.abs(components.navx.getPitch()) < Constants.Climber.PitchThreshold) {
+                double speed = GeneralUtils.lerp(Constants.Climber.DriveToMidBarSpeedA, Constants.Climber.DriveToMidBarSpeedB, instruction.timer.get() / 1d);
+                components.drive.tankDrive(speed, speed);
+            }
+            return false;
+            */
+            /*
+            if (!instruction.timer.hasElapsed(Constants.Climber.DriveToMidBarTime)) {
+                double speed = GeneralUtils.lerp(Constants.Climber.DriveToMidBarSpeedA, Constants.Climber.DriveToMidBarSpeedB, instruction.timer.get() / Constants.Climber.DriveToMidBarTime);
+                components.drive.tankDrive(speed, speed);
+            }
+            */
+            components.drive.tankDrive(Constants.Climber.SquareOnMidBarSpeed, Constants.Climber.SquareOnMidBarSpeed);
+            return Math.abs(components.navx.getPitch()) > Constants.Climber.PitchThreshold;
+            //return false;
+        })
         .onCompleted(() -> {
             components.drive.stopMotor();
             nextStep();
         })
-        .withTimeout(4);
+        .withTimeout(3.25);
         return instruction;
     }
 
