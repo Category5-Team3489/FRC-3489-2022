@@ -66,13 +66,13 @@ public final class Constants {
     public static final int ButtonSwitchCameraB = 7;
 
     // Clicks
-    public static final double ClicksPerCargoLength = 11159;//21k
+    public static final double ClicksPerCargoLength = 11159 * 1.25d;//21k
 
     public static final double ShootStopTimeDelay = 2; // was 3 and was too slow
 
     public static final class Drive
     {
-        public static final double GearRatio = 7.31;
+        public static final double GearRatio = 1 / 7.31;
         public static final double ClicksPerMotorRev = 42;
         public static final double ClicksPerRev = GearRatio * ClicksPerMotorRev;
 

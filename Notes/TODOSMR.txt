@@ -1,3 +1,10 @@
+-- Morning --
+figure out climber
+show number of matches for each team panel
+sort teams by attribute in team previewer
+auto
+
+
 ----On field----
 Limelight calibration
 Code to switch pipelines based on alliance in drivestation programatically
@@ -7,6 +14,8 @@ Decrease index dist?
 
 -- Pit TODO important
 Make intake better
+
+LOWER CLIMB DRIVE SPEED?
 
 auto aim x-axis
 

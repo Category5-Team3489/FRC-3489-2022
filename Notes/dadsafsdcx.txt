@@ -1,0 +1,1 @@
+show number of matches for each team panel

@@ -1,0 +1,20 @@
+        .periodically(() -> {
+            /*
+            if (Math.abs(components.navx.getPitch()) < Constants.Climber.PitchThreshold) {
+                double speed = GeneralUtils.lerp(Constants.Climber.DriveToMidBarSpeedA, Constants.Climber.DriveToMidBarSpeedB, instruction.timer.get() / 1d);
+                components.drive.tankDrive(speed, speed);
+            }
+            return false;
+            */
+            /*
+            if (!instruction.timer.hasElapsed(1)) {
+                double speed = GeneralUtils.lerp(Constants.Climber.DriveToMidBarSpeedA, Constants.Climber.DriveToMidBarSpeedB, instruction.timer.get() / 1d);
+                components.drive.tankDrive(speed, speed);
+            }
+            else {
+                components.drive.tankDrive(Constants.Climber.SquareOnMidBarSpeed, Constants.Climber.SquareOnMidBarSpeed);
+                return Math.abs(components.navx.getPitch()) > Constants.Climber.PitchThreshold;
+            }
+            return false;
+            */
+        })

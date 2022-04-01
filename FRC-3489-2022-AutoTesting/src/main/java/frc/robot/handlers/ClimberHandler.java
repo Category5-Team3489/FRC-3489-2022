@@ -244,6 +244,8 @@ public class ClimberHandler extends RobotHandler implements IShuffleboardState {
         return instruction;
     }
 
+    private Timer squareOnMidBarTimer = new Timer();
+
     private AutoInstruction driveToMidBar() {
         /*
         AutoInstruction instruction = AutoBuilder.blank(false)
@@ -264,17 +266,8 @@ public class ClimberHandler extends RobotHandler implements IShuffleboardState {
         AutoInstruction instruction = AutoBuilder.blank(false);
         instruction.onInitialized(() -> {
             components.navx.reset();
-        })
-        .periodically(() -> {
-            if (!instruction.timer.hasElapsed(1)) {
-                double speed = GeneralUtils.lerp(Constants.Climber.DriveToMidBarSpeedA, Constants.Climber.DriveToMidBarSpeedB, instruction.timer.get() / 1d);
-                components.drive.tankDrive(speed, speed);
-            }
-            else {
-                components.drive.tankDrive(Constants.Climber.SquareOnMidBarSpeed, Constants.Climber.SquareOnMidBarSpeed);
-                return Math.abs(components.navx.getPitch()) > Constants.Climber.PitchThreshold;
-            }
-            return false;
+            squareOnMidBarTimer.reset();
+            squareOnMidBarTimer.start();
         })
         .onCompleted(() -> {
             components.drive.stopMotor();

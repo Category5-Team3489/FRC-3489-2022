@@ -67,6 +67,9 @@ public final class RobotManager extends RobotHandler {
         handlers.forEach(RobotHandler::robotInit);
     }
     public void robotPeriodic() {
+        // TODO DEbgu
+        System.out.println("F: (" + components.leftFrontDriveMotor.getEncoder().getPosition() + ", " + components.rightFrontDriveMotor.getEncoder().getPosition() + ")");
+        System.out.println("B: (" + components.leftFollowerDriveMotor.getEncoder().getPosition() + ", " + components.rightFollowerDriveMotor.getEncoder().getPosition() + ")");
         handlers.forEach(RobotHandler::robotPeriodic);
     }
     public void disabledInit() {

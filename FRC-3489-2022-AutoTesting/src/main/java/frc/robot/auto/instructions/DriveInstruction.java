@@ -65,8 +65,6 @@ public class DriveInstruction extends AutoInstruction {
             complete();
         */
         //if (Math.abs(components.leftFollowerDriveMotor.getClosedLoopError()) < Constants.ClicksPerInchDriven * 4)
-        System.out.println("F: (" + components.leftFrontDriveMotor.getEncoder().getPosition() + ", " + components.rightFrontDriveMotor.getEncoder().getPosition() + ")");
-        System.out.println("B: (" + components.leftFollowerDriveMotor.getEncoder().getPosition() + ", " + components.rightFollowerDriveMotor.getEncoder().getPosition() + ")");
     }
 
     @Override
