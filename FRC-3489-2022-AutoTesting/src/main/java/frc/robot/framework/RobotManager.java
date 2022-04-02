@@ -28,6 +28,7 @@ public final class RobotManager extends RobotHandler {
         handlers.add(intakeHandler = new IntakeHandler());
         handlers.add(shooterHandler = new ShooterHandler());
         handlers.add(cargoSystemHandler = new CargoSystemHandler());
+        handlers.add(limelightHandler = new LimelightHandler());
 
         // SHUFFLEBOARD MUST BE LAST
         handlers.add(shuffleboardHandler = new ShuffleboardHandler());
@@ -50,6 +51,7 @@ public final class RobotManager extends RobotHandler {
         references.intakeHandler = intakeHandler;
         references.shooterHandler = shooterHandler;
         references.cargoSystemHandler = cargoSystemHandler;
+        references.limelightHandler = limelightHandler;
 
         // SHUFFLEBOARD MUST BE LAST
         references.shuffleboardHandler = shuffleboardHandler;
@@ -71,6 +73,9 @@ public final class RobotManager extends RobotHandler {
         //System.out.println("F: (" + components.leftFrontDriveMotor.getEncoder().getPosition() + ", " + components.rightFrontDriveMotor.getEncoder().getPosition() + ")");
         //System.out.println("B: (" + components.leftFollowerDriveMotor.getEncoder().getPosition() + ", " + components.rightFollowerDriveMotor.getEncoder().getPosition() + ")");
         handlers.forEach(RobotHandler::robotPeriodic);
+    }
+    public void robotFastPeriodic() {
+        handlers.forEach(RobotHandler::robotFastPeriodic);
     }
     public void disabledInit() {
         robotPhase = RobotPhase.Disabled;

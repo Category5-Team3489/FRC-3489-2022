@@ -1,9 +1,7 @@
 package frc.robot.handlers;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
 import frc.robot.framework.RobotHandler;
@@ -25,10 +23,10 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
     //private SlewRateLimiter rightLimiter = new SlewRateLimiter(Constants.DriveSetSpeedDeltaLimiter);
 
     // Limelight
-    private NetworkTable limelight = NetworkTableInstance.getDefault().getTable("limelight");
-    public NetworkTableEntry pipeline = limelight.getEntry("pipeline");
-    private NetworkTableEntry targetX = limelight.getEntry("tx");
-    private NetworkTableEntry targetY = limelight.getEntry("ty");
+    //private NetworkTable limelight = NetworkTableInstance.getDefault().getTable("limelight");
+    public NetworkTableEntry pipeline;
+    //private NetworkTableEntry targetX = limelight.getEntry("tx");
+    //private NetworkTableEntry targetY = limelight.getEntry("ty");
     //private NetworkTableEntry targetArea = limelight.getEntry("ta");
 
     // PID controllers
@@ -45,6 +43,7 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
 
     @Override
     public void robotInit() {
+        pipeline = limelightHandler.limelight.getEntry("pipeline");
         aimController.setSetpoint(0);
         aimController.setTolerance(Constants.Drive.AimTolerance);
         centerController.setSetpoint(0);
@@ -142,7 +141,7 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
         components.drive.tankDrive(speed, speed);
         return;
         */
-        double targetXOffset = targetX.getDouble(0);
+        double targetXOffset = limelightHandler.x;
         double aimControllerOutput = aimController.calculate(targetXOffset);
         double frictionConstant = aimControllerOutput > 0 ? Constants.Drive.AimFrictionMotorSpeed : -Constants.Drive.AimFrictionMotorSpeed;
         double speed = frictionConstant + aimControllerOutput;
@@ -156,7 +155,10 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
     }
 
     public boolean autoAim() {
-        double targetXOffset = targetX.getDouble(0);
+        if (!limelightHandler.isTargetVisible()) {
+            return true;
+        }
+        double targetXOffset = limelightHandler.x;
         double aimControllerOutput = aimController.calculate(targetXOffset);
         double frictionConstant = aimControllerOutput > 0 ? Constants.Drive.AimFrictionMotorSpeed : -Constants.Drive.AimFrictionMotorSpeed;
         double speed = frictionConstant + aimControllerOutput;
@@ -210,8 +212,8 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
 
     private double getDistanceEstimate()
     {
-        double targetYOffset = targetY.getDouble(0);
-        if (targetYOffset == 0)
+        double targetYOffset = limelightHandler.y;
+        if (!limelightHandler.isTargetVisible())
             return -1;
         double distance = 67.625 / Math.tan(Math.toRadians(46.13 + targetYOffset));
         return distance;
