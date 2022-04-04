@@ -1,9 +1,12 @@
 package frc.robot.handlers;
 
 import frc.robot.Constants;
+import frc.robot.Constants.Shooter;
 import frc.robot.framework.RobotHandler;
 import frc.robot.interfaces.IShuffleboardState;
+import frc.robot.types.ShooterSetting;
 import frc.robot.types.ShooterState;
+import frc.robot.utils.GeneralUtils;
 
 public class ShooterHandler extends RobotHandler implements IShuffleboardState {
 
@@ -74,6 +77,23 @@ public class ShooterHandler extends RobotHandler implements IShuffleboardState {
             return true;
         }
         return false;
+    }
+
+    private ShooterSetting getShooterSettingAtDistance(double distance) {
+        // find 2 indexes in table around point
+        double dist = Constants.Shooter.ShooterSpeedTableStart;
+        for (int i = 0; i < 7; i++) {
+            double next = dist + Constants.Shooter.ShooterSpeedTableIncrement;
+            if (distance <= next && distance >= dist) {
+                ShooterSetting a = Constants.Shooter.ShooterSpeedTable[i];
+                ShooterSetting b = Constants.Shooter.ShooterSpeedTable[i + 1];
+                double t = (next - distance) / Constants.Shooter.ShooterSpeedTableIncrement;
+                ShooterSetting c = new ShooterSetting(GeneralUtils.lerp(a.bottomSpeed, b.bottomSpeed, t), GeneralUtils.lerp(a.topSpeed, b.topSpeed, t));
+                return c;
+            }
+            dist = next;
+        }
+        return new ShooterSetting(0, 0);
     }
 
 }

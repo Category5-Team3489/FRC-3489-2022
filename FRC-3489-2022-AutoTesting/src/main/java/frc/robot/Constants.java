@@ -1,11 +1,13 @@
 package frc.robot;
 
+import frc.robot.types.ShooterSetting;
+
 public final class Constants {
 
     // General
     public static final double FastPeriodicPeriod = 1d / 200d;
-    public static final int CameraPixelWidth = 100;
-    public static final int CameraPixelHeight = 100;
+    public static final int CameraPixelWidth = 160;
+    public static final int CameraPixelHeight = 120;
     public static final int CameraFPS = 20;
     public static final double ButtonDebounceTime = 0.5;
     public static final boolean SafetiesEnabled = false;
@@ -103,6 +105,12 @@ public final class Constants {
     public static final class Shooter
     {
         public static final double CanShootSpeedThreshold = 0.15;
+
+        // Shooter speeds starting at 60 in from upper hub outer diameter in 12 in increments
+        public static final double ShooterSpeedTableStart = 60;
+        public static final double ShooterSpeedTableIncrement = 12;
+        public static final double ShooterSpeedTableSize = 7;
+        public static final ShooterSetting[] ShooterSpeedTable = { new ShooterSetting(0, 0) };
     }
 
     public static final class Climber

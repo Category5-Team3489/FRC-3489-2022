@@ -6,10 +6,12 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import frc.robot.framework.RobotHandler;
+import frc.robot.types.LimelightMode;
 
 public class LimelightHandler extends RobotHandler {
 
-    public NetworkTable limelight = NetworkTableInstance.getDefault().getTable("limelight");
+    private NetworkTable limelight = NetworkTableInstance.getDefault().getTable("limelight");
+    private NetworkTableEntry pipeline = limelight.getEntry("pipeline");
     private NetworkTableEntry targetX = limelight.getEntry("tx");
     private NetworkTableEntry targetY = limelight.getEntry("ty");
     private NetworkTableEntry targetV = limelight.getEntry("tv");
@@ -28,7 +30,6 @@ public class LimelightHandler extends RobotHandler {
             targetVHistory.remove(targetVHistory.size() - 1);
         }
 
-        // 
         if (targetVisible) {
             double rawX = targetX.getDouble(100);
             double rawY = targetY.getDouble(100);
@@ -45,5 +46,19 @@ public class LimelightHandler extends RobotHandler {
                 return true;
         }
         return false;
+    }
+
+    public void setLimelightMode(LimelightMode mode) {
+        switch (mode) {
+            case Off:
+                pipeline.setNumber(1);
+                break;
+            case AutoAim:
+                pipeline.setNumber(0);
+                break;
+            case Driver:
+                pipeline.setNumber(2);
+                break;
+        }
     }
 }

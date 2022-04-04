@@ -3,6 +3,7 @@ package frc.robot.auto.autos;
 import frc.robot.Constants;
 import frc.robot.auto.framework.AutoBuilder;
 import frc.robot.auto.framework.AutoInstruction;
+import frc.robot.types.LimelightMode;
 
 public class AutoQuickPickupAim extends AutoBuilder {
 
@@ -14,7 +15,7 @@ public class AutoQuickPickupAim extends AutoBuilder {
         // drive out of tarmac
         first
         .onInitialized(() -> {
-            driveHandler.pipeline.setNumber(0);
+            limelightHandler.setLimelightMode(LimelightMode.AutoAim);
         })
         .concurrently(
             shoot(0.5, 4),
@@ -34,7 +35,7 @@ public class AutoQuickPickupAim extends AutoBuilder {
             return driveHandler.autoAim();
         })
         .onCompleted(() -> {
-            driveHandler.pipeline.setNumber(2);
+            limelightHandler.setLimelightMode(LimelightMode.Driver);
         })
         .concurrently(
             shoot(0.5, 4),

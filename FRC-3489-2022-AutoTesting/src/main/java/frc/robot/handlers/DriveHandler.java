@@ -1,12 +1,12 @@
 package frc.robot.handlers;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
 import frc.robot.framework.RobotHandler;
 import frc.robot.interfaces.IShuffleboardState;
 import frc.robot.types.DriveState;
+import frc.robot.types.LimelightMode;
 
 public class DriveHandler extends RobotHandler implements IShuffleboardState {
 
@@ -24,7 +24,6 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
 
     // Limelight
     //private NetworkTable limelight = NetworkTableInstance.getDefault().getTable("limelight");
-    public NetworkTableEntry pipeline;
     //private NetworkTableEntry targetX = limelight.getEntry("tx");
     //private NetworkTableEntry targetY = limelight.getEntry("ty");
     //private NetworkTableEntry targetArea = limelight.getEntry("ta");
@@ -43,13 +42,11 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
 
     @Override
     public void robotInit() {
-        pipeline = limelightHandler.limelight.getEntry("pipeline");
         aimController.setSetpoint(0);
         aimController.setTolerance(Constants.Drive.AimTolerance);
         centerController.setSetpoint(0);
         centerController.setTolerance(Constants.Drive.CenterTolerance);
-        // TODO ----------------------------------------------------------------
-        pipeline.setNumber(2);
+        limelightHandler.setLimelightMode(LimelightMode.Driver);
     }
 
     @Override
@@ -80,14 +77,13 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
                 centerController.reset();
                 shootingTimer.stop();
                 shootingTimer.reset();
-                pipeline.setNumber(0);
+                limelightHandler.setLimelightMode(LimelightMode.AutoAim);
                 autoAimTimer.reset();
                 autoAimTimer.start();
             }
             else {
                 setDriveState(DriveState.Driving);
-                // TODO /////////////////////////////////////////////////////////
-                pipeline.setNumber(2);
+                limelightHandler.setLimelightMode(LimelightMode.Driver);
             }
         }
 
