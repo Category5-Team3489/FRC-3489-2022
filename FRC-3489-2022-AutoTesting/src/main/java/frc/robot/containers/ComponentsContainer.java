@@ -68,10 +68,14 @@ public final class ComponentsContainer {
         setSafeties(topShooterMotor);
         setSafeties(telescopeMotor);
 
-        defaultDriveMotors();
         defaultMotors();
 
         configNominalDrive();
+
+        leftFrontDriveMotor.burnFlash();
+        rightFrontDriveMotor.burnFlash();
+        leftFollowerDriveMotor.burnFlash();
+        rightFollowerDriveMotor.burnFlash();
     }
 
     public void defaultDriveMotors() {
