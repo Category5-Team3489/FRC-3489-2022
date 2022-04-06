@@ -146,7 +146,7 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
         }
         else {
             components.drive.stopMotor();
-            setDriveState(DriveState.Centering);
+            setDriveState(DriveState.Shooting);
         }
     }
 
@@ -191,7 +191,12 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
         if (shouldInit()) {
             shootingTimer.reset();
             shootingTimer.start();
-            shooterHandler.shootHigh();
+            if (distanceEstimate == -1) {
+                shooterHandler.shootHigh();
+            }
+            else {
+                shooterHandler.setShooterAtDistance(distanceEstimate);
+            }
         }
         if (shootingTimer.hasElapsed(Constants.Drive.ShooterDelay)) {
             // Run cargo mover

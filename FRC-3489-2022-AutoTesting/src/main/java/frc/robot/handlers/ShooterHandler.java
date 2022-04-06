@@ -1,7 +1,6 @@
 package frc.robot.handlers;
 
 import frc.robot.Constants;
-import frc.robot.Constants.Shooter;
 import frc.robot.framework.RobotHandler;
 import frc.robot.interfaces.IShuffleboardState;
 import frc.robot.types.ShooterSetting;
@@ -44,6 +43,10 @@ public class ShooterHandler extends RobotHandler implements IShuffleboardState {
         }
     }
 
+    public void setShooterAtDistance(double distance) {
+        setShooter(getShooterSettingAtDistance(distance));
+    }
+
     public void stop() {
         if (update(ShooterState.Disabled)) {
             setShooter(0, 0);
@@ -53,6 +56,11 @@ public class ShooterHandler extends RobotHandler implements IShuffleboardState {
 
     public boolean canShoot() {
         return currentBottomSpeed > Constants.Shooter.CanShootSpeedThreshold && currentTopSpeed > Constants.Shooter.CanShootSpeedThreshold;
+    }
+
+    public void setShooter(ShooterSetting setting) {
+        setShooter(setting.bottomSpeed, setting.topSpeed);
+        setShuffleboardState();
     }
 
     public void setShooter(double bottomSpeed, double topSpeed) {
