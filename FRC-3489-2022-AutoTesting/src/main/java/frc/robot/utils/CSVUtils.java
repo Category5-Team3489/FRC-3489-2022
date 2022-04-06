@@ -31,6 +31,7 @@ public class CSVUtils {
             CSVFile csvFile = files.get(csv);
             int files = FileUtils.getFile(FileUtils.operatingDir(), "").list().length;
             FileUtils.writeFile(FileUtils.operatingDir(), files + csv, csvFile.get());
+            System.out.println(csvFile.get());
             if (wipe)
                 csvFile.wipe();
         }
