@@ -85,10 +85,10 @@ public class ShooterHandler extends RobotHandler implements IShuffleboardState {
         shuffleboardHandler.setString(true, "Shooter State", shooterState.toString());
     }
 
-    private final static double kP = 0.1;
+    private final static double kP = 0.125;
     private final static double kI = 0;//0.001;//0.001;//0.0005;//0.001;
     private final static double kD = 0;//5;//2;//5;
-    private final static double kF = (0.5 * 1023.0) / 11200;
+    private final static double kF = (0.5 * 1023.0) / 11250;
     private final static double Iz = 300; // required error to reset I accumulator
 
     private Timer timer;
@@ -135,12 +135,39 @@ public class ShooterHandler extends RobotHandler implements IShuffleboardState {
         addNote(Iz);
     }
 
+    private int loop = 0;
+
     @Override
     public void teleopPeriodic() {
-        addValue("B CP100ms", 11200 - components.bottomShooterMotor.getSelectedSensorVelocity());
-        addValue("T CP100ms", 11200 - components.topShooterMotor.getSelectedSensorVelocity());
-        components.bottomShooterMotor.set(ControlMode.Velocity, 11200);
-        components.topShooterMotor.set(ControlMode.Velocity, 11200);
+        double setSpeedB = getSetSpeedL((components.leftDriveJoystick.getThrottle() + 1d) / 2);
+        double setSpeedT = getSetSpeed((components.rightDriveJoystick.getThrottle() + 1d) / 2);
+
+        double bVelocity = components.bottomShooterMotor.getSelectedSensorVelocity();
+        double tVelocity = components.topShooterMotor.getSelectedSensorVelocity();
+        //addValue("B CP100ms", bVelocity);
+        //addValue("T CP100ms", tVelocity);
+
+        //addValue("S B CP100ms", setSpeedB);
+        //addValue("S T CP100ms", setSpeedT);
+        components.bottomShooterMotor.set(ControlMode.Velocity, setSpeedB);
+        components.topShooterMotor.set(ControlMode.Velocity, -setSpeedT);
+        
+        if (loop % 50 == 0) {
+            System.out.println((int)bVelocity + "  :  " + (int)tVelocity);
+            System.out.println("     " + (int)setSpeedB + "  :  " + (int)setSpeedT);
+            //System.out.println("B set speed error" + (bVelocity - setSpeedB));
+            //System.out.println("T set speed" + setSpeedT);
+            //System.out.println("T set speed error" +  (tVelocity - -setSpeedT));
+        }
+        loop++;
+    }
+
+    private double getSetSpeed(double slider) {
+        return GeneralUtils.lerp(0, 24000, slider);
+    }
+
+    private double getSetSpeedL(double slider) {
+        return GeneralUtils.lerp(0, 10000, slider);
     }
 
     @Override
