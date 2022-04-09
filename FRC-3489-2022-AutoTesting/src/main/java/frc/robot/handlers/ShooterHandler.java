@@ -35,6 +35,16 @@ public class ShooterHandler extends RobotHandler implements IShuffleboardState {
 
     private int loop = 0;
 
+    private ShooterSetting currentSetting = null;
+
+    public boolean readyToShoot() {
+        if (currentSetting == null)
+            return false;
+        if (Math.abs(components.topShooterMotor.getSelectedSensorVelocity()) > Math.abs((currentSetting.topSpeed * 0.85)))
+            return true;
+        return false;
+    }
+
     public void shootLow() {
         if (update(ShooterState.Low)) {
             setShooter(Constants.ShootLowBottomMotorSpeed, Constants.ShootLowTopMotorSpeed);
@@ -60,18 +70,24 @@ public class ShooterHandler extends RobotHandler implements IShuffleboardState {
         ShooterSetting setting = getShooterSetting(distance);
         components.bottomShooterMotor.set(ControlMode.Velocity, setting.bottomSpeed);
         components.topShooterMotor.set(ControlMode.Velocity, -setting.topSpeed);
-        System.out.println(setting.bottomSpeed + ":::" + setting.topSpeed);
+        currentSetting = setting;
+        //System.out.println(setting.bottomSpeed + ":::" + setting.topSpeed);
     }
 
     public void stop() {
-        components.bottomShooterMotor.set(ControlMode.Velocity, 0);
-        components.topShooterMotor.set(ControlMode.Velocity, 0);
+        components.bottomShooterMotor.stopMotor();
+        components.topShooterMotor.stopMotor();
+        //components.bottomShooterMotor.set(ControlMode.Velocity, 0);
+        //components.topShooterMotor.set(ControlMode.Velocity, 0);
+        /*
         if (update(ShooterState.Disabled)) {
             //setShooter(0, 0);
             components.bottomShooterMotor.set(ControlMode.Velocity, 0);
             components.topShooterMotor.set(ControlMode.Velocity, 0);
             setShuffleboardState();
         }
+        */
+        setShuffleboardState();
     }
 
     public boolean canShoot() {
@@ -81,6 +97,7 @@ public class ShooterHandler extends RobotHandler implements IShuffleboardState {
 
     public void setShooter(ShooterSetting setting) {
         setShooter(setting.bottomSpeed, -setting.topSpeed);
+        currentSetting = setting;
         setShuffleboardState();
     }
 
@@ -99,6 +116,8 @@ public class ShooterHandler extends RobotHandler implements IShuffleboardState {
     public void setShuffleboardState() {
         shuffleboardHandler.setString(true, "Shooter State", shooterState.toString());
     }
+
+
 
     private final static double kP = 0.125;
     private final static double kI = 0;//0.001;//0.001;//0.0005;//0.001;
@@ -134,10 +153,13 @@ public class ShooterHandler extends RobotHandler implements IShuffleboardState {
     }
 
     @Override
-    public void teleopInit() {
-
+    public void robotInit() {
         config(components.bottomShooterMotor);
         config(components.topShooterMotor);
+    }
+
+    @Override
+    public void teleopInit() {
 
         timer = new Timer();
         timer.start();

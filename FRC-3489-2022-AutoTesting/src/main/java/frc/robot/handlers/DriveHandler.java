@@ -32,7 +32,7 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
     //private NetworkTableEntry targetArea = limelight.getEntry("ta");
 
     // PID controllers
-    private PIDController aimController = new PIDController(0.0025 * 2 * 1.25, 0, 0); // 0.0125, 0.004, 0.0001
+    private PIDController aimController = new PIDController(0.0025 * 2 * 1.25, 0, 0.0); // 0.0125, 0.004, 0.0001
     private PIDController centerController = new PIDController(0.0025 * 1.75 * 1.5, 0, 0);
 
     public boolean isFront() {
@@ -83,14 +83,7 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
 
         if (components.manipulatorJoystick.getRawButtonPressed(Constants.ButtonAimCenterShoot)) {
             if (driveState == DriveState.Driving) {
-                setDriveState(DriveState.Aiming);
-                aimController.reset();
-                centerController.reset();
-                shootingTimer.stop();
-                shootingTimer.reset();
-                limelightHandler.setLimelightMode(LimelightMode.AutoAim);
-                autoAimTimer.reset();
-                autoAimTimer.start();
+                toggleToAim();
             }
             else {
                 toggleToDrive();
@@ -105,7 +98,7 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
                 }
                 break;
             case Aiming:
-                aim();
+                aim(false);
                 break;
             case Centering:
                 center();
@@ -126,6 +119,17 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
         shooterHandler.stop();
         cargoTransferHandler.stop();
         limelightHandler.setLimelightMode(LimelightMode.Driver);
+    }
+
+    private void toggleToAim() {
+        setDriveState(DriveState.Aiming);
+        aimController.reset();
+        centerController.reset();
+        shootingTimer.stop();
+        shootingTimer.reset();
+        limelightHandler.setLimelightMode(LimelightMode.AutoAim);
+        autoAimTimer.reset();
+        autoAimTimer.start();
     }
 
     private void drive() {
@@ -153,7 +157,7 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
         return Math.pow(Math.abs(input), setting) * input > 0 ? 1 : -1;
     }
 
-    private void aim() {
+    private void aim(boolean keepAiming) {
         if (shouldInit()) {
             
         }
@@ -175,7 +179,8 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
         }
         else {
             components.drive.stopMotor();
-            setDriveState(DriveState.Shooting);
+            if (!keepAiming)
+                setDriveState(DriveState.Shooting);
         }
     }
 
@@ -217,6 +222,8 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
     }
 
     private void shoot() {
+        if (Math.abs(limelightHandler.x) > 4)
+            toggleToAim();
         if (shouldInit()) {
             shootingTimer.reset();
             shootingTimer.start();
@@ -225,19 +232,24 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
                 shooterHandler.stop();
             }
             else {
-                shooterHandler.setShooterAtDistance(distanceEstimate);
+                //shooterHandler.setShooterAtDistance(distanceEstimate);
                 System.out.println(distanceEstimate);
             }
         }
-        if (shootingTimer.hasElapsed(Constants.Drive.ShooterDelay)) {
+        // TODO Okay?
+        shooterHandler.setShooterAtDistance(distanceEstimate);
+        aim(true);
+        if (shooterHandler.readyToShoot()) {
             // Run cargo mover
             cargoTransferHandler.setShootSpeed();
+            intakeHandler.forwardIntake(false);
         }
         if (shootingTimer.hasElapsed(Constants.Drive.ShooterDelay + Constants.Drive.ShootTime)) {
             // Stop cargo mover
             // Switch drive state back to normal teleop driving
             cargoTransferHandler.stop();
             shooterHandler.stop();
+            intakeHandler.stop();
             setDriveState(DriveState.Driving);
         }
     }
