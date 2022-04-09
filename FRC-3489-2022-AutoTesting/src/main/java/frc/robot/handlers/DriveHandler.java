@@ -19,6 +19,8 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
     private Timer shootingTimer = new Timer();
     private Timer autoAimTimer = new Timer();
 
+    private int loop = 0;
+
     // Slew limiting
     //private SlewRateLimiter leftLimiter = new SlewRateLimiter(Constants.DriveSetSpeedDeltaLimiter);
     //private SlewRateLimiter rightLimiter = new SlewRateLimiter(Constants.DriveSetSpeedDeltaLimiter);
@@ -30,7 +32,7 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
     //private NetworkTableEntry targetArea = limelight.getEntry("ta");
 
     // PID controllers
-    private PIDController aimController = new PIDController(0.0025 * 2, 0, 0); // 0.0125, 0.004, 0.0001
+    private PIDController aimController = new PIDController(0.0025 * 2 * 1.25, 0, 0); // 0.0125, 0.004, 0.0001
     private PIDController centerController = new PIDController(0.0025 * 1.75 * 1.5, 0, 0);
 
     public boolean isFront() {
@@ -54,14 +56,22 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
     public void robotPeriodic() {
         distanceEstimate = getDistanceEstimate();
         shuffleboardHandler.showDouble(true, "Distance Estimate", distanceEstimate);
+        loop++;
     }
 
     @Override
     public void teleopPeriodic() {
         shuffleboardHandler.showBoolean(true, "Auto Aiming", driveState == DriveState.Shooting);
 
-        if (climberHandler.isClimbing())
+        if (climberHandler.isClimbing()) {
+            if (getDriveState() != DriveState.Driving) {
+                toggleToDrive();
+            }
             return;
+        }
+
+        if (getDriveState() != DriveState.Driving && (Math.abs(components.leftDriveJoystick.getY()) > 0.4 || Math.abs(components.rightDriveJoystick.getY()) > 0.4))
+            toggleToDrive();
 
         /*
         boolean switchFrontPressed = shouldSwitchFront();
@@ -83,14 +93,16 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
                 autoAimTimer.start();
             }
             else {
-                setDriveState(DriveState.Driving);
-                limelightHandler.setLimelightMode(LimelightMode.Driver);
+                toggleToDrive();
             }
         }
 
         switch (driveState) {
             case Driving:
                 drive();
+                if (loop % 50 == 0) {
+                    System.out.println("Distance: " + distanceEstimate);
+                }
                 break;
             case Aiming:
                 aim();
@@ -107,6 +119,13 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
     @Override
     public void setShuffleboardState() {
         //shuffleboardHandler.setString(true, "Front Switched", isFront ? "Forward" : "Backward");
+    }
+
+    private void toggleToDrive() {
+        setDriveState(DriveState.Driving);
+        shooterHandler.stop();
+        cargoTransferHandler.stop();
+        limelightHandler.setLimelightMode(LimelightMode.Driver);
     }
 
     private void drive() {
@@ -138,14 +157,16 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
         if (shouldInit()) {
             
         }
-        /*
         // test friction overcome speed
+        /*
         double speed = components.manipulatorJoystick.getX();
         System.out.println(speed);
-        components.drive.tankDrive(speed, speed);
-        return;
+        components.drive.tankDrive(speed, -speed);
         */
+        //return;
         double targetXOffset = limelightHandler.x;
+        if (targetXOffset == 100)
+            return;
         double aimControllerOutput = aimController.calculate(targetXOffset);
         double frictionConstant = aimControllerOutput > 0 ? Constants.Drive.AimFrictionMotorSpeed : -Constants.Drive.AimFrictionMotorSpeed;
         double speed = frictionConstant + aimControllerOutput;
@@ -200,10 +221,12 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
             shootingTimer.reset();
             shootingTimer.start();
             if (distanceEstimate == -1) {
-                shooterHandler.shootHigh();
+                //shooterHandler.shootHigh();
+                shooterHandler.stop();
             }
             else {
                 shooterHandler.setShooterAtDistance(distanceEstimate);
+                System.out.println(distanceEstimate);
             }
         }
         if (shootingTimer.hasElapsed(Constants.Drive.ShooterDelay)) {

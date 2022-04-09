@@ -1,5 +1,6 @@
 package frc.robot.containers;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
@@ -96,6 +97,9 @@ public final class ComponentsContainer {
         bottomShooterMotor.configFactoryDefault();
         topShooterMotor.configFactoryDefault();
         telescopeMotor.configFactoryDefault();
+
+        bottomShooterMotor.setNeutralMode(NeutralMode.Coast);
+        topShooterMotor.setNeutralMode(NeutralMode.Coast);
     }
 
     public void disableDriveMotors() {

@@ -100,8 +100,8 @@ public class CargoSystemHandler extends RobotHandler implements IShuffleboardSta
             }
             else if (cargoCount == 1 && !cargoTransferHandler.isIndexing()) {
                 setCargoCount(cargoCount + 1);
-                isIntakeActivated = false;
-                intakeHandler.stop();
+                //isIntakeActivated = false;
+                //intakeHandler.stop();
             }
             /*
             if (cargoCount == 0) {

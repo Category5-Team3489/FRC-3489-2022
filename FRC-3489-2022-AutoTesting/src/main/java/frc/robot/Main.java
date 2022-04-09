@@ -4,12 +4,7 @@
 
 package frc.robot;
 
-import java.util.ArrayList;
-
 import edu.wpi.first.wpilibj.RobotBase;
-import frc.robot.handlers.ShooterHandler;
-import frc.robot.types.DataPoint;
-import frc.robot.types.ShooterSetting;
 
 /**
  * Do NOT add any static variables to this class, or any initialization at all. Unless you know what
@@ -25,8 +20,6 @@ public final class Main {
    * <p>If you change your main robot class, change the parameter type.
    */
   public static void main(String... args) {
-    //RobotBase.startRobot(Robot::new);
-    ShooterSetting s = ShooterHandler.getShooterSetting(105);
-      System.out.println(s.bottomSpeed + ":::" + s.topSpeed);
+    RobotBase.startRobot(Robot::new);
   }
 }

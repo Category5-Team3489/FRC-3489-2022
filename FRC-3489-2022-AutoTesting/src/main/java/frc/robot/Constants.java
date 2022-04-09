@@ -82,11 +82,11 @@ public final class Constants {
         public static final double AimTolerance = 1.5; // degrees
         public static final double CenterTolerance = 3; // inches // was 2
 
-        public static final double AimFrictionMotorSpeed = 0.25; // was 25
+        public static final double AimFrictionMotorSpeed = 0.27; // was 25
         public static final double CenterFrictionMotorSpeed = 0.15; // was 15
 
-        public static final double ShooterDelay = 0.5;
-        public static final double ShootTime = 1.75;
+        public static final double ShooterDelay = 0.8;
+        public static final double ShootTime = 1.5;
 
         public static final double ShootingDistance = 105; // inches 107
     }
@@ -106,16 +106,10 @@ public final class Constants {
     public static final class Shooter
     {
         public static final double CanShootSpeedThreshold = 0.15;
-
-        // Shooter speeds starting at 60 in from upper hub outer diameter in 12 in increments
-        public static final double ShooterSpeedTableStart = 60;
-        public static final double ShooterSpeedTableIncrement = 12;
-        public static final double ShooterSpeedTableSize = 7;
-        public static final ShooterSetting[] ShooterSpeedTable = { new ShooterSetting(0, 0) };
         
-        public static final double[] BottomShooterSpeedAtDistanceTable = { 3250, 3250, 3250, 3250, 3500, 3500 };
-        public static final double[] TopShooterSpeedAtDistanceTable = { 14500, 14500, 14500, 15000, 15500, 16000 };
-        public static final DataPoint[] ShooterSpeedAtDistanceTable = { DataPoint.c(0, 84.5), DataPoint.c(1, 92.4), DataPoint.c(2, 101.4), DataPoint.c(3, 115.5), DataPoint.c(4, 123), DataPoint.c(5, 137) };
+        public static final double[] BottomShooterSpeedAtDistanceTable = { 2800, 3000, 3250, 3250, 3250, 3250, 3500, 3500, 3000 };
+        public static final double[] TopShooterSpeedAtDistanceTable = { 14500, 14500, 14500, 14500, 14500, 15000, 15500, 16000, 17500 };
+        public static final DataPoint[] ShooterSpeedAtDistanceTable = { DataPoint.c(0, 70.9), DataPoint.c(1, 77.4), DataPoint.c(2, 84.5), DataPoint.c(3, 92.4), DataPoint.c(4, 101.4), DataPoint.c(5, 115.5), DataPoint.c(6, 123), DataPoint.c(7, 137), DataPoint.c(8, 154) };
     }
 
     public static final class Climber

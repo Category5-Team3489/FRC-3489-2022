@@ -57,22 +57,30 @@ public class ShooterHandler extends RobotHandler implements IShuffleboardState {
     }
 
     public void setShooterAtDistance(double distance) {
-        setShooter(getShooterSettingAtDistance(distance));
+        ShooterSetting setting = getShooterSetting(distance);
+        components.bottomShooterMotor.set(ControlMode.Velocity, setting.bottomSpeed);
+        components.topShooterMotor.set(ControlMode.Velocity, -setting.topSpeed);
+        System.out.println(setting.bottomSpeed + ":::" + setting.topSpeed);
     }
 
     public void stop() {
+        components.bottomShooterMotor.set(ControlMode.Velocity, 0);
+        components.topShooterMotor.set(ControlMode.Velocity, 0);
         if (update(ShooterState.Disabled)) {
-            setShooter(0, 0);
+            //setShooter(0, 0);
+            components.bottomShooterMotor.set(ControlMode.Velocity, 0);
+            components.topShooterMotor.set(ControlMode.Velocity, 0);
             setShuffleboardState();
         }
     }
 
     public boolean canShoot() {
-        return currentBottomSpeed > Constants.Shooter.CanShootSpeedThreshold && currentTopSpeed > Constants.Shooter.CanShootSpeedThreshold;
+        return true;
+        //return currentBottomSpeed > Constants.Shooter.CanShootSpeedThreshold && currentTopSpeed > Constants.Shooter.CanShootSpeedThreshold;
     }
 
     public void setShooter(ShooterSetting setting) {
-        setShooter(setting.bottomSpeed, setting.topSpeed);
+        setShooter(setting.bottomSpeed, -setting.topSpeed);
         setShuffleboardState();
     }
 
@@ -144,6 +152,7 @@ public class ShooterHandler extends RobotHandler implements IShuffleboardState {
 
     @Override
     public void teleopPeriodic() {
+        //testShooterPeriodic();
         loop++;
     }
 
@@ -158,23 +167,6 @@ public class ShooterHandler extends RobotHandler implements IShuffleboardState {
             return true;
         }
         return false;
-    }
-
-    private ShooterSetting getShooterSettingAtDistance(double distance) {
-        // find 2 indexes in table around point
-        double dist = Constants.Shooter.ShooterSpeedTableStart;
-        for (int i = 0; i < 7; i++) {
-            double next = dist + Constants.Shooter.ShooterSpeedTableIncrement;
-            if (distance <= next && distance >= dist) {
-                ShooterSetting a = Constants.Shooter.ShooterSpeedTable[i];
-                ShooterSetting b = Constants.Shooter.ShooterSpeedTable[i + 1];
-                double t = (next - distance) / Constants.Shooter.ShooterSpeedTableIncrement;
-                ShooterSetting c = new ShooterSetting(GeneralUtils.lerp(a.bottomSpeed, b.bottomSpeed, t), GeneralUtils.lerp(a.topSpeed, b.topSpeed, t));
-                return c;
-            }
-            dist = next;
-        }
-        return new ShooterSetting(0, 0);
     }
 
     public static ShooterSetting getShooterSetting(double distance) {
@@ -221,19 +213,21 @@ public class ShooterHandler extends RobotHandler implements IShuffleboardState {
         
         if (loop % 50 == 0) {
             System.out.println((int)bVelocity + "  :  " + (int)tVelocity);
-            System.out.println("     " + (int)setSpeedB + "  :  " + (int)setSpeedT);
+            System.out.println("     Set: " + (int)setSpeedB + "  :  " + (int)setSpeedT);
         }
 
-        addValue("B CP100ms", bVelocity);
-        addValue("T CP100ms", tVelocity);
-        addValue("S B CP100ms", setSpeedB);
-        addValue("S T CP100ms", setSpeedT);
+        //addValue("B CP100ms", bVelocity);
+        //addValue("T CP100ms", tVelocity);
+        //addValue("S B CP100ms", setSpeedB);
+        //addValue("S T CP100ms", setSpeedT);
 
+        /*
         if (loop % 50 == 0) {
             System.out.println("B set speed error" + (bVelocity - setSpeedB));
             System.out.println("T set speed" + setSpeedT);
             System.out.println("T set speed error" +  (tVelocity - -setSpeedT));
         }
+        */
     }
 
     private double getSetSpeedTop(double slider) {
