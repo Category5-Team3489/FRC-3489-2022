@@ -250,6 +250,7 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
             cargoTransferHandler.stop();
             shooterHandler.stop();
             intakeHandler.stop();
+            cargoSystemHandler.setCargoCount(0);
             setDriveState(DriveState.Driving);
         }
     }

@@ -108,7 +108,7 @@ public final class Constants {
         public static final double CanShootSpeedThreshold = 0.15;
         
         public static final double[] BottomShooterSpeedAtDistanceTable = { 2800, 3000, 3250, 3450, 3250, 3250, 3000, 3250, 3500 };
-        public static final double[] TopShooterSpeedAtDistanceTable = { 14500, 14500, 14500, 14750, 14500, 15000, 16750, 16000, 20000 };
+        public static final double[] TopShooterSpeedAtDistanceTable = { 14500, 14500, 14500, 14750, 14750, 15000, 16750, 16000, 20000 };
         public static final DataPoint[] ShooterSpeedAtDistanceTable = { DataPoint.c(0, 70.9), DataPoint.c(1, 77.4), DataPoint.c(2, 84.5), DataPoint.c(3, 92.4), DataPoint.c(4, 101.4), DataPoint.c(5, 115.5), DataPoint.c(6, 123), DataPoint.c(7, 137), DataPoint.c(8, 154) };
     }
 

@@ -37,6 +37,12 @@ public class ShooterHandler extends RobotHandler implements IShuffleboardState {
 
     private ShooterSetting currentSetting = null;
 
+    private boolean isShooterStopped = true;
+
+    public boolean isShooterStopped() {
+        return isShooterStopped;
+    }
+
     public boolean readyToShoot() {
         if (currentSetting == null)
             return false;
@@ -50,6 +56,7 @@ public class ShooterHandler extends RobotHandler implements IShuffleboardState {
             setShooter(Constants.ShootLowBottomMotorSpeed, Constants.ShootLowTopMotorSpeed);
             setShuffleboardState();
         }
+        isShooterStopped = false;
     }
     
     public void shootHigh() {
@@ -57,6 +64,7 @@ public class ShooterHandler extends RobotHandler implements IShuffleboardState {
             setShooter(Constants.ShootHighBottomMotorSpeed, Constants.ShootHighTopMotorSpeed);
             setShuffleboardState();
         }
+        isShooterStopped = false;
     }
 
     public void setWrongColor() {
@@ -64,6 +72,7 @@ public class ShooterHandler extends RobotHandler implements IShuffleboardState {
             setShooter(Constants.WrongColorBottomSpeed, Constants.WrongColorTopSpeed);
             setShuffleboardState();
         }
+        isShooterStopped = false;
     }
 
     public void setShooterAtDistance(double distance) {
@@ -71,10 +80,12 @@ public class ShooterHandler extends RobotHandler implements IShuffleboardState {
         components.bottomShooterMotor.set(ControlMode.Velocity, setting.bottomSpeed);
         components.topShooterMotor.set(ControlMode.Velocity, -setting.topSpeed);
         currentSetting = setting;
+        isShooterStopped = false;
         //System.out.println(setting.bottomSpeed + ":::" + setting.topSpeed);
     }
 
     public void stop() {
+        isShooterStopped = true;
         components.bottomShooterMotor.stopMotor();
         components.topShooterMotor.stopMotor();
         //components.bottomShooterMotor.set(ControlMode.Velocity, 0);
@@ -99,6 +110,7 @@ public class ShooterHandler extends RobotHandler implements IShuffleboardState {
         setShooter(setting.bottomSpeed, -setting.topSpeed);
         currentSetting = setting;
         setShuffleboardState();
+        isShooterStopped = false;
     }
 
     public void setShooter(double bottomSpeed, double topSpeed) {
@@ -106,6 +118,7 @@ public class ShooterHandler extends RobotHandler implements IShuffleboardState {
         currentTopSpeed = topSpeed;
         components.bottomShooterMotor.set(bottomSpeed);
         components.topShooterMotor.set(-topSpeed);
+        isShooterStopped = false;
     }
 
     public ShooterState getShooterState() {

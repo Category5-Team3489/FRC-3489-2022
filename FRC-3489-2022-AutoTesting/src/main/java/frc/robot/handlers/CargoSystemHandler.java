@@ -5,6 +5,7 @@ import frc.robot.Constants;
 import frc.robot.framework.RobotHandler;
 import frc.robot.interfaces.IShuffleboardState;
 import frc.robot.types.DriveState;
+import frc.robot.types.ShooterSetting;
 
 public class CargoSystemHandler extends RobotHandler implements IShuffleboardState {
 
@@ -35,6 +36,10 @@ public class CargoSystemHandler extends RobotHandler implements IShuffleboardSta
             cargoTransferHandler.stop();
             shooterHandler.stop();
             return;
+        }
+
+        if (cargoCount >= 2 && limelightHandler.isTargetVisible() && shooterHandler.isShooterStopped()) {
+            shooterHandler.setShooterAtDistance(60);
         }
 
         isUnderManualControl = manualCargoSystem();
@@ -182,7 +187,7 @@ public class CargoSystemHandler extends RobotHandler implements IShuffleboardSta
         return true;
     }
 
-    private void setCargoCount(int desired) {
+    public void setCargoCount(int desired) {
         if (cargoCount != desired) {
             cargoCount = desired;
             setShuffleboardState();
