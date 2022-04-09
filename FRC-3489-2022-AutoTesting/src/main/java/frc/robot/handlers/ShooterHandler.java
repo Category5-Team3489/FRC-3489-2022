@@ -1,5 +1,9 @@
 package frc.robot.handlers;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
@@ -8,6 +12,7 @@ import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
 import frc.robot.framework.RobotHandler;
 import frc.robot.interfaces.IShuffleboardState;
+import frc.robot.types.DataPoint;
 import frc.robot.types.ShooterSetting;
 import frc.robot.types.ShooterState;
 import frc.robot.utils.CSVUtils;
@@ -27,6 +32,8 @@ public class ShooterHandler extends RobotHandler implements IShuffleboardState {
     private final static double kF = 0;
     private final static double Iz = 750; // required error to reset I accumulator
     */
+
+    private int loop = 0;
 
     public void shootLow() {
         if (update(ShooterState.Low)) {
@@ -135,39 +142,9 @@ public class ShooterHandler extends RobotHandler implements IShuffleboardState {
         addNote(Iz);
     }
 
-    private int loop = 0;
-
     @Override
     public void teleopPeriodic() {
-        double setSpeedB = getSetSpeedL((components.leftDriveJoystick.getThrottle() + 1d) / 2);
-        double setSpeedT = getSetSpeed((components.rightDriveJoystick.getThrottle() + 1d) / 2);
-
-        double bVelocity = components.bottomShooterMotor.getSelectedSensorVelocity();
-        double tVelocity = components.topShooterMotor.getSelectedSensorVelocity();
-        //addValue("B CP100ms", bVelocity);
-        //addValue("T CP100ms", tVelocity);
-
-        //addValue("S B CP100ms", setSpeedB);
-        //addValue("S T CP100ms", setSpeedT);
-        components.bottomShooterMotor.set(ControlMode.Velocity, setSpeedB);
-        components.topShooterMotor.set(ControlMode.Velocity, -setSpeedT);
-        
-        if (loop % 50 == 0) {
-            System.out.println((int)bVelocity + "  :  " + (int)tVelocity);
-            System.out.println("     " + (int)setSpeedB + "  :  " + (int)setSpeedT);
-            //System.out.println("B set speed error" + (bVelocity - setSpeedB));
-            //System.out.println("T set speed" + setSpeedT);
-            //System.out.println("T set speed error" +  (tVelocity - -setSpeedT));
-        }
         loop++;
-    }
-
-    private double getSetSpeed(double slider) {
-        return GeneralUtils.lerp(0, 24000, slider);
-    }
-
-    private double getSetSpeedL(double slider) {
-        return GeneralUtils.lerp(0, 10000, slider);
     }
 
     @Override
@@ -198,6 +175,73 @@ public class ShooterHandler extends RobotHandler implements IShuffleboardState {
             dist = next;
         }
         return new ShooterSetting(0, 0);
+    }
+
+    public static ShooterSetting getShooterSetting(double distance) {
+        ArrayList<DataPoint> indicies = getClosestDistanceIndicies(distance);
+        int a = indicies.get(0).x;
+        int b = indicies.get(1).x;
+        double d1 = Constants.Shooter.ShooterSpeedAtDistanceTable[a].y;
+        double d2 = Constants.Shooter.ShooterSpeedAtDistanceTable[b].y;
+        if (d2 < d1) {
+            double d3 = d1;
+            d1 = d2;
+            d2 = d3;
+
+            int c = a;
+            a = b;
+            b = c;
+        }
+        double t = (d2 - distance) / (d2 - d1);
+        ShooterSetting settingA = new ShooterSetting(Constants.Shooter.BottomShooterSpeedAtDistanceTable[a], Constants.Shooter.TopShooterSpeedAtDistanceTable[a]);
+        ShooterSetting settingB = new ShooterSetting(Constants.Shooter.BottomShooterSpeedAtDistanceTable[b], Constants.Shooter.TopShooterSpeedAtDistanceTable[b]);
+        return new ShooterSetting(GeneralUtils.lerp(settingA.bottomSpeed, settingB.bottomSpeed, t), GeneralUtils.lerp(settingA.topSpeed, settingB.topSpeed, t));
+    }
+
+    public static ArrayList<DataPoint> getClosestDistanceIndicies(double distance) {
+        ArrayList<DataPoint> indicies = new ArrayList<DataPoint>();
+        for (DataPoint point : Constants.Shooter.ShooterSpeedAtDistanceTable) {
+            indicies.add(DataPoint.c(point.x, point.y - distance));
+        }
+        indicies.sort((a, b) -> DataPoint.compare(a, b));
+        return indicies;
+    }
+
+    /////////////////////////////////////////////
+    ///////////////   TESTING    ////////////////
+    /////////////////////////////////////////////
+    private void testShooterPeriodic() {
+        double setSpeedB = getSetSpeedBottom((components.leftDriveJoystick.getThrottle() + 1d) / 2);
+        double setSpeedT = getSetSpeedTop((components.rightDriveJoystick.getThrottle() + 1d) / 2);
+
+        double bVelocity = components.bottomShooterMotor.getSelectedSensorVelocity();
+        double tVelocity = components.topShooterMotor.getSelectedSensorVelocity();
+        components.bottomShooterMotor.set(ControlMode.Velocity, setSpeedB);
+        components.topShooterMotor.set(ControlMode.Velocity, -setSpeedT);
+        
+        if (loop % 50 == 0) {
+            System.out.println((int)bVelocity + "  :  " + (int)tVelocity);
+            System.out.println("     " + (int)setSpeedB + "  :  " + (int)setSpeedT);
+        }
+
+        addValue("B CP100ms", bVelocity);
+        addValue("T CP100ms", tVelocity);
+        addValue("S B CP100ms", setSpeedB);
+        addValue("S T CP100ms", setSpeedT);
+
+        if (loop % 50 == 0) {
+            System.out.println("B set speed error" + (bVelocity - setSpeedB));
+            System.out.println("T set speed" + setSpeedT);
+            System.out.println("T set speed error" +  (tVelocity - -setSpeedT));
+        }
+    }
+
+    private double getSetSpeedTop(double slider) {
+        return GeneralUtils.lerp(0, 24000, slider);
+    }
+
+    private double getSetSpeedBottom(double slider) {
+        return GeneralUtils.lerp(0, 10000, slider);
     }
 
     private void addValue(String category, double value) {

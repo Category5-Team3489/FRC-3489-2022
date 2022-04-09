@@ -1,5 +1,6 @@
 package frc.robot;
 
+import frc.robot.types.DataPoint;
 import frc.robot.types.ShooterSetting;
 
 public final class Constants {
@@ -111,6 +112,10 @@ public final class Constants {
         public static final double ShooterSpeedTableIncrement = 12;
         public static final double ShooterSpeedTableSize = 7;
         public static final ShooterSetting[] ShooterSpeedTable = { new ShooterSetting(0, 0) };
+        
+        public static final double[] BottomShooterSpeedAtDistanceTable = { 3250, 3250, 3250, 3250, 3500, 3500 };
+        public static final double[] TopShooterSpeedAtDistanceTable = { 14500, 14500, 14500, 15000, 15500, 16000 };
+        public static final DataPoint[] ShooterSpeedAtDistanceTable = { DataPoint.c(0, 84.5), DataPoint.c(1, 92.4), DataPoint.c(2, 101.4), DataPoint.c(3, 115.5), DataPoint.c(4, 123), DataPoint.c(5, 137) };
     }
 
     public static final class Climber
