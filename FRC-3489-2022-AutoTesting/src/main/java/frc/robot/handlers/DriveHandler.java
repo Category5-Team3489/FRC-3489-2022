@@ -7,7 +7,6 @@ import frc.robot.framework.RobotHandler;
 import frc.robot.interfaces.IShuffleboardState;
 import frc.robot.types.DriveState;
 import frc.robot.types.LimelightMode;
-import frc.robot.utils.GeneralUtils;
 
 public class DriveHandler extends RobotHandler implements IShuffleboardState {
 
@@ -153,9 +152,11 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
             components.drive.tankDrive(rightSpeed, leftSpeed);
     }
 
+    /*
     private double getScaledSpeed(double input, double setting) {
         return Math.pow(Math.abs(input), setting) * input > 0 ? 1 : -1;
     }
+    */
 
     private void aim(boolean keepAiming) {
         if (shouldInit()) {

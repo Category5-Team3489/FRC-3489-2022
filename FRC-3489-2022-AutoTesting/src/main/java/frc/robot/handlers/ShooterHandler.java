@@ -1,8 +1,6 @@
 package frc.robot.handlers;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;

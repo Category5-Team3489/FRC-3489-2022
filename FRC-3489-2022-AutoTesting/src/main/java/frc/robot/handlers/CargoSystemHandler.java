@@ -5,7 +5,6 @@ import frc.robot.Constants;
 import frc.robot.framework.RobotHandler;
 import frc.robot.interfaces.IShuffleboardState;
 import frc.robot.types.DriveState;
-import frc.robot.types.ShooterSetting;
 
 public class CargoSystemHandler extends RobotHandler implements IShuffleboardState {
 
