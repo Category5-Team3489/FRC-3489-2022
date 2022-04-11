@@ -7,9 +7,6 @@ public final class Constants {
 
     // General
     public static final double FastPeriodicPeriod = 1d / 200d;
-    public static final int CameraPixelWidth = 160;
-    public static final int CameraPixelHeight = 120;
-    public static final int CameraFPS = 20;
     public static final double ButtonDebounceTime = 0.5;
     public static final boolean SafetiesEnabled = false;
     public static final int MotorControllerTimeout = 30;
@@ -21,57 +18,60 @@ public final class Constants {
     public static final int ShuffleboardShowUpdatePeriod = (int)(50 / ShuffleboardShowUpdateRate); 
 
     // Speeds
-    public static final double ForwardIntakeMotorSpeed = 1;
-    public static final double BackwardIntakeMotorSpeed = -0.8;
-
-    public static final double DriveAutoAimFrictionOvercomeMotorSpeed = 0.55;
-
-    public static final double CargoTransferMotorSpeed = -0.6;
-    public static final double ReverseCargoTransferMotorSpeed = 0.6;
-    public static final double CargoTransferShootSpeed = -0.6;
-
-    public static final double ShootLowBottomMotorSpeed = 0.4;
-    public static final double ShootLowTopMotorSpeed = 0.4;
-
-    public static final double ShootHighBottomMotorSpeed = 0.5;
-    public static final double ShootHighTopMotorSpeed = 0.5;
-
-    public static final double WrongColorTopSpeed = 0.2;
-    public static final double WrongColorBottomSpeed = 0.2;
-
-    public static final double DriveToMidBarSpeed = 0.5;
-    public static final double TelescopeExtendSpeed = -0.8;
-    public static final double SlightlyExtendSpeed = -0.05;
-    public static final double TelescopeRetractSpeed = 0.6;
-
-
-
-
-    // Manipulator Buttons
-    public static final int ButtonToggleIntake = 2;
-    public static final int ButtonShoot = 1;
-    public static final int ButtonAimCenterShoot = 4;
-    //public static final int ButtonDebugCargoInLaser = 4;
+    public static final class Speeds
+    {
+        public static final double ForwardIntakeMotorSpeed = 1;
+        public static final double BackwardIntakeMotorSpeed = -0.8;
     
-    public static final int ButtonShootLowGoal = 8;
-    public static final int ButtonShootHighGoal = 7;
-    public static final int ButtonShootWrongColor = 3;
-    public static final int ButtonStopShooter = 6;
+        public static final double DriveAutoAimFrictionOvercomeMotorSpeed = 0.55;
+    
+        public static final double CargoTransferMotorSpeed = -0.6;
+        public static final double ReverseCargoTransferMotorSpeed = 0.6;
+        public static final double CargoTransferShootSpeed = -0.6;
+    
+        public static final double ShootLowBottomMotorSpeed = 0.4;
+        public static final double ShootLowTopMotorSpeed = 0.4;
+    
+        public static final double ShootHighBottomMotorSpeed = 0.5;
+        public static final double ShootHighTopMotorSpeed = 0.5;
+    
+        public static final double WrongColorTopSpeed = 0.2;
+        public static final double WrongColorBottomSpeed = 0.2;
+    
+        public static final double DriveToMidBarSpeed = 0.5;
+        public static final double TelescopeExtendSpeed = -0.8;
+        public static final double SlightlyExtendSpeed = -0.05;
+        public static final double TelescopeRetractSpeed = 0.6;
+    }
 
-    public static final int ButtonClimbMid = 9;
-    public static final int ButtonClimbHigh = 10;
-    public static final int ButtonClimbActivate = 5;
-    public static final int ButtonClimbReset = 11;
-    public static final int ButtonClimbEStop = 12;
+    public static final class Buttons
+    {
+        // Manipulator Buttons
+        public static final int ToggleIntake = 2;
+        public static final int Shoot = 1;
+        public static final int AimCenterShoot = 4;
+        //public static final int DebugCargoInLaser = 4;
 
-    // Drive Buttons
-    public static final int ButtonSwitchCamera = 13;
-    public static final int ButtonSwitchCameraB = 7;
+        public static final int ShootLowGoal = 8;
+        public static final int ShootHighGoal = 7;
+        public static final int ShootWrongColor = 3;
+        public static final int StopShooter = 6;
 
-    // Clicks
-    public static final double ClicksPerCargoLength = 11159 * 1.25d;//21k
+        public static final int ClimbMid = 9;
+        public static final int ClimbHigh = 10;
+        public static final int ClimbActivate = 5;
+        public static final int ClimbReset = 11;
+        public static final int ClimbEStop = 12;
 
-    public static final double ShootStopTimeDelay = 2; // was 3 and was too slow
+        // Drive Buttons
+        public static final int SwitchCamera = 13;
+        public static final int SwitchCameraB = 7;
+    }
+
+    public static final class CargoTransfer
+    {
+        public static final double ClicksPerCargoLength = 11159 * 1.25d;//21k
+    }
 
     public static final class Drive
     {
@@ -105,6 +105,8 @@ public final class Constants {
 
     public static final class Shooter
     {
+        public static final double ShootStopTimeDelay = 2; // was 3 and was too slow
+
         public static final double CanShootSpeedThreshold = 0.15;
         
         public static final double[] BottomShooterSpeedAtDistanceTable = { 2800, 3000, 3250, 3450, 3250, 3250, 3000, 3250, 3500 };
@@ -131,6 +133,10 @@ public final class Constants {
 
     public static final class Camera
     {
+        public static final int PixelWidth = 160;
+        public static final int PixelHeight = 120;
+        public static final int FPS = 20;
+
         public static final int ServoStartingPositionIndex = 0;
         public static final double[] ServoPositions = { 70, 140 };
     }

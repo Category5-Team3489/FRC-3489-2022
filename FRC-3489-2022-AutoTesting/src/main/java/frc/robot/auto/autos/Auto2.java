@@ -14,7 +14,7 @@ public class Auto2 extends AutoBuilder {
         .concurrently(
             shoot(0.65, 3),
             pause(1)
-                .cargoTransfer(0.5, 5 * Constants.ClicksPerCargoLength)        
+                .cargoTransfer(0.5, 5 * Constants.CargoTransfer.ClicksPerCargoLength)        
         )
         .pause(1)
         .concurrently(
@@ -26,7 +26,7 @@ public class Auto2 extends AutoBuilder {
         .concurrently(
             shoot(0.65, 3),
             pause(1)
-                .cargoTransfer(0.5, Constants.ClicksPerCargoLength)
+                .cargoTransfer(0.5, Constants.CargoTransfer.ClicksPerCargoLength)
         
         );
 

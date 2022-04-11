@@ -53,7 +53,7 @@ public class ShooterHandler extends RobotHandler implements IShuffleboardState {
 
     public void shootLow() {
         if (update(ShooterState.Low)) {
-            setShooter(Constants.ShootLowBottomMotorSpeed, Constants.ShootLowTopMotorSpeed);
+            setShooter(Constants.Speeds.ShootLowBottomMotorSpeed, Constants.Speeds.ShootLowTopMotorSpeed);
             setShuffleboardState();
         }
         isShooterStopped = false;
@@ -61,7 +61,7 @@ public class ShooterHandler extends RobotHandler implements IShuffleboardState {
     
     public void shootHigh() {
         if (update(ShooterState.High)) {
-            setShooter(Constants.ShootHighBottomMotorSpeed, Constants.ShootHighTopMotorSpeed);
+            setShooter(Constants.Speeds.ShootHighBottomMotorSpeed, Constants.Speeds.ShootHighTopMotorSpeed);
             setShuffleboardState();
         }
         isShooterStopped = false;
@@ -69,7 +69,7 @@ public class ShooterHandler extends RobotHandler implements IShuffleboardState {
 
     public void setWrongColor() {
         if (update(ShooterState.WrongColor)) {
-            setShooter(Constants.WrongColorBottomSpeed, Constants.WrongColorTopSpeed);
+            setShooter(Constants.Speeds.WrongColorBottomSpeed, Constants.Speeds.WrongColorTopSpeed);
             setShuffleboardState();
         }
         isShooterStopped = false;

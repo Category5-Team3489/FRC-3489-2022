@@ -45,12 +45,12 @@ public class CargoTransferHandler extends RobotHandler {
 
         double encoderClicks = Math.abs(components.cargoTransferMotor.getSelectedSensorPosition());
 
-        if (encoderClicks < Constants.ClicksPerCargoLength) { // Has not reached target
+        if (encoderClicks < Constants.CargoTransfer.ClicksPerCargoLength) { // Has not reached target
             if (isIndexingForward) {
-                components.cargoTransferMotor.set(Constants.CargoTransferMotorSpeed);
+                components.cargoTransferMotor.set(Constants.Speeds.CargoTransferMotorSpeed);
             }
             else {
-                components.cargoTransferMotor.set(Constants.ReverseCargoTransferMotorSpeed);
+                components.cargoTransferMotor.set(Constants.Speeds.ReverseCargoTransferMotorSpeed);
             }
         }
         else { // Has reached target
@@ -59,7 +59,7 @@ public class CargoTransferHandler extends RobotHandler {
     }
     
     public void setShootSpeed() {
-        set(Constants.CargoTransferShootSpeed);
+        set(Constants.Speeds.CargoTransferShootSpeed);
     }
     
 }

@@ -107,22 +107,22 @@ public class ClimberHandler extends RobotHandler implements IShuffleboardState {
     @Override
     public void teleopPeriodic() {
 
-        climbMidButton = components.manipulatorJoystick.getRawButton(Constants.ButtonClimbMid);
-        climbHighButton = components.manipulatorJoystick.getRawButton(Constants.ButtonClimbHigh);
-        climbActivateButton = components.manipulatorJoystick.getRawButton(Constants.ButtonClimbActivate);
-        climbResetButton = components.manipulatorJoystick.getRawButton(Constants.ButtonClimbReset);
-        climbEStopButton = components.manipulatorJoystick.getRawButton(Constants.ButtonClimbEStop);
+        climbMidButton = components.manipulatorJoystick.getRawButton(Constants.Buttons.ClimbMid);
+        climbHighButton = components.manipulatorJoystick.getRawButton(Constants.Buttons.ClimbHigh);
+        climbActivateButton = components.manipulatorJoystick.getRawButton(Constants.Buttons.ClimbActivate);
+        climbResetButton = components.manipulatorJoystick.getRawButton(Constants.Buttons.ClimbReset);
+        climbEStopButton = components.manipulatorJoystick.getRawButton(Constants.Buttons.ClimbEStop);
 
         if (climbActivateButton) {
             if (components.rightDriveJoystick.getPOV() == 0) {
                 underManualControl = true;
                 setBrake(false);
-                setTelescope(Constants.TelescopeExtendSpeed);
+                setTelescope(Constants.Speeds.TelescopeExtendSpeed);
             }
             else if (components.rightDriveJoystick.getPOV() == 180) {
                 underManualControl = true;
                 setBrake(false);
-                setTelescope(Constants.TelescopeRetractSpeed);
+                setTelescope(Constants.Speeds.TelescopeRetractSpeed);
             }
         }
 
@@ -227,7 +227,7 @@ public class ClimberHandler extends RobotHandler implements IShuffleboardState {
         AutoInstruction instruction = AutoBuilder.blank(false)
         .onInitialized(() -> {
             setBrake(false);
-            setTelescope(Constants.TelescopeExtendSpeed);
+            setTelescope(Constants.Speeds.TelescopeExtendSpeed);
             resetTelecopeEncoders();
         })
         .periodically(() -> {
@@ -298,7 +298,7 @@ public class ClimberHandler extends RobotHandler implements IShuffleboardState {
         AutoInstruction instruction = AutoBuilder.blank(false)
         .onInitialized(() -> {
             setBrake(false);
-            setTelescope(Constants.TelescopeRetractSpeed);
+            setTelescope(Constants.Speeds.TelescopeRetractSpeed);
             resetTelecopeEncoders();
         })
         .periodically(() -> {

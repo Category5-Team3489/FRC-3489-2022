@@ -15,7 +15,7 @@ public class Auto7 extends AutoBuilder {
             .concurrently(      //Shoot High
                 shoot(0.5, 3),
                 pause(1)
-                    .cargoTransfer(0.5, 5 * Constants.ClicksPerCargoLength)
+                    .cargoTransfer(0.5, 5 * Constants.CargoTransfer.ClicksPerCargoLength)
             )
             .pause(1)
             .concurrently(      //Intake ball while driving to terminal

@@ -20,13 +20,13 @@ public class AutoQuickPickupAim extends AutoBuilder {
         .concurrently(
             shoot(0.5, 4),
             pause(3)
-                .cargoTransfer(0.5, 5 * Constants.ClicksPerCargoLength)
+                .cargoTransfer(0.5, 5 * Constants.CargoTransfer.ClicksPerCargoLength)
         )
         .concurrently(
             driveSeconds(0.65, 1.35 * 0.75), // 1.5
             intake(2)
         )
-        .cargoTransfer(0.5, 0.5 * Constants.ClicksPerCargoLength)
+        .cargoTransfer(0.5, 0.5 * Constants.CargoTransfer.ClicksPerCargoLength)
         .concurrently(
             driveSeconds(-0.65, (1 * 0.75) - 0.1)
         )
@@ -40,7 +40,7 @@ public class AutoQuickPickupAim extends AutoBuilder {
         .concurrently(
             shoot(0.5, 4),
             pause(2)
-            .cargoTransfer(0.5, 10 * Constants.ClicksPerCargoLength)
+            .cargoTransfer(0.5, 10 * Constants.CargoTransfer.ClicksPerCargoLength)
             .completeOn(getTrigger("stop")),
             pause(4)
                 .onCompleted(setTrigger("stop"))

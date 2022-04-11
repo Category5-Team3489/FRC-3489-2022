@@ -23,8 +23,8 @@ public class CameraHandler extends RobotHandler {
             HttpCamera limelightFeed = new HttpCamera("limelight", "http://limelight.local:5800/stream.mjpg");
     
             camera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
-            camera.setResolution(Constants.CameraPixelWidth, Constants.CameraPixelHeight);
-            camera.setFPS(Constants.CameraFPS);
+            camera.setResolution(Constants.Camera.PixelWidth, Constants.Camera.PixelHeight);
+            camera.setFPS(Constants.Camera.FPS);
     
             shuffleboardHandler.createCameraWidget(server.getSource());
             shuffleboardHandler.createLimelightCameraWidget(limelightFeed);
@@ -67,7 +67,7 @@ public class CameraHandler extends RobotHandler {
     }
 
     private boolean shouldSwitchCamera() {
-        return components.rightDriveJoystick.getRawButtonPressed(Constants.ButtonSwitchCamera) ||
-            components.rightDriveJoystick.getRawButtonPressed(Constants.ButtonSwitchCameraB);
+        return components.rightDriveJoystick.getRawButtonPressed(Constants.Buttons.SwitchCamera) ||
+            components.rightDriveJoystick.getRawButtonPressed(Constants.Buttons.SwitchCameraB);
     }
 }

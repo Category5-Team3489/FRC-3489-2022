@@ -81,7 +81,7 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
         }
         */
 
-        if (components.manipulatorJoystick.getRawButtonPressed(Constants.ButtonAimCenterShoot)) {
+        if (components.manipulatorJoystick.getRawButtonPressed(Constants.Buttons.AimCenterShoot)) {
             if (driveState == DriveState.Driving) {
                 toggleToAim();
             }

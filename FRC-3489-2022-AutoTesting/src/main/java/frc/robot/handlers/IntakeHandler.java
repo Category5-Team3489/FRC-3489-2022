@@ -23,7 +23,7 @@ public class IntakeHandler extends RobotHandler implements IShuffleboardState {
 
     public void forwardIntake(boolean setSolenoid) {
         if (update(IntakeState.Forward)) {
-            components.intakeMotor.set(Constants.ForwardIntakeMotorSpeed);
+            components.intakeMotor.set(Constants.Speeds.ForwardIntakeMotorSpeed);
             if (setSolenoid)
                 components.intakeSolenoid.set(true);
         }
@@ -31,7 +31,7 @@ public class IntakeHandler extends RobotHandler implements IShuffleboardState {
     
     public void backwardIntake(boolean setSolenoid){
         if (update(IntakeState.Backward)) {
-            components.intakeMotor.set(Constants.BackwardIntakeMotorSpeed);
+            components.intakeMotor.set(Constants.Speeds.BackwardIntakeMotorSpeed);
             if (setSolenoid)
                 components.intakeSolenoid.set(true);
         }

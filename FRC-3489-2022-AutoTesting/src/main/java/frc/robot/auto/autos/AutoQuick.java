@@ -17,7 +17,7 @@ public class AutoQuick extends AutoBuilder {
         .concurrently(
             shoot(0.5, 4),
             pause(2)
-                .cargoTransfer(0.5, 5 * Constants.ClicksPerCargoLength)        
+                .cargoTransfer(0.5, 5 * Constants.CargoTransfer.ClicksPerCargoLength)        
         )
         .driveSeconds(0.65, 1);
 

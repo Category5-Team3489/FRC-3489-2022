@@ -22,7 +22,7 @@ public class Auto5 extends AutoBuilder {
         .concurrently(
             shoot(0.5, 3), // Set shooter to 50% for 3 seconds
             pause(1) // Pause for 1 second before shooting ball
-                .cargoTransfer(0.5, 5 * Constants.ClicksPerCargoLength) // Move cargo transfer at 50% for 5 ball lengths to shoot ball
+                .cargoTransfer(0.5, 5 * Constants.CargoTransfer.ClicksPerCargoLength) // Move cargo transfer at 50% for 5 ball lengths to shoot ball
         )
         .pause(1)
         .turn(0.4, 90) // Turn at 40% speed 90 degrees to the left

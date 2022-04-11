@@ -72,7 +72,7 @@ public class CargoSystemHandler extends RobotHandler implements IShuffleboardSta
     }
 
     private void shoot() {
-        boolean shouldShoot = components.manipulatorJoystick.getRawButton(Constants.ButtonShoot);
+        boolean shouldShoot = components.manipulatorJoystick.getRawButton(Constants.Buttons.Shoot);
         
         if (shouldShoot) {
             if (!stopShooterTimerRunning) {
@@ -86,7 +86,7 @@ public class CargoSystemHandler extends RobotHandler implements IShuffleboardSta
         else {
             cargoTransferHandler.stopIfNotIndexing();
         }
-        if (stopShooterTimerRunning && stopShooterTimer.hasElapsed(Constants.ShootStopTimeDelay)) {
+        if (stopShooterTimerRunning && stopShooterTimer.hasElapsed(Constants.Shooter.ShootStopTimeDelay)) {
             stopShooterTimer.stop();
             stopShooterTimer.reset();
             stopShooterTimerRunning = false;
@@ -133,7 +133,7 @@ public class CargoSystemHandler extends RobotHandler implements IShuffleboardSta
     private void toggleIntake() {
         if (isUnderManualControl)
             return;
-        boolean shouldToggleIntake = components.manipulatorJoystick.getRawButtonPressed(Constants.ButtonToggleIntake);
+        boolean shouldToggleIntake = components.manipulatorJoystick.getRawButtonPressed(Constants.Buttons.ToggleIntake);
         if (shouldToggleIntake) {
             isIntakeActivated = !isIntakeActivated;
             if (isIntakeActivated) {
@@ -146,25 +146,25 @@ public class CargoSystemHandler extends RobotHandler implements IShuffleboardSta
     }
 
     private void stopShooter() {
-        boolean isPressed = components.manipulatorJoystick.getRawButtonPressed(Constants.ButtonStopShooter);
+        boolean isPressed = components.manipulatorJoystick.getRawButtonPressed(Constants.Buttons.StopShooter);
         if (isPressed) {
             shooterHandler.stop();
         }
     }
     private void shootLowGoal() {
-        boolean isPressed = components.manipulatorJoystick.getRawButtonPressed(Constants.ButtonShootLowGoal);
+        boolean isPressed = components.manipulatorJoystick.getRawButtonPressed(Constants.Buttons.ShootLowGoal);
         if (isPressed) {
             shooterHandler.shootLow();
         }
     }
     private void shootHighGoal() {
-        boolean isPressed = components.manipulatorJoystick.getRawButtonPressed(Constants.ButtonShootHighGoal);
+        boolean isPressed = components.manipulatorJoystick.getRawButtonPressed(Constants.Buttons.ShootHighGoal);
         if (isPressed) {
             shooterHandler.shootHigh();
         }
     }
     private void shootWrongColor() {
-        boolean isPressed = components.manipulatorJoystick.getRawButtonPressed(Constants.ButtonShootWrongColor);
+        boolean isPressed = components.manipulatorJoystick.getRawButtonPressed(Constants.Buttons.ShootWrongColor);
         if (isPressed) {
             shooterHandler.setWrongColor();
         }
@@ -174,11 +174,11 @@ public class CargoSystemHandler extends RobotHandler implements IShuffleboardSta
         double manipulatorJoystick = components.manipulatorJoystick.getY();
         if (manipulatorJoystick > Constants.ManualCargoSystemControlThreshhold) {
             intakeHandler.backwardIntake(false);
-            cargoTransferHandler.set(Constants.ReverseCargoTransferMotorSpeed);
+            cargoTransferHandler.set(Constants.Speeds.ReverseCargoTransferMotorSpeed);
         }
         else if (manipulatorJoystick < -Constants.ManualCargoSystemControlThreshhold) {
             intakeHandler.forwardIntake(false);
-            cargoTransferHandler.set(Constants.CargoTransferMotorSpeed);
+            cargoTransferHandler.set(Constants.Speeds.CargoTransferMotorSpeed);
         }
         else {
             if (isIntakeActivated)
