@@ -181,6 +181,10 @@ public class CargoSystemHandler extends RobotHandler implements IShuffleboardSta
             cargoTransferHandler.set(Constants.CargoTransferMotorSpeed);
         }
         else {
+            if (isIntakeActivated)
+                intakeHandler.forwardIntake(true);
+            else
+                intakeHandler.stop();
             cargoTransferHandler.stopIfNotIndexing();
             return false;
         }
