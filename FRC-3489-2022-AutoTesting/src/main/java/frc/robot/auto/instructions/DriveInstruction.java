@@ -54,6 +54,8 @@ public class DriveInstruction extends AutoInstruction {
 
     @Override
     public void periodic() {
+        if (Math.abs(encoder.getPosition()) > clicks)
+            complete();
         //components.leftFrontDriveMotor.set(ControlMode.Position, clicks);
         //System.out.println("Speed: " + components.leftFrontDriveMotor.getMotorOutputPercent());
         //System.out.println("Error: " + components.leftFrontDriveMotor.getClosedLoopError() / Auto.DriveClicksPerInch);
