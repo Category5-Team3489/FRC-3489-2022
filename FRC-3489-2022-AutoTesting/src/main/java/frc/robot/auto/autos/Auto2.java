@@ -12,22 +12,22 @@ public class Auto2 extends AutoBuilder {
 
         first
         .concurrently(
-            shoot(0.65, 3),
+            shoot(0.5, 3),
             pause(1)
                 .cargoTransfer(0.5, 5 * Constants.CargoTransfer.ClicksPerCargoLength)        
-        )
+        ) // shoot high once
         .pause(1)
         .concurrently(
             intake(5),
             drive(0.65, 4 * Auto.ClicksPerFootDriven)
-        )
-        .pause(1)
-        .drive(-0.65, 4 * Auto.ClicksPerFootDriven)
+        ) // intake and drive foward 4 feet
+        .pause(1) 
+        .drive(-0.65, 4 * Auto.ClicksPerFootDriven) // drive backward 4 feet
         .concurrently(
-            shoot(0.65, 3),
+            shoot(0.5, 3),
             pause(1)
                 .cargoTransfer(0.5, Constants.CargoTransfer.ClicksPerCargoLength)
-        
+        // shoot high once
         );
 
         return first;

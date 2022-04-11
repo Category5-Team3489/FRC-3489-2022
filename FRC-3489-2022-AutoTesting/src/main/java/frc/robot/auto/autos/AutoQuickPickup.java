@@ -17,7 +17,7 @@ public class AutoQuickPickup extends AutoBuilder {
             shoot(0.5, 4),
             pause(3)
                 .cargoTransfer(0.5, 5 * Constants.CargoTransfer.ClicksPerCargoLength)
-        )
+        )// shoot high once
         .concurrently(
             driveSeconds(0.65, 1.35 * 0.75), // 1.5
             intake(2)

@@ -119,7 +119,7 @@ public final class Constants {
         public static final double ExtendTelesopeClicks = 105000 * 0.88;
         public static final double RetractTelesopeClicks = 105000 * 1.05 * 0.88;
 
-        public static final double PitchThreshold = 2.5;
+        public static final double PitchThreshold = 5; // was 2.5
 
         // TODO find current draw for bagpipe falcon
         public static final double TelescopeMotorCurrentSafety = Double.MAX_VALUE;

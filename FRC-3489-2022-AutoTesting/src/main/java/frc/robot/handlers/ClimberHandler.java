@@ -11,6 +11,7 @@ import frc.robot.types.ClimberStep;
 public class ClimberHandler extends RobotHandler implements IShuffleboardState {
 
     private double telescopeEncoderOffset = 0;
+    private double navxPitchOffset = 0;
 
     private ClimberStep climberStep = ClimberStep.Default;
     private boolean stepInitialized = false;
@@ -36,6 +37,13 @@ public class ClimberHandler extends RobotHandler implements IShuffleboardState {
     }
     private double getTelecopeEncoderPosition() {
         return Math.abs(components.telescopeMotor.getSelectedSensorPosition() - telescopeEncoderOffset);
+    }
+
+    private void resetNavxPitch() {
+        navxPitchOffset = components.navx.getPitch();
+    }
+    private double getNavxPitchAbs() {
+        return Math.abs(navxPitchOffset - components.navx.getPitch());
     }
 
     private void setLower(boolean value) {

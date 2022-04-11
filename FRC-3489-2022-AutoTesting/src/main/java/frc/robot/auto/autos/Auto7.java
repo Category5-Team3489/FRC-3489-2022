@@ -12,11 +12,11 @@ public class Auto7 extends AutoBuilder {
         AutoInstruction first = first();
 
             first
-            .concurrently(      //Shoot High
+            .concurrently( //Shoot High
                 shoot(0.5, 3),
                 pause(1)
                     .cargoTransfer(0.5, 5 * Constants.CargoTransfer.ClicksPerCargoLength)
-            )
+            )// shoot high once
             .pause(1)
             .concurrently(      //Intake ball while driving to terminal
                 drive(0.65, 4 * Auto.ClicksPerFootDriven),

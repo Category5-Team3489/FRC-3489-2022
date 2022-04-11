@@ -32,7 +32,7 @@ public class TurnInstruction extends AutoInstruction {
 
     @Override
     public void periodic() {
-        System.out.println(cachedOutput);
+        //System.out.println(cachedOutput);
     }
 
     private double cachedOutput = 0;
