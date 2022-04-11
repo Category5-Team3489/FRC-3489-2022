@@ -17,6 +17,8 @@ public class ShuffleboardHandler extends RobotHandler {
 
     private SendableChooser<Integer> autoChooser = new SendableChooser<Integer>();
 
+    private SendableChooser<Integer> shooterSpinupChooser = new SendableChooser<Integer>();
+
     private long loop = 0;
 
     private boolean shouldShowUpdate() {
@@ -29,6 +31,7 @@ public class ShuffleboardHandler extends RobotHandler {
             if (handler instanceof IShuffleboardState)
                 ((IShuffleboardState)handler).setShuffleboardState();
         });
+        createShooterSpinupChooserWidget();
     }
 
     @Override
@@ -104,8 +107,21 @@ public class ShuffleboardHandler extends RobotHandler {
             .withSize(3, 3);
     }
 
+    public void createShooterSpinupChooserWidget() {
+        SendableRegistry.setName(shooterSpinupChooser, "Shooter Spin Up");
+        shooterSpinupChooser.setDefaultOption("0: Yes", 0);
+        shooterSpinupChooser.addOption("1: No", 1);
+        ShuffleboardUtils.autoTab
+            .add(shooterSpinupChooser)
+            .withSize(2, 2);
+    }
+
     public int getSelectedAuto() {
         return autoChooser.getSelected();
+    }
+
+    public boolean isShooterSpinupEnabled() {
+        return shooterSpinupChooser.getSelected() == 0;
     }
     
 }

@@ -38,7 +38,7 @@ public class CargoSystemHandler extends RobotHandler implements IShuffleboardSta
             return;
         }
 
-        if (cargoCount >= 2 && limelightHandler.isTargetVisible() && shooterHandler.isShooterStopped()) {
+        if (cargoCount >= 2 && limelightHandler.isTargetVisible() && shooterHandler.isShooterStopped() && shuffleboardHandler.isShooterSpinupEnabled()) {
             shooterHandler.setShooterAtDistance(60);
         }
 
