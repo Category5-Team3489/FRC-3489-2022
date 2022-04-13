@@ -21,13 +21,13 @@ public class AutoQuickPickup extends AutoBuilder {
         .concurrently(
             driveSeconds(0.65, 1.35 * 0.75), // 1.5
             intake(2)
-        )
+        )//drive foward and intake cargo
         .cargoTransfer(0.5, 0.5 * Constants.CargoTransfer.ClicksPerCargoLength)
         .concurrently(
             driveSeconds(-0.65, 1 * 0.75)
-        )
+        )// drive back to tarmac line
         .concurrently(
-            shoot(0.5, 4),
+            shoot(0.5, 4),//shoot high once
             pause(2)
             .cargoTransfer(0.5, 10 * Constants.CargoTransfer.ClicksPerCargoLength)
             .completeOn(getTrigger("stop")),
