@@ -27,7 +27,7 @@ public class CargoSystemHandler extends RobotHandler implements IShuffleboardSta
             return;
         }
 
-        // TODO spams setting stuff
+        // TODO spam setting stuff
         if (climberHandler.isClimbing()) {
             isIntakeActivated = false;
             isUnderManualControl = false;
