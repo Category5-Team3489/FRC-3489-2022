@@ -39,7 +39,7 @@ public class ClimberHandler extends RobotHandler implements IShuffleboardState {
         return Math.abs(components.telescopeMotor.getSelectedSensorPosition() - telescopeEncoderOffset);
     }
 
-    private void resetNavxPitch() {
+    private void setNavxPitchOffSet() {
         navxPitchOffset = components.navx.getPitch();
     }
     private double getNavxPitchAbs() {
@@ -272,7 +272,7 @@ public class ClimberHandler extends RobotHandler implements IShuffleboardState {
         */
         AutoInstruction instruction = AutoBuilder.blank(false);
         instruction.onInitialized(() -> {
-            components.navx.reset();
+            components.navx.reset();// only resets z-axis////////
             squareOnMidBarTimer.reset();
             squareOnMidBarTimer.start();
         })

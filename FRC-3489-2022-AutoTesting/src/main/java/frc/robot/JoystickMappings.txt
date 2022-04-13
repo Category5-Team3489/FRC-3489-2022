@@ -3,6 +3,9 @@ Btn 13: Switch front
 
 Right Drive Joystick
 Btn 13: Switch front
+POV 0: manual extend telescope
+POV 180: retract telescope
+Under manual control and POV -1: stop manual control
 
 
 Manipulator Joystick
