@@ -16,6 +16,8 @@ public class CargoSystemHandler extends RobotHandler implements IShuffleboardSta
     private Timer stopShooterTimer = new Timer();
     private boolean stopShooterTimerRunning = false;
 
+    private boolean ballInLaser = false;
+    
     //private Timer oneBallDelay = new Timer();
     
     @Override
@@ -81,6 +83,7 @@ public class CargoSystemHandler extends RobotHandler implements IShuffleboardSta
             stopShooterTimer.reset();
             cargoTransferHandler.setShootSpeed();
             setCargoCount(0);
+            ballInLaser = false;
         }
         else {
             cargoTransferHandler.stopIfNotIndexing();
@@ -93,14 +96,17 @@ public class CargoSystemHandler extends RobotHandler implements IShuffleboardSta
         }
     }
 
+
     private void indexConveyorIfCargoInLaserSensor(boolean isCargoInLaser) {
         if (!isIntakeActivated || isUnderManualControl)
             return;
 
-        if (isCargoInLaser) {
+        if (isCargoInLaser && !ballInLaser) {
+            ballInLaser = true;
             if (cargoCount == 0) {
                 setCargoCount(1);
                 cargoTransferHandler.index();
+                ballInLaser = false;
             }
             else if (cargoCount == 1 && !cargoTransferHandler.isIndexing()) {
                 setCargoCount(cargoCount + 1);

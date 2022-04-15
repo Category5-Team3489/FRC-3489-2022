@@ -45,8 +45,8 @@ public final class ComponentsContainer {
     public WPI_TalonFX telescopeMotor = new WPI_TalonFX(9);
 
     // Climb
-    public Solenoid lowerSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 2);
-    public Solenoid upperSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 3);
+    public Solenoid lowerSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 3); //changed because of smaller c
+    public Solenoid upperSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 2);
     public Solenoid hookSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 4);
     public Solenoid brakeSolenoid = new Solenoid(36, PneumaticsModuleType.REVPH, 5);
 
