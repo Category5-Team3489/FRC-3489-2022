@@ -1,10 +1,13 @@
 package frc.robot.handlers;
 
+import java.util.Map;
+
 import edu.wpi.first.cscore.HttpCamera;
 import edu.wpi.first.cscore.VideoSource;
 import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.Constants;
 import frc.robot.framework.RobotHandler;
@@ -40,16 +43,16 @@ public class ShuffleboardHandler extends RobotHandler {
     }
 
     public void setBoolean(boolean isMainTab, String name, boolean value) {
-        ShuffleboardUtils.setBoolean(getTab(isMainTab), name, value);
+        ShuffleboardUtils.setBoolean(getTab(isMainTab), name, value, (data) -> initializeWidget(data));
     }
     public void setDouble(boolean isMainTab, String name, double value) {
-        ShuffleboardUtils.setDouble(getTab(isMainTab), name, value);
+        ShuffleboardUtils.setDouble(getTab(isMainTab), name, value, (data) -> initializeWidget(data));
     }
     public void setString(boolean isMainTab, String name, String value) {
-        ShuffleboardUtils.setString(getTab(isMainTab), name, value);
+        ShuffleboardUtils.setString(getTab(isMainTab), name, value, (data) -> initializeWidget(data));
     }
     public void setNumber(boolean isMainTab, String name, Number value) {
-        ShuffleboardUtils.setNumber(getTab(isMainTab), name, value);
+        ShuffleboardUtils.setNumber(getTab(isMainTab), name, value, (data) -> initializeWidget(data));
     }
 
     public void showBoolean(boolean isMainTab, String name, Boolean value) {
@@ -85,7 +88,8 @@ public class ShuffleboardHandler extends RobotHandler {
         ShuffleboardUtils.mainTab
             .add(source)
             .withWidget(BuiltInWidgets.kCameraStream)
-            .withSize(2, 2);
+            .withSize(3, 3)
+            .withPosition(4, 0);
     }
 
     public void createAutoChooserWidget() {
@@ -124,4 +128,37 @@ public class ShuffleboardHandler extends RobotHandler {
         return shooterSpinupChooser.getSelected() == 0;
     }
     
+    private void initializeWidget(Map.Entry<String, SimpleWidget> data) {
+        String name = data.getKey();
+        SimpleWidget widget = data.getValue();
+        switch (name) {
+            case "Auto Aiming":
+                widget.withPosition(7, 0);
+                break;
+            case "Intake State":
+                widget.withPosition(8, 0);
+                break;
+            case "Shooter State":
+                widget.withPosition(9, 0);
+                break;
+            case "Distance Estimate":
+                widget.withPosition(7, 1);
+                break;
+            case "Drive State":
+                widget.withPosition(8, 1);
+                break;
+            case "Intake Running":
+                widget.withPosition(9, 1);
+                break;
+            case "Selected Auto":
+                widget.withPosition(7, 2);
+                break;
+            case "Climber Step":
+                widget.withPosition(8, 2);
+                break;
+            case "Cargo Count":
+                widget.withPosition(9, 2);
+                break;
+        }
+    }
 }
