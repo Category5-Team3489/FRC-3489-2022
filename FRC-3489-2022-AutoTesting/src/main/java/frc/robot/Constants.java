@@ -66,6 +66,7 @@ public final class Constants {
         // Drive Buttons
         public static final int SwitchCamera = 13;
         public static final int SwitchCameraB = 7;
+        public static final int RunDiagnostic = 1;
     }
 
     public static final class CargoTransfer

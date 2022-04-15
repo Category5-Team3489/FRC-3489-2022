@@ -29,6 +29,7 @@ public final class RobotManager extends RobotHandler {
         handlers.add(shooterHandler = new ShooterHandler());
         handlers.add(cargoSystemHandler = new CargoSystemHandler());
         handlers.add(limelightHandler = new LimelightHandler());
+        handlers.add(diagnostic = new Diagnostic());
 
         // SHUFFLEBOARD MUST BE LAST
         handlers.add(shuffleboardHandler = new ShuffleboardHandler());
@@ -52,6 +53,7 @@ public final class RobotManager extends RobotHandler {
         references.shooterHandler = shooterHandler;
         references.cargoSystemHandler = cargoSystemHandler;
         references.limelightHandler = limelightHandler;
+        references.diagnostic = diagnostic;
 
         // SHUFFLEBOARD MUST BE LAST
         references.shuffleboardHandler = shuffleboardHandler;

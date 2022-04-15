@@ -102,13 +102,15 @@ public class CargoSystemHandler extends RobotHandler implements IShuffleboardSta
             return;
 
         if (isCargoInLaser && !ballInLaser) {
-            ballInLaser = true;
+            
             if (cargoCount == 0) {
+                ballInLaser = true;
                 setCargoCount(1);
                 cargoTransferHandler.index();
                 ballInLaser = false;
             }
             else if (cargoCount == 1 && !cargoTransferHandler.isIndexing()) {
+                ballInLaser = true;
                 setCargoCount(cargoCount + 1);
                 //isIntakeActivated = false;
                 //intakeHandler.stop();

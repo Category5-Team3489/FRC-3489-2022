@@ -72,6 +72,9 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
         if (getDriveState() != DriveState.Driving && (Math.abs(components.leftDriveJoystick.getY()) > 0.4 || Math.abs(components.rightDriveJoystick.getY()) > 0.4))
             toggleToDrive();
 
+            if(components.rightDriveJoystick.getRawButtonPressed(Constants.Buttons.RunDiagnostic)){
+                
+            }
         /*
         boolean switchFrontPressed = shouldSwitchFront();
         if (switchFrontPressed) {
