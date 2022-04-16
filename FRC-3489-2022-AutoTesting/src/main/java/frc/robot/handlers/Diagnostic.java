@@ -6,7 +6,7 @@ import frc.robot.framework.RobotHandler;
 
 public class Diagnostic extends RobotHandler {
 
-    private ComponentsContainer components;
+    //private ComponentsContainer components;
 
     public boolean intake() {
         components.intakeMotor.set(1);
