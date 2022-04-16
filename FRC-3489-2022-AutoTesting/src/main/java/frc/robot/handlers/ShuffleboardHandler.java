@@ -77,19 +77,21 @@ public class ShuffleboardHandler extends RobotHandler {
     }
 
     public void createCameraWidget(VideoSource source) {
+        /*
         ShuffleboardUtils.mainTab
             .add(source)
             .withWidget(BuiltInWidgets.kCameraStream)
             .withSize(4, 4)
             .withPosition(0, 0);
+        */
     }
 
     public void createLimelightCameraWidget(HttpCamera source) {
         ShuffleboardUtils.mainTab
             .add(source)
             .withWidget(BuiltInWidgets.kCameraStream)
-            .withSize(3, 3)
-            .withPosition(4, 0);
+            .withSize(5, 4)
+            .withPosition(0, 0);
     }
 
     public void createAutoChooserWidget() {
@@ -133,10 +135,11 @@ public class ShuffleboardHandler extends RobotHandler {
         SimpleWidget widget = data.getValue();
         switch (name) {
             case "Auto Aiming":
-                widget.withPosition(7, 0);
+                widget.withPosition(8, 1)
+                .withSize(2, 1);
                 break;
             case "Intake State":
-                widget.withPosition(8, 0);
+                widget.withPosition(8, 2);
                 break;
             case "Shooter State":
                 widget.withPosition(9, 0);
@@ -148,13 +151,15 @@ public class ShuffleboardHandler extends RobotHandler {
                 widget.withPosition(8, 1);
                 break;
             case "Intake Running":
-                widget.withPosition(9, 1);
+                widget.withPosition(5, 0)
+                .withSize(2, 2);
                 break;
             case "Selected Auto":
                 widget.withPosition(7, 2);
                 break;
             case "Climber Step":
-                widget.withPosition(8, 2);
+                widget.withPosition(7, 0)
+                .withSize(2, 1);
                 break;
             case "Cargo Count":
                 widget.withPosition(9, 2);

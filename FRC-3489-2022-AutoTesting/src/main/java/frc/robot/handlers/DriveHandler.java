@@ -49,6 +49,7 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
         centerController.setSetpoint(0);
         centerController.setTolerance(Constants.Drive.CenterTolerance);
         limelightHandler.setLimelightMode(LimelightMode.Driver);
+        setDriveState(DriveState.Driving);
     }
 
     @Override
