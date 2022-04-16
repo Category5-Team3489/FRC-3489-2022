@@ -1,15 +1,9 @@
 package frc.robot.handlers;
 
-import frc.robot.Constants;
-import frc.robot.containers.ComponentsContainer;
 import frc.robot.framework.RobotHandler;
 import frc.robot.auto.framework.AutoBuilder;
-import frc.robot.auto.framework.AutoInstruction;
 
 public class Diagnostic extends RobotHandler {
-
-    //private ComponentsContainer components;
-
 
     public boolean intake() {
         components.intakeMotor.set(1);
