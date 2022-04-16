@@ -1,7 +1,6 @@
 package frc.robot;
 
 import frc.robot.types.DataPoint;
-import frc.robot.types.ShooterSetting;
 
 public final class Constants {
 
