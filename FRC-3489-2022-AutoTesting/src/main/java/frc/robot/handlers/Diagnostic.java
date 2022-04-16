@@ -3,10 +3,13 @@ package frc.robot.handlers;
 import frc.robot.Constants;
 import frc.robot.containers.ComponentsContainer;
 import frc.robot.framework.RobotHandler;
+import frc.robot.auto.framework.AutoBuilder;
+import frc.robot.auto.framework.AutoInstruction;
 
 public class Diagnostic extends RobotHandler {
 
     //private ComponentsContainer components;
+
 
     public boolean intake() {
         components.intakeMotor.set(1);
@@ -115,33 +118,41 @@ public class Diagnostic extends RobotHandler {
         return intakeLaser;
     }
 
+
+
+   
     public void getBaseLine(){
         //Intake
         components.intakeMotor.set(1);
+        AutoBuilder.pause(1);
         double intake = components.intakeMotor.getSelectedSensorVelocity();
         System.out.println("intake: "+intake);
         components.intakeMotor.stopMotor();
 
         //Cargo Transfer
         components.cargoTransferMotor.set(1);
+        AutoBuilder.pause(1);
         double cargoTransfer = components.cargoTransferMotor.getSelectedSensorVelocity();
         System.out.println("Cargo Transfer: "+cargoTransfer);
         components.cargoTransferMotor.stopMotor();
 
         //Top shooter
         components.topShooterMotor.set(1);
+        AutoBuilder.pause(1);
         double topShooter = components.topShooterMotor.getSelectedSensorVelocity();
         System.out.println("Top Shooter: "+topShooter);
         components.topShooterMotor.stopMotor();
 
         //Bottom Shooter
         components.bottomShooterMotor.set(1);
+        AutoBuilder.pause(1);
         double bottomShooter = components.bottomShooterMotor.getSelectedSensorVelocity();
         System.out.println("Bottom Shooter: "+bottomShooter);
         components.bottomShooterMotor.stopMotor();
 
         //Left forward
         components.drive.tankDrive(1, 0);
+        AutoBuilder.pause(1);
         double leftFront = components.leftFrontDriveMotor.getOutputCurrent();
         double leftFollower = components.leftFollowerDriveMotor.getOutputCurrent();
         System.out.println("Left Front: "+leftFront+" Left Follow: "+leftFollower);
@@ -149,6 +160,7 @@ public class Diagnostic extends RobotHandler {
 
         //Left Reverse
         components.drive.tankDrive(-1, 0);
+        AutoBuilder.pause(1);
         double leftFrontReverse = components.leftFrontDriveMotor.getOutputCurrent();
         double leftFollowerReverse = components.leftFollowerDriveMotor.getOutputCurrent();
         System.out.println("Left Front Reverse: "+leftFrontReverse+" Left Follow Reverse: "+leftFollowerReverse);
@@ -156,6 +168,7 @@ public class Diagnostic extends RobotHandler {
 
         //Right Forward
         components.drive.tankDrive(0, 1);
+        AutoBuilder.pause(1);
         double rightFront = components.rightFrontDriveMotor.getOutputCurrent();
         double rightFollower = components.rightFollowerDriveMotor.getOutputCurrent();
         System.out.println("Right Front: "+rightFront +" Right Follow: "+rightFollower);
@@ -163,6 +176,7 @@ public class Diagnostic extends RobotHandler {
 
         //Right Reverse
         components.drive.tankDrive(0, -1);
+        AutoBuilder.pause(1);
         double rightFrontReverse = components.rightFrontDriveMotor.getOutputCurrent();
         double rightFollowerReverse = components.rightFollowerDriveMotor.getOutputCurrent();
         System.out.println("Right Front Reverse: "+rightFrontReverse +"Right Follow Reverse: "+ rightFollowerReverse);
@@ -170,6 +184,7 @@ public class Diagnostic extends RobotHandler {
 
         //Telescope
         components.telescopeMotor.set(1);
+        AutoBuilder.pause(1);
         double telescope = components.telescopeMotor.getSelectedSensorVelocity();
         System.out.println("telescope: "+telescope);
         components.telescopeMotor.stopMotor();
