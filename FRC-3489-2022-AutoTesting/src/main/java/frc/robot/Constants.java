@@ -68,6 +68,24 @@ public final class Constants {
         public static final int RunDiagnostic = 1;
     }
 
+    public static final class Diagnostic
+    {
+        public static final double IntakeVelocity = 10;
+        public static final double CargoTransferVelocity = 10;
+        public static final double TopShooterVelocity = 10;
+        public static final double BottomShooterVelocity = 10;
+        public static final double LeftFrontForward = 10;
+        public static final double LeftFollowForward = 10;
+        public static final double LeftFrontReverse = 10;
+        public static final double LeftFollowReverse = 10;
+        public static final double RightFrontForward = 10;
+        public static final double RightFollowForward = 10;
+        public static final double RightFrontReverse = 10;
+        public static final double RightFollowReverse = 10;
+        public static final double TelescopeVelocity = 10;
+
+    }
+
     public static final class CargoTransfer
     {
         public static final double ClicksPerCargoLength = 11159 * 1.25d;//21k
