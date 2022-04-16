@@ -20,6 +20,8 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
 
     private int loop = 0;
 
+    private Diagnostic diagnostic;
+
     // Slew limiting
     //private SlewRateLimiter leftLimiter = new SlewRateLimiter(Constants.DriveSetSpeedDeltaLimiter);
     //private SlewRateLimiter rightLimiter = new SlewRateLimiter(Constants.DriveSetSpeedDeltaLimiter);
@@ -73,7 +75,7 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
             toggleToDrive();
 
             if(components.rightDriveJoystick.getRawButtonPressed(Constants.Buttons.RunDiagnostic)){
-                
+                diagnostic.getBaseLine();
             }
         /*
         boolean switchFrontPressed = shouldSwitchFront();
