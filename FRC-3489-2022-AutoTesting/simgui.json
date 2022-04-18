@@ -6,12 +6,12 @@
       }
     },
     "Other Devices": {
-      "Talon FX[5]": {
+      "SPARK MAX [1]": {
         "header": {
           "open": true
         }
       },
-      "Talon FX[6]": {
+      "Talon FX[5]": {
         "header": {
           "open": true
         }
@@ -78,6 +78,8 @@
       "/FMSInfo": "FMSInfo",
       "/LiveWindow/Ungrouped/DifferentialDrive[1]": "DifferentialDrive",
       "/LiveWindow/Ungrouped/DigitalInput[0]": "Digital Input",
+      "/LiveWindow/Ungrouped/PIDController[1]": "PIDController",
+      "/LiveWindow/Ungrouped/PIDController[2]": "PIDController",
       "/LiveWindow/Ungrouped/Talon FX [10]": "Motor Controller",
       "/LiveWindow/Ungrouped/Talon FX [2487849]": "Motor Controller",
       "/LiveWindow/Ungrouped/Talon FX [321]": "Motor Controller",
@@ -95,7 +97,9 @@
       "/LiveWindow/Ungrouped/Talon SRX [6]": "Motor Controller",
       "/LiveWindow/Ungrouped/Talon SRX [7]": "Motor Controller",
       "/LiveWindow/Ungrouped/Talon SRX [8]": "Motor Controller",
+      "/LiveWindow/Ungrouped/navX-Sensor[4]": "Gyro",
       "/Shuffleboard/3489 2022 Auto/Auto Chooser": "String Chooser",
+      "/Shuffleboard/3489 2022 Auto/Shooter Spin Up": "String Chooser",
       "/Shuffleboard/3489 2022 Ducknado Auto/Auto Chooser": "String Chooser"
     }
   },
