@@ -10,7 +10,14 @@ import frc.robot.auto.framework.AutoBuilder;
 import frc.robot.auto.framework.AutoInstruction;
 
 public class Diagnostic extends AutoBuilder {
+
+    @Override
+    public AutoInstruction build() {
+        // TODO Auto-generated method stub
+        return null;
+    }
     
+    /*
     @Override
     public AutoInstruction build() {
         AutoInstruction first = first();
@@ -68,18 +75,23 @@ public class Diagnostic extends AutoBuilder {
     double lastCurrent = 0.0;
     double maxCurrent = 0.0;
 
-    private AutoInstruction testMotor(AutoInstruction first, Runnable startMotor, Runnable stopMotor, double time, Supplier<Double> getSpeed, Supplier<Double> getCurrent) {
+    double firstTemp = 0.0;
+    double lastTemp = 0.0;
+
+    private AutoInstruction testMotor(AutoInstruction first, Runnable startMotor, Runnable stopMotor, double time, Supplier<Double> getSpeed, Supplier<Double> getCurrent, Supplier<Double> getTemp) {
         
         Timer timer = new Timer();
 
         return first
         .onInitialized(() -> {
             timer.start();
+            firstTemp = getTemp.get();
         })
         .periodically(() -> {
             if (timer.hasElapsed(time)) {
                 lastSpeed = getSpeed.get();
                 lastCurrent = getCurrent.get();
+                lastTemp = getTemp.get();
                 stopMotor.run();
                 return true;
             }
@@ -89,5 +101,5 @@ public class Diagnostic extends AutoBuilder {
             return false;
         });
     }
-        
+    */
 }
