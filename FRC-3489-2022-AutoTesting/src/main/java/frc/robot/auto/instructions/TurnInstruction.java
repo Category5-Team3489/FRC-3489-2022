@@ -7,13 +7,6 @@ import frc.robot.auto.framework.AutoInstruction;
 
 public class TurnInstruction extends AutoInstruction {
 
-    private final static double kP = -0.1;
-    private final static double kI = -0.0001;//-0.001;//-0.001;//-0.05;//0.005;
-    private final static double kD = -0.01;//.001;
-    private final static double kTolerance = 2;
-
-    private PIDController controller;
-
     private double speed;
     private double degrees;
 
@@ -25,20 +18,22 @@ public class TurnInstruction extends AutoInstruction {
     @Override
     public void init() {
         components.navx.reset();
-        controller = new PIDController(kP, kI, kD, Constants.FastPeriodicPeriod);
-        controller.setSetpoint(degrees);
-        controller.setTolerance(kTolerance);
+        driveHandler.aimController.reset();
     }
 
     @Override
     public void periodic() {
         //System.out.println(cachedOutput);
+        double offset = components.navx.getAngle() - degrees;
+        driveHandler.aim(true, offset);
+        if (driveHandler.aimController.atSetpoint()) {
+            complete();
+        }
     }
-
-    private double cachedOutput = 0;
 
     @Override
     public void fastPeriodic() {
+        /*
         double currentAngle = components.navx.getAngle();
         double controllerOutput = controller.calculate(currentAngle);
         double output = MathUtil.clamp(controllerOutput, -speed, speed);
@@ -51,6 +46,7 @@ public class TurnInstruction extends AutoInstruction {
         // Uncomment when done tuning
         if (controller.atSetpoint())
             complete();
+            */
     }
 
     @Override
