@@ -33,7 +33,7 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
     //private NetworkTableEntry targetArea = limelight.getEntry("ta");
 
     // PID controllers
-    private PIDController aimController = new PIDController(0.0025 * 2 * 1.25, 0, 0.0); // 0.0125, 0.004, 0.0001
+    public PIDController aimController = new PIDController(0.0025 * 2 * 1.25, 0, 0.0); // 0.0125, 0.004, 0.0001
     private PIDController centerController = new PIDController(0.0025 * 1.75 * 1.5, 0, 0);
 
     public boolean isFront() {
@@ -107,7 +107,10 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
                 */
                 break;
             case Aiming:
-                aim(false);
+                double targetXOffset = limelightHandler.x;
+                if (targetXOffset != 100) {
+                    aim(false, targetXOffset);
+                }
                 break;
             case Centering:
                 center();
@@ -168,7 +171,7 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
     }
     */
 
-    private void aim(boolean keepAiming) {
+    public void aim(boolean keepAiming, double targetXOffset) {
         if (shouldInit()) {
             
         }
@@ -179,9 +182,6 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
         components.drive.tankDrive(speed, -speed);
         */
         //return;
-        double targetXOffset = limelightHandler.x;
-        if (targetXOffset == 100)
-            return;
         double aimControllerOutput = aimController.calculate(targetXOffset);
         double frictionConstant = aimControllerOutput > 0 ? Constants.Drive.AimFrictionMotorSpeed : -Constants.Drive.AimFrictionMotorSpeed;
         double speed = frictionConstant + aimControllerOutput;
@@ -257,7 +257,10 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
         }
         // TODO Okay?
         shooterHandler.setShooterAtDistance(distanceEstimate);
-        aim(true);
+        double targetXOffset = limelightHandler.x;
+        if (targetXOffset != 100) {
+            aim(true, targetXOffset);
+        }
         if (shooterHandler.readyToShoot()) {
             // Run cargo mover
             cargoTransferHandler.setShootSpeed();
