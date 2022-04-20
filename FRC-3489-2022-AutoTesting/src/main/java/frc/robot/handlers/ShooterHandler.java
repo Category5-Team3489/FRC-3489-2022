@@ -33,7 +33,7 @@ public class ShooterHandler extends RobotHandler implements IShuffleboardState {
 
     private int loop = 0;
 
-    private ShooterSetting currentSetting = null;
+    public ShooterSetting currentSetting = null;
 
     private boolean isShooterStopped = true;
 
@@ -271,7 +271,7 @@ public class ShooterHandler extends RobotHandler implements IShuffleboardState {
         return GeneralUtils.lerp(0, 10000, slider);
     }
 
-    private void addValue(String category, double value) {
+    public void addValue(String category, double value) {
         CSVUtils.add("n.csv", timer.get() + "," + category + "," + value + ",0");
     }
 

@@ -38,9 +38,9 @@ public final class Constants {
         public static final double WrongColorBottomSpeed = 0.2;
     
         public static final double DriveToMidBarSpeed = 0.5;
-        public static final double TelescopeExtendSpeed = -0.8;
+        public static final double TelescopeExtendSpeed = 0.8;
         public static final double SlightlyExtendSpeed = -0.05;
-        public static final double TelescopeRetractSpeed = 0.6;
+        public static final double TelescopeRetractSpeed = -0.6;
     }
 
     public static final class Buttons
