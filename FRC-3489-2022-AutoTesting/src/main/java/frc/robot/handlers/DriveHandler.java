@@ -237,7 +237,7 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
             toggleToAim();
 
         shooterHandler.addValue("B CP100ms", components.bottomShooterMotor.getSelectedSensorVelocity());
-        shooterHandler.addValue("T CP100ms", components.topShooterMotor.getSelectedSensorVelocity());
+        shooterHandler.addValue("T CP100ms", -components.topShooterMotor.getSelectedSensorVelocity());
         if (shooterHandler.currentSetting != null) {
             shooterHandler.addValue("S B CP100ms", shooterHandler.currentSetting.bottomSpeed);
             shooterHandler.addValue("S T CP100ms", shooterHandler.currentSetting.topSpeed);
