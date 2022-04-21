@@ -174,6 +174,7 @@ public class ShooterHandler extends RobotHandler implements IShuffleboardState {
 
         timer = new Timer();
         timer.start();
+        /*
         CSVUtils.setColumns("n.csv", "Time,Category,Value,Notes");
 
         addNote(kF);
@@ -181,6 +182,7 @@ public class ShooterHandler extends RobotHandler implements IShuffleboardState {
         addNote(kI);
         addNote(kD);
         addNote(Iz);
+        */
     }
 
     @Override
@@ -191,7 +193,7 @@ public class ShooterHandler extends RobotHandler implements IShuffleboardState {
 
     @Override
     public void disabledInit() {
-        CSVUtils.write("n.csv", true);
+        //CSVUtils.write("n.csv", true);
     }
 
     private boolean update(ShooterState desired) {
