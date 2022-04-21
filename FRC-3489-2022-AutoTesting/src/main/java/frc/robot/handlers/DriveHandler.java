@@ -127,12 +127,21 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
     }
 
     public void toggleToDrive() {
+
+        System.out.println("Toggled to drive: " + Timer.getMatchTime());
+        System.out.println("DE: " + distanceEstimate);
+        System.out.println("Actual Vel: " + components.bottomShooterMotor.getSelectedSensorVelocity() + " : " + components.topShooterMotor.getSelectedSensorVelocity());
+        if (shooterHandler.currentSetting != null) {
+            System.out.println("Set Vel: " + shooterHandler.currentSetting.bottomSpeed + " : " + shooterHandler.currentSetting.topSpeed);
+        }
+
+        
         cargoTransferHandler.stop();
         shooterHandler.stop();
         intakeHandler.stop();
         cargoSystemHandler.setCargoCount(0);
         setDriveState(DriveState.Driving);
-        limelightHandler.setLimelightMode(LimelightMode.Driver);
+        limelightHandler.setLimelightMode(LimelightMode.AutoAim);
     }
 
     public void toggleToAim() {
@@ -273,12 +282,6 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
         if (shootingTimer.hasElapsed(Constants.Drive.ShooterDelay + Constants.Drive.ShootTime)) {
             // Stop cargo mover
             // Switch drive state back to normal teleop driving
-            System.out.println("Shot: " + Timer.getMatchTime());
-            System.out.println("DE: " + distanceEstimate);
-            System.out.println("Actual Vel: " + components.bottomShooterMotor.getSelectedSensorVelocity() + " : " + components.topShooterMotor.getSelectedSensorVelocity());
-            if (shooterHandler.currentSetting != null) {
-                System.out.println("Set Vel: " + shooterHandler.currentSetting.bottomSpeed + " : " + shooterHandler.currentSetting.topSpeed);
-            }
             toggleToDrive();
         }
     }
