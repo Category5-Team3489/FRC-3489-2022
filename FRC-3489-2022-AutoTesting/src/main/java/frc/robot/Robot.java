@@ -13,6 +13,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
+    System.out.println("4/20/22 v0");
     robotManager = new RobotManager(this);
     robotManager.robotInit();
     addPeriodic(() -> robotManager.robotFastPeriodic(), Constants.FastPeriodicPeriod);
