@@ -18,11 +18,17 @@ public class AutoQuickPickup extends AutoBuilder {
             pause(3)
                 .cargoTransfer(0.5, 5 * Constants.CargoTransfer.ClicksPerCargoLength)
         )// shoot high once
+        .onCompleted(() -> {
+            System.out.println("Shot at dist: " + driveHandler.getDistanceEstimate());
+        })
         .concurrently(
             driveSeconds(0.65, 1.35 * 0.75), // 1.5
             intake(2)
         )//drive foward and intake cargo
         .cargoTransfer(0.5, 0.5 * Constants.CargoTransfer.ClicksPerCargoLength)
+        .onCompleted(() -> {
+            System.out.println("Stopped at dist: " + driveHandler.getDistanceEstimate());
+        })
         .concurrently(
             driveSeconds(-0.65, 1 * 0.75)
         )// drive back to tarmac line
@@ -42,7 +48,10 @@ public class AutoQuickPickup extends AutoBuilder {
                 cargoTransferHandler.set(0);
             })
             */
-        );
+        )
+        .onCompleted(() -> {
+            System.out.println("Stopped at dist: " + driveHandler.getDistanceEstimate());
+        });
 
         return first;
     }

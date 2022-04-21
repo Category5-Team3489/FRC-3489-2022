@@ -14,7 +14,7 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
     private boolean isFront = true;
     private boolean driveStateInit = false;
     private DriveState driveState = DriveState.Driving;
-    private double distanceEstimate = 0;
+    private double distanceEstimate = -1;
     private Timer shootingTimer = new Timer();
     private Timer autoAimTimer = new Timer();
 
@@ -135,7 +135,7 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
             System.out.println("Set Vel: " + shooterHandler.currentSetting.bottomSpeed + " : " + shooterHandler.currentSetting.topSpeed);
         }
 
-        
+
         cargoTransferHandler.stop();
         shooterHandler.stop();
         intakeHandler.stop();
@@ -286,7 +286,7 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
         }
     }
 
-    private double getDistanceEstimate()
+    public double getDistanceEstimate()
     {
         double targetYOffset = limelightHandler.y;
         if (!limelightHandler.isTargetVisible())
