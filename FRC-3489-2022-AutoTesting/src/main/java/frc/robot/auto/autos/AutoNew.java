@@ -10,7 +10,7 @@ import frc.robot.types.DriveState;
 public class AutoNew extends AutoBuilder {
 
     @Override
-    public Map.Entry<AutoInstruction, AutoInstruction> build() {
+    public AutoInstruction build() {
         AutoInstruction first = first();
 
         first

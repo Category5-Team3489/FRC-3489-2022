@@ -24,7 +24,7 @@ public class TurnInstruction extends AutoInstruction {
     @Override
     public void periodic() {
         //System.out.println(cachedOutput);
-        double offset = components.navx.getAngle() - degrees;
+        double offset = degrees - components.navx.getAngle();
         driveHandler.aim(true, offset);
         if (driveHandler.aimController.atSetpoint()) {
             complete();

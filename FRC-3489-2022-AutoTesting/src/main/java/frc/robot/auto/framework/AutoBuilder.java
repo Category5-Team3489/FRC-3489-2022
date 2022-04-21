@@ -155,6 +155,6 @@ public abstract class AutoBuilder extends RobotReferences {
      * Used internally
      * @return The first instruction of an auto sequence
      */
-    public abstract Map.Entry<AutoInstruction, AutoInstruction> build();
+    public abstract AutoInstruction build();
 
 }
