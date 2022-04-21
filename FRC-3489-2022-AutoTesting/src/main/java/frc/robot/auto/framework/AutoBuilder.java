@@ -1,5 +1,7 @@
 package frc.robot.auto.framework;
 
+import java.util.Map;
+
 import frc.robot.auto.instructions.*;
 import frc.robot.framework.RobotReferences;
 
@@ -153,6 +155,6 @@ public abstract class AutoBuilder extends RobotReferences {
      * Used internally
      * @return The first instruction of an auto sequence
      */
-    public abstract AutoInstruction build();
+    public abstract Map.Entry<AutoInstruction, AutoInstruction> build();
 
 }

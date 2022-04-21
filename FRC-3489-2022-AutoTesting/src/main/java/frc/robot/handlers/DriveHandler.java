@@ -97,9 +97,15 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
             }
         }
 
+        loop(false);
+    }
+
+    public void loop(boolean dontDrive) {
         switch (driveState) {
             case Driving:
-                drive();
+                if (!dontDrive) {
+                    drive();
+                }
                 /*
                 if (loop % 50 == 0) {
                     System.out.println("Distance: " + distanceEstimate);
