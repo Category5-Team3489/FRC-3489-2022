@@ -63,7 +63,7 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
 
     @Override
     public void teleopPeriodic() {
-        shuffleboardHandler.showBoolean(true, "Auto Aiming", driveState == DriveState.Shooting);
+        shuffleboardHandler.showBoolean(true, "Auto Aiming", driveState != DriveState.Driving);
 
         if (climberHandler.isClimbing()) {
             if (getDriveState() != DriveState.Driving) {
