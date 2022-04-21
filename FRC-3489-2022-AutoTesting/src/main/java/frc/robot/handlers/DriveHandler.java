@@ -126,14 +126,14 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
         //shuffleboardHandler.setString(true, "Front Switched", isFront ? "Forward" : "Backward");
     }
 
-    private void toggleToDrive() {
+    public void toggleToDrive() {
         setDriveState(DriveState.Driving);
         shooterHandler.stop();
         cargoTransferHandler.stop();
         limelightHandler.setLimelightMode(LimelightMode.Driver);
     }
 
-    private void toggleToAim() {
+    public void toggleToAim() {
         setDriveState(DriveState.Aiming);
         aimController.reset();
         centerController.reset();
