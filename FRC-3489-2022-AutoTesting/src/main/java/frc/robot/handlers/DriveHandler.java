@@ -127,9 +127,11 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
     }
 
     public void toggleToDrive() {
-        setDriveState(DriveState.Driving);
-        shooterHandler.stop();
         cargoTransferHandler.stop();
+        shooterHandler.stop();
+        intakeHandler.stop();
+        cargoSystemHandler.setCargoCount(0);
+        setDriveState(DriveState.Driving);
         limelightHandler.setLimelightMode(LimelightMode.Driver);
     }
 
@@ -277,11 +279,7 @@ public class DriveHandler extends RobotHandler implements IShuffleboardState {
             if (shooterHandler.currentSetting != null) {
                 System.out.println("Set Vel: " + shooterHandler.currentSetting.bottomSpeed + " : " + shooterHandler.currentSetting.topSpeed);
             }
-            cargoTransferHandler.stop();
-            shooterHandler.stop();
-            intakeHandler.stop();
-            cargoSystemHandler.setCargoCount(0);
-            setDriveState(DriveState.Driving);
+            toggleToDrive();
         }
     }
 
