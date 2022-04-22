@@ -44,7 +44,8 @@ public class ShooterHandler extends RobotHandler implements IShuffleboardState {
     public boolean readyToShoot() {
         if (currentSetting == null)
             return false;
-        if (Math.abs(components.topShooterMotor.getSelectedSensorVelocity()) > Math.abs((currentSetting.topSpeed * 0.95)) && Math.abs(components.bottomShooterMotor.getSelectedSensorVelocity()) > Math.abs((currentSetting.bottomSpeed * 0.95)))
+        if (Math.abs(components.topShooterMotor.getSelectedSensorVelocity()) > Math.abs((currentSetting.topSpeed * 0.975)) && Math.abs(components.bottomShooterMotor.getSelectedSensorVelocity()) > Math.abs((currentSetting.bottomSpeed * 0.975))
+        && Math.abs(components.topShooterMotor.getSelectedSensorVelocity()) < Math.abs((currentSetting.topSpeed * 1.075)) && Math.abs(components.bottomShooterMotor.getSelectedSensorVelocity()) < Math.abs((currentSetting.bottomSpeed * 1.075)))
             return true;
         return false;
     }
