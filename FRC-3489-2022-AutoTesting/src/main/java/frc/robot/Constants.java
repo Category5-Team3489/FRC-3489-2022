@@ -28,8 +28,8 @@ public final class Constants {
         public static final double ReverseCargoTransferMotorSpeed = 0.6;
         public static final double CargoTransferShootSpeed = -0.6;
     
-        public static final double ShootLowBottomMotorSpeed = 0.4;
-        public static final double ShootLowTopMotorSpeed = 0.4;
+        public static final double ShootLowBottomMotorSpeed = 0.3;
+        public static final double ShootLowTopMotorSpeed = 0.3;
     
         public static final double ShootHighBottomMotorSpeed = 0.5;
         public static final double ShootHighTopMotorSpeed = 0.5;
@@ -127,7 +127,7 @@ public final class Constants {
 
         public static final double CanShootSpeedThreshold = 0.15;
         
-        public static final double[] BottomShooterSpeedAtDistanceTable = { 2500, 2670, 2800, 3000, 3250, 3575, 3400, 3200, 3250, 3000, 3250, 3500 };
+        public static final double[] BottomShooterSpeedAtDistanceTable = { 2500, 2670, 2800, 3150, 3250, 3575, 3400, 3200, 3250, 3000, 3250, 3500 };
         public static final double[] TopShooterSpeedAtDistanceTable = { 12500, 13700, 14500, 14500, 14900, 14820, 15000,  15000, 16750, 16000, 20000 };
         public static final DataPoint[] ShooterSpeedAtDistanceTable = { DataPoint.c(0, 50), DataPoint.c(1, 60), DataPoint.c(2, 70.9), DataPoint.c(3, 77.4), DataPoint.c(4, 84.5), DataPoint.c(5, 92.4), DataPoint.c(6, 101.4), DataPoint.c(7, 108.5), DataPoint.c(8, 115.5), DataPoint.c(9, 123), DataPoint.c(10, 137), DataPoint.c(11, 154) };
     }

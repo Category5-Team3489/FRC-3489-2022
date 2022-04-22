@@ -38,9 +38,9 @@ public class AutoNewRed extends AutoBuilder {
             driveSeconds(0.65, 1.1), // 1.5
             intake(2)
         )
-        .turn(0, 45)
+        .turn(0, 45 * 1.5)
         .concurrently(
-            shoot(0.35, 3),
+            shoot(Constants.Speeds.WrongColorBottomSpeed + 0.05, 3),
             pause(3)
                 .cargoTransfer(0.5, 5 * Constants.CargoTransfer.ClicksPerCargoLength)
         );
