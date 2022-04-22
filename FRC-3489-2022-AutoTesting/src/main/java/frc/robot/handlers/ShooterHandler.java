@@ -208,8 +208,8 @@ public class ShooterHandler extends RobotHandler implements IShuffleboardState {
         ArrayList<DataPoint> indicies = getClosestDistanceIndicies(distance);
         int a = indicies.get(0).x;
         int b = indicies.get(1).x;
-        double d1 = Constants.Shooter.ShooterSpeedAtDistanceTable[a].y;
-        double d2 = Constants.Shooter.ShooterSpeedAtDistanceTable[b].y;
+        double d1 = Constants.Shooter.ShooterSpeedAtDistanceTable[b].y;
+        double d2 = Constants.Shooter.ShooterSpeedAtDistanceTable[a].y;
         if (d2 < d1) {
             double d3 = d1;
             d1 = d2;

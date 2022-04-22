@@ -40,7 +40,7 @@ public class CargoSystemHandler extends RobotHandler implements IShuffleboardSta
         }
 
         if (cargoCount >= 2 && limelightHandler.isTargetVisible() && shooterHandler.isShooterStopped() && shuffleboardHandler.isShooterSpinupEnabled()) {
-            shooterHandler.setShooterAtDistance(60);
+            shooterHandler.setShooterAtDistance(40);
             /*
             double de = driveHandler.getDistanceEstimate();
             if (de == -1) {
