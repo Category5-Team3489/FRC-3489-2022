@@ -21,4 +21,5 @@ public class ComponentsContainer {
     // Joysticks
     public Joystick leftDriveJoystick = new Joystick(0);
     public Joystick rightDriveJoystick = new Joystick(1);
+    public Joystick manipulatorJoystick = new Joystick(2);
 }

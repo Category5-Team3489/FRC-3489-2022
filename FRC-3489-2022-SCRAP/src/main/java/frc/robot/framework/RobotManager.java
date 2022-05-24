@@ -6,10 +6,13 @@ import java.util.function.Consumer;
 
 import frc.robot.Robot;
 import frc.robot.containers.ComponentsContainer;
+import frc.robot.handlers.AutoShootHandler;
+import frc.robot.handlers.CargoSystemHandler;
 import frc.robot.handlers.DriveHandler;
+import frc.robot.handlers.LimelightHandler;
 import frc.robot.handlers.ShooterHandler;
 
-public class RobotManager extends RobotHandler {
+public final class RobotManager extends RobotHandler {
 
     private RobotPhase phase = RobotPhase.Disabled;
     private List<RobotHandler> handlers = new ArrayList<RobotHandler>();
@@ -22,6 +25,9 @@ public class RobotManager extends RobotHandler {
         
         handlers.add((drive = new DriveHandler()).init((r) -> r.drive = drive));
         handlers.add((shooter = new ShooterHandler()).init((r) -> r.shooter = shooter));
+        handlers.add((cargoSystem = new CargoSystemHandler()).init((r) -> r.cargoSystem = cargoSystem));
+        handlers.add((autoShoot = new AutoShootHandler()).init((r) -> r.autoShoot = autoShoot));
+        handlers.add((limelight = new LimelightHandler()).init((r) -> r.limelight = limelight));
 
         for (RobotHandler handler : handlers) {
             copyTo(handler);
@@ -58,6 +64,7 @@ public class RobotManager extends RobotHandler {
   
     @Override
     public void autonomousInit() {
+        phase =  RobotPhase.Auto;
         handlers.forEach(RobotHandler::autonomousInit);
     }
   
@@ -68,6 +75,7 @@ public class RobotManager extends RobotHandler {
   
     @Override
     public void teleopInit() {
+        phase =  RobotPhase.Teleop;
         handlers.forEach(RobotHandler::teleopInit);
     }
   
@@ -78,6 +86,7 @@ public class RobotManager extends RobotHandler {
   
     @Override
     public void disabledInit() {
+        phase =  RobotPhase.Disabled;
         handlers.forEach(RobotHandler::disabledInit);
     }
   
@@ -88,6 +97,7 @@ public class RobotManager extends RobotHandler {
   
     @Override
     public void testInit() {
+        phase =  RobotPhase.Test;
         handlers.forEach(RobotHandler::testInit);
     }
   

@@ -2,7 +2,10 @@ package frc.robot.framework;
 
 import frc.robot.Robot;
 import frc.robot.containers.ComponentsContainer;
+import frc.robot.handlers.AutoShootHandler;
+import frc.robot.handlers.CargoSystemHandler;
 import frc.robot.handlers.DriveHandler;
+import frc.robot.handlers.LimelightHandler;
 import frc.robot.handlers.ShooterHandler;
 
 public class RobotReferences {
@@ -13,4 +16,7 @@ public class RobotReferences {
 
     public DriveHandler drive;
     public ShooterHandler shooter;
+    public CargoSystemHandler cargoSystem;
+    public AutoShootHandler autoShoot;
+    public LimelightHandler limelight;
 }
