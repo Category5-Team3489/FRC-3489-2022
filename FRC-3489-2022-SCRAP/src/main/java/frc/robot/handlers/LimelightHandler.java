@@ -4,6 +4,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Timer;
+import frc.robot.Constants;
 import frc.robot.framework.RobotHandler;
 
 public class LimelightHandler extends RobotHandler {
@@ -22,8 +23,8 @@ public class LimelightHandler extends RobotHandler {
 
     private State currentState = State.Off;
 
-    public double x = 0;
-    public double y = 0;
+    private double x = Double.MAX_VALUE;
+    private double y = Double.MAX_VALUE;
 
     @Override
     public void robotInit() {
@@ -47,7 +48,38 @@ public class LimelightHandler extends RobotHandler {
     }
 
     public boolean isTargetVisible() {
-        return targetVisibleTimer.get() < 0.5;
+        return targetVisibleTimer.get() < Constants.Limelight.TargetVisibleTimeout;
+    }
+
+    public boolean isXValid() {
+        if (!isTargetVisible()) {
+            x = Double.MAX_VALUE;
+            return false;
+        }
+        return x != Double.MAX_VALUE;
+    }
+    public boolean isYValid() {
+        if (!isTargetVisible()) {
+            y = Double.MAX_VALUE;
+            return false;
+        }
+        return y != Double.MAX_VALUE;
+    }
+
+    public double getX() {
+        return x;
+    }
+    public double getY() {
+        return y;
+    }
+
+    public double getDistanceEstimate() {
+        if (!isYValid()) {
+            return Double.MAX_VALUE;
+        }
+        double targetYOffset = getY();
+        double distance = Constants.Limelight.RobotTargetYDiff / Math.tan(Math.toRadians(Constants.Limelight.CameraAngleOfElevation + targetYOffset));
+        return distance;
     }
 
     public boolean setState(State state) {
@@ -55,10 +87,10 @@ public class LimelightHandler extends RobotHandler {
             currentState = state;
             switch (state) {
                 case Off:
-                    pipeline.setNumber(1);
+                    pipeline.setNumber(Constants.Limelight.PipelineOff);
                     break;
                 case AutoAim:
-                    pipeline.setNumber(0);
+                    pipeline.setNumber(Constants.Limelight.PipelineAutoAim);
                     break;
             }
             return true;

@@ -19,7 +19,7 @@ public class DriveHandler extends RobotHandler {
     }
 
     private void pollAutoShoot() {
-        if (components.manipulatorJoystick.getRawButtonPressed(Constants.Buttons.AutoShoot)) {
+        if (button.shouldToggleAutoShoot()) {
             if (autoShoot.isAutoShooting()) { // auto shooting -> driving
                 takeControlBack();
             }
@@ -30,11 +30,9 @@ public class DriveHandler extends RobotHandler {
     }
 
     private void pollSwitchFront() {
-        /*
-        if (components.leftDriveJoystick.getRawButton(1)) {
+        if (button.shouldToggleSwitchFront()) {
             isFrontSwitched = !isFrontSwitched;
         }
-        */
     }
 
     private void drive() {
@@ -42,7 +40,9 @@ public class DriveHandler extends RobotHandler {
         double rightY = components.rightDriveJoystick.getY();
 
         // When auto shooting and joysticks are trying to move the robot, stop auto shooting
-        if (autoShoot.isAutoShooting() && (Math.abs(leftY) > Constants.Drive.CancelAutoShootThreshold || Math.abs(rightY) > Constants.Drive.CancelAutoShootThreshold)) {
+        boolean leftYCancelAutoShoot = Math.abs(leftY) > Constants.Drive.CancelAutoShootThreshold;
+        boolean rightYCancelAutoShoot = Math.abs(rightY) > Constants.Drive.CancelAutoShootThreshold;
+        if (autoShoot.isAutoShooting() && (leftYCancelAutoShoot || rightYCancelAutoShoot)) {
             takeControlBack();
         }
 

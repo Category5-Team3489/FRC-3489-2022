@@ -55,13 +55,35 @@ public class ShooterHandler extends RobotHandler {
     private State currentState = State.Disabled;
     private double percentSpeedBottom = 0;
     private double percentSpeedTop = 0;
+    private Setting currentSetting = new Setting(true, 0, 0);
 
     @Override
     public void robotInit() {
+        setStopped();
+    }
 
+    public boolean canShoot() {
+        switch (currentState) {
+            case Disabled:
+                return false;
+            case Percent:
+                return percentSpeedBottom != 0 && percentSpeedTop != 0;
+            case PID:
+                if (currentSetting == null || currentSetting.isPercent) {
+                    // Should never happen
+                    return false;
+                }
+                boolean fastEnoughBottom = Math.abs(components.bottomShooterMotor.getSelectedSensorVelocity()) >= (1 - Constants.Shooter.ReadyToShootThreshold) * currentSetting.bottom;
+                boolean fastEnoughTop = Math.abs(components.topShooterMotor.getSelectedSensorVelocity()) >= (1 - Constants.Shooter.ReadyToShootThreshold) * currentSetting.top;
+                boolean slowEnoughBottom = Math.abs(components.bottomShooterMotor.getSelectedSensorVelocity()) <= (1 + Constants.Shooter.ReadyToShootThreshold) * currentSetting.bottom;
+                boolean slowEnoughTop = Math.abs(components.topShooterMotor.getSelectedSensorVelocity()) <= (1 + Constants.Shooter.ReadyToShootThreshold) * currentSetting.top;
+                return fastEnoughBottom && fastEnoughTop && slowEnoughBottom && slowEnoughTop;
+        }
+        return false;
     }
 
     public void setShooter(Setting setting) {
+        currentSetting = setting;
         if (setting.isPercent) {
             if (shouldUpdate(State.Percent) || shouldUpdatePercent(setting.bottom, setting.top)) {
                 components.bottomShooterMotor.set(ControlMode.PercentOutput, setting.bottom);
@@ -87,6 +109,10 @@ public class ShooterHandler extends RobotHandler {
     }
     public void setStopped() {
         setShooter(Setting.Percent(0, 0));
+    }
+
+    public void setShooterAtDistance(double distance) {
+        setShooter(getSettingAtDistance(distance));
     }
 
     private boolean shouldUpdate(State state) {

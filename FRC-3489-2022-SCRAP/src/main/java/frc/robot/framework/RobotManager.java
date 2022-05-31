@@ -6,11 +6,7 @@ import java.util.function.Consumer;
 
 import frc.robot.Robot;
 import frc.robot.containers.ComponentsContainer;
-import frc.robot.handlers.AutoShootHandler;
-import frc.robot.handlers.CargoSystemHandler;
-import frc.robot.handlers.DriveHandler;
-import frc.robot.handlers.LimelightHandler;
-import frc.robot.handlers.ShooterHandler;
+import frc.robot.handlers.*;
 
 public final class RobotManager extends RobotHandler {
 
@@ -23,11 +19,13 @@ public final class RobotManager extends RobotHandler {
         this.manager = this;
         this.components = new ComponentsContainer();
         
-        handlers.add((drive = new DriveHandler()).init((r) -> r.drive = drive));
-        handlers.add((shooter = new ShooterHandler()).init((r) -> r.shooter = shooter));
-        handlers.add((cargoSystem = new CargoSystemHandler()).init((r) -> r.cargoSystem = cargoSystem));
-        handlers.add((autoShoot = new AutoShootHandler()).init((r) -> r.autoShoot = autoShoot));
-        handlers.add((limelight = new LimelightHandler()).init((r) -> r.limelight = limelight));
+        handlers.add((drive = new DriveHandler()).init(r -> r.drive = drive));
+        handlers.add((shooter = new ShooterHandler()).init(r -> r.shooter = shooter));
+        handlers.add((cargoSystem = new CargoSystemHandler()).init(r -> r.cargoSystem = cargoSystem));
+        handlers.add((autoShoot = new AutoShootHandler()).init(r -> r.autoShoot = autoShoot));
+        handlers.add((limelight = new LimelightHandler()).init(r -> r.limelight = limelight));
+        handlers.add((intake = new IntakeHandler()).init(r -> r.intake = intake));
+        handlers.add((button = new ButtonHandler()).init(r -> r.button = button));
 
         for (RobotHandler handler : handlers) {
             copyTo(handler);
