@@ -27,7 +27,7 @@ public class AutoShootHandler extends RobotHandler {
         holdAimController.setSetpoint(0);
         holdAimController.setTolerance(Constants.AutoShoot.HoldAimTolerance);
 
-        setState(State.Driving);
+        update(State.Driving);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class AutoShootHandler extends RobotHandler {
             double output = filterOutput(aimController.calculate(limelight.getX()), Constants.AutoShoot.AimFrictionConstant);
             if (aimController.atSetpoint()) {
                 components.drive.stopMotor();
-                setState(State.Accelerating);
+                update(State.Accelerating);
             }
             else {
                 components.drive.tankDrive(-output, output);
@@ -75,7 +75,7 @@ public class AutoShootHandler extends RobotHandler {
         }
         holdAim();
         if (shooter.canShoot()) {
-            setState(State.Shooting);
+            update(State.Shooting);
         }
     }
     private void shooting() {
@@ -103,7 +103,7 @@ public class AutoShootHandler extends RobotHandler {
     }
 
     // #region State Management
-    public boolean setState(State state) {
+    public boolean update(State state) {
         if (currentState != state) {
             currentState = state;
             initState();
@@ -161,7 +161,7 @@ public class AutoShootHandler extends RobotHandler {
                 return false;
             }
         }
-        setState(State.Aiming);
+        update(State.Aiming);
         return true;
     }
 

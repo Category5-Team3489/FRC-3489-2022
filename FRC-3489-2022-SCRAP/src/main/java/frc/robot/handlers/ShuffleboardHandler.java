@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
 import frc.robot.framework.RobotHandler;
 
 public class ShuffleboardHandler extends RobotHandler {
-    public class Doodad {
+    public class Widget {
         private SimpleWidget widget;
 
         private Object cachedValue = null;
@@ -21,14 +21,14 @@ public class ShuffleboardHandler extends RobotHandler {
         private double updatePeriod = 1;
         private double carryover = 0;
 
-        public Doodad(Tab tab, String title, Object defaultValue, Consumer<SimpleWidget> init) {
+        public Widget(Tab tab, String title, Object defaultValue, Consumer<SimpleWidget> init) {
             timer.start();
             cachedValue = defaultValue;
             widget = tab.get().add(title, defaultValue);
             init.accept(widget);
         }
 
-        public Doodad withTimedUpdate(double frequency) {
+        public Widget withTimedUpdate(double frequency) {
             timedUpdate = true;
             updatePeriod = 1 / frequency;
             return this;
@@ -76,16 +76,16 @@ public class ShuffleboardHandler extends RobotHandler {
         }
     }
 
-    private List<Doodad> doodads = new ArrayList<Doodad>();
+    private List<Widget> widgets = new ArrayList<Widget>();
 
     @Override
     public void robotPeriodic() {
-        doodads.forEach(Doodad::pollUpdate);
+        widgets.forEach(Widget::pollUpdate);
     }
 
-    public Doodad newDoodad(Tab tab, String title, Object defaultValue, Consumer<SimpleWidget> init) {
-        Doodad doodad = newDoodad(tab, title, defaultValue, init);
-        doodads.add(doodad);
-        return doodad;
+    public Widget newWidget(Tab tab, String title, Object defaultValue, Consumer<SimpleWidget> init) {
+        Widget widget = new Widget(tab, title, defaultValue, init);
+        widgets.add(widget);
+        return widget;
     }
 }

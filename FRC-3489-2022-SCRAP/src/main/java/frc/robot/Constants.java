@@ -27,15 +27,15 @@ public final class Constants {
     }
 
     public final static class Intake {
-        public static final double forwardIntakeSpeed = 1;
-        public static final double backwardIntakeSpeed = -0.8;
+        public static final double ReverseMotorSpeed = -0.8;
+        public static final double ForwardMotorSpeed = 1;
     }
 
     public final static class CargoTransfer {
         public final static double ClicksPerCargoLength = 11159 * 1.25d;
-        public final static double CargoTransferShootSpeed = -0.6;
-        public static final double CargoTransferMotorSpeed = -0.6;
-        public static final double ReverseCargoTransferMotorSpeed = 0.6;
+        public final static double ShootMotorSpeed = -0.6;
+        public static final double ReverseIndexMotorSpeed = 0.6;
+        public static final double ForwardIndexMotorSpeed = -0.6;
     }
 
     public final static class Drive {

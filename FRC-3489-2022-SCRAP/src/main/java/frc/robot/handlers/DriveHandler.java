@@ -67,14 +67,14 @@ public class DriveHandler extends RobotHandler {
 
     // Handling shared control of the drive train
     public void giveControlBack() {
-        autoShoot.setState(AutoShootHandler.State.Driving);
+        autoShoot.update(AutoShootHandler.State.Driving);
     }
     public void giveControlAway() {
-        autoShoot.setState(AutoShootHandler.State.Aiming);
+        autoShoot.update(AutoShootHandler.State.Aiming);
         autoShoot.gaveControl();
     }
     public void takeControlBack() {
-        autoShoot.setState(AutoShootHandler.State.Driving);
+        autoShoot.update(AutoShootHandler.State.Driving);
         autoShoot.tookControl();
     }
 }

@@ -48,14 +48,19 @@ public class ShooterHandler extends RobotHandler {
         public static Setting lerp(Setting a, Setting b, double t) {
             return new Setting(a.isPercent || b.isPercent, GeneralUtils.lerp(a.bottom, b.bottom, t), GeneralUtils.lerp(a.top, b.top, t));
         }
+
+        public boolean sameMode(Setting o) {
+            return isPercent == o.isPercent;
+        }
+        public boolean sameBottom(Setting o) {
+            return bottom == o.bottom;
+        }
+        public boolean sameTop(Setting o) {
+            return top == o.top;
+        }
     }
 
     // State
-    private State currentState = State.Percent;
-    private double percentSpeedBottom = 0;
-    private double percentSpeedTop = 0;
-    private double velocityBottom = 0;
-    private double velocityTop = 0;
     private Setting currentSetting = new Setting(true, 0, 0);
 
     @Override
@@ -64,81 +69,76 @@ public class ShooterHandler extends RobotHandler {
     }
 
     public boolean canShoot() {
-        switch (currentState) {
-            case Percent:
-                return percentSpeedBottom != 0 && percentSpeedTop != 0;
-            case PID:
-                double bottomAbsVelocity = Math.abs(components.bottomShooterMotor.getSelectedSensorVelocity());
-                double topAbsVelocity = Math.abs(components.topShooterMotor.getSelectedSensorVelocity());
-
-                boolean fastEnoughBottom = bottomAbsVelocity >= (1 - Constants.Shooter.ReadyToShootThreshold) * currentSetting.bottom;
-                boolean fastEnoughTop = topAbsVelocity >= (1 - Constants.Shooter.ReadyToShootThreshold) * currentSetting.top;
-                boolean slowEnoughBottom = bottomAbsVelocity <= (1 + Constants.Shooter.ReadyToShootThreshold) * currentSetting.bottom;
-                boolean slowEnoughTop = topAbsVelocity <= (1 + Constants.Shooter.ReadyToShootThreshold) * currentSetting.top;
-                return fastEnoughBottom && fastEnoughTop && slowEnoughBottom && slowEnoughTop;
+        if (currentSetting.isPercent) {
+            return currentSetting.bottom != 0 && currentSetting.top != 0;
         }
-        return false;
+        else {
+            double bottomAbsVelocity = Math.abs(components.bottomShooterMotor.getSelectedSensorVelocity());
+            double topAbsVelocity = Math.abs(components.topShooterMotor.getSelectedSensorVelocity());
+
+            boolean fastEnoughBottom = bottomAbsVelocity >= (1 - Constants.Shooter.ReadyToShootThreshold) * currentSetting.bottom;
+            boolean fastEnoughTop = topAbsVelocity >= (1 - Constants.Shooter.ReadyToShootThreshold) * currentSetting.top;
+            boolean slowEnoughBottom = bottomAbsVelocity <= (1 + Constants.Shooter.ReadyToShootThreshold) * currentSetting.bottom;
+            boolean slowEnoughTop = topAbsVelocity <= (1 + Constants.Shooter.ReadyToShootThreshold) * currentSetting.top;
+            return fastEnoughBottom && fastEnoughTop && slowEnoughBottom && slowEnoughTop;
+        }
     }
 
-    public void setShooter(Setting setting) {
-        currentSetting = setting;
-        if (setting.isPercent) {
-            boolean shouldUpdate = shouldUpdate(State.Percent);
-            if (shouldUpdate || percentSpeedBottom != setting.bottom) {
-                percentSpeedBottom = setting.bottom;
-                if (setting.bottom == 0) {
-                    components.bottomShooterMotor.stopMotor();
-                }
-                else {
-                    components.bottomShooterMotor.set(ControlMode.PercentOutput, setting.bottom);
-                }
+    public void set(Setting setting) {
+        if (currentSetting.sameMode(setting)) {
+            if (!currentSetting.sameBottom(setting)) {
+                setBottom(setting);
             }
-            if (shouldUpdate || percentSpeedTop != setting.top) {
-                percentSpeedTop = setting.top;
-                if (setting.top == 0) {
-                    components.topShooterMotor.stopMotor();
-                }
-                else {
-                    components.topShooterMotor.set(ControlMode.PercentOutput, setting.top);
-                }
+            if (!currentSetting.sameTop(setting)) {
+                setTop(setting);
             }
         }
         else {
-            boolean shouldUpdate = shouldUpdate(State.PID);
-            if (shouldUpdate || velocityBottom != setting.bottom) {
-                velocityBottom = setting.bottom;
-                components.bottomShooterMotor.set(ControlMode.Velocity, setting.bottom);
-            }
-            if (shouldUpdate || velocityTop != setting.top) {
-                velocityTop = setting.top;
-                components.topShooterMotor.set(ControlMode.Velocity, setting.top);
-            }
+            setBottom(setting);
+            setTop(setting);
+        }
+
+        currentSetting = setting;
+    }
+
+    private void setBottom(Setting setting) {
+        if (setting.bottom == 0) {
+            components.bottomShooterMotor.stopMotor();
+        }
+        else if (setting.isPercent) {
+            components.bottomShooterMotor.set(ControlMode.PercentOutput, setting.bottom);
+        }
+        else {
+            components.bottomShooterMotor.set(ControlMode.Velocity, setting.bottom);
+        }
+    }
+    private void setTop(Setting setting) {
+        if (setting.top == 0) {
+            components.topShooterMotor.stopMotor();
+        }
+        else if (setting.isPercent) {
+            components.topShooterMotor.set(ControlMode.PercentOutput, setting.top);
+        }
+        else {
+            components.topShooterMotor.set(ControlMode.Velocity, setting.top);
         }
     }
 
     public void setLowHub() {
-        setShooter(Constants.Shooter.LowHubSetting);
+        set(Constants.Shooter.LowHubSetting);
     }
     public void setHighHub() {
-        setShooter(Constants.Shooter.HighHubSetting);
+        set(Constants.Shooter.HighHubSetting);
     }
     public void setEjectCargo() {
-        setShooter(Constants.Shooter.EjectCargoSetting);
+        set(Constants.Shooter.EjectCargoSetting);
     }
     public void setStopped() {
-        setShooter(Setting.Percent(0, 0));
+        set(Setting.Percent(0, 0));
     }
 
     public void setShooterAtDistance(double distance) {
-        setShooter(getSettingAtDistance(distance));
-    }
-
-    private boolean shouldUpdate(State state) {
-        if (currentState != state) {
-            currentState = state;
-            return true;
-        }
-        return false;
+        set(getSettingAtDistance(distance));
     }
 
     private Setting getSettingAtDistance(double distance) {
