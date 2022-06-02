@@ -93,6 +93,7 @@ public class Robot extends TimedRobot {
   }
   public void shoot() {
     if (controller.getRawButton(7) && controller.getRawButton(8)) {
+      // TODO add on pressed for firing, and when it fires, keep the valve open for a second or so, then close, reguardless of if the triggering button is pressed or not
       fireMidLeft.set(controller.getAButton());
       fireRight.set(controller.getBButton());
       fireLeft.set(controller.getXButton());
