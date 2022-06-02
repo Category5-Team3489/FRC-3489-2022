@@ -59,10 +59,15 @@ public final class RobotManager extends RobotHandler {
     public void robotPeriodic() {
         handlers.forEach(RobotHandler::robotPeriodic);
     }
+
+    @Override
+    public void robotFastPeriodic() {
+        handlers.forEach(RobotHandler::robotFastPeriodic);
+    }
   
     @Override
     public void autonomousInit() {
-        phase =  RobotPhase.Auto;
+        phase = RobotPhase.Auto;
         handlers.forEach(RobotHandler::autonomousInit);
     }
   
@@ -73,7 +78,7 @@ public final class RobotManager extends RobotHandler {
   
     @Override
     public void teleopInit() {
-        phase =  RobotPhase.Teleop;
+        phase = RobotPhase.Teleop;
         handlers.forEach(RobotHandler::teleopInit);
     }
   
@@ -84,7 +89,7 @@ public final class RobotManager extends RobotHandler {
   
     @Override
     public void disabledInit() {
-        phase =  RobotPhase.Disabled;
+        phase = RobotPhase.Disabled;
         handlers.forEach(RobotHandler::disabledInit);
     }
   
@@ -95,7 +100,7 @@ public final class RobotManager extends RobotHandler {
   
     @Override
     public void testInit() {
-        phase =  RobotPhase.Test;
+        phase = RobotPhase.Test;
         handlers.forEach(RobotHandler::testInit);
     }
   

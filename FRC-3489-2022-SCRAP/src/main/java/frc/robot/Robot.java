@@ -21,7 +21,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     manager = new RobotManager(this);
     manager.robotInit();
-    // TODO fast periodic
+    addPeriodic(() -> manager.robotFastPeriodic(), 1.0 / 200.0);
   }
 
   @Override

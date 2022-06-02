@@ -8,7 +8,6 @@ import frc.robot.framework.utils.GeneralUtils;
 
 public class ShooterHandler extends RobotHandler {
     public enum State {
-        Disabled,
         Percent,
         PID
     }
@@ -52,9 +51,11 @@ public class ShooterHandler extends RobotHandler {
     }
 
     // State
-    private State currentState = State.Disabled;
+    private State currentState = State.Percent;
     private double percentSpeedBottom = 0;
     private double percentSpeedTop = 0;
+    private double velocityBottom = 0;
+    private double velocityTop = 0;
     private Setting currentSetting = new Setting(true, 0, 0);
 
     @Override
@@ -64,19 +65,16 @@ public class ShooterHandler extends RobotHandler {
 
     public boolean canShoot() {
         switch (currentState) {
-            case Disabled:
-                return false;
             case Percent:
                 return percentSpeedBottom != 0 && percentSpeedTop != 0;
             case PID:
-                if (currentSetting == null || currentSetting.isPercent) {
-                    // Should never happen
-                    return false;
-                }
-                boolean fastEnoughBottom = Math.abs(components.bottomShooterMotor.getSelectedSensorVelocity()) >= (1 - Constants.Shooter.ReadyToShootThreshold) * currentSetting.bottom;
-                boolean fastEnoughTop = Math.abs(components.topShooterMotor.getSelectedSensorVelocity()) >= (1 - Constants.Shooter.ReadyToShootThreshold) * currentSetting.top;
-                boolean slowEnoughBottom = Math.abs(components.bottomShooterMotor.getSelectedSensorVelocity()) <= (1 + Constants.Shooter.ReadyToShootThreshold) * currentSetting.bottom;
-                boolean slowEnoughTop = Math.abs(components.topShooterMotor.getSelectedSensorVelocity()) <= (1 + Constants.Shooter.ReadyToShootThreshold) * currentSetting.top;
+                double bottomAbsVelocity = Math.abs(components.bottomShooterMotor.getSelectedSensorVelocity());
+                double topAbsVelocity = Math.abs(components.topShooterMotor.getSelectedSensorVelocity());
+
+                boolean fastEnoughBottom = bottomAbsVelocity >= (1 - Constants.Shooter.ReadyToShootThreshold) * currentSetting.bottom;
+                boolean fastEnoughTop = topAbsVelocity >= (1 - Constants.Shooter.ReadyToShootThreshold) * currentSetting.top;
+                boolean slowEnoughBottom = bottomAbsVelocity <= (1 + Constants.Shooter.ReadyToShootThreshold) * currentSetting.bottom;
+                boolean slowEnoughTop = topAbsVelocity <= (1 + Constants.Shooter.ReadyToShootThreshold) * currentSetting.top;
                 return fastEnoughBottom && fastEnoughTop && slowEnoughBottom && slowEnoughTop;
         }
         return false;
@@ -85,14 +83,34 @@ public class ShooterHandler extends RobotHandler {
     public void setShooter(Setting setting) {
         currentSetting = setting;
         if (setting.isPercent) {
-            if (shouldUpdate(State.Percent) || shouldUpdatePercent(setting.bottom, setting.top)) {
-                components.bottomShooterMotor.set(ControlMode.PercentOutput, setting.bottom);
-                components.topShooterMotor.set(ControlMode.PercentOutput, setting.top);
+            boolean shouldUpdate = shouldUpdate(State.Percent);
+            if (shouldUpdate || percentSpeedBottom != setting.bottom) {
+                percentSpeedBottom = setting.bottom;
+                if (setting.bottom == 0) {
+                    components.bottomShooterMotor.stopMotor();
+                }
+                else {
+                    components.bottomShooterMotor.set(ControlMode.PercentOutput, setting.bottom);
+                }
+            }
+            if (shouldUpdate || percentSpeedTop != setting.top) {
+                percentSpeedTop = setting.top;
+                if (setting.top == 0) {
+                    components.topShooterMotor.stopMotor();
+                }
+                else {
+                    components.topShooterMotor.set(ControlMode.PercentOutput, setting.top);
+                }
             }
         }
         else {
-            if (shouldUpdate(State.PID)) {
+            boolean shouldUpdate = shouldUpdate(State.PID);
+            if (shouldUpdate || velocityBottom != setting.bottom) {
+                velocityBottom = setting.bottom;
                 components.bottomShooterMotor.set(ControlMode.Velocity, setting.bottom);
+            }
+            if (shouldUpdate || velocityTop != setting.top) {
+                velocityTop = setting.top;
                 components.topShooterMotor.set(ControlMode.Velocity, setting.top);
             }
         }
@@ -118,14 +136,6 @@ public class ShooterHandler extends RobotHandler {
     private boolean shouldUpdate(State state) {
         if (currentState != state) {
             currentState = state;
-            return true;
-        }
-        return false;
-    }
-    private boolean shouldUpdatePercent(double bottom, double top) {
-        if (percentSpeedBottom != bottom || percentSpeedTop != top) {
-            percentSpeedBottom = bottom;
-            percentSpeedTop = top;
             return true;
         }
         return false;

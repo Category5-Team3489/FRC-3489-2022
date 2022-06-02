@@ -42,8 +42,12 @@ public class LimelightHandler extends RobotHandler {
             targetVisibleTimer.reset();
             double rawX = targetX.getDouble(Double.MAX_VALUE);
             double rawY = targetY.getDouble(Double.MAX_VALUE);
-            if (rawX != Double.MAX_VALUE) x = rawX;
-            if (rawY != Double.MAX_VALUE) y = rawY;
+            if (rawX != Double.MAX_VALUE) {
+                x = rawX;
+            }
+            if (rawY != Double.MAX_VALUE) {
+                y = rawY;
+            }
         }
     }
 

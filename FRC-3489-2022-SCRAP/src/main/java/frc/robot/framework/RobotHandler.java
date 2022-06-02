@@ -8,6 +8,7 @@ public abstract class RobotHandler extends RobotReferences {
 
     public void robotInit() {}
     public void robotPeriodic() {}
+    public void robotFastPeriodic() {}
     public void autonomousInit() {}
     public void autonomousPeriodic() {}
     public void teleopInit() {}

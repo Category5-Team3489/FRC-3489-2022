@@ -37,6 +37,8 @@ public class AutoShootHandler extends RobotHandler {
             shooter.setShooterAtDistance(lastDistanceEstimate);
         }
 
+        // TODO want shooter spinup when robot has 2 balls?
+
         switch (currentState) {
             case Driving:
                 return;
@@ -53,9 +55,6 @@ public class AutoShootHandler extends RobotHandler {
     }
 
     private void aiming() {
-        // start accelerating shooter here
-        
-        // stay aiming threshold, 2 pid controllers for aiming and stay on target
         if (limelight.isXValid()) {
             double output = filterOutput(aimController.calculate(limelight.getX()), Constants.AutoShoot.AimFrictionConstant);
             if (aimController.atSetpoint()) {
@@ -71,12 +70,18 @@ public class AutoShootHandler extends RobotHandler {
         }
     }
     private void accelerating() {
-        if (aimAgainIfNeeded()) return;
+        if (aimAgainIfNeeded()) {
+            return;
+        }
         holdAim();
-        if (shooter.canShoot()) setState(State.Shooting);
+        if (shooter.canShoot()) {
+            setState(State.Shooting);
+        }
     }
     private void shooting() {
-        if (aimAgainIfNeeded()) return;
+        if (aimAgainIfNeeded()) {
+            return;
+        }
         holdAim();
 
         // need to check shooter.canShoot again?
@@ -131,7 +136,7 @@ public class AutoShootHandler extends RobotHandler {
         aimController.reset();
     }
     private void initAccelerating() {
-
+        holdAimController.reset();
     }
     private void initShooting() {
         
@@ -161,7 +166,7 @@ public class AutoShootHandler extends RobotHandler {
     }
 
     private double filterOutput(double output, double frictionConstant) {
-        double signedFrictionConstant = output > 0 ? frictionConstant : - frictionConstant;
+        double signedFrictionConstant = output >= 0 ? frictionConstant : -frictionConstant;
         return signedFrictionConstant + output;
     }
 }
