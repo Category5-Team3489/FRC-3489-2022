@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
@@ -23,10 +24,10 @@ public class Robot extends TimedRobot {
 
   private XboxController controller = new XboxController(0);
   
-  private Solenoid fireLeft = new Solenoid(5, PneumaticsModuleType.CTREPCM, 1);
-  private Solenoid fireMidLeft = new Solenoid(5, PneumaticsModuleType.CTREPCM, 2);
-  private Solenoid fireMidRight = new Solenoid(5, PneumaticsModuleType.CTREPCM, 3);
-  private Solenoid fireRight = new Solenoid(5, PneumaticsModuleType.CTREPCM, 4);
+  private Solenoid fireGreen = new Solenoid(19, PneumaticsModuleType.CTREPCM, 1);
+  private Solenoid fireBlue = new Solenoid(19, PneumaticsModuleType.CTREPCM, 2);
+  private Solenoid fireYellow = new Solenoid(19, PneumaticsModuleType.CTREPCM, 3);
+  private Solenoid fireRed = new Solenoid(19, PneumaticsModuleType.CTREPCM, 0);
 
   private WPI_TalonSRX frontLeft = new WPI_TalonSRX(1);
   private WPI_TalonSRX frontRight = new WPI_TalonSRX(2);
@@ -35,6 +36,11 @@ public class Robot extends TimedRobot {
   private DifferentialDrive differentialDrive;
 
   private boolean isFront = true;
+
+  private Timer greenTimer = new Timer();
+  private Timer blueTimer = new Timer();
+  private Timer yellowTimer = new Timer();
+  private Timer redTimer = new Timer();
   
   @Override
   public void robotInit() {
@@ -91,13 +97,34 @@ public class Robot extends TimedRobot {
     
     shoot();
   }
+
   public void shoot() {
     if (controller.getRawButton(7) && controller.getRawButton(8)) {
-      // TODO add on pressed for firing, and when it fires, keep the valve open for a second or so, then close, reguardless of if the triggering button is pressed or not
-      fireMidLeft.set(controller.getAButton());
-      fireRight.set(controller.getBButton());
-      fireLeft.set(controller.getXButton());
-      fireMidRight.set(controller.getYButton());
+      /*
+      cylinder(controller.getXButtonPressed(), blueTimer, fireBlue);
+      cylinder(controller.getBButtonPressed(), redTimer, fireRed);
+      cylinder(controller.getAButtonPressed(), greenTimer, fireGreen);
+      cylinder(controller.getYButtonPressed(), yellowTimer, fireYellow);
+      */
+
+      fireBlue.set(controller.getXButton());
+      fireRed.set(controller.getBButton());
+      fireGreen.set(controller.getAButton());
+      fireYellow.set(controller.getYButton());
+    }
+  }
+
+  private void cylinder(boolean button, Timer timer, Solenoid solenoid) {
+    if (button && timer.get() == 0) {
+      solenoid.set(true);
+      timer.start();
+    }
+    else {
+      if (timer.hasElapsed(0.5)) {
+        timer.stop();
+        timer.reset();
+        solenoid.set(false);
+      }
     }
   }
   

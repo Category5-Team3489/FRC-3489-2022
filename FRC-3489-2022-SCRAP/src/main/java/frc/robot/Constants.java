@@ -36,6 +36,7 @@ public final class Constants {
         public final static double ShootMotorSpeed = -0.6;
         public static final double ReverseIndexMotorSpeed = 0.6;
         public static final double ForwardIndexMotorSpeed = -0.6;
+        public static final double ManualCargoSystemControlThreshhold = 0.75;
     }
 
     public final static class Drive {
@@ -66,7 +67,7 @@ public final class Constants {
         public static final Number PipelineAutoAim = 0;
         public static final double TargetVisibleTimeout = 0.5; // seconds
         public static final double RobotTargetYDiff = 67.625; // inches
-        public static final double CameraAngleOfElevation = 46.13; // degrees
+        public static final double AngleOfElevation = 46.13; // degrees
     }
 
     public final static class Shooter {

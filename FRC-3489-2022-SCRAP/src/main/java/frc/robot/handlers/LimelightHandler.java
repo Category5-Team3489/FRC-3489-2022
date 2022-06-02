@@ -82,7 +82,7 @@ public class LimelightHandler extends RobotHandler {
             return Double.MAX_VALUE;
         }
         double targetYOffset = getY();
-        double distance = Constants.Limelight.RobotTargetYDiff / Math.tan(Math.toRadians(Constants.Limelight.CameraAngleOfElevation + targetYOffset));
+        double distance = Constants.Limelight.RobotTargetYDiff / Math.tan(Math.toRadians(Constants.Limelight.AngleOfElevation + targetYOffset));
         return distance;
     }
 

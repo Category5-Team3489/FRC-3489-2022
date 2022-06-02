@@ -5,8 +5,17 @@ import frc.robot.framework.RobotHandler;
 
 public class CargoTransferHandler extends RobotHandler {
 
+    public enum State {
+        Deactivated,
+        Custom,
+        Reverse,
+        Forward
+    }
+
     private boolean isIndexing = false;
     private boolean isIndexingForward = true;
+
+    private State currentState = State.Deactivated;
 
     public void forwardIndex() {
         components.cargoTransferMotor.setSelectedSensorPosition(0);

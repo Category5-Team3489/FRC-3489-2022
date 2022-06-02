@@ -22,15 +22,17 @@ public class ShuffleboardHandler extends RobotHandler {
         private double carryover = 0;
 
         public Widget(Tab tab, String title, Object defaultValue, Consumer<SimpleWidget> init) {
-            timer.start();
             cachedValue = defaultValue;
             widget = tab.get().add(title, defaultValue);
-            init.accept(widget);
+            if (init != null) {
+                init.accept(widget);
+            }
         }
 
         public Widget withTimedUpdate(double frequency) {
             timedUpdate = true;
-            updatePeriod = 1 / frequency;
+            timer.start();
+            updatePeriod = 1.0 / frequency;
             return this;
         }
 

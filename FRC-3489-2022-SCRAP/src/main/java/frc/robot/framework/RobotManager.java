@@ -26,6 +26,10 @@ public final class RobotManager extends RobotHandler {
         handlers.add((limelight = new LimelightHandler()).init(r -> r.limelight = limelight));
         handlers.add((intake = new IntakeHandler()).init(r -> r.intake = intake));
         handlers.add((button = new ButtonHandler()).init(r -> r.button = button));
+        handlers.add((cargoTransfer = new CargoTransferHandler()).init(r -> r.cargoTransfer = cargoTransfer));
+
+        // Keep last
+        handlers.add((shuffleboard = new ShuffleboardHandler()).init(r -> r.shuffleboard = shuffleboard));
 
         for (RobotHandler handler : handlers) {
             copyTo(handler);

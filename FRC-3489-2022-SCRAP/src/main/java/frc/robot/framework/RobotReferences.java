@@ -5,10 +5,12 @@ import frc.robot.containers.ComponentsContainer;
 import frc.robot.handlers.AutoShootHandler;
 import frc.robot.handlers.ButtonHandler;
 import frc.robot.handlers.CargoSystemHandler;
+import frc.robot.handlers.CargoTransferHandler;
 import frc.robot.handlers.DriveHandler;
 import frc.robot.handlers.IntakeHandler;
 import frc.robot.handlers.LimelightHandler;
 import frc.robot.handlers.ShooterHandler;
+import frc.robot.handlers.ShuffleboardHandler;
 
 public class RobotReferences {
 
@@ -23,4 +25,8 @@ public class RobotReferences {
     public LimelightHandler limelight;
     public IntakeHandler intake;
     public ButtonHandler button;
+    public CargoTransferHandler cargoTransfer;
+
+    // Keep last
+    public ShuffleboardHandler shuffleboard;
 }

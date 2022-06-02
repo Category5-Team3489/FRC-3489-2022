@@ -2,6 +2,8 @@ package frc.robot.handlers;
 
 import frc.robot.Constants;
 import frc.robot.framework.RobotHandler;
+import frc.robot.handlers.ShuffleboardHandler.Tab;
+import frc.robot.handlers.ShuffleboardHandler.Widget;
 
 public class IntakeHandler extends RobotHandler {
     public enum State {
@@ -13,8 +15,22 @@ public class IntakeHandler extends RobotHandler {
     private State currentState = State.Disabled;
     private boolean currentSolenoidState = false;
 
+    private Widget intakeWidget;
+    private Widget intakeSolenoidWidget;
+
+    @Override
+    public void robotInit() {
+        intakeWidget = shuffleboard.newWidget(Tab.Main, "Intake", currentState.toString(), w -> {
+            w.withPosition(0, 0);
+        });
+        intakeSolenoidWidget = shuffleboard.newWidget(Tab.Main, "Intake Solenoid", currentSolenoidState, w -> {
+            w.withPosition(0, 1);
+        });
+    }
+
     public void set(State state) {
         if (update(state)) {
+
             switch (currentState) {
                 case Disabled:
                     components.intakeMotor.stopMotor();
@@ -46,6 +62,7 @@ public class IntakeHandler extends RobotHandler {
         if (currentSolenoidState != state) {
             currentSolenoidState = state;
             components.intakeSolenoid.set(state);
+            intakeSolenoidWidget.set(currentSolenoidState);
         }
     }
 
@@ -62,6 +79,6 @@ public class IntakeHandler extends RobotHandler {
         return false;
     }
     private void initState() {
-
+        intakeWidget.set(currentState.toString());
     }
 }
