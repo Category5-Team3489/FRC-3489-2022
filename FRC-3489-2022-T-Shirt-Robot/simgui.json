@@ -1,0 +1,19 @@
+{
+  "HALProvider": {
+    "Other Devices": {
+      "Talon SRX[1]": {
+        "header": {
+          "open": true
+        }
+      }
+    }
+  },
+  "NTProvider": {
+    "types": {
+      "/FMSInfo": "FMSInfo",
+      "/LiveWindow/Ungrouped/DifferentialDrive[1]": "DifferentialDrive",
+      "/LiveWindow/Ungrouped/Talon SRX [3]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon SRX [4]": "Motor Controller"
+    }
+  }
+}

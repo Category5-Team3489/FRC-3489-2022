@@ -70,6 +70,4 @@ public class CargoTransferHandler extends RobotHandler {
     public void setShootSpeed() {
         components.cargoTransferMotor.set(Constants.CargoTransfer.ShootMotorSpeed);
     }
-
-    
 }

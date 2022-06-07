@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
@@ -36,11 +35,6 @@ public class Robot extends TimedRobot {
   private DifferentialDrive differentialDrive;
 
   private boolean isFront = true;
-
-  private Timer greenTimer = new Timer();
-  private Timer blueTimer = new Timer();
-  private Timer yellowTimer = new Timer();
-  private Timer redTimer = new Timer();
   
   @Override
   public void robotInit() {
@@ -66,7 +60,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     double leftY = controller.getLeftY();
-    double rightY = controller.getRightY();
+    double rightY = controller.getRawAxis(3);
     
     if (Math.abs(leftY) < 0.1) leftY = 0;
     if (Math.abs(rightY) < 0.1) rightY = 0;
@@ -77,7 +71,7 @@ public class Robot extends TimedRobot {
 
     double speedControl = 1;
     switch (DriverStation.getLocation()) {
-      case 1:  
+      case 1:
           speedControl = 1.00;
         break;
       case 2:
@@ -100,13 +94,6 @@ public class Robot extends TimedRobot {
 
   public void shoot() {
     if (controller.getRawButton(7) && controller.getRawButton(8)) {
-      /*
-      cylinder(controller.getXButtonPressed(), blueTimer, fireBlue);
-      cylinder(controller.getBButtonPressed(), redTimer, fireRed);
-      cylinder(controller.getAButtonPressed(), greenTimer, fireGreen);
-      cylinder(controller.getYButtonPressed(), yellowTimer, fireYellow);
-      */
-
       fireBlue.set(controller.getXButton());
       fireRed.set(controller.getBButton());
       fireGreen.set(controller.getAButton());
@@ -114,20 +101,6 @@ public class Robot extends TimedRobot {
     }
   }
 
-  private void cylinder(boolean button, Timer timer, Solenoid solenoid) {
-    if (button && timer.get() == 0) {
-      solenoid.set(true);
-      timer.start();
-    }
-    else {
-      if (timer.hasElapsed(0.5)) {
-        timer.stop();
-        timer.reset();
-        solenoid.set(false);
-      }
-    }
-  }
-  
   @Override
   public void disabledInit() {}
 

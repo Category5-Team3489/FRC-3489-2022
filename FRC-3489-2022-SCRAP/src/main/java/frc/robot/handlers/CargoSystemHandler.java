@@ -8,13 +8,15 @@ import frc.robot.handlers.ShuffleboardHandler.Widget;
 public class CargoSystemHandler extends RobotHandler {
     // TODO implement
 
-    // 
+    
 
     private boolean isIntakeActivated = false;
 
-    private boolean isCargoInLaser = IntakeHandler.isCargoInLaserSensor();
+    private boolean isCargoInLaser = intake.isCargoInLaserSensor();
     private int cargoCount = 0;
     private boolean ballInLaser = false;
+
+    private boolean isUnderManualControl = manualCargoSystem();
 
     @Override
     public void robotInit() {
@@ -30,10 +32,12 @@ public class CargoSystemHandler extends RobotHandler {
         if(shouldToggleIntake) {
             isIntakeActivated = !isIntakeActivated;
             if(isIntakeActivated) {
-                IntakeHandler.set(IntakeHandler.State.Forward);
+                intake.setForward(true);
+                intake.set(IntakeHandler.State.Forward);
             }
             else {
-                IntakeHandler.set(Disabled);
+                intake.setStopped();
+                intake.set(IntakeHandler.State.Disabled);
             }
         }
     }
@@ -42,14 +46,14 @@ public class CargoSystemHandler extends RobotHandler {
         if (!isIntakeActivated) {
             return;
         }
-        if (isCargoInlaser && !ballInLaser) {
+        if (isCargoInLaser && !ballInLaser) {
             if(cargoCount == 0) {
                 ballInLaser = true;
                 setCargoCount(1);
                 cargoTransfer.forwardIndex();
                 ballInLaser = false;
             }
-            else if (cargoCount == 1 && !CargoTransferHandler.isIndexing()) {
+            else if (cargoCount == 1 && !cargoTransfer.isIndexing()) {
                 ballInLaser = true;
                 setCargoCount(2);
             }
@@ -59,18 +63,27 @@ public class CargoSystemHandler extends RobotHandler {
     private boolean manualCargoSystem() {
         double manipulatorJoystick = components.manipulatorJoystick.getY();
         if(manipulatorJoystick > Constants.CargoTransfer.ManualCargoSystemControlThreshhold) {
-            IntakeHandler.set(IntakeHandler.State.Reverse);
-            CargoTransferHandler.set(Constants.CargoTransfer.ReverseIndexMotorSpeed);
+            intake.set(IntakeHandler.State.Reverse);
+            cargoTransfer.set(Constants.CargoTransfer.ReverseIndexMotorSpeed);
         }
         else if (manipulatorJoystick < -Constants.CargoTransfer.ManualCargoSystemControlThreshhold) {
-            IntakeHandler.set(IntakeHandler.State.Forward);
-            CargoTransferHandler.set(Constants.CargoTransfer.ForwardIndexMotorSpeed);
+
+            intake.set(IntakeHandler.State.Forward)
+            cargoTransfer.set(Constants.CargoTransfer.ForwardIndexMotorSpeed);;
         }
         else {
             if (isIntakeActivated) {
-                intakeHandler.
+                intake
+.setForward(true);
             }
+
+            else 
+                intake.setStopped();
+                cargoTransfer.stopIfNotIndexing();
+                return false;
         }
+
+        return true;
     }
 
     public void setCargoCount(int desired) {
@@ -78,7 +91,6 @@ public class CargoSystemHandler extends RobotHandler {
             cargoCount = desired;
         }
     }
-     
 
-
+    
 }

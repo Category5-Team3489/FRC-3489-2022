@@ -7,6 +7,8 @@ public final class Constants {
     public final static class Buttons {
         public final static class Drive {
             // Shared
+            public static final int SwitchCamera = 13;
+            public static final int SwitchCameraB = 7;
             
             // Left
 
@@ -24,6 +26,17 @@ public final class Constants {
             public static final int SetEjectCargo = 3;
             public static final int SetStopped = 6;
         }
+    }
+
+    public final static class Camera {
+        public static final int PixelWidth = 160;
+        public static final int PixelHeight = 120;
+        public static final int FPS = 20;
+    }
+
+    public final static class Servo {
+        public static final int StartingPositionIndex = 0;
+        public static final double[] Positions = { 70, 140 };
     }
 
     public final static class Intake {

@@ -10,4 +10,8 @@ public class ButtonHandler extends RobotHandler {
     public boolean shouldToggleSwitchFront() {
         return false;
     }
+    public boolean shouldToggleServoPosition() {
+        return components.rightDriveJoystick.getRawButtonPressed(Constants.Buttons.Drive.SwitchCamera) ||
+        components.rightDriveJoystick.getRawButtonPressed(Constants.Buttons.Drive.SwitchCameraB);
+    }
 }
