@@ -4,34 +4,42 @@ import frc.robot.Constants;
 import frc.robot.framework.RobotHandler;
 
 public class CargoTransferHandler extends RobotHandler {
-
-    public enum State {
-        Deactivated,
-        Custom,
+    public enum IndexingState {
+        Disabled,
         Reverse,
         Forward
     }
 
-    private boolean isIndexing = false;
-    private boolean isIndexingForward = true;
+    private IndexingState currentState = IndexingState.Disabled;
+    private double currentSpeed = 0;
 
-    private State currentState = State.Deactivated;
-
-    public void forwardIndex() {
-        components.cargoTransferMotor.setSelectedSensorPosition(0);
-        isIndexing = true;
-        isIndexingForward = true;
+    public void setIndexing(IndexingState state) {
+        if (update(state)) {
+            // TODO Shuffleboard widgets
+        }
     }
 
-    public void reverseIndex() {
+    public void setReverse() {
         components.cargoTransferMotor.setSelectedSensorPosition(0);
-        isIndexing = true;
-        isIndexingForward = false;
+        setIndexing(IndexingState.Reverse);
+    }
+
+    public void setForward() {
+        components.cargoTransferMotor.setSelectedSensorPosition(0);
+        setIndexing(IndexingState.Forward);
     }
 
     public void set(double speed) {
-        isIndexing = false;
-        components.cargoTransferMotor.set(speed);
+        if (update(IndexingState.Disabled) || currentSpeed != speed) {
+            // TODO Shuffleboard stuff
+            currentSpeed = speed;
+            if (speed == 0) {
+                components.cargoTransferMotor.stopMotor();
+            }
+            else {
+                components.cargoTransferMotor.set(speed);
+            }
+        }
     }
 
     public void stop() {
@@ -39,23 +47,25 @@ public class CargoTransferHandler extends RobotHandler {
     }
 
     public void stopIfNotIndexing() {
-        if (!isIndexing)
-            components.cargoTransferMotor.stopMotor();
+        if (!isIndexing()) {
+            stop();
+        }
     }
 
     public boolean isIndexing() {
-        return isIndexing;
+        return currentState != IndexingState.Disabled;
     }
 
     @Override
     public void teleopPeriodic() {
-        if (!isIndexing)
+        if (!isIndexing()) {
             return;
-        //get current encoder position
+        }
+
         double encoderClicks = Math.abs(components.cargoTransferMotor.getSelectedSensorPosition());
 
         if (encoderClicks < Constants.CargoTransfer.ClicksPerCargoLength) { // Has not reached target
-            if (isIndexingForward) {
+            if (currentState == IndexingState.Reverse) {
                 components.cargoTransferMotor.set(Constants.CargoTransfer.ReverseIndexMotorSpeed);
             }
             else {
@@ -63,11 +73,19 @@ public class CargoTransferHandler extends RobotHandler {
             }
         }
         else { // Has reached target
-            set(0);
+            stop();
         }
     }
 
     public void setShootSpeed() {
         components.cargoTransferMotor.set(Constants.CargoTransfer.ShootMotorSpeed);
+    }
+
+    private boolean update(IndexingState state) {
+        if (currentState != state) {
+            currentState = state;
+            return true;
+        }
+        return false;
     }
 }

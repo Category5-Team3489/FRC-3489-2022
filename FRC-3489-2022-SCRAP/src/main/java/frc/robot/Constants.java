@@ -84,6 +84,8 @@ public final class Constants {
     }
 
     public final static class Shooter {
+        public static final double ShootStopTimeDelay = 2;
+
         public static final double ReadyToShootThreshold = 0.05; // +-percent
         
         public static final ShooterHandler.Setting LowHubSetting = ShooterHandler.Setting.Percent(0.3, 0.3);

@@ -61,7 +61,8 @@ public class ShuffleboardHandler extends RobotHandler {
 
         Main("Main"),
         Auto("Auto"),
-        Diagnostic("Diagnostic");
+        Diagnostic("Diagnostic"),
+        Config("Config");
 
         private String title = "";
 

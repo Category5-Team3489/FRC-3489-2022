@@ -23,10 +23,10 @@ public class Robot extends TimedRobot {
 
   private XboxController controller = new XboxController(0);
   
-  private Solenoid fireGreen = new Solenoid(19, PneumaticsModuleType.CTREPCM, 1);
-  private Solenoid fireBlue = new Solenoid(19, PneumaticsModuleType.CTREPCM, 2);
+  private Solenoid fireGreen = new Solenoid(19, PneumaticsModuleType.CTREPCM, 2);
+  private Solenoid fireBlue = new Solenoid(19, PneumaticsModuleType.CTREPCM, 0);
   private Solenoid fireYellow = new Solenoid(19, PneumaticsModuleType.CTREPCM, 3);
-  private Solenoid fireRed = new Solenoid(19, PneumaticsModuleType.CTREPCM, 0);
+  private Solenoid fireRed = new Solenoid(19, PneumaticsModuleType.CTREPCM, 1);
 
   private WPI_TalonSRX frontLeft = new WPI_TalonSRX(1);
   private WPI_TalonSRX frontRight = new WPI_TalonSRX(2);

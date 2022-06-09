@@ -84,6 +84,10 @@ public class ShooterHandler extends RobotHandler {
         }
     }
 
+    public boolean isStopped() {
+        return currentSetting.bottom == 0 && currentSetting.top == 0;
+    }
+
     public void set(Setting setting) {
         if (currentSetting.sameMode(setting)) {
             if (!currentSetting.sameBottom(setting)) {

@@ -64,8 +64,9 @@ public abstract class AutoInstruction extends RobotReferences {
     }
 
     public final AutoInstruction withTimeout(double timeout) {
-        if (this.timeout > timeout)
+        if (this.timeout > timeout) {
             this.timeout = timeout;
+        }
         return this;
     }
 
