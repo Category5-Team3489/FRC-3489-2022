@@ -33,8 +33,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
-    double e = aim.getSelectedSensorPosition();
-    System.out.println(e);
+    //double e = aim.getSelectedSensorPosition();
+    //System.out.println(e);
   }
 
   @Override
@@ -48,8 +48,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    double a = xbox.getRawAxis(0);
-    double b = xbox.getRawAxis(2);
+    double a = xbox.getRawAxis(2);
+    double b = xbox.getRawAxis(3);
+    System.out.println(a + " : " + b);
     aim.set(a);
     drive.set(b);
   }
