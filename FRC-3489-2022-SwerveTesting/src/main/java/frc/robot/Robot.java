@@ -7,35 +7,52 @@ package frc.robot;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 
 public class Robot extends TimedRobot {
 
-  private WPI_TalonFX aim = new WPI_TalonFX(2);
-  private WPI_TalonFX drive = new WPI_TalonFX(1);
+  private WPI_TalonFX[] motors = new WPI_TalonFX[8];
 
-  private XboxController xbox = new XboxController(0);
+  private Joystick joystick = new Joystick(0);
 
-  private PIDController aimController = new PIDController(0.0001, 0, 0);
-
-  //private double aimTargetAngle = 0;
+  private PIDController[] steeringControllers = new PIDController[4];
 
   private double clicksPerRotation = 26204.07;
+  // 90 deg * 5 = 32768
+  // 16 motor rotations = 90 deg * 5
+
+  private double steeringPosition = 0;
 
   @Override
   public void robotInit() {
-    aim.configFactoryDefault();
-    drive.configFactoryDefault();
+    for (int i = 0; i < 8; i++)
+    {
+      motors[i] = new WPI_TalonFX(i + 1);
+      motors[i].configFactoryDefault();
+    }
 
-    //aimController.setTolerance(1f);
+    for (int i = 0; i < 4; i++)
+    {
+      steeringControllers[i] = new PIDController(0.0001, 0, 0);
+    }
+  }
 
+  private WPI_TalonFX getMotor(int pair, boolean isSteeringMotor) {
+    int i = 0;
+    if (isSteeringMotor)
+    {
+      i++;
+    }
+    i += pair * 2;
+    return motors[i];
   }
 
   @Override
   public void robotPeriodic() {
-    double e = aim.getSelectedSensorPosition();
-    System.out.println(e);
+    //double e = steer.getSelectedSensorPosition();
+    //System.out.println(e);
   }
 
   @Override
@@ -45,32 +62,52 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {}
 
   @Override
-  public void teleopInit() {}
+  public void teleopInit() {
+    for (int i = 0 ; i < 8; i++)
+    {
+      motors[i].setSelectedSensorPosition(0);
+    }
+  }
 
   @Override
   public void teleopPeriodic() {
-    //double a = xbox.getRawAxis(2);
-    double b = xbox.getRawAxis(3);
-    //System.out.println(a + " : " + b);
-    double setpoint = (xbox.getRawAxis(1) + 1) * (clicksPerRotation / 2);
-    double o = aimController.calculate(aim.getSelectedSensorPosition(), setpoint);
-    if (o > 1)
+    // 50 times per second
+
+    double steering = joystick.getX(); // -1 to 1
+    double driveSpeed = joystick.getY(); // -1 to 1
+
+    // 26000 = 1 rotation
+    steeringPosition += ((steering * clicksPerRotation) / 50) / 4;
+
+    for (int i = 0 ; i < 4; i++)
     {
-      o = 1;
-    }
-    else if (o < -1)
-    {
-      o = -1;
+      PIDController controller = steeringControllers[i];
+      WPI_TalonFX steeringMotor = getMotor(i, true);
+      WPI_TalonFX drivingMotor = getMotor(i, false);
+      drivingMotor.set(driveSpeed);
+      double output = controller.calculate(steeringMotor.getSelectedSensorPosition(), steeringPosition);
+
+      if (output > 1)
+      {
+        output = 1;
+      }
+      else if (output < -1)
+      {
+        output = -1;
+      }
+
+      steeringMotor.set(output);
     }
 
-    aim.set(o);
-    drive.set(b / 3);
-
-    if (xbox.getRawButton(4))
+    if (joystick.getRawButton(2))
     {
-      aim.setSelectedSensorPosition(0);
+      for (int i = 0 ; i < 8; i++)
+      {
+        motors[i].setSelectedSensorPosition(0);
+      }
     }
   }
+
 
   @Override
   public void disabledInit() {}
