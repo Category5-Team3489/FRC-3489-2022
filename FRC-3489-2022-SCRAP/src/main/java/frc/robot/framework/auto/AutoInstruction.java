@@ -39,7 +39,7 @@ public abstract class AutoInstruction extends RobotReferences {
 
     // Life cycle events
     public final AutoInstruction onInitialized(Runnable runnable) {
-        initializedEvent.sub(runnable);
+        initializedEvent.add(runnable);
         return this;
     }
     public final AutoInstruction onPeriodic(Supplier<Boolean> periodicExtension) {
@@ -51,13 +51,13 @@ public abstract class AutoInstruction extends RobotReferences {
         return this;
     }
     public final AutoInstruction onCompleted(Runnable runnable) {
-        completedEvent.sub(runnable);
+        completedEvent.add(runnable);
         return this;
     }
 
     // Life cycle completion events
     public final AutoInstruction completeOn(AutoEvent event) {
-        event.sub(() -> complete());
+        event.add(() -> complete());
         return this;
     }
     public final AutoInstruction timeoutAfter(double timeout) {
@@ -80,4 +80,6 @@ public abstract class AutoInstruction extends RobotReferences {
         onCompleted(() -> System.out.println(message));
         return this;
     }
+
+    // TODO create "as" method, converts type of auto instruction to correct type
 }

@@ -8,6 +8,10 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
+
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -17,10 +21,13 @@ import edu.wpi.first.wpilibj.TimedRobot;
  */
 public class Robot extends TimedRobot {
 
-  Joystick joystick;
+  //Joystick joystick;
   
-  WPI_TalonSRX motorTest;
-  WPI_TalonSRX motorTest2;
+  //WPI_TalonSRX motorTest;
+  //WPI_TalonSRX motorTest2;
+
+  private CANSparkMax a = new CANSparkMax(20, MotorType.kBrushless);
+  private CANSparkMax b = new CANSparkMax(21, MotorType.kBrushless);
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -28,11 +35,15 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    joystick = new Joystick(0);
+    //joystick = new Joystick(0);
   
 
-    motorTest = new WPI_TalonSRX(3);
-    motorTest2 = new WPI_TalonSRX(4);
+    //motorTest = new WPI_TalonSRX(3);
+    //motorTest2 = new WPI_TalonSRX(4);
+    a.restoreFactoryDefaults(true);
+    b.restoreFactoryDefaults(true);
+
+    b.follow(a);
   }
 
 
@@ -51,11 +62,23 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-    double speed = joystick.getY();
-    double s = joystick.getX();
+    double time = Timer.getFPGATimestamp();
 
-    motorTest.set(speed);
-    motorTest2.set(s);
+    //double period = time % 10;
+
+    //a.set(lerp(0, 0.75, period / 10));
+    a.set(Math.sin((time * Math.PI)/5d));
+
+    //double speed = joystick.getY();
+    //double s = joystick.getX();
+
+    //motorTest.set(speed);
+    //motorTest2.set(s);
+  }
+
+  private double lerp(double a, double b, double f)
+  {
+      return a * (1.0 - f) + (b * f);
   }
 
   @Override

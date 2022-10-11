@@ -19,7 +19,7 @@ public class Robot extends TimedRobot {
 
   private PIDController[] steeringControllers = new PIDController[4];
 
-  private double clicksPerRotation = 26204.07;
+  private double clicksPerRotation = 26214.4; // 26204.07
   // 90 deg * 5 = 32768
   // 16 motor rotations = 90 deg * 5
 
@@ -39,14 +39,12 @@ public class Robot extends TimedRobot {
     }
   }
 
-  private WPI_TalonFX getMotor(int pair, boolean isSteeringMotor) {
-    int i = 0;
-    if (isSteeringMotor)
-    {
-      i++;
-    }
-    i += pair * 2;
-    return motors[i];
+  private WPI_TalonFX getDrivingMotor(int pairIndex) {
+    return motors[pairIndex * 2];
+  }
+
+  private WPI_TalonFX getSteeringMotor(int pairIndex) {
+    return motors[(pairIndex * 2) + 1];
   }
 
   @Override
@@ -77,14 +75,16 @@ public class Robot extends TimedRobot {
     double driveSpeed = joystick.getY(); // -1 to 1
 
     // 26000 = 1 rotation
-    steeringPosition += ((steering * clicksPerRotation) / 50) / 4;
+    double secondsPerRotation = 4;
+    steeringPosition += ((steering * clicksPerRotation) / 50 /*hz*/) / secondsPerRotation;
 
     for (int i = 0 ; i < 4; i++)
     {
-      PIDController controller = steeringControllers[i];
-      WPI_TalonFX steeringMotor = getMotor(i, true);
-      WPI_TalonFX drivingMotor = getMotor(i, false);
+      WPI_TalonFX drivingMotor = getDrivingMotor(i);
       drivingMotor.set(driveSpeed);
+      
+      PIDController controller = steeringControllers[i];
+      WPI_TalonFX steeringMotor = getSteeringMotor(i);
       double output = controller.calculate(steeringMotor.getSelectedSensorPosition(), steeringPosition);
 
       if (output > 1)

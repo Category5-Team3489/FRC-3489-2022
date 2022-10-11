@@ -7,6 +7,9 @@ import frc.robot.framework.RobotHandler;
 import frc.robot.framework.utils.GeneralUtils;
 
 public class ShooterHandler extends RobotHandler {
+
+    // TODO Cubic spline fitting??? as lerp alternative, unneccessary optimization?
+    
     public enum State {
         Percent,
         PID
@@ -73,13 +76,13 @@ public class ShooterHandler extends RobotHandler {
             return currentSetting.bottom != 0 && currentSetting.top != 0;
         }
         else {
-            double bottomAbsVelocity = Math.abs(components.bottomShooterMotor.getSelectedSensorVelocity());
-            double topAbsVelocity = Math.abs(components.topShooterMotor.getSelectedSensorVelocity());
+            double bottomSpeed = Math.abs(components.bottomShooterMotor.getSelectedSensorVelocity());
+            double topSpeed = Math.abs(components.topShooterMotor.getSelectedSensorVelocity());
 
-            boolean fastEnoughBottom = bottomAbsVelocity >= (1 - Constants.Shooter.ReadyToShootThreshold) * currentSetting.bottom;
-            boolean fastEnoughTop = topAbsVelocity >= (1 - Constants.Shooter.ReadyToShootThreshold) * currentSetting.top;
-            boolean slowEnoughBottom = bottomAbsVelocity <= (1 + Constants.Shooter.ReadyToShootThreshold) * currentSetting.bottom;
-            boolean slowEnoughTop = topAbsVelocity <= (1 + Constants.Shooter.ReadyToShootThreshold) * currentSetting.top;
+            boolean fastEnoughBottom = bottomSpeed >= (1 - Constants.Shooter.ReadyToShootThreshold) * currentSetting.bottom;
+            boolean fastEnoughTop = topSpeed >= (1 - Constants.Shooter.ReadyToShootThreshold) * currentSetting.top;
+            boolean slowEnoughBottom = bottomSpeed <= (1 + Constants.Shooter.ReadyToShootThreshold) * currentSetting.bottom;
+            boolean slowEnoughTop = topSpeed <= (1 + Constants.Shooter.ReadyToShootThreshold) * currentSetting.top;
             return fastEnoughBottom && fastEnoughTop && slowEnoughBottom && slowEnoughTop;
         }
     }

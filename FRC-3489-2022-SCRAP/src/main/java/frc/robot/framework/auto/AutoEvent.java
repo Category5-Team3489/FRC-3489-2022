@@ -7,7 +7,7 @@ public final class AutoEvent implements Runnable {
 
     private List<Runnable> runnables = new ArrayList<Runnable>();
 
-    public void sub(Runnable runnable) {
+    public void add(Runnable runnable) {
         runnables.add(runnable);
     }
 
