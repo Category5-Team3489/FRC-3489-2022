@@ -44,8 +44,9 @@ public class Robot extends TimedRobot {
 
     double x = xbox.getRawAxis(0); // -1 to 1
     double y = xbox.getRawAxis(1); // -1 to 1
+    double drive = xbox.getRawAxis(3);
 
-    swerveDrive.teleopPeriodic(x, y);
+    swerveDrive.teleopPeriodic(x, y, drive);
   }
 
 
@@ -69,6 +70,6 @@ public class Robot extends TimedRobot {
     double x = xbox.getRawAxis(0); // -1 to 1
     double y = xbox.getRawAxis(1); // -1 to 1
 
-    swerveDrive.teleopPeriodic(x, y);
+    swerveDrive.teleopPeriodic(x, y, 0);
   }
 }

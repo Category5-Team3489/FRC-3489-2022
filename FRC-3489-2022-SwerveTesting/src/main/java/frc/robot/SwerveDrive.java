@@ -37,16 +37,16 @@ public class SwerveDrive {
     public void teleopInit() {
         for (int i = 0 ; i < 8; i++)
         {
-          motors[i].setSelectedSensorPosition(0);
+            motors[i].setSelectedSensorPosition(0);
         }
     }
 
-    public void teleopPeriodic(double x, double y) {
+    public void teleopPeriodic(double x, double y, double drive) {
         double speed = Math.sqrt(x * x + y * y);
 
         if (speed > 0.1) {
-            double angle = Math.atan(-y / x) * (180 / Math.PI);
-            double rotationPercentage = 0;
+            double angle = Math.atan2(x, y) * 180 / Math.PI + 180;
+            /*
             if (x >= 0 && y >= 0) { // QI
                 rotationPercentage = lerp(0, 0.25, step(angle, 0, -90));
             }
@@ -59,9 +59,9 @@ public class SwerveDrive {
             else if (x >= 0 && y <= 0) { // QIV
                 rotationPercentage = lerp(0.75, 1, step(angle, 90, 0));
             }
-            rotationPercentage = 1 - rotationPercentage;
-            double targetClicks = rotationPercentage * ClicksPerRotation;
-            //System.out.println(targetClicks);
+            */
+            double targetClicks = lerp(0, ClicksPerRotation, step(angle, 0, 360));
+            System.out.println(angle);
 
             for (int i = 0 ; i < 4; i++)
             {
@@ -69,9 +69,12 @@ public class SwerveDrive {
 
                 WPI_TalonFX drivingMotor = getDrivingMotor(i);
                 //drivingMotor.set(speed);
+                drivingMotor.set(drive);
                 
                 WPI_TalonFX steeringMotor = getSteeringMotor(i);
-                double output = controller.calculate(steeringMotor.getSelectedSensorPosition(), targetClicks);
+                double currentClicks = steeringMotor.getSelectedSensorPosition();
+                double offset = currentClicks % ClicksPerRotation;
+                double output = controller.calculate(currentClicks, (offset - targetClicks) + currentClicks);
 
                 if (output > 1)
                 {
@@ -96,8 +99,14 @@ public class SwerveDrive {
                 steeringMotor.stopMotor();
             }
         }
+
+        for (int i = 0 ; i < 4; i++)
+        {
+            WPI_TalonFX drivingMotor = getDrivingMotor(i);
+            drivingMotor.set(drive);
+        }
     }
-    
+
     private double step(double x, double a, double b) {
         return (x - a) / (b - a);
     }
