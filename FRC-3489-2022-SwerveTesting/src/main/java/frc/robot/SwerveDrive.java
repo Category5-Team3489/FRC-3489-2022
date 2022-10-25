@@ -72,9 +72,17 @@ public class SwerveDrive {
                 drivingMotor.set(drive);
                 
                 WPI_TalonFX steeringMotor = getSteeringMotor(i);
+
                 double currentClicks = steeringMotor.getSelectedSensorPosition();
                 double offset = currentClicks % ClicksPerRotation;
-                double output = controller.calculate(currentClicks, (offset - targetClicks) + currentClicks);
+                double rotationCount = (int)(currentClicks / ClicksPerRotation);
+                // may need to change sign of (ClicksPerRotation - currentClicks) and offset
+                // to make it match the sign of rotation count??
+                // double negative???
+                double negativeClicks = (rotationCount * ClicksPerRotation) + (ClicksPerRotation - currentClicks);
+                double positiveClicks = (rotationCount * ClicksPerRotation) + offset;
+                double setpointClicks = Math.abs(offset) <= ClicksPerRotation / 2 ? positiveClicks : negativeClicks;
+                double output = controller.calculate(currentClicks, setpointClicks);
 
                 if (output > 1)
                 {
