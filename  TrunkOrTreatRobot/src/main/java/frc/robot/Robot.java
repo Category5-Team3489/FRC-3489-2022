@@ -6,6 +6,8 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.AddressableLED;
+import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
@@ -28,11 +30,29 @@ public class Robot extends TimedRobot {
   WPI_TalonSRX leftDriveMotor = new WPI_TalonSRX(1);
   WPI_TalonSRX rightDriveMotor = new WPI_TalonSRX(2);
 
-  @Override
-  public void robotInit() {}
+  private AddressableLED m_led = new AddressableLED(0);
+  AddressableLEDBuffer m_ledBuffer = new AddressableLEDBuffer(162);
 
   @Override
-  public void robotPeriodic() {}
+  public void robotInit() {
+     // PWM port 0
+    // Must be a PWM header, not MXP or DIO
+
+    // Reuse buffer
+    // Default to a length of 60, start empty output
+    // Length is expensive to set, so only set it once, then just update data
+    m_led.setLength(m_ledBuffer.getLength());
+
+    // Set the data
+    m_led.setData(m_ledBuffer);
+    m_led.start();
+  }
+
+  @Override
+  public void robotPeriodic() {
+
+   
+  }
 
   @Override
   public void autonomousInit() {}
@@ -50,6 +70,20 @@ public class Robot extends TimedRobot {
 
     leftDriveMotor.set(leftY);
     rightDriveMotor.set(rightY);
+
+    
+   for (var i = 0; i < m_ledBuffer.getLength(); i++) {
+      // Sets the specified LED to the RGB values for red
+      //m_ledBuffer.setRGB(i, 209, 44, 242);
+      if (leftY > 0.5 && rightY > 0.5) {
+        m_ledBuffer.setRGB(i, 232, 144, 21);
+      }
+      else {
+        m_ledBuffer.setRGB(i, 197, 21, 232);
+      }
+    }
+   
+   m_led.setData(m_ledBuffer);
   }
 
   @Override
