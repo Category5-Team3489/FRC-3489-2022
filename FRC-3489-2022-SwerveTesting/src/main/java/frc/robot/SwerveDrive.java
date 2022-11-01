@@ -1,6 +1,7 @@
 package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.sensors.WPI_CANCoder;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
@@ -10,6 +11,8 @@ public class SwerveDrive {
     private WPI_TalonFX[] motors = new WPI_TalonFX[8];
 
     private PIDController[] steeringControllers = new PIDController[4];
+
+    private WPI_CANCoder[] steeringEncoders = new WPI_CANCoder[4];
 
     public final static double ClicksPerRotation = 26214.4;// 32768 * (4 / 5) ////// 26204.07
 
@@ -23,6 +26,7 @@ public class SwerveDrive {
         for (int i = 0; i < 4; i++)
         {
             steeringControllers[i] = new PIDController(0.0001, 0, 0);
+            steeringEncoders[i] = new WPI_CANCoder(i + 1);
         }
     }
 
@@ -67,22 +71,36 @@ public class SwerveDrive {
             {
                 PIDController controller = steeringControllers[i];
 
+                WPI_CANCoder sensor = steeringEncoders[i];
+
                 WPI_TalonFX drivingMotor = getDrivingMotor(i);
                 //drivingMotor.set(speed);
-                drivingMotor.set(drive);
+                //drivingMotor.set(drive);
                 
                 WPI_TalonFX steeringMotor = getSteeringMotor(i);
 
-                double currentClicks = steeringMotor.getSelectedSensorPosition();
-                double offset = currentClicks % ClicksPerRotation;
-                double rotationCount = (int)(currentClicks / ClicksPerRotation);
+                //double currentClicks = steeringMotor.getSelectedSensorPosition();
+                //double offset = currentClicks % ClicksPerRotation;
+                //double rotationCount = (int)(currentClicks / ClicksPerRotation);
                 // may need to change sign of (ClicksPerRotation - currentClicks) and offset
                 // to make it match the sign of rotation count??
                 // double negative???
-                double negativeClicks = (rotationCount * ClicksPerRotation) + (ClicksPerRotation - currentClicks);
-                double positiveClicks = (rotationCount * ClicksPerRotation) + offset;
-                double setpointClicks = Math.abs(offset) <= ClicksPerRotation / 2 ? positiveClicks : negativeClicks;
-                double output = controller.calculate(currentClicks, setpointClicks);
+                //double negativeClicks = (rotationCount * ClicksPerRotation) + (ClicksPerRotation - currentClicks);
+                //double positiveClicks = (rotationCount * ClicksPerRotation) + offset;
+                //double setpointClicks = Math.abs(offset) <= ClicksPerRotation / 2 ? positiveClicks : negativeClicks;
+                
+                double currentAngle = sensor.getAbsolutePosition();
+
+                double currentClicks = lerp(0, ClicksPerRotation, step(currentAngle, 0, 360));
+
+                double positiveError = targetClicks - currentClicks; // -26k to 26k
+
+                double postiveError = ClicksPerRotation - 
+                
+                double measurement = 0;
+                double setpoint = 0;
+                
+                double output = controller.calculate(measurement, setpoint);
 
                 if (output > 1)
                 {
