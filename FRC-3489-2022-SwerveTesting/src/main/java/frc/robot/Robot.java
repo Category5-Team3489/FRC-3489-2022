@@ -4,10 +4,6 @@
 
 package frc.robot;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 
@@ -17,9 +13,12 @@ public class Robot extends TimedRobot {
 
   private SwerveDrive swerveDrive = new SwerveDrive();
 
+  // if one direction is closer to move towards for steering, just invert driving direction
+  // if angle position error is > 45 or so, stop driving motor until it is within that
+
   @Override
   public void robotInit() {
-
+    addPeriodic(() -> swerveDrive.printAngles(), 1);
   }
 
   @Override
@@ -35,7 +34,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    swerveDrive.teleopInit();
+
   }
 
   @Override
@@ -44,9 +43,9 @@ public class Robot extends TimedRobot {
 
     double x = xbox.getRawAxis(0); // -1 to 1
     double y = xbox.getRawAxis(1); // -1 to 1
-    double drive = xbox.getRawAxis(3);
+    double debugDriveSpeed = xbox.getRawAxis(3);
 
-    swerveDrive.teleopPeriodic(x, y, drive);
+    swerveDrive.teleopPeriodic(x, y, debugDriveSpeed);
   }
 
 

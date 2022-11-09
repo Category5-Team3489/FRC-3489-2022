@@ -1,138 +1,60 @@
 package frc.robot;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import com.ctre.phoenix.sensors.WPI_CANCoder;
-
-import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.controller.PIDController;
-
 public class SwerveDrive {
     
-    private WPI_TalonFX[] motors = new WPI_TalonFX[8];
+    private SwerveModule frontLeftModule;
+    private SwerveModule frontRightModule;
+    private SwerveModule backRightModule;
+    private SwerveModule backLeftModule;
 
-    private PIDController[] steeringControllers = new PIDController[4];
+    //public final static double ClicksPerRotation = 26214.4;// 32768 * (4 / 5) ////// 26204.07
 
-    private WPI_CANCoder[] steeringEncoders = new WPI_CANCoder[4];
+    private PidConstants pid = new PidConstants(0.007282 * 1.5, 0, 0);
+    private double steeringFrictionConstant = 0.075;
 
-    public final static double ClicksPerRotation = 26214.4;// 32768 * (4 / 5) ////// 26204.07
+    private double targetAngle = 0;
 
+    // gears: 0..33% speed, 0..100%
+    
     public SwerveDrive() {
-        for (int i = 0; i < 8; i++)
-        {
-            motors[i] = new WPI_TalonFX(i + 1);
-            motors[i].configFactoryDefault();
-        }
-
-        for (int i = 0; i < 4; i++)
-        {
-            steeringControllers[i] = new PIDController(0.0001, 0, 0);
-            steeringEncoders[i] = new WPI_CANCoder(i + 1);
-        }
+        // setup 4 swerve modules
+        frontLeftModule = new SwerveModule(SwerveModuleLocation.FrontLeft, pid, steeringFrictionConstant);
+        frontRightModule = new SwerveModule(SwerveModuleLocation.FrontRight, pid, steeringFrictionConstant);
+        backRightModule = new SwerveModule(SwerveModuleLocation.BackRight, pid, steeringFrictionConstant);
+        backLeftModule = new SwerveModule(SwerveModuleLocation.BackLeft, pid, steeringFrictionConstant);
     }
 
-    private WPI_TalonFX getDrivingMotor(int pairIndex) {
-        return motors[pairIndex * 2];
-    }
+    public void teleopPeriodic(double x, double y, double debugDriveSpeed) {
+        double targetSpeed = Math.sqrt(x * x + y * y); // 0..1
 
-    private WPI_TalonFX getSteeringMotor(int pairIndex) {
-        return motors[(pairIndex * 2) + 1];
-    }
+        //targetAngle = Math.atan2(x, y) * 180 / Math.PI + 180; // 0..360
 
-    public void teleopInit() {
-        for (int i = 0 ; i < 8; i++)
-        {
-            motors[i].setSelectedSensorPosition(0);
-        }
-    }
-
-    public void teleopPeriodic(double x, double y, double drive) {
-        double speed = Math.sqrt(x * x + y * y);
-
-        if (speed > 0.1) {
-            double angle = Math.atan2(x, y) * 180 / Math.PI + 180;
-            /*
-            if (x >= 0 && y >= 0) { // QI
-                rotationPercentage = lerp(0, 0.25, step(angle, 0, -90));
-            }
-            else if (x <= 0 && y >= 0) { // QII
-                rotationPercentage = lerp(0.25, 0.5, step(angle, 90, 0));
-            }
-            else if (x <= 0 && y <= 0) { // QIII
-                rotationPercentage = lerp(0.5, 0.75, step(angle, 0, -90));
-            }
-            else if (x >= 0 && y <= 0) { // QIV
-                rotationPercentage = lerp(0.75, 1, step(angle, 90, 0));
-            }
-            */
-            double targetClicks = lerp(0, ClicksPerRotation, step(angle, 0, 360));
-            System.out.println(angle);
-
-            for (int i = 0 ; i < 4; i++)
-            {
-                PIDController controller = steeringControllers[i];
-
-                WPI_CANCoder sensor = steeringEncoders[i];
-
-                WPI_TalonFX drivingMotor = getDrivingMotor(i);
-                //drivingMotor.set(speed);
-                //drivingMotor.set(drive);
-                
-                WPI_TalonFX steeringMotor = getSteeringMotor(i);
-
-                //double currentClicks = steeringMotor.getSelectedSensorPosition();
-                //double offset = currentClicks % ClicksPerRotation;
-                //double rotationCount = (int)(currentClicks / ClicksPerRotation);
-                // may need to change sign of (ClicksPerRotation - currentClicks) and offset
-                // to make it match the sign of rotation count??
-                // double negative???
-                //double negativeClicks = (rotationCount * ClicksPerRotation) + (ClicksPerRotation - currentClicks);
-                //double positiveClicks = (rotationCount * ClicksPerRotation) + offset;
-                //double setpointClicks = Math.abs(offset) <= ClicksPerRotation / 2 ? positiveClicks : negativeClicks;
-                
-                double currentAngle = sensor.getAbsolutePosition();
-
-                double currentClicks = lerp(0, ClicksPerRotation, step(currentAngle, 0, 360));
-
-                double positiveError = targetClicks - currentClicks; // -26k to 26k
-
-                double postiveError = ClicksPerRotation - 
-                
-                double measurement = 0;
-                double setpoint = 0;
-                
-                double output = controller.calculate(measurement, setpoint);
-
-                if (output > 1)
-                {
-                    output = 1;
-                }
-                else if (output < -1)
-                {
-                    output = -1;
-                }
-
-                steeringMotor.set(output);
-            }
+        if (targetSpeed > 0.1) {
+            targetAngle = Math.atan2(x, y) * 180 / Math.PI + 180; // 0..360
         }
         else {
-            // joystick within deadzone
-            for (int i = 0 ; i < 4; i++)
-            {
-                WPI_TalonFX drivingMotor = getDrivingMotor(i);
-                drivingMotor.stopMotor();
-                
-                WPI_TalonFX steeringMotor = getSteeringMotor(i);
-                steeringMotor.stopMotor();
-            }
+            targetSpeed = 0;
         }
 
-        for (int i = 0 ; i < 4; i++)
-        {
-            WPI_TalonFX drivingMotor = getDrivingMotor(i);
-            drivingMotor.set(drive);
-        }
+        // DEBUG
+        targetSpeed = debugDriveSpeed;
+
+        frontLeftModule.teleopPeriodic(targetAngle, targetSpeed);
+        frontRightModule.teleopPeriodic(targetAngle, targetSpeed);
+        backRightModule.teleopPeriodic(targetAngle, targetSpeed);
+        backLeftModule.teleopPeriodic(targetAngle, targetSpeed);
     }
 
+    public void printAngles() {
+        System.out.println(targetAngle);
+        frontLeftModule.printAngles();
+        frontRightModule.printAngles();
+        backRightModule.printAngles();
+        backLeftModule.printAngles();
+        System.out.println("------------------------------");
+    }
+
+    /*
     private double step(double x, double a, double b) {
         return (x - a) / (b - a);
     }
@@ -140,4 +62,5 @@ public class SwerveDrive {
     private double lerp(double a, double b, double t) {
         return a + t * (b - a);
     }
+    */
 }
