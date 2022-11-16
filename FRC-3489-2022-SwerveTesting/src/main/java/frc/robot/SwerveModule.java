@@ -20,13 +20,14 @@ public class SwerveModule {
     private SwerveModuleLocation location;
     private PidConstants pid;
     private double steeringFrictionConstant;
+    private double steeringOffset;
 
     // 14.853515625
     // 133.2421875
 
     // 118.388671875
 
-    public SwerveModule(SwerveModuleLocation location, PidConstants pid, double steeringFrictionConstant) {
+    public SwerveModule(SwerveModuleLocation location, PidConstants pid, double steeringFrictionConstant, double steeringOffset) {
         drivingMotor = new WPI_TalonFX(location.getDriveCanId());
         steeringMotor = new WPI_TalonFX(location.getSteeringCanId());
         steeringEncoder = new WPI_CANCoder(location.getSteeringEncoderCanId());
@@ -41,12 +42,21 @@ public class SwerveModule {
         this.location = location;
         this.pid = pid;
         this.steeringFrictionConstant = steeringFrictionConstant;
+        this.steeringOffset = steeringOffset;
     }
 
     public void teleopPeriodic(double targetAngle, double targetSpeed) {
-        double measurement = steeringEncoder.getAbsolutePosition(); // 0..360
-        double setpoint = targetAngle; // 0..360
-        double output = steeringController.calculate(measurement, setpoint);
+        targetAngle += steeringOffset;
+        targetAngle %= 360;
+        if (targetAngle < 0)
+        {
+            targetAngle += 360;
+        }
+
+        targetSpeed *= location.getDriveNegation();
+
+        double currentAngle = steeringEncoder.getAbsolutePosition(); // 0..360
+        double output = steeringController.calculate(currentAngle, targetAngle);
         /*
         if (Math.abs(output) < steeringFrictionConstant) { // 0..steeringFrictionConstant%
             steeringMotor.stopMotor();

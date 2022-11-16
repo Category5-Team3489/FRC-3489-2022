@@ -38,4 +38,19 @@ public enum SwerveModuleLocation {
                 return -1;
         }
     }
+
+    public double getDriveNegation() {
+        switch (moduleIndex) {
+            case 0:
+                return -1;
+            case 1:
+                return 1;
+            case 2:
+                return 1;
+            case 3:
+                return -1;
+            default:
+                return 0;
+        }
+    }
 }

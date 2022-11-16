@@ -18,10 +18,10 @@ public class SwerveDrive {
     
     public SwerveDrive() {
         // setup 4 swerve modules
-        frontLeftModule = new SwerveModule(SwerveModuleLocation.FrontLeft, pid, steeringFrictionConstant);
-        frontRightModule = new SwerveModule(SwerveModuleLocation.FrontRight, pid, steeringFrictionConstant);
-        backRightModule = new SwerveModule(SwerveModuleLocation.BackRight, pid, steeringFrictionConstant);
-        backLeftModule = new SwerveModule(SwerveModuleLocation.BackLeft, pid, steeringFrictionConstant);
+        frontLeftModule = new SwerveModule(SwerveModuleLocation.FrontLeft, pid, steeringFrictionConstant, -54);
+        frontRightModule = new SwerveModule(SwerveModuleLocation.FrontRight, pid, steeringFrictionConstant, -4.7);
+        backRightModule = new SwerveModule(SwerveModuleLocation.BackRight, pid, steeringFrictionConstant, -130.3);
+        backLeftModule = new SwerveModule(SwerveModuleLocation.BackLeft, pid, steeringFrictionConstant, 73.2);
     }
 
     public void teleopPeriodic(double x, double y, double debugDriveSpeed) {
@@ -29,15 +29,17 @@ public class SwerveDrive {
 
         //targetAngle = Math.atan2(x, y) * 180 / Math.PI + 180; // 0..360
 
-        if (targetSpeed > 0.1) {
+        if (targetSpeed > 0.03) {
             targetAngle = Math.atan2(x, y) * 180 / Math.PI + 180; // 0..360
         }
         else {
             targetSpeed = 0;
         }
 
+        targetSpeed *= 0.25;
+
         // DEBUG
-        targetSpeed = debugDriveSpeed;
+        //targetSpeed = debugDriveSpeed;
 
         frontLeftModule.teleopPeriodic(targetAngle, targetSpeed);
         frontRightModule.teleopPeriodic(targetAngle, targetSpeed);
