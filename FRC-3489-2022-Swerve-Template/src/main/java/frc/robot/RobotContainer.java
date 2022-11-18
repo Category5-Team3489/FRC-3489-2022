@@ -26,6 +26,8 @@ public class RobotContainer {
 
   private final XboxController m_controller = new XboxController(0);
 
+  public double speedModifier = 1;
+
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -57,6 +59,16 @@ public class RobotContainer {
     new Button(m_controller::getBackButton)
             // No requirements because we don't need to interrupt anything
             .whenPressed(m_drivetrainSubsystem::zeroGyroscope);
+    new Button(m_controller::getYButton)
+      .whenPressed(() -> {
+        System.out.println("Full");
+        speedModifier = 1;
+      });
+    new Button(m_controller::getXButton)
+      .whenPressed(() -> {
+        System.out.println("Half");
+        speedModifier = 0.5;
+      });
   }
 
   /**
@@ -82,13 +94,13 @@ public class RobotContainer {
   }
 
   // Gives more granular control around smaller values
-  private static double modifyAxis(double value) {
+  private double modifyAxis(double value) {
     // Deadband
     value = deadband(value, 0.05);
 
     // Square the axis
     value = Math.copySign(value * value, value);
 
-    return value;
+    return value * speedModifier;
   }
 }
