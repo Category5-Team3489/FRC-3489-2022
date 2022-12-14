@@ -14,8 +14,21 @@ package frc.robot;
  */
 public final class Constants {
 
+    //Motors
     public static final int FrontLeftDriveMotorCanId = 1;
     public static final int FrontRightDriveMotorCanId = 2;
     public static final int BackLeftDriveMotorCanId = 3;
     public static final int BackRightDriveMotorCanId = 4;
+    public static final int liftMotorCanID = 5;
+
+    //Joysticks
+    public static final int leftDriveJoystickId = 0;
+    public static final int rightDriveJoystickId = 1;
+    public static final int manipulatorJoystickId = 2;
+
+    //Pneumatics
+    public static final int PcmCanId = 36;
+    public static final int PcmLeftClawChannelId = 0;
+    public static final int PcmRightClawChannelId = 1;
+    public static final int liftBrakSolenoidId = 1;
 }
