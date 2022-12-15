@@ -11,7 +11,10 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardContainer;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants;
 
 public class Inputs extends SubsystemBase {
@@ -25,6 +28,11 @@ public class Inputs extends SubsystemBase {
   private ShuffleboardTab tab = Shuffleboard.getTab("Drive");
   
   public Inputs() {
+
+    new Button(() -> manipulatorJoystick.getRawButton(3))
+    .whenPressed(() -> {
+      System.out.println("Button 3 on manipulator has been pressed");
+    });
   }
 
   public Supplier<Double> getLeftDriveInput() {
