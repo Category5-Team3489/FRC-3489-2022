@@ -44,6 +44,18 @@ public class IndicatorLeds extends SubsystemBase {
     }
   }
 
+  public void setLEDYellow() {  //raise lift
+    for (int i = 0; i < buffer.getLength(); i++) {
+      buffer.setRGB(1, 236, 252, 3);
+    }
+  }
+
+  public void setLEDPurple() { //lower lift
+    for (int i = 0; i < buffer.getLength(); i++) {
+      buffer.setRGB(1, 170, 47, 193);
+    }
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
